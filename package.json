@@ -26,6 +26,15 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.16.3",
-    "dotenv": "^10.0.0"
+    "@graphql-tools/load-files": "^6.5.2",
+    "@graphql-tools/merge": "^8.2.1",
+    "apollo-datasource": "^3.3.0",
+    "apollo-server-core": "^3.5.0",
+    "apollo-server-express": "^3.5.0",
+    "bunyan": "^1.8.15",
+    "dataloader": "^2.0.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "graphql": "^16.1.0"
   }
 }
