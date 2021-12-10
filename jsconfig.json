@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "*": ["src/*"],
+      "~config/*": ["src/config/*"],
+      "~graph-api/*": ["src/graphql/*"],
+      "~utils/*": ["src/utils/*"],
+      "~services/*": ["src/services/*"],
+      "~db/*": ["src/db/*"],
+      "~helpers/*": ["src/helpers/*"],
+      "~locales/*": ["src/locales/*"]
+    }
+  }
+}
