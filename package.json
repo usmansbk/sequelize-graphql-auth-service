@@ -1,0 +1,9 @@
+{
+  "name": "pinboard-server",
+  "version": "1.0.0",
+  "description": "Pinboard",
+  "main": "index.js",
+  "repository": "git@github.com:usmansbk/pinboard-server.git",
+  "author": "Usman Suleiman <usmansbk@gmail.com>",
+  "license": "MIT"
+}
