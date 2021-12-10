@@ -1,5 +1,7 @@
-const App = () => {
-  console.log(process.env.NODE_ENV);
+import apolloServer from "~graph-api/";
+
+const server = async () => {
+  await apolloServer();
 };
 
-App();
+server();
