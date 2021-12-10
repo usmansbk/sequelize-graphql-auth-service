@@ -2,17 +2,12 @@
 
 ## Features
 
-[ ] Email authentication
-
-[ ] SMS authentication
-
-[ ] Social authentication (Google and Facebook)
-
-[ ] Profile (Update and Delete)
-
-[ ] File Upload
-
-[ ] Push Notification
+- [ ] Email authentication
+- [ ] SMS authentication
+- [ ] Social authentication (Google and Facebook)
+- [ ] Profile (Update and Delete)
+- [ ] File Upload
+- [ ] Push Notification
 
 ## Prerequisites
 
