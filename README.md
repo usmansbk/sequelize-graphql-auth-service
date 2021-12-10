@@ -8,6 +8,7 @@
 - [ ] Profile (Update and Delete)
 - [ ] File Upload
 - [ ] Push Notification
+- [ ] RBAC
 
 ## Prerequisites
 
