@@ -1,26 +1,28 @@
-const { DB_USERNAME, DB_NAME } = process.env;
+require("dotenv").config();
 
-const dialect = "postgres";
-const host = "127.0.0.1";
+const { DB_USERNAME, DB_PASSWORD, DB_NAME, DB_HOST, DB_DIALECT } = process.env;
 
-export default {
+const dialect = DB_DIALECT;
+const host = DB_HOST;
+
+module.exports = {
   development: {
     username: DB_USERNAME,
-    password: null,
+    password: DB_PASSWORD,
     database: DB_NAME,
     host,
     dialect,
   },
   test: {
     username: DB_USERNAME,
-    password: null,
+    password: DB_PASSWORD,
     database: DB_NAME,
     host,
     dialect,
   },
   production: {
     username: DB_USERNAME,
-    password: null,
+    password: DB_PASSWORD,
     database: DB_NAME,
     host,
     dialect,
