@@ -16,14 +16,35 @@ export default (sequelize, DataTypes) => {
       id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
+        validate: {
+          isUUID: 4,
+        },
       },
       firstName: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          max: 100,
+          notNull: {
+            msg: "firstname_required",
+          },
+          notEmpty: {
+            msg: "empty_firstname",
+          },
+        },
       },
       lastName: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          max: 100,
+          notNull: {
+            msg: "lastname_required",
+          },
+          notEmpty: {
+            msg: "empty_lastname",
+          },
+        },
       },
       fullName: {
         type: DataTypes.VIRTUAL,
@@ -31,19 +52,37 @@ export default (sequelize, DataTypes) => {
           return [this.firstName, this.lastName].join(" ");
         },
         set() {
-          throw new Error("Do not try to set the `fullName` value!");
+          throw new Error("cannot_set_fullname");
         },
       },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
+        validate: {
+          isEmail: {
+            msg: "invalid_email",
+          },
+        },
       },
       phoneNumber: {
         type: DataTypes.STRING,
+        unique: true,
+      },
+      hashedPassword: {
+        type: DataTypes.STRING(64),
+        validate: {
+          is: /^[0-9a-f]{64}$/i,
+        },
       },
       locale: {
         type: DataTypes.STRING,
         defaultValue: "en",
+        validate: {
+          isAlpha: {
+            msg: "invalid_locale",
+          },
+        },
       },
     },
     {
