@@ -5,10 +5,11 @@
 - [ ] Email authentication
 - [ ] SMS authentication
 - [ ] Social authentication (Google and Facebook)
+- [ ] RBAC
 - [ ] Profile (Update and Delete)
 - [ ] File Upload
 - [ ] Push Notification
-- [ ] RBAC
+- [ ] i18n
 
 ## Prerequisites
 
