@@ -1,14 +1,14 @@
 {
-  "name": "pinboard-server",
+  "name": "apollo-server-template",
   "version": "1.0.0",
   "scripts": {
     "build": "babel src -d build --copy-files",
     "start": "node -r dotenv/config build",
     "start:dev": "nodemon --exec babel-node -r dotenv/config src dotenv_config_path=./.env.development"
   },
-  "description": "Pinboard",
+  "description": "Apollo GraphQL server template",
   "main": "index.js",
-  "repository": "git@github.com:usmansbk/pinboard-server.git",
+  "repository": "git@github.com:usmansbk/apollo-express-server-template.git",
   "author": "Usman Suleiman <usmansbk@gmail.com>",
   "license": "MIT",
   "devDependencies": {
@@ -18,11 +18,13 @@
     "@babel/plugin-transform-runtime": "^7.16.4",
     "@babel/preset-env": "^7.16.4",
     "babel-plugin-module-resolver": "^4.1.0",
+    "babel-register": "^6.26.0",
     "eslint": "^8.4.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.3.0",
     "nodemon": "^2.0.15",
-    "prettier": "2.5.1"
+    "prettier": "2.5.1",
+    "sequelize-cli": "^6.3.0"
   },
   "dependencies": {
     "@babel/runtime": "^7.16.3",
@@ -35,6 +37,9 @@
     "dataloader": "^2.0.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "graphql": "^16.1.0"
+    "graphql": "^16.1.0",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.12.0-beta.2"
   }
 }
