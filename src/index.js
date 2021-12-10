@@ -1,8 +1,5 @@
-const Asynch = async () => await Promise.resolve("Hello");
-
-const App = async () => {
-  await Asynch();
-  console.log("Hello");
+const App = () => {
+  console.log(process.env.NODE_ENV);
 };
 
 App();
