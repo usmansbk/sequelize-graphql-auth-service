@@ -2,7 +2,8 @@
   "name": "pinboard-server",
   "version": "1.0.0",
   "scripts": {
-    "build": "babel src -d build"
+    "build": "babel src -d build",
+    "start": "node build/index.js"
   },
   "description": "Pinboard",
   "main": "index.js",
@@ -12,10 +13,14 @@
   "devDependencies": {
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
+    "@babel/plugin-transform-runtime": "^7.16.4",
     "@babel/preset-env": "^7.16.4",
     "eslint": "^8.4.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.3.0",
     "prettier": "2.5.1"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.16.3"
   }
 }
