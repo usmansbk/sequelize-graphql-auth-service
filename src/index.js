@@ -1,7 +1,12 @@
 import apolloServer from "~graph-api/";
+import log from "~config/logger";
 
 const server = async () => {
-  await apolloServer();
+  try {
+    await apolloServer();
+  } catch (error) {
+    log.error(error);
+  }
 };
 
 server();

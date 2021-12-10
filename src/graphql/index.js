@@ -4,8 +4,9 @@ import express from "express";
 import http from "http";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
+import log from "~config/logger";
 
-const startApolloServer = async (typeDefs, resolvers) => {
+const startApolloServer = async () => {
   const app = express();
   const httpServer = http.createServer(app);
   const server = new ApolloServer({
@@ -16,7 +17,7 @@ const startApolloServer = async (typeDefs, resolvers) => {
   await server.start();
   server.applyMiddleware({ app });
   await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
+  log.info(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
 };
 
 export default startApolloServer;
