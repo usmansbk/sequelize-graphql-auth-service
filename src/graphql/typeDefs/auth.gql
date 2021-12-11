@@ -1,3 +1,14 @@
 type Mutation {
+  loginWithEmailAndPassword(input: EmailLoginInput!): LoginMutation!
+}
 
+input EmailLoginInput {
+  email: String!
+  password: String!
+}
+
+type LoginMutation implements MutationResponse & FormErrors {
+  success: Boolean!
+  message: String!
+  errors: [FieldErrors]
 }
