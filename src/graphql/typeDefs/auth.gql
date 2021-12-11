@@ -5,6 +5,13 @@ type Mutation {
   otpLogin(code: String!): AuthMutationResponse!
   socialLogin(input: SocialLoginInput!): AuthLoginMutationResponse!
   register(input: CreateUserInput!): LoginMutationResponse!
+  resendConfirmationEmail(email: String!): AuthMutationResponse!
+  confirmEmail(token: String!): AuthMutationResponse!
+  requestPasswordReset(email: String!): AuthMutationResponse!
+  resetPassword(input: PasswordResetInput!): AuthMutationResponse!
+  requestDeleteAccount: AuthMutationResponse!
+  deleteAccount(token: String!): AuthMutationResponse!
+  logout: AuthMutationResponse!
 }
 
 input LoginInput {
@@ -19,6 +26,12 @@ enum SocialProvider {
 
 input SocialLoginInput {
   provider: SocialProvider!
+  token: String!
+}
+
+input PasswordResetInput {
+  password: String!
+  confirmPassword: String!
   token: String!
 }
 
