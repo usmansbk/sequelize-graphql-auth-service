@@ -1,12 +1,13 @@
 type Mutation {
-  loginWithEmailAndPassword(input: EmailLoginInput!): LoginMutationResponse!
-  requestEmailOTP(email: String!): OTPMutationResponse!
-  requestSmsOTP(phoneNumber: String!): OTPMutationResponse!
-  loginWithOTP(code: String!): OTPMutationResponse!
-  socialLogin(input: SocialLoginInput!): SocialLoginMutationResponse!
+  login(input: LoginInput!): LoginMutationResponse!
+  requestEmailOTP(email: String!): AuthMutationResponse!
+  requestSmsOTP(phoneNumber: String!): AuthMutationResponse!
+  otpLogin(code: String!): AuthMutationResponse!
+  socialLogin(input: SocialLoginInput!): AuthLoginMutationResponse!
+  register(input: CreateUserInput!): LoginMutationResponse!
 }
 
-input EmailLoginInput {
+input LoginInput {
   email: String!
   password: String!
 }
@@ -24,17 +25,11 @@ input SocialLoginInput {
 type LoginMutationResponse implements MutationResponse & FormErrors {
   success: Boolean!
   message: String!
-  errors: [FieldErrors]
+  errors: [FieldError!]
   token: String
 }
 
-type OTPMutationResponse implements MutationResponse {
-  success: Boolean!
-  message: String!
-  token: String
-}
-
-type SocialLoginMutationResponse implements MutationResponse {
+type AuthMutationResponse implements MutationResponse {
   success: Boolean!
   message: String!
   token: String

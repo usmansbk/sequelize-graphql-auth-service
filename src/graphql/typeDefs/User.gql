@@ -8,6 +8,15 @@ type User {
   locale: String!
 }
 
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+  phoneNumber: String
+  locale: String
+}
+
 type Query {
   me: User
 }
