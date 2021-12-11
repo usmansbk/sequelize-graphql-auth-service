@@ -4,15 +4,6 @@ import mockUser from "../mocks/user";
 const { User, sequelize } = db;
 
 describe("User model", () => {
-  beforeAll(async () => {
-    await User.sync({ force: true });
-  });
-
-  afterAll(async () => {
-    await User.drop();
-    await sequelize.close();
-  });
-
   describe("validate", () => {
     let user;
 

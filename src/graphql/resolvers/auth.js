@@ -1,6 +1,11 @@
 export default {
   Mutation: {
-    loginWithEmail() {},
+    loginWithEmail() {
+      return {
+        success: true,
+        message: "Mock",
+      };
+    },
     requestEmailOTP() {},
     requestSmsOTP() {},
     loginWithEmailOTP() {},
