@@ -3,11 +3,22 @@ type Mutation {
   requestEmailOTP(email: String!): OTPMutationResponse!
   requestSmsOTP(phoneNumber: String!): OTPMutationResponse!
   loginWithOTP(code: String!): OTPMutationResponse!
+  socialLogin(input: SocialLoginInput!): SocialLoginMutationResponse!
 }
 
 input EmailLoginInput {
   email: String!
   password: String!
+}
+
+enum SocialProvider {
+  GOOGLE
+  FACEBOOK
+}
+
+input SocialLoginInput {
+  provider: SocialProvider!
+  token: String!
 }
 
 type LoginMutationResponse implements MutationResponse & FormErrors {
@@ -18,6 +29,12 @@ type LoginMutationResponse implements MutationResponse & FormErrors {
 }
 
 type OTPMutationResponse implements MutationResponse {
+  success: Boolean!
+  message: String!
+  token: String
+}
+
+type SocialLoginMutationResponse implements MutationResponse {
   success: Boolean!
   message: String!
   token: String
