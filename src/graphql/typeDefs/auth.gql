@@ -1,0 +1,60 @@
+type Mutation {
+  loginWithEmail(input: EmailLoginInput!): LoginMutationResponse!
+  requestEmailOTP(email: String!): AuthMutationResponse!
+  requestSmsOTP(phoneNumber: String!): AuthMutationResponse!
+  loginWithEmailOTP(input: EmailOTPInput!): AuthMutationResponse!
+  loginWithSmsOTP(input: SmsOTPInput!): AuthMutationResponse!
+  loginWithSocialProvider(input: SocialLoginInput!): AuthMutationResponse!
+  registerWithEmail(input: CreateUserInput!): LoginMutationResponse!
+  resendConfirmationEmail(email: String!): AuthMutationResponse!
+  confirmEmail(token: String!): AuthMutationResponse!
+  requestPasswordReset(email: String!): AuthMutationResponse!
+  resetPassword(input: PasswordResetInput!): AuthMutationResponse!
+  requestDeleteAccount: AuthMutationResponse!
+  deleteAccount(token: String!): AuthMutationResponse!
+  logout: AuthMutationResponse!
+}
+
+input EmailLoginInput {
+  email: String!
+  password: String!
+}
+
+input EmailOTPInput {
+  email: String!
+  code: String!
+}
+
+input SmsOTPInput {
+  phoneNumber: String!
+  code: String!
+}
+
+enum SocialProvider {
+  GOOGLE
+  FACEBOOK
+}
+
+input SocialLoginInput {
+  provider: SocialProvider!
+  token: String!
+}
+
+input PasswordResetInput {
+  password: String!
+  confirmPassword: String!
+  token: String!
+}
+
+type LoginMutationResponse implements MutationResponse & FormErrors {
+  success: Boolean!
+  message: String!
+  errors: [FieldError!]
+  token: String
+}
+
+type AuthMutationResponse implements MutationResponse {
+  success: Boolean!
+  message: String!
+  token: String
+}
