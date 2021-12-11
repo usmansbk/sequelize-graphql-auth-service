@@ -4,7 +4,8 @@
   "scripts": {
     "build": "babel src -d build --copy-files",
     "start": "node -r dotenv/config build",
-    "start:dev": "nodemon --exec babel-node -r dotenv/config src"
+    "start:dev": "nodemon --exec babel-node -r dotenv/config src",
+    "test": "jest"
   },
   "description": "Apollo GraphQL server template",
   "main": "index.js",
@@ -18,10 +19,13 @@
     "@babel/plugin-transform-runtime": "^7.16.4",
     "@babel/preset-env": "^7.16.4",
     "@babel/register": "^7.16.0",
+    "babel-jest": "^27.4.4",
     "babel-plugin-module-resolver": "^4.1.0",
     "eslint": "^8.4.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.3.0",
+    "faker": "^5.5.3",
+    "jest": "^27.4.4",
     "nodemon": "^2.0.15",
     "prettier": "2.5.1",
     "sequelize-cli": "^6.3.0"
