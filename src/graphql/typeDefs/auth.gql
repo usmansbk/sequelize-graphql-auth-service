@@ -3,7 +3,7 @@ type Mutation {
   requestEmailOTP(email: String!): AuthMutationResponse!
   requestSmsOTP(phoneNumber: String!): AuthMutationResponse!
   otpLogin(code: String!): AuthMutationResponse!
-  socialLogin(input: SocialLoginInput!): AuthLoginMutationResponse!
+  socialLogin(input: SocialLoginInput!): AuthMutationResponse!
   register(input: CreateUserInput!): LoginMutationResponse!
   resendConfirmationEmail(email: String!): AuthMutationResponse!
   confirmEmail(token: String!): AuthMutationResponse!
