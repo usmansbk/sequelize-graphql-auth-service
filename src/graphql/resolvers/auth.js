@@ -1,6 +1,6 @@
 export default {
   Mutation: {
-    login() {},
+    emailLogin() {},
     requestEmailOTP() {},
     requestSmsOTP() {},
     otpLogin() {},

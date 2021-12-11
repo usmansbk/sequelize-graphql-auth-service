@@ -1,5 +1,5 @@
 type Mutation {
-  login(input: LoginInput!): LoginMutationResponse!
+  emailLogin(input: EmailLoginInput!): LoginMutationResponse!
   requestEmailOTP(email: String!): AuthMutationResponse!
   requestSmsOTP(phoneNumber: String!): AuthMutationResponse!
   otpLogin(code: String!): AuthMutationResponse!
@@ -14,7 +14,7 @@ type Mutation {
   logout: AuthMutationResponse!
 }
 
-input LoginInput {
+input EmailLoginInput {
   email: String!
   password: String!
 }
