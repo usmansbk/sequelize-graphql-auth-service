@@ -1,11 +1,11 @@
 export default {
   Mutation: {
-    emailLogin() {},
+    loginWithEmail() {},
     requestEmailOTP() {},
     requestSmsOTP() {},
     otpLogin() {},
     socialLogin() {},
-    register() {},
+    registerWithEmail() {},
     resendConfirmationEmail() {},
     confirmEmail() {},
     requestPasswordReset() {},

@@ -1,10 +1,10 @@
 type Mutation {
-  emailLogin(input: EmailLoginInput!): LoginMutationResponse!
+  loginWithEmail(input: EmailLoginInput!): LoginMutationResponse!
   requestEmailOTP(email: String!): AuthMutationResponse!
   requestSmsOTP(phoneNumber: String!): AuthMutationResponse!
   otpLogin(code: String!): AuthMutationResponse!
   socialLogin(input: SocialLoginInput!): AuthMutationResponse!
-  register(input: CreateUserInput!): LoginMutationResponse!
+  registerWithEmail(input: CreateUserInput!): LoginMutationResponse!
   resendConfirmationEmail(email: String!): AuthMutationResponse!
   confirmEmail(token: String!): AuthMutationResponse!
   requestPasswordReset(email: String!): AuthMutationResponse!
