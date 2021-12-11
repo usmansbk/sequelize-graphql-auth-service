@@ -5,6 +5,7 @@ const {
   DB_PASSWORD,
   DB_NAME_DEV,
   DB_NAME_TEST,
+  DB_NAME_PRODUCTION,
   DB_HOST,
   DB_DIALECT,
 } = process.env;
@@ -30,7 +31,7 @@ module.exports = {
   production: {
     username: DB_USERNAME,
     password: DB_PASSWORD,
-    database: DB_NAME,
+    database: DB_NAME_PRODUCTION,
     host,
     dialect,
   },
