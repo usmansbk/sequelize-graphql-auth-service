@@ -21,6 +21,8 @@ const startApolloServer = async () => {
   await db.sequelize.authenticate();
   // await db.sequelize.sync({ force: true });
   log.info(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
+
+  return server;
 };
 
 export default startApolloServer;
