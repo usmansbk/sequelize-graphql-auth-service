@@ -1,5 +1,8 @@
 type Mutation {
-  loginWithEmailAndPassword(input: EmailLoginInput!): LoginMutation!
+  loginWithEmailAndPassword(input: EmailLoginInput!): LoginMutationResponse!
+  requestEmailOTP(email: String!): OTPMutationResponse!
+  requestSmsOTP(phoneNumber: String!): OTPMutationResponse!
+  loginWithOTP(code: String!): OTPMutationResponse!
 }
 
 input EmailLoginInput {
@@ -7,8 +10,15 @@ input EmailLoginInput {
   password: String!
 }
 
-type LoginMutation implements MutationResponse & FormErrors {
+type LoginMutationResponse implements MutationResponse & FormErrors {
   success: Boolean!
   message: String!
   errors: [FieldErrors]
+  token: String
+}
+
+type OTPMutationResponse implements MutationResponse {
+  success: Boolean!
+  message: String!
+  token: String
 }

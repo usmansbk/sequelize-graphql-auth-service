@@ -1,7 +1,8 @@
 export default {
   Mutation: {
     loginWithEmailAndPassword() {},
-    requestOTP() {},
+    requestEmailOTP() {},
+    requestSmsOTP() {},
     loginWithOTP() {},
     socialLogin() {},
     registerWithEmailAndPassword() {},
