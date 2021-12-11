@@ -8,7 +8,7 @@ describe("User model", () => {
     let user;
 
     beforeEach(() => {
-      user = User.build(mockUser);
+      user = User.build(mockUser());
     });
 
     test("should not allow null `firstName`", async () => {
@@ -58,14 +58,15 @@ describe("User model", () => {
   });
 
   describe("#checkPassword", () => {
-    let user;
+    let user, mock;
 
     beforeAll(async () => {
-      user = await User.create(mockUser);
+      mock = mockUser();
+      user = await User.create(mock);
     });
 
     test("should match correct password", async () => {
-      await expect(user.checkPassword(mockUser.password)).resolves.toBe(true);
+      await expect(user.checkPassword(mock.password)).resolves.toBe(true);
     });
 
     test("should not match wrong password", async () => {

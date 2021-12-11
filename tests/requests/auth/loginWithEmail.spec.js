@@ -16,10 +16,11 @@ const LOGIN_WITH_EMAIL = gql`
 `;
 
 describe("loginWithEmail", () => {
-  let server;
+  let server, mock;
 
   beforeAll(async () => {
-    await User.create(mockUser);
+    mock = mockUser();
+    await User.create(mock);
     server = await startServer();
   });
 
@@ -32,8 +33,8 @@ describe("loginWithEmail", () => {
       query: LOGIN_WITH_EMAIL,
       variables: {
         input: {
-          email: mockUser.email,
-          password: mockUser.password,
+          email: mock.email,
+          password: mock.password,
         },
       },
     });
