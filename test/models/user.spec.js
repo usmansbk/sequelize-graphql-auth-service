@@ -14,7 +14,6 @@ const mockUser = {
 
 describe("User model", () => {
   beforeAll(async () => {
-    await sequelize.authenticate();
     User.sync({ force: true });
   });
 
