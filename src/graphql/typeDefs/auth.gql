@@ -2,8 +2,9 @@ type Mutation {
   loginWithEmail(input: EmailLoginInput!): LoginMutationResponse!
   requestEmailOTP(email: String!): AuthMutationResponse!
   requestSmsOTP(phoneNumber: String!): AuthMutationResponse!
-  otpLogin(code: String!): AuthMutationResponse!
-  socialLogin(input: SocialLoginInput!): AuthMutationResponse!
+  loginWithEmailOTP(input: EmailOTPInput!): AuthMutationResponse!
+  loginWithSmsOTP(input: SmsOTPInput!): AuthMutationResponse!
+  loginWithSocialProvider(input: SocialLoginInput!): AuthMutationResponse!
   registerWithEmail(input: CreateUserInput!): LoginMutationResponse!
   resendConfirmationEmail(email: String!): AuthMutationResponse!
   confirmEmail(token: String!): AuthMutationResponse!
@@ -17,6 +18,16 @@ type Mutation {
 input EmailLoginInput {
   email: String!
   password: String!
+}
+
+input EmailOTPInput {
+  email: String!
+  code: String!
+}
+
+input SmsOTPInput {
+  phoneNumber: String!
+  code: String!
 }
 
 enum SocialProvider {
