@@ -1,5 +1,5 @@
 import db from "~db/models";
-import mockUser from "../mocks/user";
+import { userAttributes } from "../attributes";
 
 const { User } = db;
 
@@ -8,7 +8,7 @@ describe("User model", () => {
     let user;
 
     beforeEach(() => {
-      user = User.build(mockUser());
+      user = User.build(userAttributes());
     });
 
     test("should not allow null `firstName`", async () => {
@@ -58,15 +58,14 @@ describe("User model", () => {
   });
 
   describe("#checkPassword", () => {
-    let user, mock;
+    let user;
 
     beforeAll(async () => {
-      mock = mockUser();
-      user = await User.create(mock);
+      user = await User.create({ ...userAttributes(), password: "password" });
     });
 
     test("should match correct password", async () => {
-      await expect(user.checkPassword(mock.password)).resolves.toBe(true);
+      await expect(user.checkPassword("password")).resolves.toBe(true);
     });
 
     test("should not match wrong password", async () => {

@@ -1,7 +1,7 @@
 import { gql } from "apollo-server-express";
 import startServer from "~graph-api";
 import db from "~db/models";
-import mockUser from "../../mocks/user";
+import { userAttributes } from "../../attributes";
 
 const { User } = db;
 
@@ -16,11 +16,11 @@ const LOGIN_WITH_EMAIL = gql`
 `;
 
 describe("loginWithEmail", () => {
-  let server, mock;
+  let server, attr;
 
   beforeAll(async () => {
-    mock = mockUser();
-    await User.create(mock);
+    attr = userAttributes();
+    await User.create(attr);
     server = await startServer();
   });
 
@@ -33,8 +33,8 @@ describe("loginWithEmail", () => {
       query: LOGIN_WITH_EMAIL,
       variables: {
         input: {
-          email: mock.email,
-          password: mock.password,
+          email: attr.email,
+          password: attr.password,
         },
       },
     });

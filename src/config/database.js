@@ -27,6 +27,7 @@ module.exports = {
     database: DB_NAME_TEST,
     host,
     dialect,
+    logging: false,
   },
   production: {
     username: DB_USERNAME,

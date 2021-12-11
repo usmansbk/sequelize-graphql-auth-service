@@ -1,6 +1,6 @@
 import faker from "faker";
 
-const mockUser = () => ({
+export const userAttributes = () => ({
   firstName: faker.name.firstName(),
   lastName: faker.name.lastName(),
   email: faker.internet.email(),
@@ -8,5 +8,3 @@ const mockUser = () => ({
   phoneNumber: faker.phone.phoneNumber(),
   locale: faker.address.countryCode(),
 });
-
-export default mockUser;
