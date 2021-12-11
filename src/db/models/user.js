@@ -31,13 +31,13 @@ export default (sequelize, DataTypes) => {
         validate: {
           max: {
             args: 100,
-            msg: "name_too_long",
+            msg: "nameTooLong",
           },
           notNull: {
-            msg: "firstname_required",
+            msg: "nameRequired",
           },
           notEmpty: {
-            msg: "empty_firstname",
+            msg: "emptyName",
           },
         },
       },
@@ -47,13 +47,13 @@ export default (sequelize, DataTypes) => {
         validate: {
           max: {
             args: 100,
-            msg: "name_too_long",
+            msg: "nameTooLong",
           },
           notNull: {
-            msg: "lastname_required",
+            msg: "nameRequired",
           },
           notEmpty: {
-            msg: "empty_lastname",
+            msg: "emptyName",
           },
         },
       },
@@ -72,23 +72,31 @@ export default (sequelize, DataTypes) => {
         unique: true,
         validate: {
           isEmail: {
-            msg: "invalid_email",
+            msg: "invalidEmail",
           },
         },
       },
       phoneNumber: {
         type: DataTypes.STRING,
         unique: true,
+        validate: {
+          isNull: {
+            msg: "invalidPhoneNumber",
+          },
+          notEmpty: {
+            msg: "invalidPhoneNumber",
+          },
+        },
       },
       password: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notEmpty: {
-            msg: "invalid_password",
+            msg: "invalidPassword",
           },
           notNull: {
-            msg: "invalid_password",
+            msg: "invalidPassword",
           },
         },
       },
@@ -97,7 +105,7 @@ export default (sequelize, DataTypes) => {
         defaultValue: "en",
         validate: {
           isAlpha: {
-            msg: "invalid_locale",
+            msg: "invalidLocale",
           },
         },
       },
