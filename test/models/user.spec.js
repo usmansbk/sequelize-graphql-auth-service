@@ -15,6 +15,7 @@ const mockUser = {
 describe("User model", () => {
   beforeAll(async () => {
     await sequelize.authenticate();
+    User.sync({ force: true });
   });
 
   afterAll(async () => {
@@ -41,6 +42,16 @@ describe("User model", () => {
       await expect(user.validate(["firstName"])).rejects.toThrow("emptyName");
     });
 
+    test("should not allow null `lastName`", async () => {
+      user.lastName = null;
+      await expect(user.validate(["lastName"])).rejects.toThrow("nameRequired");
+    });
+
+    test("should not allow empty `lastName`", async () => {
+      user.lastName = " ";
+      await expect(user.validate(["lastName"])).rejects.toThrow("emptyName");
+    });
+
     test("should not allow invalid `email`", async () => {
       user.email = "siuuuuu";
       await expect(user.validate(["email"])).rejects.toThrow("invalidEmail");
@@ -58,6 +69,26 @@ describe("User model", () => {
       await expect(user.validate(["phoneNumber"])).rejects.toThrow(
         "invalidLocale"
       );
+    });
+
+    test("should have a `fullName`", () => {
+      expect(user.fullName).toMatch(`${user.firstName} ${user.lastName}`);
+    });
+  });
+
+  describe("#checkPassword", () => {
+    let user;
+
+    beforeAll(async () => {
+      user = await User.create(mockUser);
+    });
+
+    test("should match correct password", async () => {
+      await expect(user.checkPassword(mockUser.password)).resolves.toBe(true);
+    });
+
+    test("should not match wrong password", async () => {
+      await expect(user.checkPassword("wrong-password")).resolves.toBe(false);
     });
   });
 });

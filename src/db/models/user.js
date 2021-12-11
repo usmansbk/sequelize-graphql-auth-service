@@ -11,7 +11,7 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
-    isPasswordCorrect(password) {
+    checkPassword(password) {
       return bcrypt.compare(password, this.password);
     }
   }
@@ -80,9 +80,6 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         unique: true,
         validate: {
-          isNull: {
-            msg: "invalidPhoneNumber",
-          },
           notEmpty: {
             msg: "invalidPhoneNumber",
           },
