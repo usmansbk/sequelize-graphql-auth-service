@@ -22,12 +22,13 @@
 Export the followng enviroment variables or create a `.env` file
 
 ```sh
-NODE_ENV=
-APP_NAME=
+NODE_ENV=development
+APP_NAME=apollo-server-express
 
-DB_USERNAME=
-DB_PASSWORD=
-DB_NAME=
+DB_USERNAME=apollo-server-express
+DB_PASSWORD=apollo-server-express
+DB_NAME_DEV=apollo-server-express_development
+DB_NAME_TEST=apollo-server-express_test
 DB_HOST=127.0.0.1
 DB_DIALECT=postgres
 ```
