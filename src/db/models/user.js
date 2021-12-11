@@ -1,4 +1,5 @@
 import { Model } from "sequelize";
+import bcrypt from "bcrypt";
 
 export default (sequelize, DataTypes) => {
   class User extends Model {
@@ -9,6 +10,9 @@ export default (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+    }
+    isPasswordCorrect(password) {
+      return bcrypt.compare(password, this.password);
     }
   }
   User.init(
@@ -53,7 +57,7 @@ export default (sequelize, DataTypes) => {
           return [this.firstName, this.lastName].join(" ");
         },
         set() {
-          throw new Error("cannot_set_fullname");
+          throw new Error("Do not try to set the `fullName` value!");
         },
       },
       email: {
@@ -70,10 +74,16 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         unique: true,
       },
-      hashedPassword: {
-        type: DataTypes.STRING(64),
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
         validate: {
-          is: /^[0-9a-f]{64}$/i,
+          notEmpty: {
+            msg: "invalid_password",
+          },
+          notNull: {
+            msg: "invalid_password",
+          },
         },
       },
       locale: {
@@ -91,5 +101,11 @@ export default (sequelize, DataTypes) => {
       modelName: "User",
     }
   );
+
+  User.beforeCreate("hash password", async (user) => {
+    const plainPassword = user.getDataValue("password");
+    const hashedPassword = await bcrypt.hash(plainPassword, 10);
+    user.setDataValue("password", hashedPassword);
+  });
   return User;
 };
