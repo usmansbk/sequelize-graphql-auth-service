@@ -29,7 +29,10 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          max: 100,
+          max: {
+            args: 100,
+            msg: "name_too_long",
+          },
           notNull: {
             msg: "firstname_required",
           },
@@ -42,7 +45,10 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          max: 100,
+          max: {
+            args: 100,
+            msg: "name_too_long",
+          },
           notNull: {
             msg: "lastname_required",
           },
