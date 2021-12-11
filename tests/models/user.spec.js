@@ -1,7 +1,7 @@
 import db from "~db/models";
 import mockUser from "../mocks/user";
 
-const { User, sequelize } = db;
+const { User } = db;
 
 describe("User model", () => {
   describe("validate", () => {
