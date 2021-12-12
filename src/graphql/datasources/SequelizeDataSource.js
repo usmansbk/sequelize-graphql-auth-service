@@ -1,5 +1,6 @@
 import { DataSource } from "apollo-datasource";
 import DataLoader from "dataloader";
+import log from "~config/logger";
 
 /**
  * The SequelizeDataSource abstract class helps you query data from an SQL database. Your server
@@ -30,6 +31,26 @@ export default class SequelizeDataSource extends DataSource {
     this.context = context;
   }
 
+  onCreate(newImage) {
+    log.info({ newImage });
+  }
+
+  onUpdate(oldImage, newImage) {
+    log.info({ oldImage, newImage });
+  }
+
+  onDestroy(oldImage) {
+    log.info({ oldImage });
+  }
+
+  prime(item) {
+    this.loader.prime(item.id, item);
+  }
+
+  primeMany(items) {
+    items.forEach((item) => this.prime(item));
+  }
+
   findOneById(id) {
     return this.loader.load(id);
   }
@@ -53,11 +74,33 @@ export default class SequelizeDataSource extends DataSource {
     return items;
   }
 
-  prime(item) {
-    this.loader.prime(item.id, item);
+  async create(fields) {
+    const item = await this.model.create(fields);
+    const newImage = item.toJSON();
+    this.prime(item);
+    this.onCreate(newImage);
+
+    return item;
   }
 
-  primeMany(items) {
-    items.forEach((item) => this.prime(item));
+  async update(fields) {
+    const item = await this.findOneById(fields.id);
+    const oldImage = item.toJSON();
+
+    const newItem = await item.update(fields);
+    const newImage = newItem.toJSON();
+
+    this.prime(newItem);
+    this.onUpdate(oldImage, newImage);
+
+    return newItem;
+  }
+
+  async destroy(id) {
+    const item = await this.findOneById(id);
+    const oldImage = item.toJSON();
+    this.onDestroy(oldImage);
+
+    return item.destroy();
   }
 }
