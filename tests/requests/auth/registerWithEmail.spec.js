@@ -34,7 +34,7 @@ describe("registerWithEmail", () => {
       },
     });
 
-    expect(result.data?.registerWithEmail.success).toBe(true);
+    expect(result.data?.registerWithEmail.token).toBeDefined();
   });
 
   test("should return field errors", async () => {
@@ -52,6 +52,6 @@ describe("registerWithEmail", () => {
       },
     });
 
-    expect(result.data?.registerWithEmail.success).toBe(false);
+    expect(result.data?.registerWithEmail.errors).toHaveLength(5);
   });
 });
