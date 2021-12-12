@@ -1,14 +1,11 @@
 import SequelizeDataSource from "./SequelizeDataSource";
 
 export default class UserDS extends SequelizeDataSource {
-  async createWithEmail(data) {
-    const [user, created] = await this.findOrCreate({
-      where: {
-        email: data.email,
-      },
-      defaults: data,
-    });
+  async createWithEmail(fields) {
+    let user = await this.create(fields);
 
-    return [user, created];
+    // send verification email
+
+    return user;
   }
 }

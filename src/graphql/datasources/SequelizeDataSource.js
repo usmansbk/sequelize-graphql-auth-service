@@ -93,8 +93,8 @@ export default class SequelizeDataSource extends DataSource {
     return [item, created];
   }
 
-  async create(data, fields) {
-    const item = await this.model.create(data, { fields });
+  async create(fields) {
+    const item = await this.model.create(fields);
     const newImage = item.toJSON();
     this.prime(item);
     this.onCreate(newImage);
@@ -102,8 +102,8 @@ export default class SequelizeDataSource extends DataSource {
     return item;
   }
 
-  async update(fields) {
-    const item = await this.findOneById(fields.id);
+  async update(id, fields) {
+    const item = await this.findOneById(id);
     const oldImage = item.toJSON();
 
     const newItem = await item.update(fields);
