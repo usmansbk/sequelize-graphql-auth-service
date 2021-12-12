@@ -7,8 +7,9 @@ import log from "~config/logger";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 
-const startApolloServer = async () => {
-  const app = express();
+export const app = express();
+
+export const createApolloServer = () => {
   const httpServer = http.createServer(app);
   const server = new ApolloServer({
     typeDefs,
@@ -16,6 +17,11 @@ const startApolloServer = async () => {
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     logger: log,
   });
+  return { server, httpServer };
+};
+
+const startApolloServer = async () => {
+  const { server, httpServer } = createApolloServer();
   await server.start();
   server.applyMiddleware({ app });
   await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
