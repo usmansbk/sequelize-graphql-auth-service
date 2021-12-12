@@ -52,24 +52,22 @@ export default class SequelizeDataSource extends DataSource {
     items.forEach((item) => this.prime(item));
   }
 
-  findOneById(id) {
+  findByPk(id) {
     return this.loader.load(id);
   }
 
-  findManyByIds(ids = []) {
+  findManyByPk(ids = []) {
     return this.loader.loadMany(ids);
   }
 
-  async findByFields(where) {
-    const item = await this.model.findOne({
-      where,
-    });
+  async findOne(query) {
+    const item = await this.model.findOne(query);
     this.prime(item);
     return item;
   }
 
-  async findManyByFields(where) {
-    const items = await this.model.findAll({ where });
+  async findAll(query) {
+    const items = await this.model.findAll(query);
     this.primeMany(items);
 
     return items;
