@@ -113,6 +113,11 @@ export default class SequelizeDataSource extends DataSource {
   async update(id, fields) {
     try {
       const item = await this.findByPk(id);
+
+      if (!item) {
+        throw new Error("notFound");
+      }
+
       const oldImage = item.toJSON();
 
       const newItem = await item.update(fields);
@@ -127,10 +132,15 @@ export default class SequelizeDataSource extends DataSource {
     }
   }
 
+  /**
+   * Delete is idemponent and shouldn't throw an error if item does not exist
+   */
   async destroy(id) {
     const item = await this.findByPk(id);
-    const oldImage = item.toJSON();
-    await item.destroy();
-    this.onDestroy(oldImage);
+    if (item) {
+      const oldImage = item.toJSON();
+      await item.destroy();
+      this.onDestroy(oldImage);
+    }
   }
 }
