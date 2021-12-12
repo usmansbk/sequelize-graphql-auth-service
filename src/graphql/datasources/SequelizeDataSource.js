@@ -2,8 +2,9 @@ import { DataSource } from "apollo-datasource";
 import DataLoader from "dataloader";
 
 /**
- * This class encapsulates the base querying of database using Sequelize.
- * The queries are deduplicated using dataloader.
+ * The SequelizeDataSource abstract class helps you query data from an SQL database. Your server
+ * defines a separate subclass of SequelizeDataSource for each Model it communicates with.
+ * It is configured with a Dataloader to prevent the N+1 problem (loading the same object multiple times during a single request).
  */
 export default class SequelizeDataSource extends DataSource {
   constructor(model) {
@@ -30,8 +31,6 @@ export default class SequelizeDataSource extends DataSource {
   }
 
   findOneById(id) {
-    if (!id) return null;
-
     return this.loader.load(id);
   }
 
