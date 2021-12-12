@@ -6,6 +6,7 @@ import db from "~db/models";
 import log from "~config/logger";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
+import { UserDS } from "./datasources";
 
 export const app = express();
 
@@ -16,6 +17,9 @@ export const createApolloServer = () => {
     resolvers,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     logger: log,
+    dataSources: () => ({
+      users: new UserDS(db.User),
+    }),
   });
   return { server, httpServer };
 };
