@@ -34,7 +34,7 @@ describe("registerWithEmail", () => {
       },
     });
 
-    expect(result.data?.registerWithEmail.success).toBe(true);
+    expect(result.data?.registerWithEmail.token).toBeDefined();
   });
 
   test("should return field errors", async () => {
@@ -43,15 +43,11 @@ describe("registerWithEmail", () => {
       query: REGISTER_WITH_EMAIL,
       variables: {
         input: UserFactory.attributes({
-          firstName: "",
-          lastName: "",
           email: existingUser.email,
-          phoneNumber: existingUser.phoneNumber,
-          locale: "12",
         }),
       },
     });
 
-    expect(result.data?.registerWithEmail.success).toBe(false);
+    expect(result.data?.registerWithEmail.errors).toHaveLength(1);
   });
 });

@@ -81,6 +81,11 @@ export default (sequelize, DataTypes) => {
           },
         },
       },
+      emailVerified: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
+      },
       phoneNumber: {
         type: DataTypes.STRING,
         unique: {

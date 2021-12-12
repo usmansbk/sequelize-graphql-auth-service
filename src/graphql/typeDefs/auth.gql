@@ -7,7 +7,6 @@ type Mutation {
   loginWithSocialProvider(input: SocialLoginInput!): AuthMutationResponse!
   registerWithEmail(input: CreateUserInput!): LoginMutationResponse!
   resendConfirmationEmail(email: String!): AuthMutationResponse!
-  confirmEmail(token: String!): AuthMutationResponse!
   requestPasswordReset(email: String!): AuthMutationResponse!
   resetPassword(input: PasswordResetInput!): AuthMutationResponse!
   requestDeleteAccount: AuthMutationResponse!
@@ -46,7 +45,7 @@ input PasswordResetInput {
   token: String!
 }
 
-type LoginMutationResponse implements MutationResponse & FormErrors {
+type LoginMutationResponse implements MutationResponse {
   success: Boolean!
   message: String!
   errors: [FieldError!]
