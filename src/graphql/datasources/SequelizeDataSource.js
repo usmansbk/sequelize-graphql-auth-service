@@ -6,6 +6,8 @@ import log from "~config/logger";
  * The SequelizeDataSource abstract class helps you query data from an SQL database. Your server
  * defines a separate subclass of SequelizeDataSource for each Model it communicates with.
  * It is configured with a Dataloader to prevent the N+1 problem (loading the same object multiple times during a single request).
+ *
+ * The onCreate, onUpdate, and onDestroy hooks can be overwritten in the child classes.
  */
 export default class SequelizeDataSource extends DataSource {
   constructor(model) {
@@ -35,15 +37,15 @@ export default class SequelizeDataSource extends DataSource {
     log.info({ newImage });
   }
 
-  onUpdate(oldImage, newImage) {
+  async onUpdate(oldImage, newImage) {
     log.info({ oldImage, newImage });
   }
 
-  onDestroy(oldImage) {
+  async onDestroy(oldImage) {
     log.info({ oldImage });
   }
 
-  prime(item) {
+  async prime(item) {
     this.loader.prime(item.id, item);
   }
 
