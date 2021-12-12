@@ -1,5 +1,6 @@
 import { DataSource } from "apollo-datasource";
 import DataLoader from "dataloader";
+import log from "~config/logger";
 
 /**
  * The SequelizeDataSource abstract class helps you query data from an SQL database. Your server
@@ -45,6 +46,9 @@ export default class SequelizeDataSource extends DataSource {
   }
 
   onError(error) {
+    if (process.env.NODE_ENV !== "test") {
+      log.error(error);
+    }
     throw error;
   }
 

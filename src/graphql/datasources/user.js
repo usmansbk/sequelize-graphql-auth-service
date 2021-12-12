@@ -3,7 +3,7 @@ import SequelizeDataSource from "./SequelizeDataSource";
 
 export default class UserDS extends SequelizeDataSource {
   onError(error) {
-    let e;
+    let e = error;
     if (error.errors) {
       const formattedErrors = error.errors.map(({ path, message }) => ({
         field: path,
@@ -11,8 +11,6 @@ export default class UserDS extends SequelizeDataSource {
       }));
 
       e = new ValidationError("createUserFailed", formattedErrors);
-    } else {
-      e = new Error("internalError");
     }
     super.onError(e);
   }
