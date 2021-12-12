@@ -2,7 +2,7 @@ import { DataSource } from "apollo-datasource";
 import DataLoader from "dataloader";
 
 /**
- * This class encapsulates the base fetching data from database using Sequelize.
+ * This class encapsulates the base querying of database using Sequelize.
  * The queries are deduplicated using dataloader.
  */
 export default class SequelizeDataSource extends DataSource {
