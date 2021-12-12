@@ -61,7 +61,7 @@ describe("User model", () => {
     let user;
 
     beforeAll(async () => {
-      user = await User.create({ ...userAttributes(), password: "password" });
+      user = await User.create(userAttributes({ password: "password" }));
     });
 
     test("should match correct password", async () => {
