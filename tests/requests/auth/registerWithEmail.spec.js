@@ -8,6 +8,9 @@ const REGISTER_WITH_EMAIL = gql`
       message
       success
       token
+      errors {
+        message
+      }
     }
   }
 `;
