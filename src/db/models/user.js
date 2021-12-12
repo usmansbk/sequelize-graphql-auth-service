@@ -96,6 +96,10 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
+          len: {
+            args: [6, 24],
+            msg: "invalidPasswordLength",
+          },
           notEmpty: {
             msg: "invalidPassword",
           },

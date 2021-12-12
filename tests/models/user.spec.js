@@ -2,7 +2,11 @@ import UserFactory from "../factories/user";
 
 describe("User model", () => {
   describe("validate", () => {
-    let user;
+    let user, existingUser;
+
+    beforeAll(async () => {
+      existingUser = await UserFactory.create();
+    });
 
     beforeEach(() => {
       user = UserFactory.build();
@@ -42,6 +46,13 @@ describe("User model", () => {
       );
     });
 
+    test("should have `password` length [6 - 24] characters long", async () => {
+      user.password = "12345";
+      await expect(user.validate(["password"])).rejects.toThrow(
+        "invalidPasswordLength"
+      );
+    });
+
     test("should not allow invalid `locale`", async () => {
       user.locale = "1234";
       await expect(user.validate(["phoneNumber"])).rejects.toThrow(
@@ -51,6 +62,18 @@ describe("User model", () => {
 
     test("should have a `fullName`", () => {
       expect(user.fullName).toMatch(`${user.firstName} ${user.lastName}`);
+    });
+
+    test("should have unique `email`", async () => {
+      await expect(
+        UserFactory.create({ email: existingUser.email })
+      ).rejects.toThrow("usedEmail");
+    });
+
+    test("should have unique `phoneNumber`", async () => {
+      await expect(
+        UserFactory.create({ phoneNumber: existingUser.phoneNumber })
+      ).rejects.toThrow("usedPhoneNumber");
     });
   });
 
