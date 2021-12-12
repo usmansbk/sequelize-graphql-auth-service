@@ -100,8 +100,7 @@ export default class SequelizeDataSource extends DataSource {
   async destroy(id) {
     const item = await this.findOneById(id);
     const oldImage = item.toJSON();
+    await item.destroy();
     this.onDestroy(oldImage);
-
-    return item.destroy();
   }
 }
