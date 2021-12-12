@@ -1,6 +1,5 @@
 import { DataSource } from "apollo-datasource";
 import DataLoader from "dataloader";
-import log from "~config/logger";
 
 /**
  * The SequelizeDataSource abstract class helps you query data from an SQL database. Your server
@@ -33,16 +32,16 @@ export default class SequelizeDataSource extends DataSource {
     this.context = context;
   }
 
-  onCreate(newImage) {
-    log.info({ newImage });
+  async onCreate(_newImage) {
+    // Override in child class
   }
 
-  async onUpdate(oldImage, newImage) {
-    log.info({ oldImage, newImage });
+  async onUpdate(_oldImage, _newImage) {
+    // Override in child class
   }
 
-  async onDestroy(oldImage) {
-    log.info({ oldImage });
+  async onDestroy(_oldImage) {
+    // Override in child class
   }
 
   async prime(item) {
