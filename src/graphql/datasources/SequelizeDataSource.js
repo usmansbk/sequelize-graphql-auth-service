@@ -63,6 +63,7 @@ export default class SequelizeDataSource extends DataSource {
   async findOne(query) {
     const item = await this.model.findOne(query);
     this.prime(item);
+
     return item;
   }
 
@@ -73,8 +74,27 @@ export default class SequelizeDataSource extends DataSource {
     return items;
   }
 
-  async create(fields) {
-    const item = await this.model.create(fields);
+  async findAndCountAll(query) {
+    const { count, rows } = await this.model.findAndCountAll(query);
+    this.primeMany(rows);
+
+    return { count, rows };
+  }
+
+  async findOrCreate(queryOptions, fields) {
+    const [item, created] = await this.model.create(queryOptions, { fields });
+    this.prime(item);
+
+    if (created) {
+      const newImage = item.toJSON();
+      this.onCreate(newImage);
+    }
+
+    return [item, created];
+  }
+
+  async create(data, fields) {
+    const item = await this.model.create(data, { fields });
     const newImage = item.toJSON();
     this.prime(item);
     this.onCreate(newImage);
