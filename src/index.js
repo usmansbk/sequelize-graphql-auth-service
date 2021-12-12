@@ -1,12 +1,13 @@
-import apolloServer from "~graph-api/";
+import startApolloServer from "~graph-api/";
 import log from "~config/logger";
 
-const server = async () => {
+const app = async () => {
   try {
-    await apolloServer();
+    const server = await startApolloServer();
+    log.info(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
   } catch (error) {
     log.error(error);
   }
 };
 
-server();
+app();

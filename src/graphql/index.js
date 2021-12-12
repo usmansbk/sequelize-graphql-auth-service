@@ -6,21 +6,33 @@ import db from "~db/models";
 import log from "~config/logger";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
+import { UserDS } from "./datasources";
 
-const startApolloServer = async () => {
-  const app = express();
+export const app = express();
+
+export const createApolloServer = () => {
   const httpServer = http.createServer(app);
   const server = new ApolloServer({
     typeDefs,
     resolvers,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    logger: log,
+    dataSources: () => ({
+      users: new UserDS(db.User),
+    }),
   });
+  return { server, httpServer };
+};
+
+const startApolloServer = async () => {
+  const { server, httpServer } = createApolloServer();
   await server.start();
   server.applyMiddleware({ app });
   await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
   await db.sequelize.authenticate();
   // await db.sequelize.sync({ force: true });
-  log.info(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
+
+  return server;
 };
 
 export default startApolloServer;

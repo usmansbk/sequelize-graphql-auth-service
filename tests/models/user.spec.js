@@ -1,32 +1,15 @@
-import db from "~db/models";
-import faker from "faker";
-
-const { User, sequelize } = db;
-
-const mockUser = {
-  firstName: faker.name.firstName(),
-  lastName: faker.name.lastName(),
-  email: faker.internet.email(),
-  password: faker.internet.password(6),
-  phoneNumber: faker.phone.phoneNumber(),
-  locale: faker.address.countryCode(),
-};
+import UserFactory from "../factories/user";
 
 describe("User model", () => {
-  beforeAll(async () => {
-    User.sync({ force: true });
-  });
-
-  afterAll(async () => {
-    User.drop();
-    await sequelize.close();
-  });
-
   describe("validate", () => {
-    let user;
+    let user, existingUser;
+
+    beforeAll(async () => {
+      existingUser = await UserFactory.create();
+    });
 
     beforeEach(() => {
-      user = User.build(mockUser);
+      user = UserFactory.build();
     });
 
     test("should not allow null `firstName`", async () => {
@@ -63,6 +46,13 @@ describe("User model", () => {
       );
     });
 
+    test("should have `password` length [6 - 24] characters long", async () => {
+      user.password = "12345";
+      await expect(user.validate(["password"])).rejects.toThrow(
+        "invalidPasswordLength"
+      );
+    });
+
     test("should not allow invalid `locale`", async () => {
       user.locale = "1234";
       await expect(user.validate(["phoneNumber"])).rejects.toThrow(
@@ -73,17 +63,29 @@ describe("User model", () => {
     test("should have a `fullName`", () => {
       expect(user.fullName).toMatch(`${user.firstName} ${user.lastName}`);
     });
+
+    test("should have unique `email`", async () => {
+      await expect(
+        UserFactory.create({ email: existingUser.email })
+      ).rejects.toThrow("usedEmail");
+    });
+
+    test("should have unique `phoneNumber`", async () => {
+      await expect(
+        UserFactory.create({ phoneNumber: existingUser.phoneNumber })
+      ).rejects.toThrow("usedPhoneNumber");
+    });
   });
 
   describe("#checkPassword", () => {
     let user;
 
     beforeAll(async () => {
-      user = await User.create(mockUser);
+      user = await UserFactory.create({ password: "password" });
     });
 
     test("should match correct password", async () => {
-      await expect(user.checkPassword(mockUser.password)).resolves.toBe(true);
+      await expect(user.checkPassword("password")).resolves.toBe(true);
     });
 
     test("should not match wrong password", async () => {
