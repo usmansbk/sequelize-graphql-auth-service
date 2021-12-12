@@ -112,7 +112,7 @@ export default class SequelizeDataSource extends DataSource {
 
   async update(id, fields) {
     try {
-      const item = await this.findOneById(id);
+      const item = await this.findByPk(id);
       const oldImage = item.toJSON();
 
       const newItem = await item.update(fields);
@@ -128,7 +128,7 @@ export default class SequelizeDataSource extends DataSource {
   }
 
   async destroy(id) {
-    const item = await this.findOneById(id);
+    const item = await this.findByPk(id);
     const oldImage = item.toJSON();
     await item.destroy();
     this.onDestroy(oldImage);
