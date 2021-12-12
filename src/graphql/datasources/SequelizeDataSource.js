@@ -81,8 +81,8 @@ export default class SequelizeDataSource extends DataSource {
     return { count, rows };
   }
 
-  async findOrCreate(queryOptions, fields) {
-    const [item, created] = await this.model.create(queryOptions, { fields });
+  async findOrCreate(queryOptions) {
+    const [item, created] = await this.model.create(queryOptions);
     this.prime(item);
 
     if (created) {
