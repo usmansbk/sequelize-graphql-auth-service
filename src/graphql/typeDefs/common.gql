@@ -1,3 +1,6 @@
+scalar Date
+scalar DateTime
+
 interface MutationResponse {
   success: Boolean!
   message: String!
@@ -6,8 +9,4 @@ interface MutationResponse {
 type FieldError {
   message: String!
   field: String!
-}
-
-interface FormErrors {
-  errors: [FieldError!]
 }

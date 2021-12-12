@@ -6,6 +6,8 @@ type User {
   email: String!
   phoneNumber: String
   locale: String!
+  createdAt: DateTime!
+  updatedAt: DateTime
 }
 
 input CreateUserInput {

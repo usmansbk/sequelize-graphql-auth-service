@@ -45,7 +45,7 @@ input PasswordResetInput {
   token: String!
 }
 
-type LoginMutationResponse implements MutationResponse & FormErrors {
+type LoginMutationResponse implements MutationResponse {
   success: Boolean!
   message: String!
   errors: [FieldError!]
