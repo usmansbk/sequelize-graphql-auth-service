@@ -32,16 +32,20 @@ export default class SequelizeDataSource extends DataSource {
     this.context = context;
   }
 
-  async onCreate(_newImage) {
+  onCreate(_newImage) {
     // Override in child class
   }
 
-  async onUpdate(_oldImage, _newImage) {
+  onUpdate(_oldImage, _newImage) {
     // Override in child class
   }
 
-  async onDestroy(_oldImage) {
+  onDestroy(_oldImage) {
     // Override in child class
+  }
+
+  onError(error) {
+    throw error;
   }
 
   async prime(item) {
@@ -94,25 +98,33 @@ export default class SequelizeDataSource extends DataSource {
   }
 
   async create(fields) {
-    const item = await this.model.create(fields);
-    const newImage = item.toJSON();
-    this.prime(item);
-    this.onCreate(newImage);
+    try {
+      const item = await this.model.create(fields);
+      const newImage = item.toJSON();
+      this.prime(item);
+      this.onCreate(newImage);
 
-    return item;
+      return item;
+    } catch (error) {
+      this.onError(error);
+    }
   }
 
   async update(id, fields) {
-    const item = await this.findOneById(id);
-    const oldImage = item.toJSON();
+    try {
+      const item = await this.findOneById(id);
+      const oldImage = item.toJSON();
 
-    const newItem = await item.update(fields);
-    const newImage = newItem.toJSON();
+      const newItem = await item.update(fields);
+      const newImage = newItem.toJSON();
 
-    this.prime(newItem);
-    this.onUpdate(oldImage, newImage);
+      this.prime(newItem);
+      this.onUpdate(oldImage, newImage);
 
-    return newItem;
+      return newItem;
+    } catch (error) {
+      this.onError(error);
+    }
   }
 
   async destroy(id) {
