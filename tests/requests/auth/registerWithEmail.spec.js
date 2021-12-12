@@ -1,9 +1,6 @@
 import { gql } from "apollo-server-express";
 import startServer from "~graph-api";
-import db from "~db/models";
-import { userAttributes } from "../../attributes";
-
-const { User } = db;
+import UserFactory from "../../factories/user";
 
 const REGISTER_WITH_EMAIL = gql`
   mutation RegisterWithEmail($input: CreateUserInput!) {
@@ -30,7 +27,7 @@ describe("registerWithEmail", () => {
     const result = await server.executeOperation({
       query: REGISTER_WITH_EMAIL,
       variables: {
-        input: userAttributes({ email: "test@email.com" }),
+        input: UserFactory.attributes(),
       },
     });
 
@@ -38,14 +35,28 @@ describe("registerWithEmail", () => {
   });
 
   test("register with used email", async () => {
-    const user = await User.create(userAttributes());
+    const existingUser = await UserFactory.create();
     const result = await server.executeOperation({
       query: REGISTER_WITH_EMAIL,
       variables: {
-        input: userAttributes({ email: user.email }),
+        input: UserFactory.attributes({ email: existingUser.email }),
       },
     });
 
-    expect(result.data?.registerWithEmail.success).toBe(true);
+    expect(result.data?.registerWithEmail.success).toBe(false);
+  });
+
+  test("register with used phoneNumber", async () => {
+    const existingUser = await UserFactory.create();
+    const result = await server.executeOperation({
+      query: REGISTER_WITH_EMAIL,
+      variables: {
+        input: UserFactory.attributes({
+          phoneNumber: existingUser.phoneNumber,
+        }),
+      },
+    });
+
+    expect(result.data?.registerWithEmail.success).toBe(false);
   });
 });

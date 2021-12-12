@@ -1,14 +1,11 @@
-import db from "~db/models";
-import { userAttributes } from "../attributes";
-
-const { User } = db;
+import UserFactory from "../factories/user";
 
 describe("User model", () => {
   describe("validate", () => {
     let user;
 
     beforeEach(() => {
-      user = User.build(userAttributes());
+      user = UserFactory.build();
     });
 
     test("should not allow null `firstName`", async () => {
@@ -61,7 +58,7 @@ describe("User model", () => {
     let user;
 
     beforeAll(async () => {
-      user = await User.create(userAttributes({ password: "password" }));
+      user = await UserFactory.create({ password: "password" });
     });
 
     test("should match correct password", async () => {

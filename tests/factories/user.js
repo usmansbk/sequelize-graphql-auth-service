@@ -1,6 +1,9 @@
 import faker from "faker";
+import db from "~db/models";
 
-export const userAttributes = (attr = {}) => {
+const { User } = db;
+
+const attributes = (attr = {}) => {
   const defaults = {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
@@ -12,3 +15,15 @@ export const userAttributes = (attr = {}) => {
 
   return Object.assign({}, defaults, attr);
 };
+
+const build = (attr) => User.build(attributes(attr));
+
+const create = (attr) => User.create(attributes(attr));
+
+const UserFactory = {
+  build,
+  create,
+  attributes,
+};
+
+export default UserFactory;
