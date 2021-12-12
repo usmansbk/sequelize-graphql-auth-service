@@ -69,16 +69,23 @@ export default (sequelize, DataTypes) => {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
+        unique: {
+          msg: "usedEmail",
+        },
         validate: {
           isEmail: {
+            msg: "invalidEmail",
+          },
+          notNull: {
             msg: "invalidEmail",
           },
         },
       },
       phoneNumber: {
         type: DataTypes.STRING,
-        unique: true,
+        unique: {
+          msg: "usedPhoneNumber",
+        },
         validate: {
           notEmpty: {
             msg: "invalidPhoneNumber",

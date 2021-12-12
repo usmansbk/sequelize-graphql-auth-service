@@ -23,7 +23,7 @@ describe("registerWithEmail", () => {
     await server.stop();
   });
 
-  test("register with new email", async () => {
+  test("should return authentication token", async () => {
     const result = await server.executeOperation({
       query: REGISTER_WITH_EMAIL,
       variables: {
@@ -34,25 +34,17 @@ describe("registerWithEmail", () => {
     expect(result.data?.registerWithEmail.success).toBe(true);
   });
 
-  test("register with used email", async () => {
-    const existingUser = await UserFactory.create();
-    const result = await server.executeOperation({
-      query: REGISTER_WITH_EMAIL,
-      variables: {
-        input: UserFactory.attributes({ email: existingUser.email }),
-      },
-    });
-
-    expect(result.data?.registerWithEmail.success).toBe(false);
-  });
-
-  test("register with used phoneNumber", async () => {
+  test("should return field errors", async () => {
     const existingUser = await UserFactory.create();
     const result = await server.executeOperation({
       query: REGISTER_WITH_EMAIL,
       variables: {
         input: UserFactory.attributes({
+          firstName: "",
+          lastName: "",
+          email: existingUser.email,
           phoneNumber: existingUser.phoneNumber,
+          locale: "12",
         }),
       },
     });
