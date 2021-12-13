@@ -23,6 +23,7 @@ export default {
         };
       }
     },
+    refreshToken() {},
     resendConfirmationEmail() {},
     loginWithEmail() {},
     requestEmailOTP() {},
