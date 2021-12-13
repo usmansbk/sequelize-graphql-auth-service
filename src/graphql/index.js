@@ -7,6 +7,7 @@ import log from "~config/logger";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 import { UserDS } from "./datasources";
+import * as JWT from "~utils/jwt";
 
 export const app = express();
 
@@ -20,6 +21,11 @@ export const createApolloServer = () => {
     dataSources: () => ({
       users: new UserDS(db.User),
     }),
+    context: () => {
+      return {
+        JWT,
+      };
+    },
   });
   return { server, httpServer };
 };

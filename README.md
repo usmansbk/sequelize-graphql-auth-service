@@ -56,3 +56,8 @@ postgres=# \password apollo-server-express
 # Create the database
 npx sequelize db:create
 ```
+
+## JWT
+
+This app makes use of JWT for authentication and other token generation. To sign your tokens,
+export the `JWT_SECRET_KEY` to your environment variables.
