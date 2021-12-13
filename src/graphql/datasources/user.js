@@ -1,16 +1,11 @@
-import { ValidationError } from "~utils/errors";
+import { formatErrors, ValidationError } from "~utils/errors";
 import SequelizeDataSource from "./SequelizeDataSource";
 
 export default class UserDS extends SequelizeDataSource {
   onError(error) {
     let e = error;
     if (error.errors) {
-      const formattedErrors = error.errors.map(({ path, message }) => ({
-        field: path,
-        message,
-      }));
-
-      e = new ValidationError("createUserFailed", formattedErrors);
+      e = new ValidationError("createUserFailed", formatErrors(error.errors));
     }
     super.onError(e);
   }

@@ -5,3 +5,12 @@ export class ValidationError extends Error {
     this.errors = errors;
   }
 }
+
+export function formatErrors(errors, locale) {
+  const formattedErrors = errors.map(({ path, message }) => ({
+    field: path,
+    message,
+  }));
+
+  return formattedErrors;
+}
