@@ -3,7 +3,7 @@ import en from "./locales/en";
 
 i18next.init({
   fallbackLng: "en",
-  debug: process.env.NODE_ENV === "development",
+  debug: false,
   resources: {
     en: {
       translation: en,
