@@ -1,4 +1,4 @@
-import { formatErrors, ValidationError } from "~utils/errors";
+import { ValidationError } from "~utils/errors";
 import sendMail from "~services/mailer";
 import { SIGNUP_FAILED } from "~helpers/constants";
 import SequelizeDataSource from "./SequelizeDataSource";
