@@ -24,12 +24,10 @@ export const createApolloServer = () => {
       users: new UserDS(db.User),
     }),
     context: async () => {
-      const t = i18n("en");
-
       return {
         JWT,
         redis,
-        t,
+        t: i18n("en"),
       };
     },
   });
