@@ -1,13 +1,19 @@
 export default {
   Mutation: {
-    async registerWithEmail(_, { input }, { dataSources }) {
+    async registerWithEmail(_, { input }, { dataSources, JWT, redis }) {
       try {
-        const user = await dataSources.users.createWithEmail(input);
-        // generate token
+        const { id, firstName } = await dataSources.users.createWithEmail(
+          input
+        );
+        const accessToken = JWT.sign({ userId: id });
+        const refreshToken = JWT.sign({ key: id }, "7d");
+        await redis.set(id, refreshToken);
+
         return {
           success: true,
-          message: `Welcome, ${user.firstName}!`,
-          token: "mockToken",
+          message: `Welcome, ${firstName}!`,
+          accessToken,
+          refreshToken,
         };
       } catch ({ errors, message }) {
         return {

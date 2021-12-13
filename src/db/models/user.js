@@ -1,5 +1,20 @@
 import { Model } from "sequelize";
 import bcrypt from "bcrypt";
+import {
+  FIRST_NAME_EMPTY,
+  FIRST_NAME_REQUIRED,
+  FIRST_NAME_LEN,
+  LAST_NAME_LEN,
+  LAST_NAME_REQUIRED,
+  LAST_NAME_EMPTY,
+  EMAIL_UNAVAILABLE,
+  INVALID_EMAIL,
+  PHONE_NUMBER_UNAVAILABLE,
+  INVALID_PHONE_NUMBER,
+  PASSWORD_LEN,
+  INVALID_PASSWORD,
+  INVALID_LOCALE,
+} from "~helpers/constants";
 
 export default (sequelize, DataTypes) => {
   class User extends Model {
@@ -29,15 +44,15 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          max: {
-            args: 100,
-            msg: "nameTooLong",
+          len: {
+            args: [2, 100],
+            msg: FIRST_NAME_LEN,
           },
           notNull: {
-            msg: "nameRequired",
+            msg: FIRST_NAME_REQUIRED,
           },
           notEmpty: {
-            msg: "emptyName",
+            msg: FIRST_NAME_EMPTY,
           },
         },
       },
@@ -45,15 +60,15 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          max: {
-            args: 100,
-            msg: "nameTooLong",
+          len: {
+            args: [2, 100],
+            msg: LAST_NAME_LEN,
           },
           notNull: {
-            msg: "nameRequired",
+            msg: LAST_NAME_REQUIRED,
           },
           notEmpty: {
-            msg: "emptyName",
+            msg: LAST_NAME_EMPTY,
           },
         },
       },
@@ -70,14 +85,14 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         unique: {
-          msg: "usedEmail",
+          msg: EMAIL_UNAVAILABLE,
         },
         validate: {
           isEmail: {
-            msg: "invalidEmail",
+            msg: INVALID_EMAIL,
           },
           notNull: {
-            msg: "invalidEmail",
+            msg: INVALID_EMAIL,
           },
         },
       },
@@ -89,11 +104,11 @@ export default (sequelize, DataTypes) => {
       phoneNumber: {
         type: DataTypes.STRING,
         unique: {
-          msg: "usedPhoneNumber",
+          msg: PHONE_NUMBER_UNAVAILABLE,
         },
         validate: {
           notEmpty: {
-            msg: "invalidPhoneNumber",
+            msg: INVALID_PHONE_NUMBER,
           },
         },
       },
@@ -103,13 +118,13 @@ export default (sequelize, DataTypes) => {
         validate: {
           len: {
             args: [6, 24],
-            msg: "invalidPasswordLength",
+            msg: PASSWORD_LEN,
           },
           notEmpty: {
-            msg: "invalidPassword",
+            msg: INVALID_PASSWORD,
           },
           notNull: {
-            msg: "invalidPassword",
+            msg: INVALID_PASSWORD,
           },
         },
       },
@@ -118,7 +133,7 @@ export default (sequelize, DataTypes) => {
         defaultValue: "en",
         validate: {
           isAlpha: {
-            msg: "invalidLocale",
+            msg: INVALID_LOCALE,
           },
         },
       },

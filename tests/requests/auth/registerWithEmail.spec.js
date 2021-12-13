@@ -7,7 +7,8 @@ const REGISTER_WITH_EMAIL = gql`
     registerWithEmail(input: $input) {
       message
       success
-      token
+      accessToken
+      refreshToken
       errors {
         message
       }
@@ -26,7 +27,7 @@ describe("registerWithEmail", () => {
     await server.stop();
   });
 
-  test("should return authentication token", async () => {
+  test("should return authentication tokens", async () => {
     const result = await server.executeOperation({
       query: REGISTER_WITH_EMAIL,
       variables: {
@@ -34,7 +35,8 @@ describe("registerWithEmail", () => {
       },
     });
 
-    expect(result.data?.registerWithEmail.token).toBeDefined();
+    expect(result.data?.registerWithEmail.accessToken).toBeDefined();
+    expect(result.data?.registerWithEmail.refreshToken).toBeDefined();
   });
 
   test("should return field errors", async () => {

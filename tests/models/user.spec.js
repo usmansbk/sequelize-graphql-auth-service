@@ -1,3 +1,15 @@
+import {
+  EMAIL_UNAVAILABLE,
+  FIRST_NAME_EMPTY,
+  FIRST_NAME_REQUIRED,
+  INVALID_EMAIL,
+  INVALID_LOCALE,
+  LAST_NAME_EMPTY,
+  LAST_NAME_REQUIRED,
+  PASSWORD_LEN,
+  PHONE_NUMBER_UNAVAILABLE,
+  INVALID_PHONE_NUMBER,
+} from "~helpers/constants";
 import UserFactory from "../factories/user";
 
 describe("User model", () => {
@@ -15,48 +27,52 @@ describe("User model", () => {
     test("should not allow null `firstName`", async () => {
       user.firstName = null;
       await expect(user.validate(["firstName"])).rejects.toThrow(
-        "nameRequired"
+        FIRST_NAME_REQUIRED
       );
     });
 
     test("should not allow empty `firstName`", async () => {
       user.firstName = " ";
-      await expect(user.validate(["firstName"])).rejects.toThrow("emptyName");
+      await expect(user.validate(["firstName"])).rejects.toThrow(
+        FIRST_NAME_EMPTY
+      );
     });
 
     test("should not allow null `lastName`", async () => {
       user.lastName = null;
-      await expect(user.validate(["lastName"])).rejects.toThrow("nameRequired");
+      await expect(user.validate(["lastName"])).rejects.toThrow(
+        LAST_NAME_REQUIRED
+      );
     });
 
     test("should not allow empty `lastName`", async () => {
       user.lastName = " ";
-      await expect(user.validate(["lastName"])).rejects.toThrow("emptyName");
+      await expect(user.validate(["lastName"])).rejects.toThrow(
+        LAST_NAME_EMPTY
+      );
     });
 
     test("should not allow invalid `email`", async () => {
       user.email = "siuuuuu";
-      await expect(user.validate(["email"])).rejects.toThrow("invalidEmail");
+      await expect(user.validate(["email"])).rejects.toThrow(INVALID_EMAIL);
     });
 
     test("should not allow invalid `phoneNumber`", async () => {
       user.phoneNumber = " ";
       await expect(user.validate(["phoneNumber"])).rejects.toThrow(
-        "invalidPhoneNumber"
+        INVALID_PHONE_NUMBER
       );
     });
 
     test("should have `password` length [6 - 24] characters long", async () => {
       user.password = "12345";
-      await expect(user.validate(["password"])).rejects.toThrow(
-        "invalidPasswordLength"
-      );
+      await expect(user.validate(["password"])).rejects.toThrow(PASSWORD_LEN);
     });
 
     test("should not allow invalid `locale`", async () => {
       user.locale = "1234";
       await expect(user.validate(["phoneNumber"])).rejects.toThrow(
-        "invalidLocale"
+        INVALID_LOCALE
       );
     });
 
@@ -67,13 +83,13 @@ describe("User model", () => {
     test("should have unique `email`", async () => {
       await expect(
         UserFactory.create({ email: existingUser.email })
-      ).rejects.toThrow("usedEmail");
+      ).rejects.toThrow(EMAIL_UNAVAILABLE);
     });
 
     test("should have unique `phoneNumber`", async () => {
       await expect(
         UserFactory.create({ phoneNumber: existingUser.phoneNumber })
-      ).rejects.toThrow("usedPhoneNumber");
+      ).rejects.toThrow(PHONE_NUMBER_UNAVAILABLE);
     });
   });
 
