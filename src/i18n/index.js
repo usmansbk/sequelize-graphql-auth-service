@@ -4,7 +4,7 @@ import en from "./locales/en/translation";
 export const loadTranslations = () =>
   i18next.init({
     fallbackLng: "en",
-    debug: true,
+    debug: false,
     resources: {
       en: {
         translation: en,

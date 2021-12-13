@@ -5,7 +5,7 @@ import http from "http";
 import db from "~db/models";
 import log from "~config/logger";
 import redis from "~services/redis";
-import * as JWT from "~utils/jwt";
+import * as jwt from "~utils/jwt";
 import { loadTranslations, getTranslation } from "~i18n";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
@@ -26,7 +26,7 @@ export const createApolloServer = () => {
     context: async () => {
       const t = getTranslation("en");
       return {
-        JWT,
+        jwt,
         redis,
         t,
       };
