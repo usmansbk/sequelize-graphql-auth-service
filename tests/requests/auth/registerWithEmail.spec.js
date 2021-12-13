@@ -7,7 +7,7 @@ const REGISTER_WITH_EMAIL = gql`
     registerWithEmail(input: $input) {
       message
       success
-      token
+      accessToken
       errors {
         message
       }
@@ -34,7 +34,7 @@ describe("registerWithEmail", () => {
       },
     });
 
-    expect(result.data?.registerWithEmail.token).toBeDefined();
+    expect(result.data?.registerWithEmail.accessToken).toBeDefined();
   });
 
   test("should return field errors", async () => {

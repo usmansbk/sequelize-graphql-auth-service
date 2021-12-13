@@ -3,12 +3,12 @@ export default {
     async registerWithEmail(_, { input }, { dataSources, JWT }) {
       try {
         const user = await dataSources.users.createWithEmail(input);
-        const token = JWT.sign({ id: user.id });
+        const accessToken = JWT.sign({ id: user.id });
 
         return {
           success: true,
           message: `Welcome, ${user.firstName}!`,
-          token,
+          accessToken,
         };
       } catch ({ errors, message }) {
         return {

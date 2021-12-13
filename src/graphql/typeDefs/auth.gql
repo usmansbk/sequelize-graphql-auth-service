@@ -49,11 +49,13 @@ type LoginMutationResponse implements MutationResponse {
   success: Boolean!
   message: String!
   errors: [FieldError!]
-  token: String
+  accessToken: String
+  refreshToken: String
 }
 
 type AuthMutationResponse implements MutationResponse {
   success: Boolean!
   message: String!
-  token: String
+  accessToken: String
+  refreshToken: String
 }
