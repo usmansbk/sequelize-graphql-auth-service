@@ -25,7 +25,6 @@ export const createApolloServer = () => {
     }),
     context: async () => {
       const t = i18n("en");
-      console.log(t("hello"));
       return {
         jwt,
         redis,
