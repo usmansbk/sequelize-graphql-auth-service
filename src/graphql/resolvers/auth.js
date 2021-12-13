@@ -1,3 +1,5 @@
+import { WELCOME_NEW_USER } from "~helpers/constants";
+
 export default {
   Mutation: {
     async registerWithEmail(_, { input }, { dataSources, jwt, redis, t }) {
@@ -11,7 +13,7 @@ export default {
 
         return {
           success: true,
-          message: t("welcome", { firstName }),
+          message: t(WELCOME_NEW_USER, { firstName }),
           accessToken,
           refreshToken,
         };
