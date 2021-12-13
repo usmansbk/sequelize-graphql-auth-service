@@ -18,14 +18,12 @@ export default class UserDS extends SequelizeDataSource {
   async createWithEmail(fields) {
     let user = await this.create(fields);
 
-    if (process.env.NODE_ENV !== "test") {
-      sendMail({
-        to: user.email,
-        subject: "Welcome",
-        text: "Welcome",
-        html: "<h1>Welcome</h1>",
-      });
-    }
+    sendMail({
+      to: user.email,
+      subject: "Welcome",
+      text: "Welcome",
+      html: "<h1>Welcome</h1>",
+    });
 
     return user.toJSON();
   }

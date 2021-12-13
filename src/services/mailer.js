@@ -3,7 +3,7 @@ import * as aws from "@aws-sdk/client-ses";
 import { defaultProvider } from "@aws-sdk/credential-provider-node";
 import log from "~config/logger";
 
-const { MAILER_FROM, MAILER_HOST_DEV, AWS_REGION } = process.env;
+const { MAILER_FROM, MAILER_HOST_DEV, AWS_REGION, NODE_ENV } = process.env;
 
 const ses = new aws.SES({
   apiVersion: "2010-12-01",
@@ -12,10 +12,14 @@ const ses = new aws.SES({
 });
 
 export default async function sendMail({ to, subject, text, html }) {
+  if (NODE_ENV === "test") {
+    return;
+  }
+
   try {
     let mailConfig;
 
-    if (process.env.NODE_ENV === "production") {
+    if (NODE_ENV === "production") {
       mailConfig = {
         SES: { ses, aws },
       };
@@ -44,8 +48,10 @@ export default async function sendMail({ to, subject, text, html }) {
 
     log.info(`Message sent: ${info.messageId}`);
 
-    log.info(`Preview URL: ${nodemailer.getTestMessageUrl(info)}`);
+    if (NODE_ENV === "development") {
+      log.info(`Preview URL: ${nodemailer.getTestMessageUrl(info)}`);
+    }
   } catch (e) {
-    log.error(e);
+    log.error(e.message);
   }
 }

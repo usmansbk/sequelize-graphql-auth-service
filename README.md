@@ -73,7 +73,9 @@ While in production, a Redis server `REDIS_URL` environment variable is required
 
 ## [Mailer](https://nodemailer.com/transports/ses/)
 
-The server makes use of AWS SES to send emails. Set the following environment variables to get the mailer working in development and testing environment and ensure you have the right [AWS IAM Policy](https://nodemailer.com/transports/ses/#example-3) set for SES.
+The server makes use of AWS SES to send emails. Set the following environment variables to get the mailer working in all environments and ensure you have the right [AWS IAM Policy](https://nodemailer.com/transports/ses/#example-3) set for SES.
+
+NOTE: Emails are not sent in testing environment
 
 ```sh
 MAILER_FROM="Usman from Template" <usman@appname.com>
