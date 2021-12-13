@@ -1,12 +1,10 @@
 import i18next from "i18next";
-import en from "./locales/en";
+import en from "./locales/en/translation";
 
-export const i18n = i18next;
-
-export const init = () =>
+export const loadTranslations = () =>
   i18next.init({
     fallbackLng: "en",
-    debug: false,
+    debug: true,
     resources: {
       en: {
         translation: en,
@@ -14,4 +12,4 @@ export const init = () =>
     },
   });
 
-export default (lng) => i18next.getFixedT(lng);
+export const getTranslation = (lng) => i18next.getFixedT(lng || "en");
