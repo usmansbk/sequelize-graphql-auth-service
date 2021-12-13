@@ -1,15 +1,13 @@
 import nodemailer from "nodemailer";
+import aws from "@aws-sdk/client-ses";
 import log from "~config/logger";
 
-const {
-  MAILER_FROM,
-  MAILER_HOST,
-  MAILER_HOST_DEV,
-  MAILER_USERNAME,
-  MAILER_PASSWORD,
-  MAILER_USERNAME_DEV,
-  MAILER_PASSWORD_DEV,
-} = process.env;
+const { MAILER_FROM, MAILER_HOST_DEV, AWS_REGION } = process.env;
+
+const ses = new aws.SES({
+  apiVersion: "2010-12-01",
+  region: AWS_REGION,
+});
 
 export default async function sendMail({ to, subject, text, html }) {
   try {
@@ -17,22 +15,17 @@ export default async function sendMail({ to, subject, text, html }) {
 
     if (process.env.NODE_ENV === "production") {
       mailConfig = {
-        host: MAILER_HOST,
-        port: 587,
-        secure: false,
-        auth: {
-          user: MAILER_USERNAME,
-          pass: MAILER_PASSWORD,
-        },
+        SES: { ses, aws },
       };
     } else {
+      const testAccount = await nodemailer.createTestAccount();
       mailConfig = {
         host: MAILER_HOST_DEV,
         port: 587,
         secure: false,
         auth: {
-          user: MAILER_USERNAME_DEV,
-          pass: MAILER_PASSWORD_DEV,
+          user: testAccount.user,
+          pass: testAccount.pass,
         },
       };
     }

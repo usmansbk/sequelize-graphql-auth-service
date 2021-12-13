@@ -20,7 +20,7 @@ export default class UserDS extends SequelizeDataSource {
 
     if (process.env.NODE_ENV !== "test") {
       sendMail({
-        to: "usmansbk@gmail.com",
+        to: user.email,
         subject: "Welcome",
         text: "Welcome",
         html: "<h1>Welcome</h1>",
