@@ -13,3 +13,5 @@ export const INVALID_PASSWORD = "invalidPassword";
 export const INVALID_LOCALE = "invalidLocale";
 
 export const INVALID_JWT_TOKEN = "invalidToken";
+
+export const SIGNUP_FAILED = "signUpFailed";

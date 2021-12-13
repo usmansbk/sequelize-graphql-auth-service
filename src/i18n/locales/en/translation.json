@@ -1,3 +1,5 @@
 {
-  "hello": "Hello World!"
+  "emailUsed": "Email is already registered",
+  "signUpFailed": "Sign up failed",
+  "welcome": "Welcome, {{firstName}}!"
 }

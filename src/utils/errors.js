@@ -6,10 +6,10 @@ export class ValidationError extends Error {
   }
 }
 
-export function formatErrors(errors, locale) {
+export function formatErrors(errors, t) {
   const formattedErrors = errors.map(({ path, message }) => ({
     field: path,
-    message,
+    message: t(message),
   }));
 
   return formattedErrors;
