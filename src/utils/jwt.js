@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import { INVALID_JWT_TOKEN } from "~helpers/constants";
 const privateKey = process.env.JWT_SECRET_KEY;
 
 /**
@@ -15,6 +16,6 @@ export function verify(token) {
   try {
     return jwt.verify(token, privateKey);
   } catch (error) {
-    throw new Error("invalidToken");
+    throw new Error(INVALID_JWT_TOKEN);
   }
 }

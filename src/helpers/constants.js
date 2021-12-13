@@ -11,3 +11,5 @@ export const INVALID_PHONE_NUMBER = "invalidPhoneNumber";
 export const PASSWORD_LEN = "invalidPasswordLength";
 export const INVALID_PASSWORD = "invalidPassword";
 export const INVALID_LOCALE = "invalidLocale";
+
+export const INVALID_JWT_TOKEN = "invalidToken";
