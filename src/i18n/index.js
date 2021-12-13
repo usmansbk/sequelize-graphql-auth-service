@@ -1,15 +1,20 @@
 import i18next from "i18next";
-import en from "./locales/en/translation";
+import Backend from "i18next-fs-backend";
+import { join } from "path";
+import { readdirSync, lstatSync } from "fs";
 
-export const loadTranslations = () =>
-  i18next.init({
-    fallbackLng: "en",
-    debug: false,
-    resources: {
-      en: {
-        translation: en,
-      },
-    },
-  });
+const localesDir = join(__dirname, "./locales");
 
-export const getTranslation = (lng) => i18next.getFixedT(lng || "en");
+i18next.use(Backend).init({
+  initImmediate: false,
+  fallbackLng: "en",
+  preload: readdirSync(localesDir).filter((fileName) => {
+    const joinedPath = join(localesDir, fileName);
+    return lstatSync(joinedPath).isDirectory();
+  }),
+  backend: {
+    loadPath: join(localesDir, "{{lng}}/{{ns}}.json"),
+  },
+});
+
+export default (lng) => i18next.getFixedT(lng || "en");

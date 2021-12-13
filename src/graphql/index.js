@@ -6,7 +6,7 @@ import db from "~db/models";
 import log from "~config/logger";
 import redis from "~services/redis";
 import * as jwt from "~utils/jwt";
-import { loadTranslations, getTranslation } from "~i18n";
+import i18n from "~i18n";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 import { UserDS } from "./datasources";
@@ -24,7 +24,8 @@ export const createApolloServer = () => {
       users: new UserDS(db.User),
     }),
     context: async () => {
-      const t = getTranslation("en");
+      const t = i18n("en");
+      console.log(t("hello"));
       return {
         jwt,
         redis,
@@ -36,7 +37,6 @@ export const createApolloServer = () => {
 };
 
 const startApolloServer = async () => {
-  await loadTranslations();
   const { server, httpServer } = createApolloServer();
   await server.start();
   server.applyMiddleware({ app });
