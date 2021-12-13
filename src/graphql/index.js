@@ -4,6 +4,7 @@ import express from "express";
 import http from "http";
 import db from "~db/models";
 import log from "~config/logger";
+import redis from "~services/redis";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 import { UserDS } from "./datasources";
@@ -24,6 +25,7 @@ export const createApolloServer = () => {
     context: () => {
       return {
         JWT,
+        redis,
       };
     },
   });
