@@ -1,21 +1,46 @@
 import nodemailer from "nodemailer";
 import log from "~config/logger";
 
+const {
+  MAILER_FROM,
+  MAILER_HOST,
+  MAILER_HOST_DEV,
+  MAILER_USERNAME,
+  MAILER_PASSWORD,
+  MAILER_USERNAME_DEV,
+  MAILER_PASSWORD_DEV,
+} = process.env;
+
 export default async function sendMail({ to, subject, text, html }) {
   try {
-    let testAccount = await nodemailer.createTestAccount();
+    let mailConfig;
 
-    let transporter = nodemailer.createTransport({
-      host: process.env.MAILER_HOST,
-      port: process.env.MAILER_PORT,
-      auth: {
-        user: testAccount.user,
-        pass: testAccount.pass,
-      },
-    });
+    if (process.env.NODE_ENV === "production") {
+      mailConfig = {
+        host: MAILER_HOST,
+        port: 587,
+        secure: false,
+        auth: {
+          user: MAILER_USERNAME,
+          pass: MAILER_PASSWORD,
+        },
+      };
+    } else {
+      mailConfig = {
+        host: MAILER_HOST_DEV,
+        port: 587,
+        secure: false,
+        auth: {
+          user: MAILER_USERNAME_DEV,
+          pass: MAILER_PASSWORD_DEV,
+        },
+      };
+    }
+
+    let transporter = nodemailer.createTransport(mailConfig);
 
     let info = await transporter.sendMail({
-      from: process.env.MAILER_FROM,
+      from: MAILER_FROM,
       to,
       subject,
       text,
