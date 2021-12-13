@@ -7,10 +7,7 @@ export default class UserDS extends SequelizeDataSource {
   onError(error) {
     let e = error;
     if (error.errors) {
-      e = new ValidationError(
-        SIGNUP_FAILED,
-        formatErrors(error.errors, this.context.t)
-      );
+      e = new ValidationError(SIGNUP_FAILED, error.errors, this.context.t);
     }
     super.onError(e);
   }
