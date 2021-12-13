@@ -61,3 +61,11 @@ npx sequelize db:create
 
 This app makes use of JWT for authentication and other token generation. To sign your tokens,
 export the `JWT_SECRET_KEY` to your environment variables.
+
+Install a development redis server for refresh token rotation.
+
+```sh
+sudo apt install redis-server
+```
+
+Ensure you have a production redis server `REDIS_URL` environment variable set.
