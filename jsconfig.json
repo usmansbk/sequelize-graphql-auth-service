@@ -9,7 +9,7 @@
       "~services/*": ["src/services/*"],
       "~db/*": ["src/db/*"],
       "~helpers/*": ["src/helpers/*"],
-      "~locales/*": ["src/locales/*"]
+      "~i18n/*": ["src/i18n/*"]
     }
   }
 }
