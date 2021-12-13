@@ -5,8 +5,8 @@ export default {
         const { id, firstName } = await dataSources.users.createWithEmail(
           input
         );
-        const accessToken = JWT.sign({ id });
-        const refreshToken = JWT.sign(id, "7d");
+        const accessToken = JWT.sign({ userId: id });
+        const refreshToken = JWT.sign({ key: id }, "7d");
         await redis.set(id, refreshToken);
 
         return {
