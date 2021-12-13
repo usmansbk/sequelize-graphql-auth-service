@@ -5,10 +5,11 @@ import http from "http";
 import db from "~db/models";
 import log from "~config/logger";
 import redis from "~services/redis";
+import * as jwt from "~utils/jwt";
+import i18n from "~i18n";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 import { UserDS } from "./datasources";
-import * as JWT from "~utils/jwt";
 
 export const app = express();
 
@@ -22,10 +23,12 @@ export const createApolloServer = () => {
     dataSources: () => ({
       users: new UserDS(db.User),
     }),
-    context: () => {
+    context: async () => {
+      const t = i18n("en");
       return {
-        JWT,
+        jwt,
         redis,
+        t,
       };
     },
   });
