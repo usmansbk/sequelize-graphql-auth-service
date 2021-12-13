@@ -11,4 +11,4 @@ i18next.init({
   },
 });
 
-export default (lng) => i18next.getFixedT(lng);
+export default (lng) => i18next.getFixedT(lng || "en");
