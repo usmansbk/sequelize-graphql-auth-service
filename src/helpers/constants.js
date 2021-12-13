@@ -1,3 +1,4 @@
+// i18n keys
 export const FIRST_NAME_LEN = "firstNameLength";
 export const FIRST_NAME_REQUIRED = "firstNameRequired";
 export const FIRST_NAME_EMPTY = "firstNameEmpty";
@@ -11,5 +12,6 @@ export const INVALID_PHONE_NUMBER = "invalidPhoneNumber";
 export const PASSWORD_LEN = "invalidPasswordLength";
 export const INVALID_PASSWORD = "invalidPassword";
 export const INVALID_LOCALE = "invalidLocale";
-
 export const INVALID_JWT_TOKEN = "invalidToken";
+export const SIGNUP_FAILED = "signUpFailed";
+export const WELCOME_NEW_USER = "welcome";

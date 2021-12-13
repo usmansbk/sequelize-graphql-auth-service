@@ -1,6 +1,8 @@
+import { WELCOME_NEW_USER } from "~helpers/constants";
+
 export default {
   Mutation: {
-    async registerWithEmail(_, { input }, { dataSources, jwt, redis }) {
+    async registerWithEmail(_, { input }, { dataSources, jwt, redis, t }) {
       try {
         const { id, firstName } = await dataSources.users.createWithEmail(
           input
@@ -11,14 +13,14 @@ export default {
 
         return {
           success: true,
-          message: `Welcome, ${firstName}!`,
+          message: t(WELCOME_NEW_USER, { firstName }),
           accessToken,
           refreshToken,
         };
       } catch ({ errors, message }) {
         return {
           success: false,
-          message,
+          message: t(message),
           errors,
         };
       }
