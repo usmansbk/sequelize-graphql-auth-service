@@ -1,5 +1,7 @@
 # Apollo Express GraphQL Server Template
 
+> This project assumes an Ubuntu 20 environment
+
 ## Features
 
 - [ ] Email authentication
@@ -9,7 +11,7 @@
 - [ ] Profile (Update and Delete)
 - [ ] File Upload
 - [ ] Push Notification
-- [ ] i18n
+- [x] i18n
 
 ## Prerequisites
 
@@ -57,15 +59,16 @@ postgres=# \password apollo-server-express
 npx sequelize db:create
 ```
 
-## JWT
+## [JSON Web Token](https://github.com/auth0/node-jsonwebtoken#readme)
 
-This app makes use of JWT for authentication and other token generation. To sign your tokens,
-export the `JWT_SECRET_KEY` to your environment variables.
+This app makes use of JWT for authentication and other token generation. A `JWT_SECRET_KEY` is required for signing and verification of tokens.
 
-Install a development redis server for refresh token rotation.
+In development and test environment, a local redis server is required
 
 ```sh
 sudo apt install redis-server
 ```
 
-Ensure you have a production redis server `REDIS_URL` environment variable set.
+While in production, a Redis server `REDIS_URL` environment variable is required.
+
+## Mailer
