@@ -1,6 +1,4 @@
 import jwt from "jsonwebtoken";
-import log from "~config/logger";
-import { INVALID_JWT_TOKEN } from "~helpers/constants";
 const privateKey = process.env.JWT_SECRET_KEY;
 
 /**
@@ -8,16 +6,9 @@ const privateKey = process.env.JWT_SECRET_KEY;
  * Buffer or string payloads are not checked for JSON validity.
  */
 export function sign(payload, expiresIn = "15m") {
-  const token = jwt.sign(payload, privateKey, { expiresIn });
-
-  return token;
+  return jwt.sign(payload, privateKey, { expiresIn });
 }
 
 export function verify(token) {
-  try {
-    return jwt.verify(token, privateKey);
-  } catch (error) {
-    log.error(error);
-    throw new Error(INVALID_JWT_TOKEN);
-  }
+  return jwt.verify(token, privateKey);
 }
