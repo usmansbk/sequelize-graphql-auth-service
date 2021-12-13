@@ -15,6 +15,6 @@ export default class UserDS extends SequelizeDataSource {
 
     // send verification email
 
-    return user;
+    return user.toJSON();
   }
 }
