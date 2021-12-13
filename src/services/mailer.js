@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
-import aws from "@aws-sdk/client-ses";
+import * as aws from "@aws-sdk/client-ses";
+import { defaultProvider } from "@aws-sdk/credential-provider-node";
 import log from "~config/logger";
 
 const { MAILER_FROM, MAILER_HOST_DEV, AWS_REGION } = process.env;
@@ -7,6 +8,7 @@ const { MAILER_FROM, MAILER_HOST_DEV, AWS_REGION } = process.env;
 const ses = new aws.SES({
   apiVersion: "2010-12-01",
   region: AWS_REGION,
+  defaultProvider,
 });
 
 export default async function sendMail({ to, subject, text, html }) {
