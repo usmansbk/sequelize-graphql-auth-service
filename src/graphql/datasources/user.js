@@ -1,7 +1,7 @@
 import sendMail from "~services/mailer";
 import { SIGNUP_FAILED } from "~helpers/constants";
 import SequelizeDataSource from "./SequelizeDataSource";
-import FieldErrors from "~utils/errors/FieldError";
+import FieldErrors from "~utils/errors/FieldErrors";
 
 export default class UserDS extends SequelizeDataSource {
   onError(error) {
