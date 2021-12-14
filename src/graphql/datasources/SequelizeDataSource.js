@@ -8,6 +8,8 @@ import log from "~config/logger";
  * It is configured with a Dataloader to prevent the N+1 problem (loading the same object multiple times during a single request).
  *
  * The onCreate, onUpdate, and onDestroy hooks can be overwritten in the child classes.
+ *
+ * Subclasses with catch exceptions they can handle and rethrow unknown errors
  */
 export default class SequelizeDataSource extends DataSource {
   constructor(model) {

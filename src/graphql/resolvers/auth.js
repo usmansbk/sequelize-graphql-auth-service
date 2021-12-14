@@ -1,4 +1,4 @@
-import MutationError from "utils/errors/MutationError";
+import MutationError from "~utils/errors/MutationError";
 import { WELCOME_NEW_USER } from "~helpers/constants";
 
 export default {
