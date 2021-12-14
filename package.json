@@ -14,18 +14,18 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.16.0",
-    "@babel/core": "^7.16.0",
-    "@babel/node": "^7.16.0",
-    "@babel/plugin-transform-runtime": "^7.16.4",
-    "@babel/preset-env": "^7.16.4",
-    "@babel/register": "^7.16.0",
-    "babel-jest": "^27.4.4",
+    "@babel/core": "^7.16.5",
+    "@babel/node": "^7.16.5",
+    "@babel/plugin-transform-runtime": "^7.16.5",
+    "@babel/preset-env": "^7.16.5",
+    "@babel/register": "^7.16.5",
+    "babel-jest": "^27.4.5",
     "babel-plugin-module-resolver": "^4.1.0",
     "eslint": "^8.4.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.3.0",
     "faker": "^5.5.3",
-    "jest": "^27.4.4",
+    "jest": "^27.4.5",
     "nodemon": "^2.0.15",
     "prettier": "2.5.1",
     "sequelize-cli": "^6.3.0"
@@ -43,6 +43,7 @@
     "cls-hooked": "^4.2.2",
     "dataloader": "^2.0.0",
     "dotenv": "^10.0.0",
+    "email-templates": "^8.0.8",
     "express": "^4.17.1",
     "graphql": "^16.1.0",
     "graphql-iso-date": "^3.6.1",
@@ -54,6 +55,7 @@
     "nodemailer": "^6.7.2",
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.12.0-beta.2"
+    "pug": "^3.0.2",
+    "sequelize": "^6.12.0-beta.3"
   }
 }
