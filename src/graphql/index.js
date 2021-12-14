@@ -6,12 +6,14 @@ import db from "~db/models";
 import log from "~config/logger";
 import redis from "~services/redis";
 import * as jwt from "~utils/jwt";
-import i18n from "~i18n";
+import i18n, { useLanguageMiddleware } from "~i18n";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 import { UserDS } from "./datasources";
 
 export const app = express();
+
+useLanguageMiddleware(app);
 
 export const createApolloServer = () => {
   const httpServer = http.createServer(app);
@@ -23,12 +25,14 @@ export const createApolloServer = () => {
     dataSources: () => ({
       users: new UserDS(db.User),
     }),
-    context: async () => {
-      const t = i18n("en");
+    context: async ({ req }) => {
+      const locale = req.language;
+      const t = i18n(locale);
       return {
         jwt,
         redis,
         t,
+        locale,
       };
     },
   });
