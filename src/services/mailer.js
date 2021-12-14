@@ -35,17 +35,9 @@ const email = new Email({
   subjectPrefix: env === "production" ? false : `[${env.toUpperCase()}] `,
 });
 
-export default async function sendMail() {
+export default async function sendMail({ template, message, locals }) {
   try {
-    const info = await email.send({
-      template: "mars",
-      message: {
-        to: "usmansbk@gmail.com",
-      },
-      locals: {
-        name: "Elon",
-      },
-    });
+    const info = await email.send({ template, message, locals });
 
     log.info(`Message sent: ${info.messageId}`);
   } catch (e) {
