@@ -1,13 +1,13 @@
-import { ValidationError } from "~utils/errors";
 import sendMail from "~services/mailer";
 import { SIGNUP_FAILED } from "~helpers/constants";
 import SequelizeDataSource from "./SequelizeDataSource";
+import FieldErrors from "~utils/errors/FieldError";
 
 export default class UserDS extends SequelizeDataSource {
   onError(error) {
     let e = error;
     if (error.errors) {
-      e = new ValidationError(SIGNUP_FAILED, error.errors, this.context.t);
+      e = new FieldErrors(SIGNUP_FAILED, error.errors, this.context.t);
     }
     super.onError(e);
   }
