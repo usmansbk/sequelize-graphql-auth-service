@@ -31,18 +31,6 @@ export default {
         }
       }
     },
-    refreshToken() {},
-    resendConfirmationEmail() {},
-    loginWithEmail() {},
-    requestEmailOTP() {},
-    requestSmsOTP() {},
-    loginWithEmailOTP() {},
-    loginWithSmsOTP() {},
-    loginWithSocialProvider() {},
-    requestPasswordReset() {},
-    resetPassword() {},
-    requestDeleteAccount() {},
-    deleteAccount() {},
-    logout() {},
   },
+  resendConfirmationEmail() {},
 };
