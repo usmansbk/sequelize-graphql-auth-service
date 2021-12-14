@@ -1,5 +1,5 @@
 import { gql } from "apollo-server-express";
-import startServer from "~graph-api";
+import startServer from "~graph-api/testServer";
 import UserFactory from "../../factories/user";
 
 const REGISTER_WITH_EMAIL = gql`
