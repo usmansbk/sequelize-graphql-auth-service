@@ -1,6 +1,5 @@
 import { DataSource } from "apollo-datasource";
 import DataLoader from "dataloader";
-import log from "~config/logger";
 
 /**
  * The SequelizeDataSource abstract class helps you query data from an SQL database. Your server
@@ -8,6 +7,8 @@ import log from "~config/logger";
  * It is configured with a Dataloader to prevent the N+1 problem (loading the same object multiple times during a single request).
  *
  * The onCreate, onUpdate, and onDestroy hooks can be overwritten in the child classes.
+ *
+ * Subclasses with catch exceptions they can handle and rethrow unknown errors
  */
 export default class SequelizeDataSource extends DataSource {
   constructor(model) {
@@ -45,11 +46,8 @@ export default class SequelizeDataSource extends DataSource {
     // Override in child class
   }
 
-  onError(error) {
-    if (process.env.NODE_ENV !== "test") {
-      log.error(error);
-    }
-    throw error;
+  onError(e) {
+    throw e;
   }
 
   async prime(item) {

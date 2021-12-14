@@ -15,3 +15,4 @@ export const INVALID_LOCALE = "invalidLocale";
 export const INVALID_JWT_TOKEN = "invalidToken";
 export const SIGNUP_FAILED = "signUpFailed";
 export const WELCOME_NEW_USER = "welcome";
+export const VALIDATION_ERROR = "validationError";

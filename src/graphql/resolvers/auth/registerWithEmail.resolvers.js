@@ -1,3 +1,4 @@
+import MutationError from "~utils/errors/MutationError";
 import { WELCOME_NEW_USER } from "~helpers/constants";
 
 export default {
@@ -17,26 +18,19 @@ export default {
           accessToken,
           refreshToken,
         };
-      } catch ({ errors, message }) {
-        return {
-          success: false,
-          message: t(message),
-          errors,
-        };
+      } catch (e) {
+        if (e instanceof MutationError) {
+          const { errors } = e.cause;
+          return {
+            success: false,
+            message: e.message,
+            errors,
+          };
+        } else {
+          throw e;
+        }
       }
     },
-    refreshToken() {},
     resendConfirmationEmail() {},
-    loginWithEmail() {},
-    requestEmailOTP() {},
-    requestSmsOTP() {},
-    loginWithEmailOTP() {},
-    loginWithSmsOTP() {},
-    loginWithSocialProvider() {},
-    requestPasswordReset() {},
-    resetPassword() {},
-    requestDeleteAccount() {},
-    deleteAccount() {},
-    logout() {},
   },
 };

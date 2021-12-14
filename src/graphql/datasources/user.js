@@ -1,30 +1,30 @@
-import { formatErrors, ValidationError } from "~utils/errors";
+import { ValidationError, UniqueConstraintError } from "sequelize";
 import sendMail from "~services/mailer";
+import FieldErrors from "~utils/errors/FieldErrors";
+import MutationError from "~utils/errors/MutationError";
 import { SIGNUP_FAILED } from "~helpers/constants";
 import SequelizeDataSource from "./SequelizeDataSource";
 
 export default class UserDS extends SequelizeDataSource {
-  onError(error) {
-    let e = error;
-    if (error.errors) {
-      e = new ValidationError(
-        SIGNUP_FAILED,
-        formatErrors(error.errors, this.context.t)
-      );
-    }
-    super.onError(e);
-  }
-
   async createWithEmail(fields) {
-    let user = await this.create(fields);
+    try {
+      let user = await this.create(fields);
 
-    sendMail({
-      to: user.email,
-      subject: "Welcome",
-      text: "Welcome",
-      html: "<h1>Welcome</h1>",
-    });
+      sendMail({
+        to: user.email,
+        subject: "Welcome",
+        text: "Welcome",
+        html: "<h1>Welcome</h1>",
+      });
 
-    return user.toJSON();
+      return user.toJSON();
+    } catch (e) {
+      if (e instanceof ValidationError || e instanceof UniqueConstraintError) {
+        const cause = new FieldErrors(e.message, e.errors, this.context.t);
+        throw new MutationError(SIGNUP_FAILED, cause);
+      } else {
+        throw e;
+      }
+    }
   }
 }
