@@ -1,5 +1,5 @@
 import { ValidationError, UniqueConstraintError } from "sequelize";
-import sendMail from "~services/mailer";
+import sendMail from "services/mailer";
 import FieldErrors from "~utils/errors/FieldErrors";
 import MutationError from "~utils/errors/MutationError";
 import { formatErrors } from "~utils/errors/formatErrors";
