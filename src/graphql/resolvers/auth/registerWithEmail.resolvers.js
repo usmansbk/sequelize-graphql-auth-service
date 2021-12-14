@@ -20,11 +20,10 @@ export default {
         };
       } catch (e) {
         if (e instanceof MutationError) {
-          const { errors } = e.cause;
           return {
             success: false,
             message: e.message,
-            errors,
+            errors: e.cause.errors,
           };
         } else {
           throw e;
