@@ -23,7 +23,7 @@ export default class UserDS extends SequelizeDataSource {
       if (e instanceof ValidationError || e instanceof UniqueConstraintError) {
         const cause = new FieldErrors(
           e.message,
-          formatErrors(e.errors, fields?.locale)
+          formatErrors(e.errors, this.context.locale)
         );
         throw new MutationError(SIGNUP_FAILED, cause);
       } else {
