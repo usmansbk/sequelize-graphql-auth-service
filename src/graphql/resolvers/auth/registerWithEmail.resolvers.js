@@ -31,6 +31,6 @@ export default {
         }
       }
     },
+    resendConfirmationEmail() {},
   },
-  resendConfirmationEmail() {},
 };
