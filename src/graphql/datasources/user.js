@@ -1,5 +1,5 @@
 import { ValidationError, UniqueConstraintError } from "sequelize";
-import sendMail from "~services/mailer";
+import sendMail from "services/mailer";
 import FieldErrors from "~utils/errors/FieldErrors";
 import MutationError from "~utils/errors/MutationError";
 import { formatErrors } from "~utils/errors/formatErrors";
@@ -12,10 +12,13 @@ export default class UserDS extends SequelizeDataSource {
       let user = await this.create(fields);
 
       sendMail({
-        to: user.email,
-        subject: "Welcome",
-        text: "Welcome",
-        html: "<h1>Welcome</h1>",
+        template: "mars",
+        message: {
+          to: user.email,
+        },
+        locals: {
+          name: user.firstName,
+        },
       });
 
       return user.toJSON();
