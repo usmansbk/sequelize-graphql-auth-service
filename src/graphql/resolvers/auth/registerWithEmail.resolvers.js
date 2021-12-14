@@ -22,7 +22,7 @@ export default {
         if (e instanceof MutationError) {
           return {
             success: false,
-            message: e.message,
+            message: t(e.message),
             errors: e.cause.errors,
           };
         } else {
