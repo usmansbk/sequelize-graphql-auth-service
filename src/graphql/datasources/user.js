@@ -2,6 +2,7 @@ import sendMail from "~services/mailer";
 import { SIGNUP_FAILED } from "~helpers/constants";
 import SequelizeDataSource from "./SequelizeDataSource";
 import FieldErrors from "~utils/errors/FieldErrors";
+import MutationError from "utils/errors/MutationError";
 
 export default class UserDS extends SequelizeDataSource {
   onError(error) {
@@ -9,7 +10,7 @@ export default class UserDS extends SequelizeDataSource {
     if (error.errors) {
       e = new FieldErrors(SIGNUP_FAILED, error.errors, this.context.t);
     }
-    super.onError(e);
+    super.onError(new MutationError("mutationError", e));
   }
 
   async createWithEmail(fields) {
