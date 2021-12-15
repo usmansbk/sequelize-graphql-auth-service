@@ -18,7 +18,7 @@ export default class UserDS extends SequelizeDataSource {
       });
 
       sendMail({
-        template: "verifyEmail",
+        template: "verify-email",
         message: {
           to: user.email,
         },
