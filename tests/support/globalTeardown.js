@@ -1,11 +1,11 @@
 import db from "~db/models";
-import session from "~utils/session";
+import redis from "~config/redis";
 
 const { sequelize } = db;
 
 export default async function globalTeardown() {
-  await session.clear();
-  session.end();
+  await redis.flushall();
+  redis.disconnect();
   await sequelize.drop();
   await sequelize.close();
 }

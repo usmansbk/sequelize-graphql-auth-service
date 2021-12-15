@@ -5,7 +5,7 @@ import http from "http";
 import db from "~db/models";
 import log from "~config/logger";
 import i18n, { useLanguageMiddleware } from "~config/i18n";
-import * as session from "~utils/session";
+import redis from "~config/redis";
 import * as jwt from "~utils/jwt";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
@@ -26,13 +26,26 @@ export const createApolloServer = () => {
       users: new UserDS(db.User),
     }),
     context: async ({ req }) => {
-      const locale = req.language;
-      const t = i18n(locale);
+      let userInfo;
+      const token = req.headers.authorization;
+
+      if (token) {
+        try {
+          userInfo = jwt.verify(token);
+        } catch (e) {
+          log.warn(e.message);
+        }
+      }
+
+      const language = userInfo?.language || req.language;
+
       return {
         jwt,
-        session,
-        t,
-        locale,
+        redis,
+        userInfo,
+        t: i18n(language),
+        language,
+        locale: req.locale,
       };
     },
   });
