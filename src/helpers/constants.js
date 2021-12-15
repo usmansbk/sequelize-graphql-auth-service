@@ -14,8 +14,11 @@ export const INVALID_PASSWORD = "invalidPassword";
 export const INVALID_LOCALE = "invalidLocale";
 export const INVALID_JWT_TOKEN = "invalidToken";
 export const SIGNUP_FAILED = "signUpFailed";
-export const WELCOME_NEW_USER = "welcome";
 export const VALIDATION_ERROR = "validationError";
 export const TOKEN_EXPIRED_ERROR = "tokenExpiredError";
 export const TOKEN_INVALID_ERROR = "tokenInvalidError";
 export const TOKEN_NOT_BEFORE_ERROR = "tokenNotBeforeError";
+
+export const WELCOME_NEW_USER = "welcome";
+export const WELCOME_EXISTING_USER = "welcomeExistingUser";
+export const INCORRECT_EMAIL_OR_PASSWORD = "incorrectEmailPassword";
