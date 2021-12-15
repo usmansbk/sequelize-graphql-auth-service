@@ -3,5 +3,6 @@
   "signUpFailed": "Sign up failed",
   "welcome": "Welcome, {{firstName}}!",
   "welcomeExistingUser": "Welcome back, {{firstName}}!",
-  "incorrectEmailPassword": "Incorrect email or password"
+  "incorrectEmailPassword": "Incorrect email or password",
+  "userBanned": "Your account has been banned"
 }

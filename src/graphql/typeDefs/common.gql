@@ -6,6 +6,11 @@ interface MutationResponse {
   message: String!
 }
 
+interface QueryPayload {
+  success: Boolean!
+  message: String
+}
+
 type FieldError {
   message: String!
   field: String!

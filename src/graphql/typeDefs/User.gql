@@ -21,5 +21,11 @@ input CreateUserInput {
 }
 
 type Query {
-  me: User
+  me: UserPayload!
+}
+
+type UserPayload implements QueryPayload {
+  success: Boolean!
+  message: String
+  user: User
 }
