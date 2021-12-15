@@ -5,7 +5,7 @@ type User {
   fullName: String!
   email: String!
   phoneNumber: String
-  locale: String!
+  language: String!
   createdAt: DateTime!
   updatedAt: DateTime
 }
@@ -16,7 +16,7 @@ input CreateUserInput {
   email: String!
   password: String!
   phoneNumber: String
-  locale: String
+  language: String
 }
 
 type Query {
