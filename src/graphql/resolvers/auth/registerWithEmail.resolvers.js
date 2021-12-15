@@ -8,8 +8,10 @@ export default {
         const { id, firstName, language } =
           await dataSources.users.createWithEmail(input);
 
-        const accessToken = jwt.sign({ id, language });
-        const refreshToken = jwt.sign({}, "7d");
+        const { accessToken, refreshToken } = jwt.getAuthTokens({
+          id,
+          language,
+        });
         await redis.set(id, refreshToken);
 
         return {
@@ -30,6 +32,5 @@ export default {
         }
       }
     },
-    resendConfirmationEmail() {},
   },
 };

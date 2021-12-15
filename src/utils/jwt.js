@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid";
 import jwt, {
   NotBeforeError,
   TokenExpiredError,
@@ -34,4 +35,14 @@ export function verify(token) {
       throw e;
     }
   }
+}
+
+export function getAuthTokens(payload) {
+  const tokenExpiresIn = 15; // minutes
+  const rfExpiresIn = 2; // days
+  const rfTokenId = nanoid(); // To allow multiple activity
+  const accessToken = jwt.sign(payload, `${tokenExpiresIn}m`);
+  const refreshToken = jwt.sign({}, `${rfExpiresIn}d`);
+
+  return { accessToken, refreshToken, rfTokenId };
 }
