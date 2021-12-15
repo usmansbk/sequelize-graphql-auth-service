@@ -8,7 +8,7 @@
         "root": ["./src"],
         "alias": {
           "~config": "./src/config",
-          "~graph-api": "./src/graphql",
+          "~graphql": "./src/graphql",
           "~utils": "./src/utils",
           "~services": "./src/services",
           "~db": "./src/db",

@@ -1,4 +1,4 @@
-import startApolloServer from "~graph-api/";
+import startApolloServer from "~graphql";
 import log from "~config/logger";
 
 const app = async () => {
