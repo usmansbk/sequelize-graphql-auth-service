@@ -9,7 +9,7 @@ export default {
           input
         );
         const accessToken = jwt.sign({ userId: id });
-        const refreshToken = jwt.sign({ key: id }, "7d");
+        const refreshToken = jwt.sign({}, "7d");
         await session.set(id, refreshToken);
 
         return {
