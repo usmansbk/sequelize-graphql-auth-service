@@ -1,4 +1,15 @@
-import jwt from "jsonwebtoken";
+import jwt, {
+  NotBeforeError,
+  TokenExpiredError,
+  JsonWebTokenError,
+} from "jsonwebtoken";
+import {
+  TOKEN_EXPIRED_ERROR,
+  TOKEN_INVALID_ERROR,
+  TOKEN_NOT_BEFORE_ERROR,
+} from "~helpers/constants";
+import TokenError from "./errors/TokenError";
+
 const privateKey = process.env.JWT_SECRET_KEY;
 
 /**
@@ -10,5 +21,17 @@ export function sign(payload, expiresIn = "15m") {
 }
 
 export function verify(token) {
-  return jwt.verify(token, privateKey);
+  try {
+    return jwt.verify(token, privateKey);
+  } catch (e) {
+    if (e instanceof NotBeforeError) {
+      throw TokenError(TOKEN_NOT_BEFORE_ERROR, e);
+    } else if (e instanceof TokenExpiredError) {
+      throw TokenError(TOKEN_EXPIRED_ERROR, e);
+    } else if (e instanceof JsonWebTokenError) {
+      throw TokenError(TOKEN_INVALID_ERROR, e);
+    } else {
+      throw e;
+    }
+  }
 }

@@ -18,14 +18,14 @@ export default class UserDS extends SequelizeDataSource {
       });
 
       sendMail({
-        template: "verify-email",
+        template: "verify_email",
         message: {
           to: user.email,
         },
         locals: {
           locale: user.locale || locale,
           name: user.firstName,
-          link: `/verify-email?token=${verificationToken}`,
+          link: `/verify_email?token=${verificationToken}`,
         },
       });
 
