@@ -4,7 +4,7 @@ export async function set(key, value) {
   await redis.set(key, value);
 }
 
-export async function clear() {
+export async function clearAll() {
   await redis.flushall();
 }
 
@@ -14,6 +14,6 @@ export function end() {
 
 export default {
   set,
-  clear,
+  clearAll,
   end,
 };
