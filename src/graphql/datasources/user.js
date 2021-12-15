@@ -8,10 +8,11 @@ import SequelizeDataSource from "./SequelizeDataSource";
 
 export default class UserDS extends SequelizeDataSource {
   async createWithEmail(fields) {
+    const { jwt, locale } = this.context;
     try {
       let user = await this.create(fields);
 
-      const verificationToken = this.context.jwt.sign({
+      const verificationToken = jwt.sign({
         id: user.id,
         type: "verification",
       });
@@ -22,6 +23,7 @@ export default class UserDS extends SequelizeDataSource {
           to: user.email,
         },
         locals: {
+          locale: user.locale || locale,
           name: user.firstName,
           link: `/verify-email?token=${verificationToken}`,
         },
@@ -32,7 +34,7 @@ export default class UserDS extends SequelizeDataSource {
       if (e instanceof ValidationError || e instanceof UniqueConstraintError) {
         const cause = new FieldErrors(
           e.message,
-          formatErrors(e.errors, this.context.locale)
+          formatErrors(e.errors, locale)
         );
         throw new MutationError(SIGNUP_FAILED, cause);
       } else {
