@@ -69,11 +69,9 @@ describe("User model", () => {
       await expect(user.validate(["password"])).rejects.toThrow(PASSWORD_LEN);
     });
 
-    test("should not allow invalid `locale`", async () => {
-      user.locale = "1234";
-      await expect(user.validate(["phoneNumber"])).rejects.toThrow(
-        INVALID_LOCALE
-      );
+    test("should not allow invalid `language`", async () => {
+      user.language = "1234";
+      await expect(user.validate(["language"])).rejects.toThrow(INVALID_LOCALE);
     });
 
     test("should have a `fullName`", () => {

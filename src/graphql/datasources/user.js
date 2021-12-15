@@ -25,7 +25,7 @@ export default class UserDS extends SequelizeDataSource {
           to: user.email,
         },
         locals: {
-          locale: user.locale || locale,
+          locale: user.language || locale,
           name: user.firstName,
           link: `/verify_email?token=${verificationToken}`,
           expiresIn,

@@ -128,7 +128,7 @@ export default (sequelize, DataTypes) => {
           },
         },
       },
-      locale: {
+      language: {
         type: DataTypes.STRING,
         defaultValue: "en",
         validate: {

@@ -5,10 +5,10 @@ export default {
   Mutation: {
     async registerWithEmail(_, { input }, { dataSources, jwt, redis, t }) {
       try {
-        const { id, firstName, locale } =
+        const { id, firstName, language } =
           await dataSources.users.createWithEmail(input);
 
-        const accessToken = jwt.sign({ id, locale });
+        const accessToken = jwt.sign({ id, language });
         const refreshToken = jwt.sign({}, "7d");
         await redis.set(id, refreshToken);
 
