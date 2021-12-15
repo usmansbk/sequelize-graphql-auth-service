@@ -1,5 +1,7 @@
 {
   "emailUsed": "Email is already registered",
   "signUpFailed": "Sign up failed",
-  "welcome": "Welcome, {{firstName}}!"
+  "welcome": "Welcome, {{firstName}}!",
+  "welcomeExistingUser": "Welcome back, {{firstName}}!",
+  "incorrectEmailPassword": "Incorrect email or password"
 }
