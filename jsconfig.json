@@ -8,8 +8,7 @@
       "~utils/*": ["src/utils/*"],
       "~services/*": ["src/services/*"],
       "~db/*": ["src/db/*"],
-      "~helpers/*": ["src/helpers/*"],
-      "~i18n/*": ["src/i18n/*"]
+      "~helpers/*": ["src/helpers/*"]
     }
   }
 }
