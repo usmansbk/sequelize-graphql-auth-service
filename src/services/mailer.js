@@ -30,21 +30,18 @@ const email = new Email({
   message: {
     from: MAIL_FROM,
   },
-  send: env === "development",
   transport,
   subjectPrefix: env === "production" ? false : `[${env.toUpperCase()}] `,
   i18n: {},
 });
 
 export default async function sendMail({ template, message, locals }) {
-  if (env === "test") {
-    return;
-  }
-
   try {
     const info = await email.send({ template, message, locals });
 
-    log.info(`Message sent: ${info.messageId}`);
+    if (env !== "test") {
+      log.info(`Message sent: ${info.messageId}`);
+    }
   } catch (e) {
     log.error(e.message);
   }
