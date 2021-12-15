@@ -26,11 +26,20 @@ export const createApolloServer = () => {
       users: new UserDS(db.User),
     }),
     context: async ({ req }) => {
-      const locale = req.language;
+      let userInfo;
+      const token = req.headers.authorization;
+
+      if (token) {
+        // userInfo = jwt.verify(token);
+      }
+
+      const locale = userInfo?.locale || req.language;
       const t = i18n(locale);
+
       return {
         jwt,
         redis,
+        userInfo,
         t,
         locale,
       };

@@ -25,11 +25,11 @@ export function verify(token) {
     return jwt.verify(token, privateKey);
   } catch (e) {
     if (e instanceof NotBeforeError) {
-      throw TokenError(TOKEN_NOT_BEFORE_ERROR, e);
+      throw new TokenError(TOKEN_NOT_BEFORE_ERROR, e);
     } else if (e instanceof TokenExpiredError) {
-      throw TokenError(TOKEN_EXPIRED_ERROR, e);
+      throw new TokenError(TOKEN_EXPIRED_ERROR, e);
     } else if (e instanceof JsonWebTokenError) {
-      throw TokenError(TOKEN_INVALID_ERROR, e);
+      throw new TokenError(TOKEN_INVALID_ERROR, e);
     } else {
       throw e;
     }

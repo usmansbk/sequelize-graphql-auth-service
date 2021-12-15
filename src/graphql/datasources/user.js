@@ -7,15 +7,17 @@ import { SIGNUP_FAILED } from "~helpers/constants";
 import SequelizeDataSource from "./SequelizeDataSource";
 
 export default class UserDS extends SequelizeDataSource {
+  async currentUser() {
+    return this.findByPk(this.context.userInfo?.id);
+  }
+
   async createWithEmail(fields) {
     const { jwt, locale } = this.context;
     try {
       let user = await this.create(fields);
 
-      const verificationToken = jwt.sign({
-        id: user.id,
-        type: "verification",
-      });
+      const expiresIn = 5; // minutes
+      const verificationToken = jwt.sign({ verify: user.id }, `${expiresIn}m`);
 
       sendMail({
         template: "verify_email",
@@ -26,6 +28,7 @@ export default class UserDS extends SequelizeDataSource {
           locale: user.locale || locale,
           name: user.firstName,
           link: `/verify_email?token=${verificationToken}`,
+          expiresIn,
         },
       });
 
