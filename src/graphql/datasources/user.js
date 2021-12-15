@@ -3,12 +3,22 @@ import sendMail from "~services/mailer";
 import FieldErrors from "~utils/errors/FieldErrors";
 import MutationError from "~utils/errors/MutationError";
 import { formatErrors } from "~utils/errors/formatErrors";
-import { INCORRECT_EMAIL_OR_PASSWORD, SIGNUP_FAILED } from "~helpers/constants";
+import {
+  INCORRECT_EMAIL_OR_PASSWORD,
+  SIGNUP_FAILED,
+  USER_BANNED,
+} from "~helpers/constants";
 import SequelizeDataSource from "./SequelizeDataSource";
+import QueryError from "utils/errors/QueryError";
 
 export default class UserDS extends SequelizeDataSource {
   async currentUser() {
-    return this.findByPk(this.context.userInfo?.id);
+    const user = await this.findByPk(this.context.userInfo?.id);
+    if (user.banned) {
+      throw new QueryError(USER_BANNED);
+    }
+
+    return user;
   }
 
   async findByEmailAndPassword({ email, password }) {
