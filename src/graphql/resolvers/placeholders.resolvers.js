@@ -13,4 +13,9 @@ export default {
     deleteAccount() {},
     logout() {},
   },
+  Query: {
+    me() {
+      return null;
+    },
+  },
 };
