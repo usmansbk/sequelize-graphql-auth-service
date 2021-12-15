@@ -30,7 +30,11 @@ export const createApolloServer = () => {
       const token = req.headers.authorization;
 
       if (token) {
-        // userInfo = jwt.verify(token);
+        try {
+          userInfo = jwt.verify(token);
+        } catch (e) {
+          log.warn(e.message);
+        }
       }
 
       const locale = userInfo?.locale || req.language;
