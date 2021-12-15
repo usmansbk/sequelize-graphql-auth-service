@@ -1,5 +1,5 @@
 import db from "~db/models";
-import redis from "~services/redis";
+import session from "~utils/session";
 
 const { sequelize } = db;
 
@@ -8,6 +8,6 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  redis.disconnect();
+  session.end();
   await sequelize.close();
 });

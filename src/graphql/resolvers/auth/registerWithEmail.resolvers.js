@@ -3,14 +3,14 @@ import { WELCOME_NEW_USER } from "~helpers/constants";
 
 export default {
   Mutation: {
-    async registerWithEmail(_, { input }, { dataSources, jwt, redis, t }) {
+    async registerWithEmail(_, { input }, { dataSources, jwt, session, t }) {
       try {
         const { id, firstName } = await dataSources.users.createWithEmail(
           input
         );
         const accessToken = jwt.sign({ userId: id });
         const refreshToken = jwt.sign({ key: id }, "7d");
-        await redis.set(id, refreshToken);
+        await session.set(id, refreshToken);
 
         return {
           success: true,
