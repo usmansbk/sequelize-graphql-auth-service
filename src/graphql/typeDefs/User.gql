@@ -4,6 +4,7 @@ type User {
   lastName: String!
   fullName: String!
   email: String!
+  emailVerified: Boolean!
   phoneNumber: String
   language: String!
   createdAt: DateTime!
