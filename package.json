@@ -42,6 +42,7 @@
     "bunyan": "^1.8.15",
     "cls-hooked": "^4.2.2",
     "dataloader": "^2.0.0",
+    "dayjs": "^1.10.7",
     "dotenv": "^10.0.0",
     "email-templates": "^8.0.8",
     "express": "^4.17.1",

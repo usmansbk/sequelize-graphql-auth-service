@@ -7,6 +7,7 @@ export default {
     loginWithEmailOTP() {},
     loginWithSmsOTP() {},
     loginWithSocialProvider() {},
+    resendConfirmationEmail() {},
     requestPasswordReset() {},
     resetPassword() {},
     requestDeleteAccount() {},

@@ -3,6 +3,8 @@ import jwt, {
   TokenExpiredError,
   JsonWebTokenError,
 } from "jsonwebtoken";
+import { nanoid } from "nanoid";
+import dayjs from "~config/dayjs";
 import {
   TOKEN_EXPIRED_ERROR,
   TOKEN_INVALID_ERROR,
@@ -34,4 +36,15 @@ export function verify(token) {
       throw e;
     }
   }
+}
+
+export function getAuthTokens(payload = {}) {
+  const tokenExpiresIn = 15; // minutes
+  const rfExpiresIn = 2; // days
+  const rfTokenId = nanoid();
+  const accessToken = jwt.sign({ ...payload, rfTokenId }, `${tokenExpiresIn}m`);
+  const refreshToken = jwt.sign({}, `${rfExpiresIn}d`);
+  const expiresIn = dayjs.duration(rfExpiresIn, "days").asSeconds();
+
+  return { accessToken, refreshToken, rfTokenId, expiresIn };
 }
