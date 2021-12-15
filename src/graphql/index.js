@@ -5,7 +5,7 @@ import http from "http";
 import db from "~db/models";
 import log from "~config/logger";
 import i18n, { useLanguageMiddleware } from "~config/i18n";
-import redis from "~services/redis";
+import * as session from "~utils/session";
 import * as jwt from "~utils/jwt";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
@@ -30,7 +30,7 @@ export const createApolloServer = () => {
       const t = i18n(locale);
       return {
         jwt,
-        redis,
+        session,
         t,
         locale,
       };
