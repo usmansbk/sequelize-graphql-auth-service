@@ -1,4 +1,4 @@
-import i18n from "~i18n";
+import i18n from "~config/i18n";
 
 export function formatErrors(errors, locale) {
   const t = i18n(locale);

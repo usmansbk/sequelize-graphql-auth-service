@@ -76,9 +76,11 @@ While in production, a Redis server `REDIS_URL` environment variable is required
 The server makes use of AWS SES to send emails in production. Set the following environment variables and ensure you have the right [AWS IAM Policy](https://nodemailer.com/transports/ses/#example-3) set for SES.
 
 ```sh
-MAIL_FROM=Sender Name <sender@example.com>
+MAIL_FROM=sender@example.com
 
 AWS_ACCESS_KEY_ID=
 AWS_SECRET_ACCESS_KEY=
 AWS_REGION=us-east-1
 ```
+
+Check the [email-templates](https://github.com/forwardemail/email-templates) package for more details on creating emails.
