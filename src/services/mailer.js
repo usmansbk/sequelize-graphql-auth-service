@@ -36,6 +36,10 @@ const email = new Email({
 });
 
 export default async function sendMail({ template, message, locals }) {
+  if (env === "test") {
+    return;
+  }
+
   try {
     const info = await email.send({ template, message, locals });
 

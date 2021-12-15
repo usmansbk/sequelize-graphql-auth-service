@@ -1,5 +1,5 @@
 import { ValidationError, UniqueConstraintError } from "sequelize";
-import sendMail from "services/mailer";
+import sendMail from "~services/mailer";
 import FieldErrors from "~utils/errors/FieldErrors";
 import MutationError from "~utils/errors/MutationError";
 import { formatErrors } from "~utils/errors/formatErrors";
@@ -11,13 +11,19 @@ export default class UserDS extends SequelizeDataSource {
     try {
       let user = await this.create(fields);
 
+      const verificationToken = this.context.jwt.sign({
+        id: user.id,
+        type: "verification",
+      });
+
       sendMail({
-        template: "mars",
+        template: "verifyEmail",
         message: {
           to: user.email,
         },
         locals: {
           name: user.firstName,
+          link: `/verify-email?token=${verificationToken}`,
         },
       });
 
