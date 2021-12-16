@@ -41,10 +41,10 @@ export function verify(token) {
 export function getAuthTokens(payload = {}) {
   const tokenExpiresIn = 15; // minutes
   const rfExpiresIn = 2; // days
-  const rfTokenId = nanoid();
-  const accessToken = sign({ ...payload, rfTokenId }, `${tokenExpiresIn}m`);
+  const tokenId = nanoid();
+  const accessToken = sign({ ...payload, tokenId }, `${tokenExpiresIn}m`);
   const refreshToken = sign({}, `${rfExpiresIn}d`);
   const expiresIn = dayjs.duration(rfExpiresIn, "days").asSeconds();
 
-  return { accessToken, refreshToken, rfTokenId, expiresIn };
+  return { accessToken, refreshToken, tokenId, expiresIn };
 }

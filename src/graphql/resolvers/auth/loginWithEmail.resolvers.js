@@ -8,12 +8,12 @@ export default {
         const { id, firstName, language } =
           await dataSources.users.findByEmailAndPassword(input);
 
-        const { accessToken, refreshToken, rfTokenId, expiresIn } =
+        const { accessToken, refreshToken, tokenId, expiresIn } =
           jwt.getAuthTokens({
             id,
             language,
           });
-        await redis.set(rfTokenId, refreshToken, "EX", expiresIn);
+        await redis.set(tokenId, refreshToken, "EX", expiresIn);
 
         return {
           success: true,
