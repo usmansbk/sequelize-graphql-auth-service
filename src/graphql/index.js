@@ -32,9 +32,7 @@ export const createApolloServer = () => {
       if (token) {
         try {
           userInfo = jwt.verify(token);
-        } catch (e) {
-          log.warn(e.message);
-        }
+        } catch (e) {}
       }
 
       const language = userInfo?.language || req.language;
