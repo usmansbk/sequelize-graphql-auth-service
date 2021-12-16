@@ -5,7 +5,7 @@ type Mutation {
   refreshToken(token: String!): AuthMutationResponse!
   loginWithSmsOTP(input: SmsOTPInput!): AuthMutationResponse!
   loginWithSocialProvider(input: SocialLoginInput!): AuthMutationResponse!
-  resendConfirmationEmail(email: String!): AuthMutationResponse!
+  requestConfirmationEmail(email: String!): AuthMutationResponse!
   requestPasswordReset(email: String!): AuthMutationResponse!
   resetPassword(input: PasswordResetInput!): AuthMutationResponse!
   requestDeleteAccount: AuthMutationResponse!
