@@ -1,9 +1,7 @@
 export default {
   Mutation: {
     refreshToken() {},
-    requestEmailOTP() {},
     requestSmsOTP() {},
-    loginWithEmailOTP() {},
     loginWithSmsOTP() {},
     loginWithSocialProvider() {},
     resendConfirmationEmail() {},

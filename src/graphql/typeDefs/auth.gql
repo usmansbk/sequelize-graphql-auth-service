@@ -1,12 +1,10 @@
 type Mutation {
+  registerWithEmail(input: CreateUserInput!): LoginMutationResponse!
   loginWithEmail(input: EmailLoginInput!): LoginMutationResponse!
-  requestEmailOTP(email: String!): AuthMutationResponse!
   requestSmsOTP(phoneNumber: String!): AuthMutationResponse!
   refreshToken(token: String!): AuthMutationResponse!
-  loginWithEmailOTP(input: EmailOTPInput!): AuthMutationResponse!
   loginWithSmsOTP(input: SmsOTPInput!): AuthMutationResponse!
   loginWithSocialProvider(input: SocialLoginInput!): AuthMutationResponse!
-  registerWithEmail(input: CreateUserInput!): LoginMutationResponse!
   resendConfirmationEmail(email: String!): AuthMutationResponse!
   requestPasswordReset(email: String!): AuthMutationResponse!
   resetPassword(input: PasswordResetInput!): AuthMutationResponse!
@@ -18,11 +16,6 @@ type Mutation {
 input EmailLoginInput {
   email: String!
   password: String!
-}
-
-input EmailOTPInput {
-  email: String!
-  code: String!
 }
 
 input SmsOTPInput {
