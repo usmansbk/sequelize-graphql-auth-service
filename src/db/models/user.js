@@ -101,6 +101,11 @@ export default (sequelize, DataTypes) => {
         defaultValue: false,
         allowNull: false,
       },
+      phoneNumberVerified: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
+      },
       phoneNumber: {
         type: DataTypes.STRING,
         unique: {
