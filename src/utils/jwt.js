@@ -10,6 +10,7 @@ import {
   TOKEN_INVALID_ERROR,
   TOKEN_NOT_BEFORE_ERROR,
 } from "~helpers/constants";
+import redis from "~config/redis";
 import TokenError from "./errors/TokenError";
 
 const privateKey = process.env.JWT_SECRET_KEY;
@@ -38,20 +39,25 @@ export function verify(token) {
   }
 }
 
-export function getAuthTokens(payload = {}) {
+export async function getAuthTokens(payload = {}) {
   const tokenExpiresIn = 15; // minutes
   const rfExpiresIn = 2; // days
   const tokenId = nanoid();
   const accessToken = sign({ ...payload, tokenId }, `${tokenExpiresIn}m`);
   const refreshToken = sign({}, `${rfExpiresIn}d`);
   const expiresIn = dayjs.duration(rfExpiresIn, "days").asSeconds();
+  await redis.set(tokenId, refreshToken, "EX", expiresIn);
 
-  return { accessToken, refreshToken, tokenId, expiresIn };
+  return { accessToken, refreshToken };
 }
 
-export function getToken(payload = {}, exp) {
-  const token = sign(payload, `${exp}d`);
+// short term token
+export async function getToken(payload = {}) {
+  const exp = 5; // minutes
+  const tokenId = nanoid();
+  const token = sign({ ...payload, tokenId }, `${exp}d`);
   const expiresIn = dayjs.duration(exp, "days").asSeconds();
+  await redis.set(tokenId, token, "EX", expiresIn);
 
-  return { token, expiresIn };
+  return token;
 }
