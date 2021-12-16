@@ -5,6 +5,7 @@ import MutationError from "~utils/errors/MutationError";
 import QueryError from "~utils/errors/QueryError";
 import { formatErrors } from "~utils/errors/formatErrors";
 import {
+  BANNED_STATUS,
   INCORRECT_EMAIL_OR_PASSWORD,
   SIGNUP_FAILED,
   USER_BANNED,
@@ -14,7 +15,7 @@ import SequelizeDataSource from "./SequelizeDataSource";
 export default class UserDS extends SequelizeDataSource {
   async currentUser() {
     const user = await this.findByPk(this.context.userInfo?.id);
-    if (user.banned) {
+    if (user.status === BANNED_STATUS) {
       throw new QueryError(USER_BANNED);
     }
 
