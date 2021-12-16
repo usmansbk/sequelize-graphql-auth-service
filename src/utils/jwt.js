@@ -48,3 +48,10 @@ export function getAuthTokens(payload = {}) {
 
   return { accessToken, refreshToken, tokenId, expiresIn };
 }
+
+export function getToken(payload = {}, exp) {
+  const token = sign(payload, `${exp}d`);
+  const expiresIn = dayjs.duration(exp, "days").asSeconds();
+
+  return { token, expiresIn };
+}
