@@ -2,6 +2,7 @@ import { ValidationError, UniqueConstraintError } from "sequelize";
 import sendMail from "~services/mailer";
 import FieldErrors from "~utils/errors/FieldErrors";
 import MutationError from "~utils/errors/MutationError";
+import QueryError from "~utils/errors/QueryError";
 import { formatErrors } from "~utils/errors/formatErrors";
 import {
   INCORRECT_EMAIL_OR_PASSWORD,
@@ -9,7 +10,6 @@ import {
   USER_BANNED,
 } from "~helpers/constants";
 import SequelizeDataSource from "./SequelizeDataSource";
-import QueryError from "utils/errors/QueryError";
 
 export default class UserDS extends SequelizeDataSource {
   async currentUser() {
