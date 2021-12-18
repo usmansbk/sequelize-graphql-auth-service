@@ -14,7 +14,7 @@ export default {
           language,
         });
 
-        const token = await jwt.getToken();
+        const token = await jwt.getToken(email);
 
         sendMail({
           template: "verify_email",

@@ -52,12 +52,11 @@ export async function getAuthTokens(payload = {}) {
 }
 
 // short term token
-export async function getToken(payload = {}) {
+export async function getToken(key) {
   const exp = 5; // minutes
-  const tokenId = nanoid();
-  const token = sign({ ...payload, tokenId }, `${exp}d`);
+  const token = sign({ key }, `${exp}d`);
   const expiresIn = dayjs.duration(exp, "days").asSeconds();
-  await redis.set(tokenId, token, "EX", expiresIn);
+  await redis.set(key, token, "EX", expiresIn);
 
   return token;
 }
