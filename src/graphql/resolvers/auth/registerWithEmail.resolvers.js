@@ -19,7 +19,7 @@ export default {
         });
         await redis.setex(tokenId, ex, refreshToken); // refresh token rotation
 
-        const { token, ex: expiresIn } = jwt.getToken();
+        const { token, ex: expiresIn } = jwt.getToken(2);
 
         await redis.setex(email, expiresIn, token);
 
