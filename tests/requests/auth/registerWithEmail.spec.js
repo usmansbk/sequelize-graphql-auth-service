@@ -40,7 +40,7 @@ describe("registerWithEmail", () => {
   });
 
   test("should return field errors", async () => {
-    const existingUser = await UserFactory.create();
+    const existingUser = await UserFactory.create({ emailVerified: true });
     const result = await server.executeOperation({
       query: REGISTER_WITH_EMAIL,
       variables: {
