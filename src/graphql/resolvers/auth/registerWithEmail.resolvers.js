@@ -4,17 +4,24 @@ import sendMail from "~services/mailer";
 
 export default {
   Mutation: {
-    async registerWithEmail(_, { input }, { dataSources, jwt, t, locale }) {
+    async registerWithEmail(
+      _,
+      { input },
+      { dataSources, jwt, t, locale, redis }
+    ) {
       try {
         const { id, firstName, language, email } =
           await dataSources.users.createWithEmail(input);
 
-        const { accessToken, refreshToken } = await jwt.getAuthTokens({
+        const { accessToken, refreshToken, tokenId, ex } = jwt.getAuthTokens({
           id,
           language,
         });
+        await redis.setex(tokenId, ex, refreshToken); // refresh token rotation
 
-        const token = await jwt.getToken(email);
+        const verification = jwt.getToken();
+
+        await redis.setex(email, verification.ex, verification.token);
 
         sendMail({
           template: "verify_email",
@@ -24,7 +31,7 @@ export default {
           locals: {
             locale: language || locale,
             name: firstName,
-            link: `/verify_email?token=${token}`,
+            link: `/verify_email?token=${verification.token}`,
           },
         });
 

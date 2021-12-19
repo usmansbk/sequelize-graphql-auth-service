@@ -3,15 +3,17 @@ import { WELCOME_EXISTING_USER } from "~helpers/constants";
 
 export default {
   Mutation: {
-    async loginWithEmail(_, { input }, { dataSources, jwt, t }) {
+    async loginWithEmail(_, { input }, { dataSources, jwt, t, redis }) {
       try {
         const { id, firstName, language } =
           await dataSources.users.findByEmailAndPassword(input);
 
-        const { accessToken, refreshToken } = await jwt.getAuthTokens({
-          id,
-          language,
-        });
+        const { accessToken, refreshToken, tokenId, ex } =
+          await jwt.getAuthTokens({
+            id,
+            language,
+          });
+        await redis.setex(tokenId, ex, refreshToken);
 
         return {
           success: true,

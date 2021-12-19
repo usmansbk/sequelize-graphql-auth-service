@@ -35,7 +35,6 @@ export default class UserDS extends SequelizeDataSource {
   }
 
   async createWithEmail(fields) {
-    const { t } = this.context;
     try {
       let user = await this.create(fields);
 
@@ -44,7 +43,7 @@ export default class UserDS extends SequelizeDataSource {
       if (e instanceof ValidationError || e instanceof UniqueConstraintError) {
         const cause = new FieldErrors(
           e.message,
-          formatErrors(e.errors, t)
+          formatErrors(e.errors, this.context.t)
         );
         throw new MutationError(SIGNUP_FAILED, cause);
       } else {

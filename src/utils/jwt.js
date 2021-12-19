@@ -10,7 +10,6 @@ import {
   TOKEN_INVALID_ERROR,
   TOKEN_NOT_BEFORE_ERROR,
 } from "~helpers/constants";
-import redis from "~config/redis";
 import TokenError from "./errors/TokenError";
 
 const privateKey = process.env.JWT_SECRET_KEY;
@@ -39,24 +38,25 @@ export function verify(token) {
   }
 }
 
-export async function getAuthTokens(payload = {}) {
-  const tokenExpiresIn = 15; // minutes
-  const rfExpiresIn = 2; // days
+/**
+ * 
+ * @param { object } payload - JSON payload
+ * @param { number } tokenExp - access token expiresIn (minutes)
+ * @param { number } refreshTokenExp  - refresh token expiresIn (days)
+ * @returns
+ */
+export function getAuthTokens(payload = {}, tokenExp = 15, refreshTokenExp = 2) {
   const tokenId = nanoid();
-  const accessToken = sign({ ...payload, tokenId }, `${tokenExpiresIn}m`);
-  const refreshToken = sign({}, `${rfExpiresIn}d`);
-  const expiresIn = dayjs.duration(rfExpiresIn, "days").asSeconds();
-  await redis.set(tokenId, refreshToken, "EX", expiresIn);
+  const accessToken = sign(payload, `${tokenExp}m`);
+  const refreshToken = sign({ tokenId }, `${refreshTokenExp}d`);
+  const ex = dayjs.duration(refreshTokenExp, "days").asSeconds();
 
-  return { accessToken, refreshToken };
+  return { accessToken, refreshToken, ex, tokenId };
 }
 
-// short term token
-export async function getToken(key) {
-  const exp = 5; // minutes
-  const token = sign({ key }, `${exp}d`);
-  const expiresIn = dayjs.duration(exp, "days").asSeconds();
-  await redis.set(key, token, "EX", expiresIn);
+export function getToken(expiresIn = 5) {
+  const token = sign({}, `${expiresIn}m`);
+  const ex = dayjs.duration(expiresIn, "minutes").asSeconds();
 
-  return token;
+  return { token, ex };
 }
