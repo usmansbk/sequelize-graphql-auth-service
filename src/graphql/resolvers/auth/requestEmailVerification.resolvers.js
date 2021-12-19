@@ -20,10 +20,10 @@ export default {
       if (user) {
         const { language, firstName } = user;
 
-        const id = nanoid();
+        const token = nanoid();
         const expiresIn = dayjs.duration(1, "day").asSeconds();
 
-        await redis.setex(id, expiresIn, email);
+        await redis.setex(token, expiresIn, email);
 
         sendMail({
           template: "verify_email",
@@ -33,7 +33,7 @@ export default {
           locals: {
             locale: language || locale,
             name: firstName,
-            link: hostURL(`/verify_email?token=${id}`),
+            link: hostURL(`/verify_email?token=${token}`),
           },
         });
       }
