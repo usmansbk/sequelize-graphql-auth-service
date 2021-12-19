@@ -36,7 +36,7 @@ export default class UserDS extends SequelizeDataSource {
 
   async createWithEmail(fields) {
     try {
-      let user = await this.create(fields);
+      const user = await this.create(fields);
 
       return user;
     } catch (e) {
