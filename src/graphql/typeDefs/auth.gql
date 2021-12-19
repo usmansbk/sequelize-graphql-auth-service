@@ -2,6 +2,7 @@ type Mutation {
   registerWithEmail(input: CreateUserInput!): LoginMutationResponse!
   loginWithEmail(input: EmailLoginInput!): LoginMutationResponse!
   requestEmailVerification(email: String!): AuthMutationResponse!
+  verifyEmail(token: String!): AuthMutationResponse!
   requestSmsOTP(phoneNumber: String!): AuthMutationResponse!
   refreshToken(token: String!): AuthMutationResponse!
   loginWithSmsOTP(input: SmsOTPInput!): AuthMutationResponse!
