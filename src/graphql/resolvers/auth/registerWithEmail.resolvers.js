@@ -1,17 +1,11 @@
 import MutationError from "~utils/errors/MutationError";
 import { WELCOME_NEW_USER } from "~helpers/constants";
-import { hostURL } from "~helpers/url";
-import sendMail from "~services/mailer";
 
 export default {
   Mutation: {
-    async registerWithEmail(
-      _,
-      { input },
-      { dataSources, jwt, t, locale, redis }
-    ) {
+    async registerWithEmail(_, { input }, { dataSources, jwt, t, redis }) {
       try {
-        const { id, firstName, language, email } =
+        const { id, firstName, language } =
           await dataSources.users.createWithEmail(input);
 
         const { accessToken, refreshToken, tokenId, ex } = jwt.getAuthTokens({
@@ -19,22 +13,6 @@ export default {
           language,
         });
         await redis.setex(tokenId, ex, refreshToken); // refresh token rotation
-
-        const { token, ex: expiresIn } = jwt.getToken(2);
-
-        await redis.setex(email, expiresIn, token);
-
-        sendMail({
-          template: "verify_email",
-          message: {
-            to: email,
-          },
-          locals: {
-            locale: language || locale,
-            name: firstName,
-            link: hostURL(`/verify_email?token=${token}`),
-          },
-        });
 
         return {
           success: true,

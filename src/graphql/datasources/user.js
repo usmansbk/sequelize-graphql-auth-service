@@ -36,7 +36,17 @@ export default class UserDS extends SequelizeDataSource {
 
   async createWithEmail(fields) {
     try {
-      let user = await this.create(fields);
+      let user = await this.findOne({
+        where: {
+          email: fields.email,
+        },
+      });
+
+      if (user && !user.emailVerified) {
+        await user.destroy();
+      }
+
+      user = await this.create(fields);
 
       return user;
     } catch (e) {
