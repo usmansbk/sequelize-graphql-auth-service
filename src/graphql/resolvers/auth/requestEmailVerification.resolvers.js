@@ -1,9 +1,5 @@
-import MutationError from "~utils/errors/MutationError";
 import sendMail from "~services/mailer";
-import {
-  SENT_VERIFICATION_EMAIL,
-  WAIT_FOR_VERIFICATION_INTERVAL,
-} from "~helpers/constants";
+import { SENT_VERIFICATION_EMAIL } from "~helpers/constants";
 
 export default {
   Mutation: {
@@ -12,13 +8,9 @@ export default {
       { email },
       { dataSources, locale, jwt, redis, t }
     ) {
-      try {
-        const prevToken = await redis.get(email);
+      const prevToken = await redis.get(email);
 
-        if (prevToken) {
-          throw new MutationError(WAIT_FOR_VERIFICATION_INTERVAL);
-        }
-
+      if (!prevToken) {
         const user = await dataSources.users.findOne({
           where: {
             email,
@@ -44,21 +36,12 @@ export default {
             },
           });
         }
-
-        return {
-          success: true,
-          message: t(SENT_VERIFICATION_EMAIL, { email }),
-        };
-      } catch (e) {
-        if (e instanceof MutationError) {
-          return {
-            success: false,
-            message: t(WAIT_FOR_VERIFICATION_INTERVAL),
-          };
-        } else {
-          throw e;
-        }
       }
+
+      return {
+        success: true,
+        message: t(SENT_VERIFICATION_EMAIL, { email }),
+      };
     },
   },
 };
