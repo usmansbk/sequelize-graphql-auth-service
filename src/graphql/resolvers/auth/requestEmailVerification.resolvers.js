@@ -1,23 +1,31 @@
 import MutationError from "~utils/errors/MutationError";
-import { WELCOME_NEW_USER } from "~helpers/constants";
 import sendMail from "~services/mailer";
 
 export default {
   Mutation: {
-    async registerWithEmail(
+    async requestEmailVerification(
       _,
-      { input },
-      { dataSources, jwt, t, locale, redis }
+      { email },
+      { dataSources, locale, jwt, redis, t }
     ) {
       try {
-        const { id, firstName, language, email } =
-          await dataSources.users.createWithEmail(input);
+        const prevToken = await redis.get(email);
 
-        const { accessToken, refreshToken, tokenId, ex } = jwt.getAuthTokens({
-          id,
-          language,
+        if (prevToken) {
+          throw new MutationError("Previous token hasn't expired");
+        }
+
+        const user = await dataSources.users.findOne({
+          where: {
+            email,
+          },
         });
-        await redis.setex(tokenId, ex, refreshToken); // refresh token rotation
+
+        if (!user) {
+          throw new MutationError("No account found");
+        }
+
+        const { language, firstName } = user;
 
         const { token, ex: expiresIn } = jwt.getToken();
 
@@ -37,16 +45,13 @@ export default {
 
         return {
           success: true,
-          message: t(WELCOME_NEW_USER, { firstName }),
-          accessToken,
-          refreshToken,
+          message: `If an account exist, We would send an email with further instructions.`,
         };
       } catch (e) {
         if (e instanceof MutationError) {
           return {
             success: false,
-            message: t(e.message),
-            errors: e.cause.errors,
+            message: t(e.message, { email }),
           };
         } else {
           throw e;
