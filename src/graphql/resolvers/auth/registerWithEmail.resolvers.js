@@ -19,9 +19,9 @@ export default {
         });
         await redis.setex(tokenId, ex, refreshToken); // refresh token rotation
 
-        const verification = jwt.getToken();
+        const { token, ex: expiresIn } = jwt.getToken(); // verification token
 
-        await redis.setex(email, verification.ex, verification.token);
+        await redis.setex(email, expiresIn, token);
 
         sendMail({
           template: "verify_email",
@@ -31,7 +31,7 @@ export default {
           locals: {
             locale: language || locale,
             name: firstName,
-            link: `/verify_email?token=${verification.token}`,
+            link: `/verify_email?token=${token}`,
           },
         });
 
