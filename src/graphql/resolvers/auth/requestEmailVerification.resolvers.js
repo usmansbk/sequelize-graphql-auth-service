@@ -1,5 +1,3 @@
-import { nanoid } from "nanoid";
-import dayjs from "~config/dayjs";
 import sendMail from "~services/mailer";
 import { SENT_VERIFICATION_EMAIL } from "~helpers/constants";
 import { hostURL } from "~helpers/url";
@@ -9,7 +7,7 @@ export default {
     async requestEmailVerification(
       _,
       { email },
-      { dataSources, locale, redis, t }
+      { dataSources, locale, redis, t, jwt }
     ) {
       const user = await dataSources.users.findOne({
         where: {
@@ -18,12 +16,11 @@ export default {
       });
 
       if (user) {
-        const { language, firstName } = user;
+        const { language, firstName, id } = user;
 
-        const token = nanoid();
-        const expiresIn = dayjs.duration(1, "day").asSeconds();
+        const { token, ex } = jwt.getToken({ id }, 60 * 24);
 
-        await redis.setex(token, expiresIn, email);
+        await redis.setex(token, ex, email);
 
         sendMail({
           template: "verify_email",
