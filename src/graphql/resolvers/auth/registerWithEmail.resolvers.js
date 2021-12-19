@@ -1,5 +1,6 @@
 import MutationError from "~utils/errors/MutationError";
 import { WELCOME_NEW_USER } from "~helpers/constants";
+import { hostURL } from "~helpers/url";
 import sendMail from "~services/mailer";
 
 export default {
@@ -31,7 +32,7 @@ export default {
           locals: {
             locale: language || locale,
             name: firstName,
-            link: `/verify_email?token=${token}`,
+            link: hostURL(`/verify_email?token=${token}`),
           },
         });
 

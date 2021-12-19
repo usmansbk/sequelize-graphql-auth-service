@@ -5,5 +5,5 @@
   "welcomeExistingUser": "Welcome back, {{firstName}}!",
   "incorrectEmailPassword": "Incorrect email or password",
   "BANNED": "Your account has been banned",
-  "sentVerificationEmail": "If you have an account, we would send an email to {{email}} with further instructions."
+  "sentVerificationEmail": "We have sent an email to {{email}} with further instructions."
 }

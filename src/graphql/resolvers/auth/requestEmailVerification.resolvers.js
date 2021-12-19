@@ -1,5 +1,6 @@
 import sendMail from "~services/mailer";
 import { SENT_VERIFICATION_EMAIL } from "~helpers/constants";
+import { hostURL } from "~helpers/url";
 
 export default {
   Mutation: {
@@ -32,7 +33,7 @@ export default {
             locals: {
               locale: language || locale,
               name: firstName,
-              link: `/verify_email?token=${token}`,
+              link: hostURL(`/verify_email?token=${token}`),
             },
           });
         }
