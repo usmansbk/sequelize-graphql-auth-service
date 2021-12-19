@@ -4,5 +4,5 @@
   "welcome": "Welcome, {{firstName}}!",
   "welcomeExistingUser": "Welcome back, {{firstName}}!",
   "incorrectEmailPassword": "Incorrect email or password",
-  "userBanned": "Your account has been banned"
+  "BANNED": "Your account has been banned"
 }

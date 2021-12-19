@@ -22,6 +22,5 @@ export const TOKEN_NOT_BEFORE_ERROR = "tokenNotBeforeError";
 export const WELCOME_NEW_USER = "welcome";
 export const WELCOME_EXISTING_USER = "welcomeExistingUser";
 export const INCORRECT_EMAIL_OR_PASSWORD = "incorrectEmailPassword";
-export const USER_BANNED = "userBanned";
 
 export const BANNED_STATUS = "BANNED";

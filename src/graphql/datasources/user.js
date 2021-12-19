@@ -7,7 +7,6 @@ import {
   BANNED_STATUS,
   INCORRECT_EMAIL_OR_PASSWORD,
   SIGNUP_FAILED,
-  USER_BANNED,
 } from "~helpers/constants";
 import SequelizeDataSource from "./SequelizeDataSource";
 
@@ -15,7 +14,7 @@ export default class UserDS extends SequelizeDataSource {
   async currentUser() {
     const user = await this.findByPk(this.context.userInfo?.id);
     if (user.status === BANNED_STATUS) {
-      throw new QueryError(USER_BANNED);
+      throw new QueryError(BANNED_STATUS);
     }
 
     return user;
@@ -29,7 +28,7 @@ export default class UserDS extends SequelizeDataSource {
     });
 
     if (user && (await user.checkPassword(password))) {
-      return user.toJSON();
+      return user;
     }
 
     throw new MutationError(INCORRECT_EMAIL_OR_PASSWORD);
@@ -40,7 +39,7 @@ export default class UserDS extends SequelizeDataSource {
     try {
       let user = await this.create(fields);
 
-      return user.toJSON();
+      return user;
     } catch (e) {
       if (e instanceof ValidationError || e instanceof UniqueConstraintError) {
         const cause = new FieldErrors(
