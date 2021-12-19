@@ -68,7 +68,9 @@ export default class SequelizeDataSource extends DataSource {
 
   async findOne(query) {
     const item = await this.model.findOne(query);
-    this.prime(item);
+    if (item) {
+      this.prime(item);
+    }
 
     return item;
   }
@@ -89,7 +91,9 @@ export default class SequelizeDataSource extends DataSource {
 
   async findOrCreate(queryOptions) {
     const [item, created] = await this.model.create(queryOptions);
-    this.prime(item);
+    if (item) {
+      this.prime(item);
+    }
 
     if (created) {
       const newImage = item.toJSON();

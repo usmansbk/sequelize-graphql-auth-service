@@ -35,14 +35,13 @@ export const createApolloServer = () => {
         } catch (e) {}
       }
 
-      const language = userInfo?.language || req.language;
+      const language = userInfo?.language || req.language || req.locale;
 
       return {
         jwt,
         redis,
         userInfo,
         t: i18n(language),
-        language,
         locale: req.locale,
       };
     },

@@ -1,8 +1,4 @@
-import i18n from "~config/i18n";
-
-export function formatErrors(errors, locale) {
-  const t = i18n(locale);
-
+export function formatErrors(errors, t) {
   const formattedErrors = errors.map(({ path, message }) => ({
     field: path,
     message: t(message),

@@ -38,13 +38,25 @@ export function verify(token) {
   }
 }
 
-export function getAuthTokens(payload = {}) {
-  const tokenExpiresIn = 15; // minutes
-  const rfExpiresIn = 2; // days
+/**
+ * 
+ * @param { object } payload - JSON payload
+ * @param { number } tokenExp - access token expiresIn (minutes)
+ * @param { number } refreshTokenExp  - refresh token expiresIn (days)
+ * @returns
+ */
+export function getAuthTokens(payload = {}, tokenExp = 15, refreshTokenExp = 2) {
   const tokenId = nanoid();
-  const accessToken = sign({ ...payload, tokenId }, `${tokenExpiresIn}m`);
-  const refreshToken = sign({}, `${rfExpiresIn}d`);
-  const expiresIn = dayjs.duration(rfExpiresIn, "days").asSeconds();
+  const accessToken = sign(payload, `${tokenExp}m`);
+  const refreshToken = sign({ tokenId }, `${refreshTokenExp}d`);
+  const ex = dayjs.duration(refreshTokenExp, "days").asSeconds();
 
-  return { accessToken, refreshToken, tokenId, expiresIn };
+  return { accessToken, refreshToken, ex, tokenId };
+}
+
+export function getToken(expiresIn = 5) {
+  const token = sign({}, `${expiresIn}m`);
+  const ex = dayjs.duration(expiresIn, "minutes").asSeconds();
+
+  return { token, ex };
 }
