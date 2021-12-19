@@ -42,7 +42,6 @@ export const createApolloServer = () => {
         redis,
         userInfo,
         t: i18n(language),
-        language,
         locale: req.locale,
       };
     },

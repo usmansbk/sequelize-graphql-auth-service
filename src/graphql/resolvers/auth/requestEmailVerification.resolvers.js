@@ -9,12 +9,6 @@ export default {
       { dataSources, locale, jwt, redis, t }
     ) {
       try {
-        const prevToken = await redis.get(email);
-
-        if (prevToken) {
-          throw new MutationError("Previous token hasn't expired");
-        }
-
         const user = await dataSources.users.findOne({
           where: {
             email,
@@ -27,9 +21,9 @@ export default {
 
         const { language, firstName } = user;
 
-        const { token, ex: expiresIn } = jwt.getToken();
+        const { token, ex } = jwt.getToken();
 
-        await redis.setex(email, expiresIn, token);
+        await redis.setex(email, ex, token);
 
         sendMail({
           template: "verify_email",
