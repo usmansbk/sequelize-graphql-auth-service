@@ -7,7 +7,7 @@ export default {
     async requestEmailVerification(
       _,
       { email },
-      { dataSources, locale, redis, t, jwt }
+      { dataSources, locale, t, jwt }
     ) {
       const user = await dataSources.users.findOne({
         where: {
@@ -18,9 +18,7 @@ export default {
       if (user) {
         const { language, firstName, id } = user;
 
-        const { token, ex } = jwt.getToken({ id }, 60 * 24);
-
-        await redis.setex(token, ex, email);
+        const { token } = jwt.getToken({ id }, 60 * 24);
 
         sendMail({
           template: "verify_email",

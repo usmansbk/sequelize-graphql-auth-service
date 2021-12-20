@@ -5,6 +5,7 @@ import QueryError from "~utils/errors/QueryError";
 import { formatErrors } from "~utils/errors/formatErrors";
 import {
   BANNED_STATUS,
+  EMAIL_VERIFICATION_FAILED,
   INCORRECT_EMAIL_OR_PASSWORD,
   SIGNUP_FAILED,
 } from "~helpers/constants";
@@ -32,6 +33,19 @@ export default class UserDS extends SequelizeDataSource {
     }
 
     throw new MutationError(INCORRECT_EMAIL_OR_PASSWORD);
+  }
+
+  async verifyEmail(id) {
+    const user = await this.findByPk(id);
+
+    if (user) {
+      user.emailVerified = true;
+      await user.save();
+
+      return user;
+    } else {
+      throw new MutationError(EMAIL_VERIFICATION_FAILED);
+    }
   }
 
   async createWithEmail(fields) {

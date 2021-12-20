@@ -23,5 +23,8 @@ export const WELCOME_NEW_USER = "welcome";
 export const WELCOME_EXISTING_USER = "welcomeExistingUser";
 export const INCORRECT_EMAIL_OR_PASSWORD = "incorrectEmailPassword";
 export const SENT_VERIFICATION_EMAIL = "sentVerificationEmail";
+export const EMAIL_VERIFIED = "emailVerified";
+export const LINK_INVALID = "linkInvalid";
+export const EMAIL_VERIFICATION_FAILED = "emailVerificationFailed";
 
 export const BANNED_STATUS = "BANNED";
