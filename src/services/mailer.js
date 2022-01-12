@@ -3,8 +3,9 @@ import nodemailer from "nodemailer";
 import * as aws from "@aws-sdk/client-ses";
 import { defaultProvider } from "@aws-sdk/credential-provider-node";
 import log from "~config/logger";
+import { MAIL_FROM } from "~helpers/constants/emailTemplates";
 
-const { MAIL_FROM, AWS_REGION, NODE_ENV } = process.env;
+const { AWS_REGION, NODE_ENV } = process.env;
 
 const env = NODE_ENV || "development";
 

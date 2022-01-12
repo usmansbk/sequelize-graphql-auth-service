@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-ses": "^3.46.0",
+    "@aws-sdk/credential-provider-node": "^3.46.0",
     "@babel/runtime": "^7.16.7",
     "@graphql-tools/load-files": "^6.5.3",
     "@graphql-tools/merge": "^8.2.1",
