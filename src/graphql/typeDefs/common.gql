@@ -1,13 +1,19 @@
 scalar Date
 scalar DateTime
 
+type FieldError {
+  message: String!
+  field: String!
+}
+
+# All Queries and Mutations must implement this interface
 interface Response {
   code: Int!
   success: Boolean!
   message: String!
 }
 
-type FieldError {
-  message: String!
-  field: String!
+# All Form mutations, e.g Login, Register, etc must implement this interface to return validation errors
+interface FormResponse {
+  errors: [FieldError!]
 }

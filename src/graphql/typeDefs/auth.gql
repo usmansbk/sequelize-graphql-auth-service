@@ -39,7 +39,7 @@ input PasswordResetInput {
   token: String!
 }
 
-type LoginMutationResponse implements Response {
+type LoginMutationResponse implements Response & FormResponse {
   code: Int!
   success: Boolean!
   message: String!
