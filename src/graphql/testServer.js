@@ -6,7 +6,7 @@ import db from "~db/models";
 import log from "~config/logger";
 import i18n from "~config/i18n";
 import * as jwt from "~utils/jwt";
-import redis from "~config/redis";
+import createRedisServer from "~config/redis";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 import { UserDS } from "./datasources";
@@ -15,6 +15,7 @@ export const app = express();
 
 export const createApolloServer = () => {
   const httpServer = http.createServer(app);
+  const redis = createRedisServer();
   const server = new ApolloServer({
     typeDefs,
     resolvers,

@@ -5,7 +5,7 @@ import http from "http";
 import db from "~db/models";
 import log from "~config/logger";
 import i18n, { useLanguageMiddleware } from "~config/i18n";
-import redis from "~config/redis";
+import createRedisServer from "~config/redis";
 import * as jwt from "~utils/jwt";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
@@ -17,6 +17,7 @@ useLanguageMiddleware(app);
 
 export const createApolloServer = () => {
   const httpServer = http.createServer(app);
+  const redis = createRedisServer();
   const server = new ApolloServer({
     typeDefs,
     resolvers,

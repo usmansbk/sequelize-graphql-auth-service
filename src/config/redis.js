@@ -1,11 +1,11 @@
 import Redis from "ioredis";
 
-let redis;
+const createRedisServer = () => {
+  if (process.env.REDIS_URL) {
+    return new Redis(process.env.REDIS_URL);
+  }
 
-if (process.env.REDIS_URL) {
-  redis = new Redis(process.env.REDIS_URL);
-} else {
-  redis = new Redis();
-}
+  return new Redis();
+};
 
-export default redis;
+export default createRedisServer;
