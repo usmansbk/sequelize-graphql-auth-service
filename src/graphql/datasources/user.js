@@ -7,7 +7,7 @@ import {
   BANNED_STATUS,
   INCORRECT_EMAIL_OR_PASSWORD,
   SIGNUP_FAILED,
-} from "~helpers/constants";
+} from "~helpers/constants/i18n";
 import SequelizeDataSource from "./SequelizeDataSource";
 
 export default class UserDS extends SequelizeDataSource {

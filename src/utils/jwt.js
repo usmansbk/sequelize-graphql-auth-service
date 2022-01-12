@@ -9,7 +9,7 @@ import {
   TOKEN_EXPIRED_ERROR,
   TOKEN_INVALID_ERROR,
   TOKEN_NOT_BEFORE_ERROR,
-} from "~helpers/constants";
+} from "~helpers/constants/i18n";
 import TokenError from "./errors/TokenError";
 
 const privateKey = process.env.JWT_SECRET_KEY;

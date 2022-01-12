@@ -1,5 +1,5 @@
 import sendMail from "~services/mailer";
-import { SENT_VERIFICATION_EMAIL } from "~helpers/constants";
+import { SENT_VERIFICATION_EMAIL } from "~helpers/constants/i18n";
 import { hostURL } from "~helpers/url";
 
 export default {

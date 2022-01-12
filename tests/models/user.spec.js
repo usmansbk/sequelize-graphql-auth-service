@@ -9,7 +9,7 @@ import {
   PASSWORD_LEN,
   PHONE_NUMBER_UNAVAILABLE,
   INVALID_PHONE_NUMBER,
-} from "~helpers/constants";
+} from "~helpers/constants/i18n";
 import UserFactory from "../factories/user";
 
 describe("User model", () => {

@@ -1,5 +1,5 @@
 import MutationError from "~utils/errors/MutationError";
-import { WELCOME_NEW_USER } from "~helpers/constants";
+import { WELCOME_NEW_USER } from "~helpers/constants/i18n";
 
 export default {
   Mutation: {

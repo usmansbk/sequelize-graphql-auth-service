@@ -14,7 +14,7 @@ import {
   PASSWORD_LEN,
   INVALID_PASSWORD,
   INVALID_LOCALE,
-} from "~helpers/constants";
+} from "~helpers/constants/i18n";
 
 export default (sequelize, DataTypes) => {
   class User extends Model {
