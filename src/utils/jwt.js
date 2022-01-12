@@ -45,7 +45,7 @@ export function verify(token) {
  * @param { number } refreshTokenExp  - refresh token expiresIn (days)
  * @returns
  */
-export function getAuthTokens(
+export function generateAuthTokens(
   payload = {},
   tokenExp = 15,
   refreshTokenExp = 2

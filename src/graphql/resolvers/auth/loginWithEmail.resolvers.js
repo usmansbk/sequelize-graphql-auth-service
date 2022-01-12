@@ -10,7 +10,7 @@ export default {
           await dataSources.users.findByEmailAndPassword(input);
 
         const { accessToken, refreshToken, tokenId, ex } =
-          await jwt.getAuthTokens({
+          await jwt.generateAuthTokens({
             id,
             language,
           });
@@ -26,9 +26,9 @@ export default {
           return BadRequest({
             message: t(e.message),
           });
-        } else {
+        } 
           throw e;
-        }
+        
       }
     },
   },

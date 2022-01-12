@@ -9,10 +9,11 @@ export default {
         const { id, firstName, language } =
           await dataSources.users.createWithEmail(input);
 
-        const { accessToken, refreshToken, tokenId, ex } = jwt.getAuthTokens({
-          id,
-          language,
-        });
+        const { accessToken, refreshToken, tokenId, ex } =
+          jwt.generateAuthTokens({
+            id,
+            language,
+          });
         await redis.setex(tokenId, ex, refreshToken); // refresh token rotation
 
         return Created({
