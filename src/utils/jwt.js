@@ -1,3 +1,4 @@
+import fs from "fs";
 import jwt, {
   NotBeforeError,
   TokenExpiredError,
@@ -12,7 +13,7 @@ import {
 } from "~helpers/constants/i18n";
 import TokenError from "./errors/TokenError";
 
-const privateKey = process.env.JWT_SECRET_KEY;
+const cert = fs.readFileSync(process.env.JWT_SECRET_KEY);
 
 /**
  * exp or any other claim is only set if the payload is an object literal.
@@ -20,12 +21,16 @@ const privateKey = process.env.JWT_SECRET_KEY;
  * exp, nbf, aud, sub and iss can be provided in the payload directly, but you can't include in both places.
  */
 export function sign(payload, expiresIn = "15m") {
-  return jwt.sign(payload, privateKey, { expiresIn, issuer: process.env.HOST });
+  return jwt.sign(payload, cert, {
+    expiresIn,
+    issuer: process.env.HOST,
+    algorithm: ["RS256"],
+  });
 }
 
 export function verify(token) {
   try {
-    return jwt.verify(token, privateKey);
+    return jwt.verify(token, cert);
   } catch (e) {
     if (e instanceof NotBeforeError) {
       throw new TokenError(TOKEN_NOT_BEFORE_ERROR, e);
