@@ -20,9 +20,9 @@ export default {
       if (user) {
         const { language, firstName, id } = user;
 
-        const { token, ex } = jwt.getToken({ id }, 60 * 24);
+        const { token, exp } = jwt.generateToken({ id }, 60 * 24);
 
-        await redis.setex(token, ex, email);
+        await redis.setex(token, exp, email);
 
         sendMail({
           template: emailTemplates.VERIFY_EMAIL,

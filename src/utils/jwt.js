@@ -60,14 +60,14 @@ export function generateAuthTokens(
   const tokenId = nanoid();
   const accessToken = sign(payload, `${tokenExp}m`);
   const refreshToken = sign({ tokenId }, `${refreshTokenExp}d`);
-  const ex = dayjs.duration(refreshTokenExp, "days").asSeconds();
+  const exp = dayjs.duration(refreshTokenExp, "days").asSeconds();
 
-  return { accessToken, refreshToken, ex, tokenId };
+  return { accessToken, refreshToken, exp, tokenId };
 }
 
-export function getToken(payload = {}, expiresIn = 5) {
+export function generateToken(payload = {}, expiresIn = 5) {
   const token = sign(payload, `${expiresIn}m`);
-  const ex = dayjs.duration(expiresIn, "minutes").asSeconds();
+  const exp = dayjs.duration(expiresIn, "minutes").asSeconds();
 
-  return { token, ex };
+  return { token, exp };
 }

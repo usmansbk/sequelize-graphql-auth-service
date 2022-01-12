@@ -1,4 +1,4 @@
-import { BadRequest, Ok } from "helpers/response";
+import { BadRequest, Ok } from "~helpers/response";
 import QueryError from "~utils/errors/QueryError";
 
 export default {
@@ -12,9 +12,8 @@ export default {
           return BadRequest({
             message: t(e.message),
           });
-        } else {
-          throw e;
         }
+        throw e;
       }
     },
   },

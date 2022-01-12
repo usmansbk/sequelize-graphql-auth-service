@@ -9,12 +9,12 @@ export default {
         const { id, firstName, language } =
           await dataSources.users.findByEmailAndPassword(input);
 
-        const { accessToken, refreshToken, tokenId, ex } =
+        const { accessToken, refreshToken, tokenId, exp } =
           await jwt.generateAuthTokens({
             id,
             language,
           });
-        await redis.setex(tokenId, ex, refreshToken);
+        await redis.setex(tokenId, exp, refreshToken);
 
         return Ok({
           message: t(WELCOME_EXISTING_USER, { firstName }),
