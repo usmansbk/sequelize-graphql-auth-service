@@ -20,6 +20,7 @@ export default {
             lastName,
             fullName,
             language,
+            aud: clientId,
           },
           ID_TOKEN_EXP
         );
