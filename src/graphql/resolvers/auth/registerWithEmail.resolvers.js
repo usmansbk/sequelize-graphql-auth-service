@@ -10,19 +10,33 @@ export default {
       { dataSources, jwt, t, redis, clientId }
     ) {
       try {
-        const { id, firstName, language } =
+        const { id, firstName, lastName, fullName, language } =
           await dataSources.users.createWithEmail(input);
+
+        const { token: idToken } = jwt.generateToken(
+          {
+            firstName,
+            lastName,
+            fullName,
+            language,
+          },
+          "2 weeks"
+        );
 
         const { accessToken, refreshToken, refreshTokenId, exp } =
           jwt.generateAuthTokens({
             sub: id,
             aud: clientId,
+            firstName,
+            lastName,
             language,
+            fullName,
           });
         await redis.setex(`${id}:${clientId}`, exp, refreshTokenId); // refresh token rotation
 
         return Created({
           message: t(WELCOME_NEW_USER, { firstName }),
+          idToken,
           accessToken,
           refreshToken,
         });
