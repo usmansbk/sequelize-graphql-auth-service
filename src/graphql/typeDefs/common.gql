@@ -2,11 +2,13 @@ scalar Date
 scalar DateTime
 
 interface MutationResponse {
+  code: Int!
   success: Boolean!
   message: String!
 }
 
 interface QueryPayload {
+  code: Int!
   success: Boolean!
   message: String
 }
