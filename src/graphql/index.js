@@ -30,9 +30,7 @@ export const createApolloServer = () => {
       const token = req.headers.authorization;
 
       if (token) {
-        try {
-          userInfo = jwt.verify(token);
-        } catch (e) {}
+        userInfo = jwt.verify(token);
       }
 
       const language = userInfo?.language || req.language || req.locale;
@@ -53,7 +51,9 @@ const startApolloServer = async () => {
   const { server, httpServer } = createApolloServer();
   await server.start();
   server.applyMiddleware({ app });
-  await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
+  await new Promise((resolve) => {
+    httpServer.listen({ port: 4000 }, resolve);
+  });
   await db.sequelize.authenticate();
   await db.sequelize.sync({ force: true });
 
