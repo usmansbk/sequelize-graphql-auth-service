@@ -66,7 +66,7 @@ npx sequelize db:migrate
 
 ## [JSON Web Token](https://github.com/auth0/node-jsonwebtoken#readme)
 
-This app makes use of JWT for authentication and authorization. [Read about the 3 main types of tokens](https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/).
+We use of JWT for authentication and authorization. [Read about the 3 main types of tokens](https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/).
 
 ### Generate token verification and signing keys
 
@@ -78,7 +78,7 @@ ssh-keygen -t rsa -P "" -b 4096 -m PEM -f jwtRS256.key
 ssh-keygen -e -m PEM -f jwtRS256.key > jwtRS256.key.pub
 ```
 
-In development and test environment, a local redis server is required
+Set up a local redis server to manage tokens in development
 
 ```sh
 sudo apt install redis-server
@@ -102,6 +102,6 @@ Check the [email-templates](https://github.com/forwardemail/email-templates) pac
 
 ## Coding standard
 
-This template makes use of Eslint AirBnB coding guidelines and import alias. All aliases are prefixed with a `~`. To add a new alias, update the `jsconfig.json`, `.eslintrc.js`, and `babel.config.json` files. We also make use of Husky precommit hook to enforce standard.
+We use Eslint AirBnB coding guidelines and import alias. All aliases are prefixed with a `~`. To add a new alias, update the `jsconfig.json`, `.eslintrc.js`, and `babel.config.json` files. We also make use of Husky precommit hook to enforce standard.
 
 Model specific logic should be moved to their associated data sources, and resolver errors should be handled using [Wrapping Exception](https://javascript.info/custom-errors) technique.
