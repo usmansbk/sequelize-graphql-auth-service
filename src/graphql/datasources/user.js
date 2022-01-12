@@ -47,7 +47,7 @@ export default class UserDS extends SequelizeDataSource {
        * I would not like to be asked to reset my email when I've never registered before.
        *
        * SOLUTION:
-       * So, we consider unverified emails as temporary accounts with limited access to service or
+       * We consider unverified emails as temporary accounts with limited access to service or
        * prevent them from all access until email is verified.
        */
       if (user && !user.emailVerified) {
