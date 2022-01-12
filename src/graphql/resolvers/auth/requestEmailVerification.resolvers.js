@@ -1,7 +1,8 @@
 import sendMail from "~services/mailer";
-import { SENT_VERIFICATION_EMAIL } from "~helpers/constants/i18n";
-import { hostURL } from "~helpers/url";
+import UrlFactory from "~helpers/urls";
 import { Accepted } from "~helpers/response";
+import emailTemplates from "~helpers/constants/emailTemplates";
+import { SENT_VERIFICATION_EMAIL } from "~helpers/constants/i18n";
 
 export default {
   Mutation: {
@@ -24,14 +25,14 @@ export default {
         await redis.setex(token, ex, email);
 
         sendMail({
-          template: "verify_email",
+          template: emailTemplates.VERIFY_EMAIL,
           message: {
             to: email,
           },
           locals: {
             locale: language || locale,
             name: firstName,
-            link: hostURL(`/verify_email?token=${token}`),
+            link: UrlFactory.verifyEmail(token),
           },
         });
       }

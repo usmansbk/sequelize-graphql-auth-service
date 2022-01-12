@@ -5,7 +5,7 @@
 ## Features
 
 - [ ] Email authentication
-- [ ] SMS authentication
+- [ ] SMS OTP
 - [ ] Social authentication (Google and Facebook)
 - [ ] RBAC
 - [ ] Profile (Update and Delete)
