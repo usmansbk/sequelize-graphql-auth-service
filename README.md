@@ -86,7 +86,7 @@ sudo apt install redis-server
 
 While in production, a Redis server `REDIS_URL` environment variable is required.
 
-## Clients (Mobile app, Web app, etc)
+## Clients (Mobile, Web, etc)
 
 Each supported client must pass a `client_id` in their request headers. Client IDs are strings assigned by the server. To support a new client, add it the `audience` list of the jwt util (`src/utils/jwt`) `verify` function. This will allow users to login from multiple devices.
 
