@@ -2,6 +2,8 @@
 /* eslint-disable class-methods-use-this */
 import { DataSource } from "apollo-datasource";
 import DataLoader from "dataloader";
+import QueryError from "~utils/errors/QueryError";
+import { ITEM_NOT_FOUND } from "~helpers/constants/i18n";
 
 /**
  * The SequelizeDataSource abstract class helps you query data from an SQL database. Your server
@@ -108,7 +110,7 @@ export default class SequelizeDataSource extends DataSource {
     const item = await this.findByPk(id);
 
     if (!item) {
-      throw new Error("notFound");
+      throw new QueryError(ITEM_NOT_FOUND);
     }
 
     const oldImage = item.toJSON();

@@ -13,7 +13,7 @@ const attributes = (attr = {}) => {
     language: "en",
   };
 
-  return Object.assign({}, defaults, attr);
+  return { ...defaults, ...attr };
 };
 
 const build = (attr) => User.build(attributes(attr));
