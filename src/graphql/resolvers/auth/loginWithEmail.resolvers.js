@@ -1,6 +1,7 @@
 import QueryError from "~utils/errors/QueryError";
 import { WELCOME_EXISTING_USER } from "~helpers/constants/i18n";
 import { BadRequest, Ok } from "~helpers/response";
+import { ID_TOKEN_EXP } from "~helpers/constants/tokens";
 
 export default {
   Mutation: {
@@ -20,7 +21,7 @@ export default {
             fullName,
             language,
           },
-          "10 hours"
+          ID_TOKEN_EXP
         );
 
         const { accessToken, refreshToken, refreshTokenId, exp } =

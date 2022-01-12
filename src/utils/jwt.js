@@ -11,6 +11,7 @@ import {
   TOKEN_INVALID_ERROR,
   TOKEN_NOT_BEFORE_ERROR,
 } from "~helpers/constants/i18n";
+import { ACCESS_TOKEN_EXP, REFRESH_TOKEN_EXP } from "~helpers/constants/tokens";
 import TokenError from "./errors/TokenError";
 
 const privateKey = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
@@ -70,8 +71,8 @@ export function generateToken(payload = {}, expiresIn = "5 minutes") {
  */
 export function generateAuthTokens(
   { aud, ...payload },
-  tokenExp = "15 minutes",
-  refreshTokenExp = "14 days"
+  tokenExp = ACCESS_TOKEN_EXP,
+  refreshTokenExp = REFRESH_TOKEN_EXP
 ) {
   const accessToken = generateToken({ aud, ...payload }, tokenExp);
   const refreshToken = generateToken({ aud }, refreshTokenExp);
