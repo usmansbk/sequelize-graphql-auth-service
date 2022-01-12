@@ -1,8 +1,11 @@
+# environment
+
 node_modules
+coverage
+.eslintcache
+
+# project
+
 build
 .env
 .env.production
-
-coverage
-
-.eslintcache
