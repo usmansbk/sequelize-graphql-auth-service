@@ -66,7 +66,17 @@ npx sequelize db:migrate
 
 ## [JSON Web Token](https://github.com/auth0/node-jsonwebtoken#readme)
 
-This app makes use of JWT for authentication and other token generation. A `JWT_SECRET_KEY` environment variable is required for signing and verification of tokens.
+This app makes use of JWT for authentication and authorization. [Read about the 3 main types of tokens](https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/).
+
+### Generate token verification and signing keys
+
+```sh
+## Private key
+ssh-keygen -t rsa -P "" -b 4096 -m PEM -f jwtRS256.key
+
+## Public key
+ssh-keygen -e -m PEM -f jwtRS256.key > jwtRS256.key.pub
+```
 
 In development and test environment, a local redis server is required
 

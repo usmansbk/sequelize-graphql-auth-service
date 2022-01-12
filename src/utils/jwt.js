@@ -13,7 +13,8 @@ import {
 } from "~helpers/constants/i18n";
 import TokenError from "./errors/TokenError";
 
-const cert = fs.readFileSync(process.env.JWT_SECRET_KEY);
+const privateKey = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
+const publicKey = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
 
 /**
  * exp or any other claim is only set if the payload is an object literal.
@@ -21,16 +22,16 @@ const cert = fs.readFileSync(process.env.JWT_SECRET_KEY);
  * exp, nbf, aud, sub and iss can be provided in the payload directly, but you can't include in both places.
  */
 export function sign(payload, expiresIn = "15m") {
-  return jwt.sign(payload, cert, {
+  return jwt.sign(payload, privateKey, {
     expiresIn,
     issuer: process.env.HOST,
-    algorithm: ["RS256"],
+    algorithm: "RS256",
   });
 }
 
 export function verify(token) {
   try {
-    return jwt.verify(token, cert);
+    return jwt.verify(token, publicKey);
   } catch (e) {
     if (e instanceof NotBeforeError) {
       throw new TokenError(TOKEN_NOT_BEFORE_ERROR, e);

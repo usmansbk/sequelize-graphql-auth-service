@@ -9,3 +9,7 @@ coverage
 build
 .env
 .env.production
+
+# Keys
+*.key
+*.key.pub
