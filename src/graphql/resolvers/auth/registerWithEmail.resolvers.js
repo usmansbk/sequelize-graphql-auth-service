@@ -30,6 +30,7 @@ export default {
             aud: clientId,
             language,
           });
+
         await redis.setex(`${id}:${clientId}`, exp, refreshTokenId); // refresh token rotation
 
         return Created({
