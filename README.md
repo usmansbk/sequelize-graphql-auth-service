@@ -56,12 +56,17 @@ sudo -u postgres psql
 postgres=# \password apollo-server-express
 
 # Create the database
-npx sequelize db:create
+npx cross-env NODE_ENV=development sequelize db:create # development db
+
+npx cross-env NODE_ENV=test npx sequelize db:create # test db
+
+# Run migrations
+npx sequelize db:migrate
 ```
 
 ## [JSON Web Token](https://github.com/auth0/node-jsonwebtoken#readme)
 
-This app makes use of JWT for authentication and other token generation. A `JWT_SECRET_KEY` is required for signing and verification of tokens.
+This app makes use of JWT for authentication and other token generation. A `JWT_SECRET_KEY` environment variable is required for signing and verification of tokens.
 
 In development and test environment, a local redis server is required
 
@@ -70,20 +75,6 @@ sudo apt install redis-server
 ```
 
 While in production, a Redis server `REDIS_URL` environment variable is required.
-
-### Create database
-
-```sh
-npx cross-env NODE_ENV=development sequelize db:create # development db
-
-npx cross-env NODE_ENV=test npx sequelize db:create # test db
-```
-
-### Run migrations
-
-```sh
-npx sequelize db:migrate
-```
 
 ## [Mailer](https://nodemailer.com/transports/ses/)
 
