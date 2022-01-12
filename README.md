@@ -86,6 +86,10 @@ sudo apt install redis-server
 
 While in production, a Redis server `REDIS_URL` environment variable is required.
 
+## Clients (Mobile app, Web app, etc)
+
+Each supported client must pass a `client_id` in their request headers. Client IDs are strings assigned by the server. To support a new client, add it the `audience` list of the jwt util (`src/utils/jwt`) `verify` function. This will allow users to login from multiple devices.
+
 ## [Mailer](https://nodemailer.com/transports/ses/)
 
 The server makes use of AWS SES to send emails in production. Set the following environment variables and ensure you have the right [AWS IAM Policy](https://nodemailer.com/transports/ses/#example-3) set for SES.
