@@ -93,3 +93,5 @@ Check the [email-templates](https://github.com/forwardemail/email-templates) pac
 ## Coding standard
 
 This template makes use of Eslint AirBnB coding guidelines and import alias. All aliases are prefixed with a `~`. To add a new alias, update the `jsconfig.json`, `.eslintrc.js`, and `babel.config.json` files. We also make use of Husky precommit hook to enforce standard.
+
+Model specific logic should be move to their associated data sources, and resolver errors should be handled using `exception wrapping` technique.
