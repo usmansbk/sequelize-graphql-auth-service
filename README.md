@@ -71,6 +71,20 @@ sudo apt install redis-server
 
 While in production, a Redis server `REDIS_URL` environment variable is required.
 
+### Create database
+
+```sh
+npx cross-env NODE_ENV=development sequelize db:create # development db
+
+npx cross-env NODE_ENV=test npx sequelize db:create # test db
+```
+
+### Run migrations
+
+```sh
+npx sequelize db:migrate
+```
+
 ## [Mailer](https://nodemailer.com/transports/ses/)
 
 The server makes use of AWS SES to send emails in production. Set the following environment variables and ensure you have the right [AWS IAM Policy](https://nodemailer.com/transports/ses/#example-3) set for SES.
