@@ -14,6 +14,6 @@ interface Response {
 }
 
 # All Form mutations, e.g Login, Register, etc must implement this interface to return validation errors
-interface FormResponse {
+interface FormErrors {
   errors: [FieldError!]
 }
