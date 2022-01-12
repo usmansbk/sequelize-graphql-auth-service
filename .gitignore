@@ -4,3 +4,5 @@ build
 .env.production
 
 coverage
+
+.eslintcache

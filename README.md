@@ -89,3 +89,7 @@ AWS_REGION=us-east-1
 ```
 
 Check the [email-templates](https://github.com/forwardemail/email-templates) package for more details on creating emails.
+
+## Coding standard
+
+This template makes use of Eslint AirBnB coding guidelines and import alias. All aliases are prefixed with a `~`. To add a new alias, update the `jsconfig.json`, `.eslintrc.js`, and `babel.config.json` files.
