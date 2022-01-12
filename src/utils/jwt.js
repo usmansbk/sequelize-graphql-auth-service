@@ -20,7 +20,7 @@ const privateKey = process.env.JWT_SECRET_KEY;
  * exp, nbf, aud, sub and iss can be provided in the payload directly, but you can't include in both places.
  */
 export function sign(payload, expiresIn = "15m") {
-  return jwt.sign(payload, privateKey, { expiresIn });
+  return jwt.sign(payload, privateKey, { expiresIn, issuer: process.env.HOST });
 }
 
 export function verify(token) {
