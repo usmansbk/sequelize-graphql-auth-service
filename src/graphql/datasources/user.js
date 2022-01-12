@@ -11,7 +11,7 @@ import SequelizeDataSource from "./SequelizeDataSource";
 
 export default class UserDS extends SequelizeDataSource {
   async currentUser() {
-    const user = await this.findByPk(this.context.userInfo?.id);
+    const user = await this.findByPk(this.context.userInfo?.sub);
     if (user.status === BANNED_STATUS) {
       throw new QueryError(BANNED_STATUS);
     }

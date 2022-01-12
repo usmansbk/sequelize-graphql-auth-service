@@ -16,7 +16,7 @@ export default {
           refreshTokenId,
           exp,
         } = await jwt.generateAuthTokens({
-          id,
+          sub: id,
           language,
         });
         await redis.setex(accessTokenId, exp, refreshTokenId); // refresh token rotation
