@@ -4,7 +4,11 @@ import { Created, BadRequest } from "~helpers/response";
 
 export default {
   Mutation: {
-    async registerWithEmail(_, { input }, { dataSources, jwt, t, redis }) {
+    async registerWithEmail(
+      _,
+      { input },
+      { dataSources, jwt, t, redis, clientId }
+    ) {
       try {
         const { id, firstName, language } =
           await dataSources.users.createWithEmail(input);
@@ -17,6 +21,7 @@ export default {
           exp,
         } = jwt.generateAuthTokens({
           sub: id,
+          aud: clientId,
           language,
         });
         await redis.setex(accessTokenId, exp, refreshTokenId); // refresh token rotation

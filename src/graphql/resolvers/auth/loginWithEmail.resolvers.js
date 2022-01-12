@@ -4,7 +4,11 @@ import { BadRequest, Ok } from "~helpers/response";
 
 export default {
   Mutation: {
-    async loginWithEmail(_, { input }, { dataSources, jwt, t, redis }) {
+    async loginWithEmail(
+      _,
+      { input },
+      { dataSources, jwt, t, redis, clientId }
+    ) {
       try {
         const { id, firstName, language } =
           await dataSources.users.findByEmailAndPassword(input);
@@ -17,6 +21,7 @@ export default {
           exp,
         } = await jwt.generateAuthTokens({
           sub: id,
+          aud: clientId,
           language,
         });
         await redis.setex(accessTokenId, exp, refreshTokenId); // refresh token rotation

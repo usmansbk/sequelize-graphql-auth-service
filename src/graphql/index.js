@@ -42,6 +42,7 @@ export const createApolloServer = () => {
         userInfo,
         t: i18n(language),
         locale: req.locale,
+        clientId: req.headers.client_id,
       };
     },
   });

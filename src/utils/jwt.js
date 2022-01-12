@@ -26,8 +26,8 @@ export function sign(payload, expiresIn = "15m") {
   const token = jwt.sign(payload, privateKey, {
     jwtid: id,
     expiresIn,
-    issuer: process.env.HOST,
     algorithm: "RS256",
+    issuer: process.env.HOST,
   });
 
   return { token, id };
@@ -36,8 +36,9 @@ export function sign(payload, expiresIn = "15m") {
 export function verify(token, options = {}) {
   try {
     return jwt.verify(token, publicKey, {
-      issuer: process.env.HOST,
       ...options,
+      issuer: process.env.HOST,
+      audience: [process.env.TEST_CLIENT_ID],
     });
   } catch (e) {
     if (e instanceof NotBeforeError) {
@@ -52,6 +53,14 @@ export function verify(token, options = {}) {
   }
 }
 
+export function generateToken(payload = {}, expiresIn = "5 minutes") {
+  const { token, id } = sign(payload, expiresIn);
+  const [time, units] = expiresIn.split(" ");
+  const exp = dayjs.duration(Number.parseInt(time, 10), units).asSeconds();
+
+  return { token, exp, id };
+}
+
 /**
  *
  * @param { object } payload - JSON payload
@@ -60,28 +69,18 @@ export function verify(token, options = {}) {
  * @returns
  */
 export function generateAuthTokens(
-  payload = {},
+  { aud, ...payload },
   tokenExp = "15 minutes",
   refreshTokenExp = "14 days"
 ) {
-  const accessToken = sign(payload, tokenExp);
-  const refreshToken = sign({}, refreshTokenExp);
-  const [time, units] = refreshTokenExp.split(" ");
-  const exp = dayjs.duration(Number.parseInt(time, 10), units).asSeconds();
+  const accessToken = generateToken({ aud, ...payload }, tokenExp);
+  const refreshToken = generateToken({ aud }, refreshTokenExp);
 
   return {
     accessToken: accessToken.token,
     refreshToken: refreshToken.token,
     accessTokenId: accessToken.id,
     refreshTokenId: refreshToken.id,
-    exp,
+    exp: refreshToken.exp,
   };
-}
-
-export function generateToken(payload = {}, expiresIn = "5 minutes") {
-  const { token, id } = sign(payload, expiresIn);
-  const [time, units] = expiresIn.split(" ");
-  const exp = dayjs.duration(Number.parseInt(time, 10), units).asSeconds();
-
-  return { token, exp, id };
 }
