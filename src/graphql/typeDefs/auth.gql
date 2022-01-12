@@ -39,7 +39,8 @@ input PasswordResetInput {
   token: String!
 }
 
-type LoginMutationResponse implements MutationResponse {
+type LoginMutationResponse implements Response {
+  code: Int!
   success: Boolean!
   message: String!
   errors: [FieldError!]
@@ -47,7 +48,8 @@ type LoginMutationResponse implements MutationResponse {
   refreshToken: String
 }
 
-type AuthMutationResponse implements MutationResponse {
+type AuthMutationResponse implements Response {
+  code: Int!
   success: Boolean!
   message: String!
   accessToken: String

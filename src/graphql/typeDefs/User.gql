@@ -25,8 +25,9 @@ type Query {
   me: UserPayload!
 }
 
-type UserPayload implements QueryPayload {
+type UserPayload implements Response {
+  code: Int!
   success: Boolean!
-  message: String
+  message: String!
   user: User
 }

@@ -1,3 +1,4 @@
+import { BadRequest, Ok } from "helpers/response";
 import QueryError from "~utils/errors/QueryError";
 
 export default {
@@ -5,16 +6,14 @@ export default {
     async me(_parent, _args, { dataSources, t }) {
       try {
         const user = await dataSources.users.currentUser();
-        return {
-          success: true,
+        return Ok({
           user,
-        };
+        });
       } catch (e) {
         if (e instanceof QueryError) {
-          return {
-            success: false,
+          return BadRequest({
             message: t(e.message),
-          };
+          });
         } else {
           throw e;
         }

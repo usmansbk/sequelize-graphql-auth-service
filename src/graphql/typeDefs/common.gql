@@ -1,16 +1,10 @@
 scalar Date
 scalar DateTime
 
-interface MutationResponse {
+interface Response {
   code: Int!
   success: Boolean!
   message: String!
-}
-
-interface QueryPayload {
-  code: Int!
-  success: Boolean!
-  message: String
 }
 
 type FieldError {
