@@ -20,7 +20,7 @@ export default {
             fullName,
             language,
           },
-          "2 weeks"
+          "10 hours"
         );
 
         const { accessToken, refreshToken, refreshTokenId, exp } =
