@@ -3,6 +3,7 @@ import { basename as _basename, join } from "path";
 import Sequelize, { DataTypes } from "sequelize";
 import cls from "cls-hooked";
 import configFile from "~config/database";
+
 const basename = _basename(__filename);
 const env = process.env.NODE_ENV || "development";
 const config = configFile[env];
@@ -24,13 +25,15 @@ if (config.use_env_variable) {
 }
 
 readdirSync(__dirname)
-  .filter((file) => {
-    return (
+  .filter(
+    (file) =>
       file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
+  )
+  .forEach(async (file) => {
+    const model = (await import(join(__dirname, file))).default(
+      sequelize,
+      DataTypes
     );
-  })
-  .forEach((file) => {
-    const model = require(join(__dirname, file)).default(sequelize, DataTypes);
     db[model.name] = model;
   });
 
