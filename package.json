@@ -5,7 +5,8 @@
     "build": "babel src -d build --copy-files",
     "start": "node -r dotenv/config build",
     "start:dev": "nodemon --exec babel-node -r dotenv/config src",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "husky install"
   },
   "description": "Apollo GraphQL server template",
   "main": "index.js",
@@ -26,7 +27,9 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.3.0",
     "faker": "5.5.3",
+    "husky": ">=6",
     "jest": "^27.4.7",
+    "lint-staged": ">=10",
     "nodemon": "^2.0.15",
     "prettier": "2.5.1",
     "sequelize-cli": "^6.3.0"
@@ -60,5 +63,9 @@
     "pg-hstore": "^2.3.4",
     "pug": "^3.0.2",
     "sequelize": "^6.13.0"
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
   }
 }
