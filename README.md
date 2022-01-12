@@ -88,7 +88,13 @@ While in production, a Redis server `REDIS_URL` environment variable is required
 
 ## Clients (Mobile, Web, etc)
 
-Each supported client must pass a `client_id` in their request headers. Client IDs are strings assigned by the server. To support a new client, add it the `audience` list of the jwt util (`src/utils/jwt`) `verify` function. This will allow users to login from multiple devices.
+Each supported client must pass a `client_id` in their request headers. Client IDs are strings assigned by the server. To support a new client, add the ID to the `audience` list of the jwt util `verify` function. This will allow users to login from multiple devices.
+
+```sh
+ ## src/utils/jwt
+ ## in verify function
+ audience: [process.env.TEST_CLIENT_ID, 'your-new-client-id']
+```
 
 ## [Mailer](https://nodemailer.com/transports/ses/)
 
