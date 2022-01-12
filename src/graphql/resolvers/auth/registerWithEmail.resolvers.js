@@ -1,6 +1,6 @@
 import MutationError from "~utils/errors/MutationError";
 import { WELCOME_NEW_USER } from "~helpers/constants/i18n";
-import { Created } from "~helpers/response";
+import { Created, BadRequest } from "~helpers/response";
 
 export default {
   Mutation: {
@@ -26,9 +26,8 @@ export default {
             message: t(e.message),
             errors: e.cause.errors,
           });
-        } else {
-          throw e;
         }
+        throw e;
       }
     },
   },
