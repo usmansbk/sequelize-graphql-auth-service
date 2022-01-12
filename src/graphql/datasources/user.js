@@ -1,6 +1,5 @@
 import { ValidationError, UniqueConstraintError } from "sequelize";
 import FieldErrors from "~utils/errors/FieldErrors";
-import MutationError from "~utils/errors/MutationError";
 import QueryError from "~utils/errors/QueryError";
 import { formatErrors } from "~utils/errors/formatErrors";
 import {
@@ -31,7 +30,7 @@ export default class UserDS extends SequelizeDataSource {
       return user;
     }
 
-    throw new MutationError(INCORRECT_EMAIL_OR_PASSWORD);
+    throw new QueryError(INCORRECT_EMAIL_OR_PASSWORD);
   }
 
   async createWithEmail(fields) {
@@ -55,7 +54,7 @@ export default class UserDS extends SequelizeDataSource {
           e.message,
           formatErrors(e.errors, this.context.t)
         );
-        throw new MutationError(SIGNUP_FAILED, cause);
+        throw new QueryError(SIGNUP_FAILED, cause);
       } else {
         throw e;
       }

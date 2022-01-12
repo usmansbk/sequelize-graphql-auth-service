@@ -1,4 +1,4 @@
-import MutationError from "~utils/errors/MutationError";
+import QueryError from "~utils/errors/QueryError";
 import { WELCOME_EXISTING_USER } from "~helpers/constants/i18n";
 import { BadRequest, Ok } from "~helpers/response";
 
@@ -22,7 +22,7 @@ export default {
           refreshToken,
         });
       } catch (e) {
-        if (e instanceof MutationError) {
+        if (e instanceof QueryError) {
           return BadRequest({
             message: t(e.message),
           });
