@@ -1,9 +1,5 @@
 import { ApolloServer } from "apollo-server-express";
-import {
-  ApolloServerPluginDrainHttpServer,
-  ApolloServerPluginLandingPageProductionDefault,
-  ApolloServerPluginLandingPageLocalDefault,
-} from "apollo-server-core";
+import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import express from "express";
 import http from "http";
 import db from "~db/models";
@@ -24,12 +20,7 @@ export const createApolloServer = () => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    plugins: [
-      ApolloServerPluginDrainHttpServer({ httpServer }),
-      process.env.NODE_ENV === "production"
-        ? ApolloServerPluginLandingPageProductionDefault({ footer: false })
-        : ApolloServerPluginLandingPageLocalDefault({ footer: false }),
-    ],
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     logger: log,
     dataSources: () => ({
       users: new UserDS(db.User),
