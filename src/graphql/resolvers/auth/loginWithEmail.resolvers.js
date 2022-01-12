@@ -26,9 +26,8 @@ export default {
           return BadRequest({
             message: t(e.message),
           });
-        } 
-          throw e;
-        
+        }
+        throw e;
       }
     },
   },
