@@ -25,7 +25,7 @@ export default {
         );
 
         const { accessToken, refreshToken, refreshTokenId, exp } =
-          await jwt.generateAuthTokens({
+          jwt.generateAuthTokens({
             sub: id,
             aud: clientId,
             language,
