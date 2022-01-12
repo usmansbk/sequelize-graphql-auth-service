@@ -20,7 +20,7 @@ export default {
       if (user) {
         const { language, firstName, id } = user;
 
-        const { token, exp } = jwt.generateToken({ id }, "1 day");
+        const { token, exp } = jwt.generateToken({ sub: id }, "1 day");
 
         await redis.setex(token, exp, email);
 
