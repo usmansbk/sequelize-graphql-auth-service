@@ -41,7 +41,9 @@ const startApolloServer = async () => {
   const { server, httpServer } = createApolloServer();
   await server.start();
   server.applyMiddleware({ app });
-  await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
+  await new Promise((resolve) => {
+    httpServer.listen({ port: 4000 }, resolve);
+  });
   await db.sequelize.authenticate();
   await db.sequelize.sync({ force: true });
 

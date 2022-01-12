@@ -22,6 +22,7 @@ export default {
           refreshToken,
         });
       } catch (e) {
+        console.log(e);
         if (e instanceof QueryError) {
           return BadRequest({
             message: t(e.message),

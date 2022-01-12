@@ -1,4 +1,7 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable class-methods-use-this */
 import { DataSource } from "apollo-datasource";
+import log from "~config/logger";
 import DataLoader from "dataloader";
 
 /**
@@ -34,21 +37,11 @@ export default class SequelizeDataSource extends DataSource {
     this.context = context;
   }
 
-  onCreate(_newImage) {
-    // Override in child class
-  }
+  onCreate(_newImage) {}
 
-  onUpdate(_oldImage, _newImage) {
-    // Override in child class
-  }
+  onUpdate(_oldImage, _newImage) {}
 
-  onDestroy(_oldImage) {
-    // Override in child class
-  }
-
-  onError(e) {
-    throw e;
-  }
+  onDestroy(_oldImage) {}
 
   async prime(item) {
     this.loader.prime(item.id, item);
@@ -104,38 +97,30 @@ export default class SequelizeDataSource extends DataSource {
   }
 
   async create(fields) {
-    try {
-      const item = await this.model.create(fields);
-      const newImage = item.toJSON();
-      this.prime(item);
-      this.onCreate(newImage);
+    const item = await this.model.create(fields);
+    const newImage = item.toJSON();
+    this.prime(item);
+    this.onCreate(newImage);
 
-      return item;
-    } catch (error) {
-      this.onError(error);
-    }
+    return item;
   }
 
   async update(id, fields) {
-    try {
-      const item = await this.findByPk(id);
+    const item = await this.findByPk(id);
 
-      if (!item) {
-        throw new Error("notFound");
-      }
-
-      const oldImage = item.toJSON();
-
-      const newItem = await item.update(fields);
-      const newImage = newItem.toJSON();
-
-      this.prime(newItem);
-      this.onUpdate(oldImage, newImage);
-
-      return newItem;
-    } catch (error) {
-      this.onError(error);
+    if (!item) {
+      throw new Error("notFound");
     }
+
+    const oldImage = item.toJSON();
+
+    const newItem = await item.update(fields);
+    const newImage = newItem.toJSON();
+
+    this.prime(newItem);
+    this.onUpdate(oldImage, newImage);
+
+    return newItem;
   }
 
   /**
