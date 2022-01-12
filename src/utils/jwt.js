@@ -14,7 +14,7 @@ import {
 import TokenError from "./errors/TokenError";
 
 const privateKey = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
-const publicKey = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
+const publicKey = fs.readFileSync(process.env.JWT_PUBLIC_KEY);
 
 /**
  * exp or any other claim is only set if the payload is an object literal.
