@@ -1,6 +1,7 @@
 import sendMail from "~services/mailer";
 import { SENT_VERIFICATION_EMAIL } from "~helpers/constants/i18n";
 import { hostURL } from "~helpers/url";
+import { Accepted } from "~helpers/response";
 
 export default {
   Mutation: {
@@ -35,10 +36,9 @@ export default {
         });
       }
 
-      return {
-        success: true,
+      return Accepted({
         message: t(SENT_VERIFICATION_EMAIL, { email }),
-      };
+      });
     },
   },
 };

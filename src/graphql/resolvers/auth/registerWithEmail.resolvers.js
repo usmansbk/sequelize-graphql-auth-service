@@ -1,5 +1,6 @@
 import MutationError from "~utils/errors/MutationError";
 import { WELCOME_NEW_USER } from "~helpers/constants/i18n";
+import { Created } from "~helpers/response";
 
 export default {
   Mutation: {
@@ -14,19 +15,17 @@ export default {
         });
         await redis.setex(tokenId, ex, refreshToken); // refresh token rotation
 
-        return {
-          success: true,
+        return Created({
           message: t(WELCOME_NEW_USER, { firstName }),
           accessToken,
           refreshToken,
-        };
+        });
       } catch (e) {
         if (e instanceof MutationError) {
-          return {
-            success: false,
+          return BadRequest({
             message: t(e.message),
             errors: e.cause.errors,
-          };
+          });
         } else {
           throw e;
         }

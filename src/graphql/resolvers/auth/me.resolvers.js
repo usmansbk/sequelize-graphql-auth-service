@@ -6,9 +6,7 @@ export default {
     async me(_parent, _args, { dataSources, t }) {
       try {
         const user = await dataSources.users.currentUser();
-        return Ok({
-          user,
-        });
+        return Ok({ user });
       } catch (e) {
         if (e instanceof QueryError) {
           return BadRequest({
