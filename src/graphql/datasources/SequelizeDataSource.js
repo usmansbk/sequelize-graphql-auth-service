@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable class-methods-use-this */
 import { DataSource } from "apollo-datasource";
-import log from "~config/logger";
 import DataLoader from "dataloader";
 
 /**
