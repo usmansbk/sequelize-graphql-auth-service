@@ -50,6 +50,18 @@ export default class SequelizeDataSource extends DataSource {
 
   onDestroy(_oldImage) {}
 
+  onError(e) {
+    if (e instanceof ValidationError || e instanceof UniqueConstraintError) {
+      const cause = new FieldErrors(
+        e.message,
+        formatErrors(e.errors, this.context.t)
+      );
+      throw new QueryError(e.message, cause);
+    } else {
+      throw e;
+    }
+  }
+
   async prime(item) {
     this.loader.prime(item.id, item);
   }
@@ -105,18 +117,6 @@ export default class SequelizeDataSource extends DataSource {
     }
 
     return [item, created];
-  }
-
-  onError(e) {
-    if (e instanceof ValidationError || e instanceof UniqueConstraintError) {
-      const cause = new FieldErrors(
-        e.message,
-        formatErrors(e.errors, this.context.t)
-      );
-      throw new QueryError(e.message, cause);
-    } else {
-      throw e;
-    }
   }
 
   async create(fields) {
