@@ -8,5 +8,6 @@
   "reset-title": "Reset password",
   "reset-password-button": "Reset",
   "delete-title": "delete-title",
-  "delete-account-button": "delete-account-button"
+  "delete-account-button": "delete-account-button",
+  "otp-title": "otp-title"
 }

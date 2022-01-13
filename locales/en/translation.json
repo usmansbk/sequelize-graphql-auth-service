@@ -9,5 +9,6 @@
   "passwordChanged": "Login with your new password to continue",
   "accountDeleted": "Your account is deleted",
   "loggedOut": "You've logged out",
-  "invalidPasswordLength": "Password should be 6 - 64 characters long"
+  "invalidPasswordLength": "Password should be 6 - 64 characters long",
+  "sentEmailOtp": "You'll receive an email shortly"
 }

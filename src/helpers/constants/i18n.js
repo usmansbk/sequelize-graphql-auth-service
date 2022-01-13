@@ -35,3 +35,4 @@ export const PROFILE_UPDATED = "profileUpdated";
 export const SENT_VERIFICATION_EMAIL = "sentInstructionsEmail";
 export const SENT_RESET_PASSWORD_EMAIL = "sentInstructionsEmail";
 export const SENT_CONFIRM_DELETE_ACCOUNT_EMAIL = "sentInstructionsEmail";
+export const SENT_EMAIL_OTP = "sentEmailOtp";

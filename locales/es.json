@@ -8,5 +8,6 @@
   "verify-team": "verify-team",
   "verify-footer-text": "verify-footer-text",
   "delete-title": "delete-title",
-  "delete-account-button": "delete-account-button"
+  "delete-account-button": "delete-account-button",
+  "otp-title": "otp-title"
 }

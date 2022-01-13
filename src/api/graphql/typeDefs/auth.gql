@@ -31,7 +31,7 @@ input PasswordResetInput {
 type Mutation {
   requestPasswordReset(email: String!): RequestResponse!
   requestDeleteAccount: RequestResponse!
-  requestEmailOTP(email: String!): RequestResponse!
+  requestEmailOTP: RequestResponse!
   registerWithEmail(input: CreateUserInput!): AuthFormMutationResponse!
   loginWithEmail(input: EmailLoginInput!): AuthFormMutationResponse!
   loginWithSocialProvider(input: SocialLoginInput!): AuthMutationResponse!
