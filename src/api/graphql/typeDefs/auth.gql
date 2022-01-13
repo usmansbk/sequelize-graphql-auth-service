@@ -1,3 +1,28 @@
+enum SocialProvider {
+  GOOGLE
+  FACEBOOK
+}
+
+input EmailLoginInput {
+  email: String!
+  password: String!
+}
+
+input SmsOTPInput {
+  phoneNumber: String!
+  token: String!
+}
+
+input SocialLoginInput {
+  provider: SocialProvider!
+  token: String!
+}
+
+input PasswordResetInput {
+  password: String!
+  token: String!
+}
+
 type Mutation {
   registerWithEmail(input: CreateUserInput!): AuthFormMutationResponse!
   loginWithEmail(input: EmailLoginInput!): AuthFormMutationResponse!
@@ -10,31 +35,6 @@ type Mutation {
   requestDeleteAccount: AuthMutationResponse!
   deleteAccount(token: String!): AuthMutationResponse!
   logout: AuthMutationResponse!
-}
-
-input EmailLoginInput {
-  email: String!
-  password: String!
-}
-
-input SmsOTPInput {
-  phoneNumber: String!
-  otp: String!
-}
-
-enum SocialProvider {
-  GOOGLE
-  FACEBOOK
-}
-
-input SocialLoginInput {
-  provider: SocialProvider!
-  token: String!
-}
-
-input PasswordResetInput {
-  password: String!
-  token: String!
 }
 
 type AuthFormMutationResponse implements Response & FormErrors {
