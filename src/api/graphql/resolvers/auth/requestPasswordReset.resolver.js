@@ -3,7 +3,7 @@ import UrlFactory from "~helpers/urls";
 import { Accepted } from "~helpers/response";
 import emailTemplates from "~helpers/constants/emailTemplates";
 import { SENT_RESET_PASSWORD_EMAIL } from "~helpers/constants/i18n";
-import { RESET_PASSWORD_TOKEN_EXPIRE_IN } from "~helpers/constants/tokens";
+import { RESET_PASSWORD_TOKEN_EXPIRES_IN } from "~helpers/constants/tokens";
 
 export default {
   Mutation: {
@@ -26,7 +26,7 @@ export default {
             aud: clientId,
             sub: id,
           },
-          RESET_PASSWORD_TOKEN_EXPIRE_IN
+          RESET_PASSWORD_TOKEN_EXPIRES_IN
         );
 
         await store.set({
