@@ -6,5 +6,7 @@
   "verify-email-button": "verify-email-button",
   "verify-thanks": "verify-thanks",
   "verify-team": "verify-team",
-  "verify-footer-text": "verify-footer-text"
+  "verify-footer-text": "verify-footer-text",
+  "delete-title": "delete-title",
+  "delete-account-button": "delete-account-button"
 }

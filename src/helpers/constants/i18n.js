@@ -33,3 +33,4 @@ export const ACCOUNT_DOES_NOT_EXIST = "accountDoesNotExist";
 // send emails
 export const SENT_VERIFICATION_EMAIL = "sentInstructionsEmail";
 export const SENT_RESET_PASSWORD_EMAIL = "sentInstructionsEmail";
+export const SENT_CONFIRM_DELETE_ACCOUNT_EMAIL = "sentInstructionsEmail";

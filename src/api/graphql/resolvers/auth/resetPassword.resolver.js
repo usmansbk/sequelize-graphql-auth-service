@@ -12,9 +12,9 @@ export default {
     ) {
       try {
         const { sub } = jwt.verify(token);
-        const challenge = await store.get(sub);
+        const expectedToken = await store.get(sub);
 
-        if (token !== challenge) {
+        if (token !== expectedToken) {
           // we can track the number of failed attempts here and lock the account
           throw new QueryError(INVALID_LINK);
         }
