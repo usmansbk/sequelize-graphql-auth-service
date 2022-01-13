@@ -1,5 +1,3 @@
-import { nanoid } from "nanoid";
-import dayjs from "~config/dayjs";
 import sendMail from "~services/mailer";
 import UrlFactory from "~helpers/urls";
 import { Accepted } from "~helpers/response";
@@ -11,7 +9,7 @@ export default {
     async requestPasswordReset(
       _,
       { email },
-      { dataSources, locale, store, t }
+      { dataSources, locale, store, t, jwt, clientId }
     ) {
       const user = await dataSources.users.findOne({
         where: {
@@ -22,12 +20,18 @@ export default {
       if (user) {
         const { language, firstName, id } = user;
 
-        const token = nanoid();
-        const exp = dayjs.duration(20, "minutes").asSeconds();
+        const { token, exp } = jwt.generateToken(
+          {
+            language,
+            aud: clientId,
+            sub: id,
+          },
+          "20 minutes"
+        );
 
         await store.set({
-          key: token,
-          value: id,
+          key: id,
+          value: token,
           expiresIn: exp,
         });
 
