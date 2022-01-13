@@ -78,7 +78,7 @@ ssh-keygen -t rsa -P "" -b 4096 -m PEM -f jwtRS256.key
 ssh-keygen -e -m PEM -f jwtRS256.key > jwtRS256.key.pub
 ```
 
-Set up a local redis server to manage tokens in development
+Set up a local [redis server](https://redis.io/download#from-the-official-ubuntu-ppa) to manage tokens in development
 
 ```sh
 sudo apt install redis-server
