@@ -8,5 +8,6 @@
   "invalidLink": "The link you followed is invalid",
   "passwordChanged": "Login with your new password to continue",
   "accountDeleted": "Your account is deleted",
-  "loggedOut": "You've logged out"
+  "loggedOut": "You've logged out",
+  "invalidPasswordLength": "Password should be 6 - 64 characters long"
 }
