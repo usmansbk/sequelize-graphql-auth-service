@@ -19,11 +19,9 @@ export const TOKEN_INVALID_ERROR = "tokenInvalidError";
 export const TOKEN_NOT_BEFORE_ERROR = "tokenNotBeforeError";
 export const INVALID_LINK = "invalidLink";
 
-// datasources
-export const SIGNUP_FAILED = "signUpFailed";
-export const INCORRECT_EMAIL_OR_PASSWORD = "incorrectEmailPassword";
-
 // resolvers
+export const INCORRECT_EMAIL_OR_PASSWORD = "incorrectEmailPassword";
+export const SIGNUP_FAILED = "signUpFailed";
 export const WELCOME_NEW_USER = "welcome";
 export const WELCOME_BACK = "welcomeExistingUser";
 export const EMAIL_VERIFIED = "emailVerified";
@@ -31,6 +29,7 @@ export const PASSWORD_CHANGED = "passwordChanged";
 export const ACCOUNT_DOES_NOT_EXIST = "accountDoesNotExist";
 export const ACCOUNT_DELETED = "accountDeleted";
 export const LOGGED_OUT = "loggedOut";
+export const PROFILE_UPDATED = "profileUpdated";
 
 // send emails
 export const SENT_VERIFICATION_EMAIL = "sentInstructionsEmail";

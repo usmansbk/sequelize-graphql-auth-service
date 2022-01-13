@@ -1,4 +1,4 @@
-export const formatErrors = (errors, t) => {
+const formatErrors = (errors, t) => {
   const formattedErrors = errors.map(({ path, message }) => ({
     field: path,
     message: t(message),

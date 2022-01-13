@@ -1,8 +1,15 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable class-methods-use-this */
-import { EmptyResultError } from "sequelize";
+import {
+  EmptyResultError,
+  UniqueConstraintError,
+  ValidationError,
+} from "sequelize";
 import { DataSource } from "apollo-datasource";
 import DataLoader from "dataloader";
+import FieldErrors from "~utils/errors/FieldErrors";
+import QueryError from "~utils/errors/QueryError";
+import formatErrors from "~utils/errors/formatErrors";
 
 /**
  * The SequelizeDataSource abstract class helps you query data from an SQL database. Your server
@@ -100,31 +107,51 @@ export default class SequelizeDataSource extends DataSource {
     return [item, created];
   }
 
-  async create(fields) {
-    const item = await this.model.create(fields);
-    const newImage = item.toJSON();
-    this.prime(item);
-    this.onCreate(newImage);
+  onError = (e) => {
+    if (e instanceof ValidationError || e instanceof UniqueConstraintError) {
+      const cause = new FieldErrors(
+        e.message,
+        formatErrors(e.errors, this.context.t)
+      );
+      throw new QueryError(e.message, cause);
+    } else {
+      throw e;
+    }
+  };
 
-    return item;
+  async create(fields) {
+    try {
+      const item = await this.model.create(fields);
+      const newImage = item.toJSON();
+      this.prime(item);
+      this.onCreate(newImage);
+
+      return item;
+    } catch (e) {
+      return this.onError(e);
+    }
   }
 
   async update(id, fields) {
-    const item = await this.findByPk(id);
+    try {
+      const item = await this.findByPk(id);
 
-    if (!item) {
-      throw new EmptyResultError();
+      if (!item) {
+        throw new EmptyResultError();
+      }
+
+      const oldImage = item.toJSON();
+
+      const newItem = await item.update(fields);
+      const newImage = newItem.toJSON();
+
+      this.prime(newItem);
+      this.onUpdate(oldImage, newImage);
+
+      return newItem;
+    } catch (e) {
+      return this.onError(e);
     }
-
-    const oldImage = item.toJSON();
-
-    const newItem = await item.update(fields);
-    const newImage = newItem.toJSON();
-
-    this.prime(newItem);
-    this.onUpdate(oldImage, newImage);
-
-    return newItem;
   }
 
   /**

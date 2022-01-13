@@ -4,11 +4,11 @@
 
 ## Features
 
-- [ ] Email authentication
+- [x] Email authentication
 - [ ] SMS OTP
 - [ ] Social authentication (Google and Facebook)
 - [ ] RBAC
-- [ ] Profile (Update and Delete)
+- [x] Profile (Update and Delete)
 - [ ] File Upload
 - [ ] Push Notification
 - [x] i18n

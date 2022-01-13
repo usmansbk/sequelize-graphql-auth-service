@@ -1,6 +1,9 @@
 import QueryError from "~utils/errors/QueryError";
 import { BadRequest, Ok } from "~helpers/response";
-import { WELCOME_BACK } from "~helpers/constants/i18n";
+import {
+  INCORRECT_EMAIL_OR_PASSWORD,
+  WELCOME_BACK,
+} from "~helpers/constants/i18n";
 import { ID_TOKEN_EXPIRES_IN } from "~helpers/constants/tokens";
 
 export default {
@@ -11,8 +14,13 @@ export default {
       { dataSources, jwt, t, store, clientId }
     ) {
       try {
-        const { id, firstName, lastName, fullName, language } =
-          await dataSources.users.findByEmailAndPassword(input);
+        const user = await dataSources.users.findByEmailAndPassword(input);
+
+        if (!user) {
+          throw new QueryError(INCORRECT_EMAIL_OR_PASSWORD);
+        }
+
+        const { id, firstName, lastName, fullName, language } = user;
 
         const { token: idToken } = jwt.generateToken(
           {
