@@ -3,7 +3,6 @@ type Mutation {
   loginWithEmail(input: EmailLoginInput!): AuthFormMutationResponse!
   requestEmailVerification(email: String!): AuthMutationResponse!
   requestSmsOTP(phoneNumber: String!): AuthMutationResponse!
-  refreshToken(token: String!): AuthMutationResponse!
   loginWithSmsOTP(input: SmsOTPInput!): AuthMutationResponse!
   loginWithSocialProvider(input: SocialLoginInput!): AuthMutationResponse!
   requestPasswordReset(email: String!): AuthMutationResponse!
@@ -35,7 +34,6 @@ input SocialLoginInput {
 
 input PasswordResetInput {
   password: String!
-  confirmPassword: String!
   token: String!
 }
 
