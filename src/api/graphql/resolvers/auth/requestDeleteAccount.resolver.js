@@ -1,5 +1,5 @@
 import sendMail from "~services/mailer";
-import UrlFactory from "~helpers/urls";
+import links from "~helpers/links";
 import { Accepted } from "~helpers/response";
 import emailTemplates from "~helpers/constants/emailTemplates";
 import { SENT_CONFIRM_DELETE_ACCOUNT_EMAIL } from "~helpers/constants/i18n";
@@ -38,7 +38,7 @@ export default {
         locals: {
           locale: language || locale,
           name: firstName,
-          link: UrlFactory.deleteAccount(token),
+          link: links.deleteAccount(token),
         },
       });
 

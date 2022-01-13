@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import dayjs from "~config/dayjs";
 import sendMail from "~services/mailer";
-import UrlFactory from "~helpers/urls";
+import links from "~helpers/links";
 import { Accepted } from "~helpers/response";
 import emailTemplates from "~helpers/constants/emailTemplates";
 import { SENT_VERIFICATION_EMAIL } from "~helpers/constants/i18n";
@@ -39,7 +39,7 @@ export default {
           locals: {
             locale: language || locale,
             name: firstName,
-            link: UrlFactory.verifyEmail(token),
+            link: links.verifyEmail(token),
           },
         });
       }
