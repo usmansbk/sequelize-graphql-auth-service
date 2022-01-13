@@ -1,9 +1,9 @@
 import express from "express";
+import v1 from "~api/v1";
 import startApolloServer from "~api/graphql";
 import log from "~config/logger";
 import { useLanguageMiddleware } from "~config/i18n";
 import rateLimiter from "~middlewares/rateLimiter";
-import v1 from "~api/v1";
 
 const app = express();
 
