@@ -16,6 +16,8 @@ export default {
 
         await store.remove(token);
 
+        // Optionally, we can send an official welcome email here...
+
         return Ok({
           message: t(EMAIL_VERIFIED),
           user,
