@@ -3,15 +3,16 @@ import startApolloServer from "~api/graphql";
 import log from "~config/logger";
 import { useLanguageMiddleware } from "~config/i18n";
 import rateLimiter from "~middlewares/rateLimiter";
+import v1 from "~api/v1";
 
 const app = express();
 
 useLanguageMiddleware(app);
 
 app.use(rateLimiter);
+app.use("/v1", v1);
 
 app.set("trust proxy", 1);
-app.get("/ip", (request, response) => response.send(request.ip));
 
 const main = async () => {
   try {
