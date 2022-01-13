@@ -15,6 +15,7 @@ module.exports = {
         map: [
           ["~config", "./src/config"],
           ["~api", "./src/api"],
+          ["~middlewares", "./src/middlewares"],
           ["~utils", "./src/utils"],
           ["~services", "./src/services"],
           ["~db", "./src/db"],

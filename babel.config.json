@@ -9,6 +9,7 @@
         "alias": {
           "~config": "./src/config",
           "~api": "./src/api",
+          "~middlewares": "./src/middlwares",
           "~utils": "./src/utils",
           "~services": "./src/services",
           "~db": "./src/db",

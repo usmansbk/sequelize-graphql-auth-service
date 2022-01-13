@@ -4,7 +4,7 @@
   "scripts": {
     "build": "babel src -d build --copy-files",
     "start": "node -r dotenv/config build",
-    "start:dev": "nodemon --exec babel-node -r dotenv/config src",
+    "dev": "nodemon --exec babel-node -r dotenv/config src",
     "test": "jest",
     "prepare": "husky install"
   },

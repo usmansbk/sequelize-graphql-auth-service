@@ -6,6 +6,8 @@ import { useLanguageMiddleware } from "~config/i18n";
 const app = express();
 
 useLanguageMiddleware(app);
+// block requests without client_id
+// rate limiter
 
 const main = async () => {
   try {
