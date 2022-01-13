@@ -9,24 +9,20 @@ export default {
       { phoneNumber },
       { dataSources, store, t, otp }
     ) {
-      const user = await dataSources.users.updateCurrentUserPhoneNumber(
-        phoneNumber
-      );
+      const user = await dataSources.users.updateCurrentUser({ phoneNumber });
 
-      if (user) {
-        const { id } = user;
+      const { id } = user;
 
-        const token = otp.getSmsOtp();
-        const exp = dayjs.duration(10, "hours").asSeconds();
+      const token = otp.getSmsOtp();
+      const exp = dayjs.duration(10, "hours").asSeconds();
 
-        await store.set({
-          key: token,
-          value: id,
-          expiresIn: exp,
-        });
+      await store.set({
+        key: token,
+        value: id,
+        expiresIn: exp,
+      });
 
-        // send SMS
-      }
+      // send SMS
 
       return Accepted({
         message: t(SENT_VERIFICATION_EMAIL, { phoneNumber }),

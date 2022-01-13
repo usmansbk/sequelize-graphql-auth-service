@@ -6,7 +6,7 @@ export default {
   Mutation: {
     async updateProfile(_, { input }, { dataSources, t }) {
       try {
-        const user = await dataSources.users.updateCurrentUserProfile(input);
+        const user = await dataSources.users.updateCurrentUser(input);
 
         return Ok({
           message: t(PROFILE_UPDATED),

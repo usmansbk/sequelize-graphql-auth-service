@@ -10,39 +10,33 @@ export default {
   Mutation: {
     async requestEmailVerification(
       _,
-      { email },
+      _args,
       { dataSources, locale, store, t }
     ) {
-      const user = await dataSources.users.findOne({
-        where: {
-          email,
-        },
+      const user = await dataSources.users.currentUser();
+
+      const { language, firstName, id, email } = user;
+
+      const token = nanoid();
+      const exp = dayjs.duration(10, "hours").asSeconds();
+
+      await store.set({
+        key: token,
+        value: id,
+        expiresIn: exp,
       });
 
-      if (user) {
-        const { language, firstName, id } = user;
-
-        const token = nanoid();
-        const exp = dayjs.duration(10, "hours").asSeconds();
-
-        await store.set({
-          key: token,
-          value: id,
-          expiresIn: exp,
-        });
-
-        sendMail({
-          template: emailTemplates.VERIFY_EMAIL,
-          message: {
-            to: email,
-          },
-          locals: {
-            locale: language || locale,
-            name: firstName,
-            link: links.verifyEmail(token),
-          },
-        });
-      }
+      sendMail({
+        template: emailTemplates.VERIFY_EMAIL,
+        message: {
+          to: email,
+        },
+        locals: {
+          locale: language || locale,
+          name: firstName,
+          link: links.verifyEmail(token),
+        },
+      });
 
       return Accepted({
         message: t(SENT_VERIFICATION_EMAIL, { email }),

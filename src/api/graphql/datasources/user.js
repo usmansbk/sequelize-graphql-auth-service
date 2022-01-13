@@ -49,7 +49,7 @@ export default class UserDS extends SequelizeDataSource {
     return this.update(id, { password, emailVerified: true });
   }
 
-  updateCurrentUserProfile(fields) {
+  updateCurrentUser(fields) {
     return this.update(this.context.userInfo.sub, fields);
   }
 
