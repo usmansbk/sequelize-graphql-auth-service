@@ -1,11 +1,10 @@
 export default {
   Mutation: {
     requestSmsOTP() {},
+    requestDeleteAccount() {},
     loginWithSmsOTP() {},
     loginWithSocialProvider() {},
-    requestPasswordReset() {},
     resetPassword() {},
-    requestDeleteAccount() {},
     deleteAccount() {},
     logout() {},
   },

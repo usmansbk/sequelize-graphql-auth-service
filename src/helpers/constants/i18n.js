@@ -26,6 +26,7 @@ export const WELCOME_NEW_USER = "welcome";
 export const WELCOME_EXISTING_USER = "welcomeExistingUser";
 export const INCORRECT_EMAIL_OR_PASSWORD = "incorrectEmailPassword";
 export const SENT_VERIFICATION_EMAIL = "sentVerificationEmail";
+export const SENT_RESET_PASSWORD_EMAIL = "sentResetPasswordEmail";
 export const ITEM_NOT_FOUND = "itemNotFound";
 
 export const BANNED_STATUS = "BANNED";
