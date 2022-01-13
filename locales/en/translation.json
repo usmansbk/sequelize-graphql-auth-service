@@ -6,5 +6,6 @@
   "incorrectEmailPassword": "Incorrect email or password",
   "sentInstructionsEmail": "We have sent an email to {{email}} with further instructions.",
   "invalidLink": "The link you followed is invalid.",
-  "passwordChanged": "Login with your new password to continue"
+  "passwordChanged": "Login with your new password to continue",
+  "accountDeleted": "Your account is deleted"
 }
