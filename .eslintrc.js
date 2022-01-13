@@ -14,7 +14,7 @@ module.exports = {
       alias: {
         map: [
           ["~config", "./src/config"],
-          ["~graphql", "./src/graphql"],
+          ["~api", "./src/api"],
           ["~utils", "./src/utils"],
           ["~services", "./src/services"],
           ["~db", "./src/db"],

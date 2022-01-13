@@ -1,5 +1,5 @@
 import express from "express";
-import startApolloServer from "~graphql";
+import startApolloServer from "~api/graphql";
 import log from "~config/logger";
 import { useLanguageMiddleware } from "~config/i18n";
 
