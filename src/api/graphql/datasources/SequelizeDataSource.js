@@ -107,7 +107,7 @@ export default class SequelizeDataSource extends DataSource {
     return [item, created];
   }
 
-  onError = (e) => {
+  onError(e) {
     if (e instanceof ValidationError || e instanceof UniqueConstraintError) {
       const cause = new FieldErrors(
         e.message,
@@ -117,7 +117,7 @@ export default class SequelizeDataSource extends DataSource {
     } else {
       throw e;
     }
-  };
+  }
 
   async create(fields) {
     try {
