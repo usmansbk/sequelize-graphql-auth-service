@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable class-methods-use-this */
+import { EmptyResultError } from "sequelize";
 import { DataSource } from "apollo-datasource";
 import DataLoader from "dataloader";
-import QueryError from "~utils/errors/QueryError";
-import { UPDATE_FAILED } from "~helpers/constants/i18n";
 
 /**
  * The SequelizeDataSource abstract class helps you query data from an SQL database. Your server
@@ -53,6 +52,10 @@ export default class SequelizeDataSource extends DataSource {
   }
 
   findByPk(id) {
+    if (!id) {
+      return null;
+    }
+
     return this.loader.load(id);
   }
 
@@ -110,7 +113,7 @@ export default class SequelizeDataSource extends DataSource {
     const item = await this.findByPk(id);
 
     if (!item) {
-      throw new QueryError(UPDATE_FAILED);
+      throw new EmptyResultError();
     }
 
     const oldImage = item.toJSON();

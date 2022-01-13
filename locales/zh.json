@@ -1,4 +1,10 @@
 {
   "reset-title": "reset-title",
-  "reset-password-button": "reset-password-button"
+  "reset-password-button": "reset-password-button",
+  "verify-title": "verify-title",
+  "verify-paragraph": "verify-paragraph",
+  "verify-email-button": "verify-email-button",
+  "verify-thanks": "verify-thanks",
+  "verify-team": "verify-team",
+  "verify-footer-text": "verify-footer-text"
 }
