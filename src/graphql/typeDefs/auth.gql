@@ -1,6 +1,6 @@
 type Mutation {
-  registerWithEmail(input: CreateUserInput!): LoginMutationResponse!
-  loginWithEmail(input: EmailLoginInput!): LoginMutationResponse!
+  registerWithEmail(input: CreateUserInput!): AuthFormMutationResponse!
+  loginWithEmail(input: EmailLoginInput!): AuthFormMutationResponse!
   requestEmailVerification(email: String!): AuthMutationResponse!
   requestSmsOTP(phoneNumber: String!): AuthMutationResponse!
   refreshToken(token: String!): AuthMutationResponse!
@@ -39,7 +39,7 @@ input PasswordResetInput {
   token: String!
 }
 
-type LoginMutationResponse implements Response & FormErrors {
+type AuthFormMutationResponse implements Response & FormErrors {
   code: Int!
   success: Boolean!
   message: String!
