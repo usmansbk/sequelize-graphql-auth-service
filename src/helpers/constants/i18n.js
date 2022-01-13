@@ -27,8 +27,9 @@ export const INCORRECT_EMAIL_OR_PASSWORD = "incorrectEmailPassword";
 export const WELCOME_NEW_USER = "welcome";
 export const WELCOME_BACK = "welcomeExistingUser";
 export const EMAIL_VERIFIED = "emailVerified";
+export const PASSWORD_CHANGED = "passwordChanged";
+export const ACCOUNT_DOES_NOT_EXIST = "accountDoesNotExist";
+
+// send emails
 export const SENT_VERIFICATION_EMAIL = "sentVerificationEmail";
 export const SENT_RESET_PASSWORD_EMAIL = "sentResetPasswordEmail";
-export const PASSWORD_CHANGED = "passwordChanged";
-export const VALIDATION_ERROR = "validationError";
-export const ACCOUNT_DOES_NOT_EXIST = "accountDoesNotExist";
