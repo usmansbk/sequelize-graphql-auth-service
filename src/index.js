@@ -9,6 +9,7 @@ const app = express();
 useLanguageMiddleware(app);
 
 app.use(rateLimiter);
+
 app.set("trust proxy", 1);
 app.get("/ip", (request, response) => response.send(request.ip));
 
