@@ -24,7 +24,6 @@ input PasswordResetInput {
 }
 
 type Mutation {
-  requestEmailVerification(email: String!): RequestResponse!
   requestPasswordReset(email: String!): RequestResponse!
   requestDeleteAccount: RequestResponse!
   requestSmsOTP(phoneNumber: String!): RequestResponse!

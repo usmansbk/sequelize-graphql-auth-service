@@ -33,8 +33,9 @@ type Query {
 }
 
 type Mutation {
-  updateProfile(input: UpdateProfileInput!): UserFormMutationResponse!
+  requestEmailVerification(email: String!): RequestResponse!
   verifyEmail(token: String!): UserPayload!
+  updateProfile(input: UpdateProfileInput!): UserFormMutationResponse!
   uploadProfilePicture: UserPayload!
 }
 
