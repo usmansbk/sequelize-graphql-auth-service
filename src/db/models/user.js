@@ -123,7 +123,7 @@ export default (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           len: {
-            args: [6, 24],
+            args: [6, 64],
             msg: PASSWORD_LEN,
           },
           notEmpty: {
@@ -150,10 +150,15 @@ export default (sequelize, DataTypes) => {
     }
   );
 
-  User.beforeCreate("hash password", async (user) => {
-    const plainPassword = user.getDataValue("password");
-    const hashedPassword = await bcrypt.hash(plainPassword, 10);
-    user.setDataValue("password", hashedPassword);
-  });
+  const hashPassword = async (user) => {
+    if (user.changed("password")) {
+      const plainPassword = user.getDataValue("password");
+      const hashedPassword = await bcrypt.hash(plainPassword, 10);
+      user.setDataValue("password", hashedPassword);
+    }
+  };
+
+  User.beforeCreate("hash password", hashPassword);
+  User.beforeUpdate("hash password", hashPassword);
   return User;
 };
