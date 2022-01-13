@@ -30,6 +30,7 @@ export const EMAIL_VERIFIED = "emailVerified";
 export const PASSWORD_CHANGED = "passwordChanged";
 export const ACCOUNT_DOES_NOT_EXIST = "accountDoesNotExist";
 export const ACCOUNT_DELETED = "accountDeleted";
+export const LOGGED_OUT = "loggedOut";
 
 // send emails
 export const SENT_VERIFICATION_EMAIL = "sentInstructionsEmail";

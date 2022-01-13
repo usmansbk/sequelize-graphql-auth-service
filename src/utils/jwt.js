@@ -58,6 +58,10 @@ export function verify(token, options = {}) {
   }
 }
 
+export function decode(token) {
+  return jwt.decode(token);
+}
+
 export function generateToken(payload = {}, expiresIn = "5 minutes") {
   const { token, id } = sign(payload, expiresIn);
   const [time, units] = expiresIn.split(" ");

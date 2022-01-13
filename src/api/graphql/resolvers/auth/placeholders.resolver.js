@@ -3,6 +3,5 @@ export default {
     requestSmsOTP() {},
     loginWithSmsOTP() {},
     loginWithSocialProvider() {},
-    logout() {},
   },
 };
