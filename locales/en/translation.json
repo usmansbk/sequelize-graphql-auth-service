@@ -4,8 +4,7 @@
   "welcome": "Welcome, {{firstName}}!",
   "welcomeExistingUser": "Welcome back, {{firstName}}!",
   "incorrectEmailPassword": "Incorrect email or password",
-  "BANNED": "Your account has been banned",
-  "sentVerificationEmail": "We have sent an email to {{email}} with further instructions.",
+  "sentInstructionsEmail": "We have sent an email to {{email}} with further instructions.",
   "invalidLink": "The link you followed is invalid.",
   "passwordChanged": "Login with your new password to continue"
 }

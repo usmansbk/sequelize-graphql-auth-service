@@ -31,5 +31,5 @@ export const PASSWORD_CHANGED = "passwordChanged";
 export const ACCOUNT_DOES_NOT_EXIST = "accountDoesNotExist";
 
 // send emails
-export const SENT_VERIFICATION_EMAIL = "sentVerificationEmail";
-export const SENT_RESET_PASSWORD_EMAIL = "sentResetPasswordEmail";
+export const SENT_VERIFICATION_EMAIL = "sentInstructionsEmail";
+export const SENT_RESET_PASSWORD_EMAIL = "sentInstructionsEmail";
