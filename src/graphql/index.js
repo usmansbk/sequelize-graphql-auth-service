@@ -1,21 +1,16 @@
 import { ApolloServer } from "apollo-server-express";
 import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
-import express from "express";
 import http from "http";
 import db from "~db/models";
 import log from "~config/logger";
-import i18n, { useLanguageMiddleware } from "~config/i18n";
+import i18n from "~config/i18n";
 import createRedisServer from "~config/redis";
 import * as jwt from "~utils/jwt";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 import { UserDS } from "./datasources";
 
-export const app = express();
-
-useLanguageMiddleware(app);
-
-export const createApolloServer = () => {
+export const createApolloServer = (app) => {
   const httpServer = http.createServer(app);
   const redis = createRedisServer();
   const server = new ApolloServer({
@@ -49,8 +44,8 @@ export const createApolloServer = () => {
   return { server, httpServer };
 };
 
-const startApolloServer = async () => {
-  const { server, httpServer } = createApolloServer();
+const startApolloServer = async (app) => {
+  const { server, httpServer } = createApolloServer(app);
   await server.start();
   server.applyMiddleware({ app });
   await new Promise((resolve) => {
