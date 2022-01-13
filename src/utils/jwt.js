@@ -11,7 +11,11 @@ import {
   TOKEN_INVALID_ERROR,
   TOKEN_NOT_BEFORE_ERROR,
 } from "~helpers/constants/i18n";
-import { ACCESS_TOKEN_EXP, REFRESH_TOKEN_EXP } from "~helpers/constants/tokens";
+import {
+  ACCESS_TOKEN_EXP,
+  REFRESH_TOKEN_EXP,
+  supportedClients,
+} from "~helpers/constants/tokens";
 import TokenError from "./errors/TokenError";
 
 const privateKey = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
@@ -39,7 +43,7 @@ export function verify(token, options = {}) {
     return jwt.verify(token, publicKey, {
       ...options,
       issuer: process.env.HOST,
-      audience: [process.env.TEST_CLIENT_ID],
+      audience: supportedClients,
     });
   } catch (e) {
     if (e instanceof NotBeforeError) {
