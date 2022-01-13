@@ -12,8 +12,8 @@ import {
   TOKEN_NOT_BEFORE_ERROR,
 } from "~helpers/constants/i18n";
 import {
-  ACCESS_TOKEN_EXP,
-  REFRESH_TOKEN_EXP,
+  ACCESS_TOKEN_EXPIRE_IN,
+  REFRESH_TOKEN_EXPIRE_IN,
   supportedClients,
 } from "~helpers/constants/tokens";
 import TokenError from "./errors/TokenError";
@@ -75,8 +75,8 @@ export function generateToken(payload = {}, expiresIn = "5 minutes") {
  */
 export function generateAuthTokens(
   { aud, ...payload },
-  tokenExp = ACCESS_TOKEN_EXP,
-  refreshTokenExp = REFRESH_TOKEN_EXP
+  tokenExp = ACCESS_TOKEN_EXPIRE_IN,
+  refreshTokenExp = REFRESH_TOKEN_EXPIRE_IN
 ) {
   const accessToken = generateToken({ aud, ...payload }, tokenExp);
   const refreshToken = generateToken({ aud }, refreshTokenExp);

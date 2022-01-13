@@ -1,7 +1,7 @@
 import QueryError from "~utils/errors/QueryError";
 import { WELCOME_EXISTING_USER } from "~helpers/constants/i18n";
 import { BadRequest, Ok } from "~helpers/response";
-import { ID_TOKEN_EXP } from "~helpers/constants/tokens";
+import { ID_TOKEN_EXPIRE_IN } from "~helpers/constants/tokens";
 
 export default {
   Mutation: {
@@ -22,7 +22,7 @@ export default {
             language,
             aud: clientId,
           },
-          ID_TOKEN_EXP
+          ID_TOKEN_EXPIRE_IN
         );
 
         const { accessToken, refreshToken, refreshTokenId, exp } =
