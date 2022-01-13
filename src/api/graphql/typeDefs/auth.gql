@@ -8,8 +8,13 @@ input EmailLoginInput {
   password: String!
 }
 
-input SmsOTPInput {
+input VerifySMSOTPInput {
   phoneNumber: String!
+  token: String!
+}
+
+input VerifyEmailOTPInput {
+  email: String!
   token: String!
 }
 
@@ -26,10 +31,12 @@ input PasswordResetInput {
 type Mutation {
   requestPasswordReset(email: String!): RequestResponse!
   requestDeleteAccount: RequestResponse!
-  requestSmsOTP(phoneNumber: String!): RequestResponse!
+  requestSMSOTP(phoneNumber: String!): RequestResponse!
+  requestEmailOTP(email: String!): RequestResponse!
+  verifySMSOTP(input: VerifySMSOTPInput!): AuthMutationResponse!
+  verifyEmailOTP(input: VerifyEmailOTPInput!): AuthMutationResponse!
   registerWithEmail(input: CreateUserInput!): AuthFormMutationResponse!
   loginWithEmail(input: EmailLoginInput!): AuthFormMutationResponse!
-  loginWithSmsOTP(input: SmsOTPInput!): AuthMutationResponse!
   loginWithSocialProvider(input: SocialLoginInput!): AuthMutationResponse!
   resetPassword(input: PasswordResetInput!): AuthFormMutationResponse!
   deleteAccount(token: String!): AuthMutationResponse!
