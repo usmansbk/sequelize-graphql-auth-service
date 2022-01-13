@@ -33,7 +33,7 @@ export default {
           });
 
         // refresh token rotation
-        await store.setValue({
+        await store.set({
           key: `${id}:${clientId}`,
           value: refreshTokenId,
           expiresIn: exp,

@@ -2,9 +2,14 @@ import createRedisServer from "~config/redis";
 
 const redis = createRedisServer();
 
-const setValue = ({ key, value, expiresIn }) =>
-  redis.setex(key, expiresIn, value);
+const set = ({ key, value, expiresIn }) => redis.setex(key, expiresIn, value);
+
+const get = (key) => redis.get(key);
+
+const remove = (key) => redis.del(key);
 
 export default {
-  setValue,
+  set,
+  get,
+  remove,
 };

@@ -23,9 +23,9 @@ export default {
         const { language, firstName, id } = user;
 
         const token = nanoid();
-        const exp = dayjs.duration(1, "day").asSeconds();
+        const exp = dayjs.duration(10, "hours").asSeconds();
 
-        await store.setValue({
+        await store.set({
           key: token,
           value: id,
           expiresIn: exp,

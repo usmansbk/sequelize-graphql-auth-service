@@ -69,4 +69,8 @@ export default class UserDS extends SequelizeDataSource {
       }
     }
   }
+
+  verifyEmail(id) {
+    return this.update(id, { emailVerified: true });
+  }
 }
