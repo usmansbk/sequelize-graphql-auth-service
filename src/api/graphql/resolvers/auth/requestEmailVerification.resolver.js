@@ -11,7 +11,7 @@ export default {
     async requestEmailVerification(
       _,
       { email },
-      { dataSources, locale, redis, t }
+      { dataSources, locale, store, t }
     ) {
       const user = await dataSources.users.findOne({
         where: {
@@ -25,7 +25,11 @@ export default {
         const token = nanoid();
         const exp = dayjs.duration(1, "day").asSeconds();
 
-        await redis.setex(token, exp, id);
+        await store.setValue({
+          key: token,
+          value: id,
+          expiresIn: exp,
+        });
 
         sendMail({
           template: emailTemplates.VERIFY_EMAIL,

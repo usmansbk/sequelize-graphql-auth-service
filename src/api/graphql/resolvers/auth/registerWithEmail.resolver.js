@@ -8,7 +8,7 @@ export default {
     async registerWithEmail(
       _,
       { input },
-      { dataSources, jwt, t, redis, clientId }
+      { dataSources, jwt, t, store, clientId }
     ) {
       try {
         const { id, firstName, lastName, fullName, language } =
@@ -32,7 +32,12 @@ export default {
             language,
           });
 
-        await redis.setex(`${id}:${clientId}`, exp, refreshTokenId); // refresh token rotation
+        // refresh token rotation
+        await store.setValue({
+          key: `${id}:${clientId}`,
+          value: refreshTokenId,
+          expiresIn: exp,
+        });
 
         return Created({
           message: t(WELCOME_NEW_USER, { firstName }),

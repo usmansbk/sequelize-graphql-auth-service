@@ -4,15 +4,14 @@ import http from "http";
 import db from "~db/models";
 import log from "~config/logger";
 import i18n from "~config/i18n";
-import createRedisServer from "~config/redis";
 import * as jwt from "~utils/jwt";
+import store from "~services/store";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 import { UserDS } from "./datasources";
 
 export const createApolloServer = (app) => {
   const httpServer = http.createServer(app);
-  const redis = createRedisServer();
   const server = new ApolloServer({
     typeDefs,
     resolvers,
@@ -33,7 +32,7 @@ export const createApolloServer = (app) => {
 
       return {
         jwt,
-        redis,
+        store,
         userInfo,
         t: i18n(language),
         locale: req.locale,
