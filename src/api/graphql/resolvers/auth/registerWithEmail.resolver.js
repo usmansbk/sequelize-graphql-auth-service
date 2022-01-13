@@ -49,7 +49,7 @@ export default {
         if (e instanceof QueryError) {
           return BadRequest({
             message: t(e.message),
-            errors: e.cause.errors,
+            errors: e.cause?.errors,
           });
         }
         throw e;

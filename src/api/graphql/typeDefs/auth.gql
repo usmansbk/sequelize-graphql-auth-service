@@ -32,7 +32,7 @@ type Mutation {
   loginWithEmail(input: EmailLoginInput!): AuthFormMutationResponse!
   loginWithSmsOTP(input: SmsOTPInput!): AuthMutationResponse!
   loginWithSocialProvider(input: SocialLoginInput!): AuthMutationResponse!
-  resetPassword(input: PasswordResetInput!): AuthMutationResponse!
+  resetPassword(input: PasswordResetInput!): AuthFormMutationResponse!
   deleteAccount(token: String!): AuthMutationResponse!
   logout: AuthMutationResponse!
 }

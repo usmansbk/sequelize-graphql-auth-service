@@ -4,7 +4,6 @@ export default {
     requestDeleteAccount() {},
     loginWithSmsOTP() {},
     loginWithSocialProvider() {},
-    resetPassword() {},
     deleteAccount() {},
     logout() {},
   },

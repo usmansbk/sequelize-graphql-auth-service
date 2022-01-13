@@ -70,6 +70,11 @@ export default class UserDS extends SequelizeDataSource {
     }
   }
 
+  updatePassword({ id, password }) {
+    // updating a password is proof user owns an email
+    return this.update(id, { password, emailVerified: true });
+  }
+
   verifyEmail(id) {
     return this.update(id, { emailVerified: true });
   }

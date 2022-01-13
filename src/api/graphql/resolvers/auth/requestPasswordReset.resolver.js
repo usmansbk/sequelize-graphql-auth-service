@@ -22,7 +22,6 @@ export default {
 
         const { token, exp } = jwt.generateToken(
           {
-            language,
             aud: clientId,
             sub: id,
           },
