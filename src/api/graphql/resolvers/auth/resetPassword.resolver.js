@@ -28,7 +28,7 @@ export default {
           await store.remove(`${sub}:${clientId}`);
         });
 
-        // we can send an email to inform user of the change...
+        // we can send an email here to inform user of the change...
 
         return Ok({
           message: t(PASSWORD_CHANGED),
