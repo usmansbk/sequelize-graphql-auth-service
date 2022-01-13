@@ -24,16 +24,16 @@ input PasswordResetInput {
 }
 
 type Mutation {
+  requestEmailVerification(email: String!): RequestResponse!
+  requestPasswordReset(email: String!): RequestResponse!
+  requestDeleteAccount: RequestResponse!
+  requestSmsOTP(phoneNumber: String!): RequestResponse!
   registerWithEmail(input: CreateUserInput!): AuthFormMutationResponse!
   loginWithEmail(input: EmailLoginInput!): AuthFormMutationResponse!
-  requestEmailVerification(email: String!): AuthMutationResponse!
-  requestSmsOTP(phoneNumber: String!): AuthMutationResponse!
   loginWithSmsOTP(input: SmsOTPInput!): AuthMutationResponse!
   loginWithSocialProvider(input: SocialLoginInput!): AuthMutationResponse!
-  requestPasswordReset(email: String!): AuthMutationResponse!
-  resetPassword(input: PasswordResetInput!): AuthMutationResponse!
-  requestDeleteAccount: AuthMutationResponse!
   deleteAccount(token: String!): AuthMutationResponse!
+  resetPassword(input: PasswordResetInput!): AuthMutationResponse!
   logout: AuthMutationResponse!
 }
 

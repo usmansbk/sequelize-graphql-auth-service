@@ -6,6 +6,12 @@ type FieldError {
   field: String!
 }
 
+type RequestResponse implements Response {
+  code: Int!
+  success: Boolean!
+  message: String!
+}
+
 # All Queries and Mutations must implement this interface
 interface Response {
   code: Int!
