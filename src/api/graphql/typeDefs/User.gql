@@ -33,8 +33,10 @@ type Query {
 }
 
 type Mutation {
+  requestPhoneNumberVerification(phoneNumber: String!): RequestResponse!
   requestEmailVerification(email: String!): RequestResponse!
   verifyEmail(token: String!): UserPayload!
+  verifyPhoneNumber(token: String!): UserPayload!
   updateProfile(input: UpdateProfileInput!): UserFormMutationResponse!
 }
 

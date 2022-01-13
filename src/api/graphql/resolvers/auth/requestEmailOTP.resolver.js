@@ -1,4 +1,3 @@
-import { nanoid } from "nanoid";
 import dayjs from "~config/dayjs";
 import sendMail from "~services/mailer";
 import { Accepted } from "~helpers/response";
@@ -7,13 +6,13 @@ import { SENT_EMAIL_OTP } from "~helpers/constants/i18n";
 
 export default {
   Mutation: {
-    async requestEmailOTP(_, _args, { dataSources, locale, store, t }) {
+    async requestEmailOTP(_, _args, { dataSources, locale, store, t, otp }) {
       const user = await dataSources.users.currentUser();
 
       if (user) {
         const { language, firstName, id, email } = user;
 
-        const token = nanoid(8);
+        const token = otp.getEmailOtp();
         const exp = dayjs.duration(5, "minutes").asSeconds();
 
         await store.set({

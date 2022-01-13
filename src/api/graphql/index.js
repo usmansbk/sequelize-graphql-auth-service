@@ -5,6 +5,7 @@ import db from "~db/models";
 import log from "~config/logger";
 import i18n from "~config/i18n";
 import * as jwt from "~utils/jwt";
+import * as otp from "~utils/otp";
 import store from "~services/store";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
@@ -22,10 +23,10 @@ export const createApolloServer = (app) => {
     }),
     context: async ({ req }) => {
       let userInfo;
-      const token = req.headers.authorization;
+      const accessToken = req.headers.authorization;
 
-      if (token) {
-        userInfo = jwt.verify(token);
+      if (accessToken) {
+        userInfo = jwt.verify(accessToken);
       }
 
       const language = userInfo?.language || req.language || req.locale;
@@ -37,7 +38,8 @@ export const createApolloServer = (app) => {
         t: i18n(language),
         locale: req.locale,
         clientId: req.headers.client_id,
-        token,
+        accessToken,
+        otp,
       };
     },
   });

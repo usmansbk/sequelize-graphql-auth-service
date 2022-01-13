@@ -4,4 +4,7 @@ export const REFRESH_TOKEN_EXPIRES_IN = "14 days";
 export const RESET_PASSWORD_TOKEN_EXPIRES_IN = "20 minutes";
 export const DELETE_ACCOUNT_TOKEN_EXPIRES_IN = "5 minutes";
 
+export const SMS_OTP_LENGTH = 6;
+export const EMAIL_OTP_LENGTH = 8;
+
 export const supportedClients = [process.env.TEST_CLIENT_ID];

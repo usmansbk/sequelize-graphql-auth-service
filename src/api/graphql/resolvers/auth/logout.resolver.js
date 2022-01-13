@@ -4,9 +4,9 @@ import { LOGGED_OUT } from "~helpers/constants/i18n";
 export default {
   Mutation: {
     // Log out is idempotent
-    async logout(_, _args, { store, t, token, jwt, clientId }) {
-      if (token) {
-        const userInfo = jwt.decode(token);
+    async logout(_, _args, { store, t, accessToken, jwt, clientId }) {
+      if (accessToken) {
+        const userInfo = jwt.decode(accessToken);
 
         // No refresh token means the user never logged in
         await store.remove(`${userInfo.sub}:${clientId}`);
