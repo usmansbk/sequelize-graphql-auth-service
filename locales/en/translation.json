@@ -6,5 +6,5 @@
   "incorrectEmailPassword": "Incorrect email or password",
   "BANNED": "Your account has been banned",
   "sentVerificationEmail": "We have sent an email to {{email}} with further instructions.",
-  "linkExpired": "The link you followed is invalid."
+  "invalidLink": "The link you followed is invalid."
 }

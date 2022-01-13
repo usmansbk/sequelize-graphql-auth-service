@@ -1,5 +1,5 @@
 import { BadRequest, Ok } from "~helpers/response";
-import { EMAIL_VERIFIED, LINK_EXPIRED } from "~helpers/constants/i18n";
+import { EMAIL_VERIFIED, INVALID_LINK } from "~helpers/constants/i18n";
 import QueryError from "~utils/errors/QueryError";
 
 export default {
@@ -9,7 +9,7 @@ export default {
         const id = await store.get(token);
 
         if (!id) {
-          throw new QueryError(LINK_EXPIRED);
+          throw new QueryError(INVALID_LINK);
         }
 
         const user = await dataSources.users.verifyEmail(id);
