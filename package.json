@@ -53,6 +53,7 @@
     "dotenv": "^11.0.0",
     "email-templates": "^8.0.8",
     "express": "^4.17.2",
+    "express-rate-limit": "^6.1.0",
     "graphql": "^16.2.0",
     "graphql-iso-date": "^3.6.1",
     "i18next": "^21.6.6",
