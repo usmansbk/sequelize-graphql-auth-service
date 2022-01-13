@@ -3,20 +3,14 @@ import FieldErrors from "~utils/errors/FieldErrors";
 import QueryError from "~utils/errors/QueryError";
 import { formatErrors } from "~utils/errors/formatErrors";
 import {
-  BANNED_STATUS,
   INCORRECT_EMAIL_OR_PASSWORD,
   SIGNUP_FAILED,
 } from "~helpers/constants/i18n";
 import SequelizeDataSource from "./SequelizeDataSource";
 
 export default class UserDS extends SequelizeDataSource {
-  async currentUser() {
-    const user = await this.findByPk(this.context.userInfo?.sub);
-    if (user.status === BANNED_STATUS) {
-      throw new QueryError(BANNED_STATUS);
-    }
-
-    return user;
+  currentUser() {
+    return this.findByPk(this.context.userInfo?.sub);
   }
 
   async findByEmailAndPassword({ email, password }) {

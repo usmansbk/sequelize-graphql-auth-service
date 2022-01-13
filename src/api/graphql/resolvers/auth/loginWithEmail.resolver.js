@@ -1,6 +1,6 @@
 import QueryError from "~utils/errors/QueryError";
-import { WELCOME_EXISTING_USER } from "~helpers/constants/i18n";
 import { BadRequest, Ok } from "~helpers/response";
+import { WELCOME_BACK } from "~helpers/constants/i18n";
 import { ID_TOKEN_EXPIRE_IN } from "~helpers/constants/tokens";
 
 export default {
@@ -40,7 +40,7 @@ export default {
         });
 
         return Ok({
-          message: t(WELCOME_EXISTING_USER, { firstName }),
+          message: t(WELCOME_BACK, { firstName }),
           idToken,
           accessToken,
           refreshToken,
