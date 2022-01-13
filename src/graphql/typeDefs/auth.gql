@@ -20,7 +20,7 @@ input EmailLoginInput {
 
 input SmsOTPInput {
   phoneNumber: String!
-  code: String!
+  otp: String!
 }
 
 enum SocialProvider {

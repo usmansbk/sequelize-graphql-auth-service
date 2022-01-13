@@ -21,11 +21,32 @@ input CreateUserInput {
   language: String
 }
 
+input UpdateProfileInput {
+  firstName: String
+  lastName: String
+  phoneNumber: String
+  language: String
+}
+
 type Query {
   me: UserPayload!
 }
 
+type Mutation {
+  updateProfile(input: UpdateProfileInput!): UserMutationResponse!
+  uploadProfilePicture: UserMutationResponse!
+}
+
 type UserPayload implements Response {
+  code: Int!
+  success: Boolean!
+  message: String!
+  user: User
+}
+
+# UserMutationResponse and UserPayload will later diverge. Hence the duplicate 
+
+type UserMutationResponse implements Response {
   code: Int!
   success: Boolean!
   message: String!
