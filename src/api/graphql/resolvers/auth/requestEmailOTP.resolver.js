@@ -13,12 +13,12 @@ export default {
         const { language, firstName, id, email } = user;
 
         const token = otp.getEmailOtp();
-        const exp = dayjs.duration(5, "minutes").asSeconds();
+        const expiresIn = dayjs.duration(5, "minutes").asSeconds();
 
         await store.set({
           key: id,
           value: token,
-          expiresIn: exp,
+          expiresIn,
         });
 
         sendMail({

@@ -54,7 +54,7 @@ const startApolloServer = async (app) => {
     httpServer.listen({ port: 4000 }, resolve);
   });
   await db.sequelize.authenticate();
-  await db.sequelize.sync({ force: true });
+  await db.sequelize.sync({ force: false });
 
   return server;
 };
