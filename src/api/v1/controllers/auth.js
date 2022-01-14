@@ -1,19 +1,55 @@
 import * as jwt from "~utils/jwt";
+import store from "~services/store";
+import TokenError from "~utils/errors/TokenError";
+import { TOKEN_INVALID_ERROR } from "~helpers/constants/i18n";
 
-const refreshToken = (req, res) => {
+const refreshToken = async (req, res) => {
   const {
     authorization,
     refresh_token: rfToken,
     client_id: clientId,
   } = req.headers;
 
-  const decoded = jwt.verify(rfToken);
+  try {
+    const expiredToken = jwt.decode(authorization);
+    const decodedRefreshToken = jwt.verify(rfToken); // this will throw error if expired
 
-  console.log(authorization, decoded, clientId);
+    const key = `${expiredToken.sub}:${clientId}`;
+    const expectedJti = await store.get(key);
 
-  res.send({
-    success: true,
-  });
+    if (decodedRefreshToken.jti !== expectedJti) {
+      throw new TokenError(TOKEN_INVALID_ERROR);
+    }
+
+    const {
+      accessToken,
+      refreshToken: newRefreshToken,
+      refreshTokenId,
+      exp,
+    } = jwt.generateAuthTokens({
+      sub: decodedRefreshToken.sub,
+      aud: clientId,
+      language: expiredToken.language,
+    });
+
+    // rotate refresh token
+    await store.set({
+      key,
+      value: refreshTokenId,
+      expiresIn: exp,
+    });
+
+    res.send({
+      success: true,
+      accessToken,
+      refreshToken: newRefreshToken,
+    });
+  } catch (e) {
+    res.status(403).send({
+      success: false,
+      message: e.message,
+    });
+  }
 };
 
 export default {
