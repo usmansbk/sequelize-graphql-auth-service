@@ -1,11 +1,10 @@
 # environment
-
 node_modules
 coverage
 .eslintcache
+uploads
 
 # project
-
 build
 .env
 .env.production
