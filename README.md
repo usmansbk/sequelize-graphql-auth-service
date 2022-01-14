@@ -113,6 +113,12 @@ Check the [email-templates](https://github.com/forwardemail/email-templates) pac
 
 Follow the official Twilio documentation to setup your Twilio account and add your `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, and `PHONE_NUMBER` to your `.env` file.
 
+## Google authentication
+
+- Create a [Firebase](https://console.firebase.google.com) project
+- Follow this [instruction](https://github.com/googleapis/google-auth-library-nodejs#download-your-service-account-credentials-json-file) to download and set your credentials
+- Generate test tokens from Google [0Auth 2.0 Playground](https://developers.google.com/oauthplayground/)
+
 ## Coding standard
 
 We use Eslint AirBnB coding guidelines and import alias. All aliases are prefixed with a `~`. To add a new alias, update the `jsconfig.json`, `.eslintrc.js`, and `babel.config.json` files. We also make use of Husky precommit hook to enforce standard.
