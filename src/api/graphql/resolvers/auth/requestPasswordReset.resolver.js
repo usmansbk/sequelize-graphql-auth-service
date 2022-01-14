@@ -3,7 +3,10 @@ import links from "~helpers/links";
 import { Accepted } from "~helpers/response";
 import emailTemplates from "~helpers/constants/emailTemplates";
 import { SENT_RESET_PASSWORD_EMAIL } from "~helpers/constants/i18n";
-import { RESET_PASSWORD_TOKEN_EXPIRES_IN } from "~helpers/constants/tokens";
+import {
+  PASSWORD_KEY_PREFIX,
+  RESET_PASSWORD_TOKEN_EXPIRES_IN,
+} from "~helpers/constants/tokens";
 
 export default {
   Mutation: {
@@ -30,7 +33,7 @@ export default {
         );
 
         await store.set({
-          key: id,
+          key: `${PASSWORD_KEY_PREFIX}:${id}`,
           value: token,
           expiresIn: exp,
         });

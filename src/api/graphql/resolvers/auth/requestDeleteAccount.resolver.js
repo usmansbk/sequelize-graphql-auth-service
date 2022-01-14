@@ -3,7 +3,10 @@ import links from "~helpers/links";
 import { Accepted } from "~helpers/response";
 import emailTemplates from "~helpers/constants/emailTemplates";
 import { SENT_CONFIRM_DELETE_ACCOUNT_EMAIL } from "~helpers/constants/i18n";
-import { DELETE_ACCOUNT_TOKEN_EXPIRES_IN } from "~helpers/constants/tokens";
+import {
+  DELETE_ACCOUNT_KEY_PREFIX,
+  DELETE_ACCOUNT_TOKEN_EXPIRES_IN,
+} from "~helpers/constants/tokens";
 
 export default {
   Mutation: {
@@ -25,7 +28,7 @@ export default {
       );
 
       await store.set({
-        key: id,
+        key: `${DELETE_ACCOUNT_KEY_PREFIX}:${id}`,
         value: token,
         expiresIn: exp,
       });

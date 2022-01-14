@@ -12,5 +12,6 @@ export const PASSWORD_KEY_PREFIX = "password";
 export const EMAIL_VERIFICATION_KEY_PREFIX = "email:verification";
 export const EMAIL_OTP_KEY_PREFIX = "email:otp";
 export const PHONE_NUMBER_KEY_PREFIX = "phoneNumber";
+export const DELETE_ACCOUNT_KEY_PREFIX = "account:delete";
 
 export const supportedClients = [process.env.TEST_CLIENT_ID];
