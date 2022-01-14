@@ -25,4 +25,4 @@ export const useLanguageMiddleware = (app) => {
   app.use(middleware.handle(i18next));
 };
 
-export default (lng) => i18next.getFixedT(lng);
+export default i18next;
