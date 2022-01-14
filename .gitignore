@@ -13,3 +13,4 @@ build
 # Keys
 *.key
 *.key.pub
+google_client_secret.json
