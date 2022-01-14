@@ -6,7 +6,7 @@
 
 - [x] Email authentication
 - [x] SMS OTP
-- [ ] Social authentication (Google and Facebook)
+- [x] Social authentication (Google and Facebook)
 - [ ] RBAC
 - [x] Profile (Update and Delete)
 - [ ] File Upload
