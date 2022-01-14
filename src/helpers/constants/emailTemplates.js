@@ -5,6 +5,4 @@ const emailTemplates = {
   OTP: "otp",
 };
 
-export const MAIL_FROM = "usmansbk@gmail.com";
-
 export default emailTemplates;
