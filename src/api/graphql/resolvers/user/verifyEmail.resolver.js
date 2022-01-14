@@ -1,20 +1,24 @@
 import { BadRequest, Ok } from "~helpers/response";
 import { EMAIL_VERIFIED, INVALID_LINK } from "~helpers/constants/i18n";
 import QueryError from "~utils/errors/QueryError";
+import { EMAIL_VERIFICATION_TOKEN_PREFIX } from "~helpers/constants/tokens";
 
 export default {
   Mutation: {
-    async verifyEmail(_, { token }, { dataSources, store, t }) {
+    async verifyEmail(_, { token }, { dataSources, store, t, jwt }) {
       try {
-        const id = await store.get(token);
+        const { sub: id } = jwt.verify(token);
+        const key = `${EMAIL_VERIFICATION_TOKEN_PREFIX}:${id}`;
 
-        if (!id) {
+        const expectedToken = await store.get(key);
+
+        if (token !== expectedToken) {
           throw new QueryError(INVALID_LINK);
         }
 
         const user = await dataSources.users.verifyEmail(id);
 
-        await store.remove(token);
+        await store.remove(key);
 
         // Optionally, we can send an official welcome email here...
 
