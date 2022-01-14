@@ -40,3 +40,11 @@ export const SENT_RESET_PASSWORD_EMAIL = "sentInstructionsEmail";
 export const SENT_CONFIRM_DELETE_ACCOUNT_EMAIL = "sentInstructionsEmail";
 export const SENT_EMAIL_OTP = "sentEmailOtp";
 export const SENT_SMS_OTP = "sentSmsOtp";
+
+// upload
+export const FILE_TOO_LARGE = "fileTooLarge";
+export const UNSUPPORTED_FILE_TYPE = "unsupportedFileType";
+
+// auth
+export const UNAUTHORIZED = "unauthorized";
+export const SOMETHING_WENT_WRONG = "somethingWentWrong";
