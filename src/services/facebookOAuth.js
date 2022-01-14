@@ -2,7 +2,7 @@ import fetch from "node-fetch";
 import { TOKEN_INVALID_ERROR } from "~helpers/constants/i18n";
 import TokenError from "~utils/errors/TokenError";
 
-const HOST_URL = "graph.facebook.com";
+const FB_GRAPH_ENDPOINT = "https://graph.facebook.com";
 const fields = [
   "id",
   "first_name",
@@ -12,15 +12,25 @@ const fields = [
   "picture{url}",
 ];
 
+const verifyToken = async (token) => {
+  const response = await fetch(
+    `${FB_GRAPH_ENDPOINT}/debug_token?input_token=${token}&access_token=${process.env.FACEBOOK_APP_ACCESS_TOKEN}`
+  );
+  const body = await response.json();
+  if (!body.data.app_id !== process.env.FACEBOOK_APP_ID) {
+    throw new TokenError(TOKEN_INVALID_ERROR);
+  }
+};
+
 const verifyFacebookToken = async (accessToken) => {
-  const req = `https://${HOST_URL}/me?fields=${fields.join(
+  await verifyToken(accessToken);
+  const query = `${FB_GRAPH_ENDPOINT}/me?fields=${fields.join(
     ","
   )}&access_token=${accessToken}`;
-  const res = await fetch(req);
-  const body = await res.json();
-  console.log(body);
+  const response = await fetch(query);
+  const body = await response.json();
   if (body?.error) {
-    throw new TokenError(TOKEN_INVALID_ERROR);
+    throw new TokenError(TOKEN_INVALID_ERROR, new Error(body.error.message));
   }
 
   return {
