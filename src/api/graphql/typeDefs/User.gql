@@ -5,6 +5,7 @@ type User {
   fullName: String!
   email: String!
   phoneNumber: String
+  picture: String
   language: String!
   emailVerified: Boolean!
   phoneNumberVerified: Boolean!
