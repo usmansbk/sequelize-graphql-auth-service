@@ -1,5 +1,4 @@
 import * as jwt from "~utils/jwt";
-import i18n from "~config/i18n";
 import store from "~services/store";
 import TokenError from "~utils/errors/TokenError";
 import { TOKEN_INVALID_ERROR } from "~helpers/constants/i18n";
@@ -10,8 +9,6 @@ const refreshToken = async (req, res) => {
     refresh_token: rfToken,
     client_id: clientId,
   } = req.headers;
-
-  const t = i18n(req.language || req.locale);
 
   try {
     const expiredToken = jwt.decode(authorization);
@@ -50,7 +47,7 @@ const refreshToken = async (req, res) => {
   } catch (e) {
     res.status(401).send({
       success: false,
-      message: t(e.message),
+      message: req.t(e.message),
     });
   }
 };

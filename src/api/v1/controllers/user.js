@@ -15,7 +15,7 @@ const picture = async (req, res) => {
   } catch (e) {
     res.status(400).send({
       success: false,
-      message: e.message,
+      message: req.t(e.message),
     });
   }
 };

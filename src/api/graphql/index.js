@@ -3,7 +3,6 @@ import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import http from "http";
 import db from "~db/models";
 import log from "~config/logger";
-import i18n from "~config/i18n";
 import * as jwt from "~utils/jwt";
 import * as otp from "~utils/otp";
 import store from "~services/store";
@@ -33,13 +32,15 @@ export const createApolloServer = (app) => {
         }
       }
 
-      const language = tokenInfo?.language || req.language || req.locale;
+      if (tokenInfo) {
+        req.i18n.changeLanguage(tokenInfo.language);
+      }
 
       return {
         jwt,
         store,
         tokenInfo,
-        t: i18n(language),
+        t: req.t,
         locale: req.locale,
         clientId: req.headers.client_id,
         accessToken,
