@@ -92,7 +92,7 @@ Each supported client must pass a `client_id` in their request headers. Client I
 
 ```sh
 ## src/helpers/constants/tokens
-export const supportedClients = [process.env.TEST_CLIENT_ID, 'your-new-client-id'];
+export const allowedClients = [process.env.TEST_CLIENT_ID, 'your-new-client-id'];
 ```
 
 ## [Mailer](https://nodemailer.com/transports/ses/)

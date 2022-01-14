@@ -14,7 +14,7 @@ import {
 import {
   ACCESS_TOKEN_EXPIRES_IN,
   REFRESH_TOKEN_EXPIRES_IN,
-  supportedClients,
+  allowedClients,
 } from "~helpers/constants/tokens";
 import TokenError from "./errors/TokenError";
 
@@ -43,7 +43,7 @@ export function verify(token, options = {}) {
     return jwt.verify(token, publicKey, {
       ...options,
       issuer: process.env.HOST,
-      audience: supportedClients,
+      audience: allowedClients,
     });
   } catch (e) {
     if (e instanceof NotBeforeError) {

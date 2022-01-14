@@ -1,10 +1,7 @@
 import QueryError from "~utils/errors/QueryError";
 import { BadRequest, Ok } from "~helpers/response";
 import { INVALID_LINK, PASSWORD_CHANGED } from "~helpers/constants/i18n";
-import {
-  PASSWORD_KEY_PREFIX,
-  supportedClients,
-} from "~helpers/constants/tokens";
+import { PASSWORD_KEY_PREFIX, allowedClients } from "~helpers/constants/tokens";
 
 export default {
   Mutation: {
@@ -28,7 +25,7 @@ export default {
         await store.remove(key);
 
         // invalidate all refresh tokens
-        supportedClients.forEach(async (clientId) => {
+        allowedClients.forEach(async (clientId) => {
           await store.remove(`${sub}:${clientId}`);
         });
 
