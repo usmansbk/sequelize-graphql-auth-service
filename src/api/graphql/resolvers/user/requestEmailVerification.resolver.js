@@ -17,33 +17,35 @@ export default {
     ) {
       const user = await dataSources.users.currentUser();
 
-      const { language, firstName, id, email } = user;
+      const { language, firstName, id, email, emailVerified } = user;
 
-      const { token, exp } = jwt.generateToken(
-        {
-          aud: clientId,
-          sub: id,
-        },
-        EMAIL_VERIFICATION_TOKEN_EXPIRES_IN
-      );
+      if (!emailVerified) {
+        const { token, exp } = jwt.generateToken(
+          {
+            aud: clientId,
+            sub: id,
+          },
+          EMAIL_VERIFICATION_TOKEN_EXPIRES_IN
+        );
 
-      await store.set({
-        key: `${EMAIL_VERIFICATION_KEY_PREFIX}:${id}`,
-        value: token,
-        expiresIn: exp,
-      });
+        await store.set({
+          key: `${EMAIL_VERIFICATION_KEY_PREFIX}:${id}`,
+          value: token,
+          expiresIn: exp,
+        });
 
-      sendMail({
-        template: emailTemplates.VERIFY_EMAIL,
-        message: {
-          to: email,
-        },
-        locals: {
-          locale: language || locale,
-          name: firstName,
-          link: links.verifyEmail(token),
-        },
-      });
+        sendMail({
+          template: emailTemplates.VERIFY_EMAIL,
+          message: {
+            to: email,
+          },
+          locals: {
+            locale: language || locale,
+            name: firstName,
+            link: links.verifyEmail(token),
+          },
+        });
+      }
 
       return Accepted({
         message: t(SENT_VERIFICATION_EMAIL, { email }),

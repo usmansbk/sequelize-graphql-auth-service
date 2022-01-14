@@ -13,18 +13,20 @@ export default {
     ) {
       const user = await dataSources.users.updateCurrentUser({ phoneNumber });
 
-      const { id } = user;
+      const { id, phoneNumberVerified } = user;
 
-      const token = otp.getSmsOtp();
-      const expiresIn = dayjs.duration(10, "hours").asSeconds();
+      if (!phoneNumberVerified) {
+        const token = otp.getSmsOtp();
+        const expiresIn = dayjs.duration(10, "hours").asSeconds();
 
-      await store.set({
-        key: `${PHONE_NUMBER_KEY_PREFIX}:${id}`,
-        value: token,
-        expiresIn,
-      });
+        await store.set({
+          key: `${PHONE_NUMBER_KEY_PREFIX}:${id}`,
+          value: token,
+          expiresIn,
+        });
 
-      sendSMS(token, phoneNumber);
+        sendSMS(token, phoneNumber);
+      }
 
       return Accepted({
         message: t(SENT_SMS_OTP, { phoneNumber }),
