@@ -2,7 +2,7 @@ import SequelizeDataSource from "./SequelizeDataSource";
 
 export default class UserDS extends SequelizeDataSource {
   currentUser() {
-    return this.findByPk(this.context.userInfo?.sub);
+    return this.findByPk(this.context.tokenInfo?.sub);
   }
 
   async findByEmailAndPassword({ email, password }) {
@@ -50,7 +50,7 @@ export default class UserDS extends SequelizeDataSource {
   }
 
   updateCurrentUser(fields) {
-    return this.update(this.context.userInfo.sub, fields);
+    return this.update(this.context.tokenInfo.sub, fields);
   }
 
   verifyEmail(id) {

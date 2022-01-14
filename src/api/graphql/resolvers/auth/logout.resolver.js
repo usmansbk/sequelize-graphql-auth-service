@@ -6,10 +6,10 @@ export default {
     // Log out is idempotent
     async logout(_, _args, { store, t, accessToken, jwt, clientId }) {
       if (accessToken) {
-        const userInfo = jwt.decode(accessToken);
+        const tokenInfo = jwt.decode(accessToken);
 
         // No refresh token means the user never logged in
-        await store.remove(`${userInfo.sub}:${clientId}`);
+        await store.remove(`${tokenInfo.sub}:${clientId}`);
       }
 
       return Ok({

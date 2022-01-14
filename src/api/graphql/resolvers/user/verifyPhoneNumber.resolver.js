@@ -5,9 +5,13 @@ import { PHONE_NUMBER_KEY_PREFIX } from "~helpers/constants/tokens";
 
 export default {
   Mutation: {
-    async verifyPhoneNumber(_, { token }, { dataSources, store, userInfo, t }) {
+    async verifyPhoneNumber(
+      _,
+      { token },
+      { dataSources, store, tokenInfo, t }
+    ) {
       try {
-        const { sub: id } = userInfo;
+        const { sub: id } = tokenInfo;
         const key = `${PHONE_NUMBER_KEY_PREFIX}:${id}`;
 
         const expectedToken = await store.get(key);

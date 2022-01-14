@@ -22,23 +22,23 @@ export const createApolloServer = (app) => {
       users: new UserDS(db.User),
     }),
     context: async ({ req }) => {
-      let userInfo;
+      let tokenInfo;
       const accessToken = req.headers.authorization;
 
       if (accessToken) {
         try {
-          userInfo = jwt.verify(accessToken);
+          tokenInfo = jwt.verify(accessToken);
         } catch (e) {
           log.warn(e.message);
         }
       }
 
-      const language = userInfo?.language || req.language || req.locale;
+      const language = tokenInfo?.language || req.language || req.locale;
 
       return {
         jwt,
         store,
-        userInfo,
+        tokenInfo,
         t: i18n(language),
         locale: req.locale,
         clientId: req.headers.client_id,
