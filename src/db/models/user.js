@@ -145,7 +145,7 @@ export default (sequelize, DataTypes) => {
         },
       },
       socialAvatarURL: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         validate: {
           isUrl: {
             msg: INVALID_URL,

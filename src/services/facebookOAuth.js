@@ -18,6 +18,7 @@ const verifyFacebookToken = async (accessToken) => {
   )}&access_token=${accessToken}`;
   const res = await fetch(req);
   const body = await res.json();
+  console.log(body);
   if (body?.error) {
     throw new TokenError(TOKEN_INVALID_ERROR);
   }
@@ -25,7 +26,6 @@ const verifyFacebookToken = async (accessToken) => {
   return {
     firstName: body.first_name,
     lastName: body.last_name,
-    nickName: body.short_name,
     email: body.email,
     socialAvatarURL: body.picture?.data?.url,
     emailVerified: true,
