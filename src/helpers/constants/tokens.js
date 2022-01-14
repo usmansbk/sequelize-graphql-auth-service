@@ -1,4 +1,4 @@
-export const ID_TOKEN_EXPIRES_IN = "10 hours";
+export const ID_TOKEN_EXPIRES_IN = "30 minutes";
 export const ACCESS_TOKEN_EXPIRES_IN = "15 minutes";
 export const REFRESH_TOKEN_EXPIRES_IN = "14 days";
 export const RESET_PASSWORD_TOKEN_EXPIRES_IN = "20 minutes";
