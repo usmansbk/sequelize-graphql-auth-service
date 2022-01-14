@@ -1,6 +1,6 @@
 import Email from "email-templates";
 import nodemailer from "nodemailer";
-import * as aws from "@aws-sdk/client-ses";
+import aws from "aws-sdk";
 import { defaultProvider } from "@aws-sdk/credential-provider-node";
 import log from "~config/logger";
 
