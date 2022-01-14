@@ -18,6 +18,7 @@ export const TOKEN_EXPIRED_ERROR = "tokenExpiredError";
 export const TOKEN_INVALID_ERROR = "tokenInvalidError";
 export const TOKEN_NOT_BEFORE_ERROR = "tokenNotBeforeError";
 export const INVALID_LINK = "invalidLink";
+export const INVALID_OTP = "invalidOtp";
 
 // resolvers
 export const INCORRECT_EMAIL_OR_PASSWORD = "incorrectEmailPassword";
@@ -30,6 +31,7 @@ export const ACCOUNT_DOES_NOT_EXIST = "accountDoesNotExist";
 export const ACCOUNT_DELETED = "accountDeleted";
 export const LOGGED_OUT = "loggedOut";
 export const PROFILE_UPDATED = "profileUpdated";
+export const PHONE_NUMBER_VERIFIED = "phoneNumberVerified";
 
 // send emails
 export const SENT_VERIFICATION_EMAIL = "sentInstructionsEmail";
