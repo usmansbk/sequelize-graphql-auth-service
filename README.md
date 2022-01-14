@@ -122,7 +122,7 @@ Follow the official Twilio documentation to setup your Twilio account and add yo
 ## Facebook authentication
 
 - Create a new [Facebook](https://developers.facebook.com/) app
-- Navigate to **Roles** -> **Test Users** to get a test account access tokens
+- Navigate to **Roles** ⟶ **Test Users** to get a test account access tokens
 
 ## Coding standard
 
