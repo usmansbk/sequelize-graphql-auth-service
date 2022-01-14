@@ -27,13 +27,10 @@ export const createApolloServer = (app) => {
       if (accessToken) {
         try {
           tokenInfo = jwt.verify(accessToken);
+          await req.i18n.changeLanguage(tokenInfo.language);
         } catch (e) {
           log.warn(e.message);
         }
-      }
-
-      if (tokenInfo) {
-        req.i18n.changeLanguage(tokenInfo.language);
       }
 
       return {
