@@ -29,7 +29,7 @@ input UpdateProfileInput {
 }
 
 type Query {
-  me: UserPayload!
+  me: UserPayload! # allows us to be flexible. Example: We could use the message field to send specific in-app notification 
 }
 
 type Mutation {
