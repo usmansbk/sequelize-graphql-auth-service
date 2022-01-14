@@ -66,7 +66,7 @@ npx sequelize db:migrate
 
 ## [JSON Web Token](https://github.com/auth0/node-jsonwebtoken#readme)
 
-We use of JWT for authentication and authorization. [Read about the 3 main types of tokens](https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/).
+We make use of JWT for authentication and authorization. [Read about the 3 main types of tokens](https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/).
 
 ### Generate token verification and signing keys
 
