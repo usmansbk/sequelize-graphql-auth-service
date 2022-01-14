@@ -3,7 +3,7 @@ import sendMail from "~services/mailer";
 import { Accepted } from "~helpers/response";
 import emailTemplates from "~helpers/constants/emailTemplates";
 import { SENT_EMAIL_OTP } from "~helpers/constants/i18n";
-import { EMAIL_OTP_TOKEN_PREFIX } from "~helpers/constants/tokens";
+import { EMAIL_OTP_KEY_PREFIX } from "~helpers/constants/tokens";
 
 export default {
   Mutation: {
@@ -17,7 +17,7 @@ export default {
         const expiresIn = dayjs.duration(5, "minutes").asSeconds();
 
         await store.set({
-          key: `${EMAIL_OTP_TOKEN_PREFIX}:${id}`,
+          key: `${EMAIL_OTP_KEY_PREFIX}:${id}`,
           value: token,
           expiresIn,
         });

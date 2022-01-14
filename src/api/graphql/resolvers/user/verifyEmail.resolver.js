@@ -1,14 +1,14 @@
 import { BadRequest, Ok } from "~helpers/response";
 import { EMAIL_VERIFIED, INVALID_LINK } from "~helpers/constants/i18n";
 import QueryError from "~utils/errors/QueryError";
-import { EMAIL_VERIFICATION_TOKEN_PREFIX } from "~helpers/constants/tokens";
+import { EMAIL_VERIFICATION_KEY_PREFIX } from "~helpers/constants/tokens";
 
 export default {
   Mutation: {
     async verifyEmail(_, { token }, { dataSources, store, t, jwt }) {
       try {
         const { sub: id } = jwt.verify(token);
-        const key = `${EMAIL_VERIFICATION_TOKEN_PREFIX}:${id}`;
+        const key = `${EMAIL_VERIFICATION_KEY_PREFIX}:${id}`;
 
         const expectedToken = await store.get(key);
 

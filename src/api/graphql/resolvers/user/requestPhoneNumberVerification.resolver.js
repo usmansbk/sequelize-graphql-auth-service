@@ -1,7 +1,7 @@
 import dayjs from "~config/dayjs";
 import { Accepted } from "~helpers/response";
 import { SENT_SMS_OTP } from "~helpers/constants/i18n";
-import { PHONE_NUMBER_TOKEN_PREFIX } from "~helpers/constants/tokens";
+import { PHONE_NUMBER_KEY_PREFIX } from "~helpers/constants/tokens";
 
 export default {
   Mutation: {
@@ -18,7 +18,7 @@ export default {
       const expiresIn = dayjs.duration(10, "hours").asSeconds();
 
       await store.set({
-        key: `${PHONE_NUMBER_TOKEN_PREFIX}:${id}`,
+        key: `${PHONE_NUMBER_KEY_PREFIX}:${id}`,
         value: token,
         expiresIn,
       });
