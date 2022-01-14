@@ -48,7 +48,7 @@ const refreshToken = async (req, res) => {
       refreshToken: newRefreshToken,
     });
   } catch (e) {
-    res.status(403).send({
+    res.status(401).send({
       success: false,
       message: t(e.message),
     });
