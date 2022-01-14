@@ -7,18 +7,18 @@ const { AWS_REGION, S3_BUCKET } = process.env;
 
 const s3 = new aws.S3({ region: AWS_REGION });
 
-const upload = multer({
+const uploadProfilePicture = multer({
   storage: multerS3({
     s3,
     bucket: S3_BUCKET,
     contentType: multerS3.AUTO_CONTENT_TYPE,
     metadata(_req, file, cb) {
-      cb(null, { fieldName: file.fieldname });
+      cb(null, { fieldName: file.fieldname, originalName: file.originalname });
     },
     key(_req, _file, cb) {
-      cb(null, nanoid());
+      cb(null, `avatar/${nanoid()}`);
     },
   }),
 });
 
-export default upload;
+export default uploadProfilePicture;
