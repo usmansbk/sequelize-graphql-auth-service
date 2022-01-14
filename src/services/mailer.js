@@ -33,7 +33,9 @@ const email = new Email({
   },
   transport,
   subjectPrefix: env === "production" ? false : `[${env.toUpperCase()}] `,
-  i18n: {},
+  i18n: {
+    locales: ["en"],
+  },
 });
 
 export default async function sendMail({ template, message, locals }) {
