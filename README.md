@@ -109,6 +109,10 @@ AWS_REGION=us-east-1
 
 Check the [email-templates](https://github.com/forwardemail/email-templates) package for more details on creating emails.
 
+## [SMS](https://www.twilio.com/docs/sms/quickstart/node)
+
+Follow the official Twilio documentation to setup your Twilio account and add your `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, and `PHONE_NUMBER` to your `.env` file.
+
 ## Coding standard
 
 We use Eslint AirBnB coding guidelines and import alias. All aliases are prefixed with a `~`. To add a new alias, update the `jsconfig.json`, `.eslintrc.js`, and `babel.config.json` files. We also make use of Husky precommit hook to enforce standard.

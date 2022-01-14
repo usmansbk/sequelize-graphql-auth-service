@@ -2,6 +2,7 @@ import dayjs from "~config/dayjs";
 import { Accepted } from "~helpers/response";
 import { SENT_SMS_OTP } from "~helpers/constants/i18n";
 import { PHONE_NUMBER_KEY_PREFIX } from "~helpers/constants/tokens";
+import sendSMS from "~services/sms";
 
 export default {
   Mutation: {
@@ -23,7 +24,7 @@ export default {
         expiresIn,
       });
 
-      // send SMS
+      sendSMS(token, phoneNumber);
 
       return Accepted({
         message: t(SENT_SMS_OTP, { phoneNumber }),
