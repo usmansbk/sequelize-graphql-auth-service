@@ -23,32 +23,36 @@ export default {
 
       if (user) {
         const { language, firstName, id } = user;
+        const key = `${PASSWORD_KEY_PREFIX}:${id}`;
+        const sentToken = await store.get(key);
 
-        const { token, exp } = jwt.generateToken(
-          {
-            aud: clientId,
-            sub: id,
-          },
-          RESET_PASSWORD_TOKEN_EXPIRES_IN
-        );
+        if (!sentToken) {
+          const { token, exp } = jwt.generateToken(
+            {
+              aud: clientId,
+              sub: id,
+            },
+            RESET_PASSWORD_TOKEN_EXPIRES_IN
+          );
 
-        await store.set({
-          key: `${PASSWORD_KEY_PREFIX}:${id}`,
-          value: token,
-          expiresIn: exp,
-        });
+          await store.set({
+            key,
+            value: token,
+            expiresIn: exp,
+          });
 
-        sendMail({
-          template: emailTemplates.RESET_PASSWORD,
-          message: {
-            to: email,
-          },
-          locals: {
-            locale: language || locale,
-            name: firstName,
-            link: links.resetPassword(token),
-          },
-        });
+          sendMail({
+            template: emailTemplates.RESET_PASSWORD,
+            message: {
+              to: email,
+            },
+            locals: {
+              locale: language || locale,
+              name: firstName,
+              link: links.resetPassword(token),
+            },
+          });
+        }
       }
 
       return Accepted({

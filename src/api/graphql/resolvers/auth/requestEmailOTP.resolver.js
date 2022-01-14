@@ -10,14 +10,16 @@ export default {
     async requestEmailOTP(_, _args, { dataSources, locale, store, t, otp }) {
       const user = await dataSources.users.currentUser();
 
-      if (user) {
-        const { language, firstName, id, email } = user;
+      const { language, firstName, id, email } = user;
+      const key = `${EMAIL_OTP_KEY_PREFIX}:${id}`;
+      const sentToken = await store.get(key);
 
+      if (!sentToken) {
         const token = otp.getEmailOtp();
         const expiresIn = dayjs.duration(5, "minutes").asSeconds();
 
         await store.set({
-          key: `${EMAIL_OTP_KEY_PREFIX}:${id}`,
+          key,
           value: token,
           expiresIn,
         });

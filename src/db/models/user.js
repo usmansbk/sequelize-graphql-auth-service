@@ -160,5 +160,10 @@ export default (sequelize, DataTypes) => {
 
   User.beforeCreate("hash password", hashPassword);
   User.beforeUpdate("hash password", hashPassword);
+  User.beforeUpdate("unverify new phone number", (user) => {
+    if (user.changed("phoneNumber")) {
+      user.setDataValue("phoneNumberVerified", false);
+    }
+  });
   return User;
 };

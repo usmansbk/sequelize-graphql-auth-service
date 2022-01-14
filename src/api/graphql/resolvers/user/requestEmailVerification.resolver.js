@@ -18,8 +18,11 @@ export default {
       const user = await dataSources.users.currentUser();
 
       const { language, firstName, id, email, emailVerified } = user;
+      const key = `${EMAIL_VERIFICATION_KEY_PREFIX}:${id}`;
 
-      if (!emailVerified) {
+      const sentToken = await store.get(key); // rate limiter
+
+      if (!(sentToken || emailVerified)) {
         const { token, exp } = jwt.generateToken(
           {
             aud: clientId,
@@ -29,7 +32,7 @@ export default {
         );
 
         await store.set({
-          key: `${EMAIL_VERIFICATION_KEY_PREFIX}:${id}`,
+          key,
           value: token,
           expiresIn: exp,
         });
