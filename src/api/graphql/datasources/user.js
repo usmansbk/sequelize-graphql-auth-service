@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid";
 import SequelizeDataSource from "./SequelizeDataSource";
 
 export default class UserDS extends SequelizeDataSource {
@@ -22,7 +23,10 @@ export default class UserDS extends SequelizeDataSource {
   findOrCreate({ email, ...defaults }) {
     return super.findOrCreate({
       where: { email },
-      defaults,
+      defaults: {
+        ...defaults,
+        password: nanoid(16),
+      },
     });
   }
 

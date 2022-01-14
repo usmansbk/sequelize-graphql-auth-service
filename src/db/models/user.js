@@ -14,6 +14,7 @@ import {
   PASSWORD_LEN,
   INVALID_PASSWORD,
   INVALID_LOCALE,
+  INVALID_URL,
 } from "~helpers/constants/i18n";
 
 export default (sequelize, DataTypes) => {
@@ -140,6 +141,14 @@ export default (sequelize, DataTypes) => {
         validate: {
           isAlpha: {
             msg: INVALID_LOCALE,
+          },
+        },
+      },
+      socialAvatarURL: {
+        type: DataTypes.STRING,
+        validate: {
+          isUrl: {
+            msg: INVALID_URL,
           },
         },
       },
