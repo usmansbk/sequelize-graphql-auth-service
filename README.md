@@ -119,6 +119,11 @@ Follow the official Twilio documentation to setup your Twilio account and add yo
 - Follow this [instruction](https://github.com/googleapis/google-auth-library-nodejs#download-your-service-account-credentials-json-file) to download and set your web OAuth 2.0 credentials
 - Generate test tokens from Google [0Auth 2.0 Playground](https://developers.google.com/oauthplayground/)
 
+## Facebook authentication
+
+- Create a new [Facebook](https://developers.facebook.com/) app
+- Navigate to **Roles** -> **Test Users** to get a test account access tokens
+
 ## Coding standard
 
 We use Eslint AirBnB coding guidelines and import alias. All aliases are prefixed with a `~`. To add a new alias, update the `jsconfig.json`, `.eslintrc.js`, and `babel.config.json` files. We also make use of Husky precommit hook to enforce standard.
