@@ -116,7 +116,7 @@ Follow the official Twilio documentation to setup your Twilio account and add yo
 ## Google authentication
 
 - Create a [Firebase](https://console.firebase.google.com) project
-- Follow this [instruction](https://github.com/googleapis/google-auth-library-nodejs#download-your-service-account-credentials-json-file) to download and set your credentials
+- Follow this [instruction](https://github.com/googleapis/google-auth-library-nodejs#download-your-service-account-credentials-json-file) to download and set your web OAuth 2.0 credentials
 - Generate test tokens from Google [0Auth 2.0 Playground](https://developers.google.com/oauthplayground/)
 
 ## Coding standard
