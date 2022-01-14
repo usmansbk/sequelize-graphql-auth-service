@@ -19,6 +19,13 @@ export default class UserDS extends SequelizeDataSource {
     return null;
   }
 
+  findOrCreate({ email, ...defaults }) {
+    return super.findOrCreate({
+      where: { email },
+      defaults,
+    });
+  }
+
   async createWithEmail(fields) {
     let user = await this.findOne({
       where: {
