@@ -125,6 +125,11 @@ Follow the official Twilio documentation to setup your Twilio account and add yo
 - Get your [FACEBOOK_APP_ACCESS_TOKEN](https://developers.facebook.com/tools/access_token/) and `FACEBOOK_APP_ID` env variables
 - Navigate to **Roles** ⟶ **Test Users** to get a test account access tokens
 
+## File upload (S3)
+
+- Add your `S3_BUCKET` to `env` file
+- Ensure you've set the full s3 permissions
+
 ## Coding standard
 
 We use Eslint AirBnB coding guidelines and import alias. All aliases are prefixed with a `~`. To add a new alias, update the `jsconfig.json`, `.eslintrc.js`, and `babel.config.json` files. We also make use of Husky precommit hook to enforce standard.

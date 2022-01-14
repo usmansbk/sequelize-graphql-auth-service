@@ -27,6 +27,8 @@ if (NODE_ENV === "development") {
   options = { dest: "uploads/" };
 }
 
-const upload = multer(options);
+const upload = multer({
+  ...options,
+});
 
 export default upload;
