@@ -8,16 +8,6 @@ input EmailLoginInput {
   password: String!
 }
 
-input VerifySMSOTPInput {
-  phoneNumber: String!
-  token: String!
-}
-
-input VerifyEmailOTPInput {
-  email: String!
-  token: String!
-}
-
 input SocialLoginInput {
   provider: SocialProvider!
   token: String!
