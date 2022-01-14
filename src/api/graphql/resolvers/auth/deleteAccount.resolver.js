@@ -5,7 +5,7 @@ import { DELETE_ACCOUNT_KEY_PREFIX } from "~helpers/constants/tokens";
 
 export default {
   Mutation: {
-    async deleteAccount(_, { token }, { dataSources, store, t, jwt }) {
+    async deleteAccount(_parent, { token }, { dataSources, store, t, jwt }) {
       try {
         const { sub } = jwt.verify(token);
         const key = `${DELETE_ACCOUNT_KEY_PREFIX}:${sub}`;

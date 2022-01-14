@@ -7,7 +7,7 @@ import sendSMS from "~services/sms";
 export default {
   Mutation: {
     async requestPhoneNumberVerification(
-      _,
+      _parent,
       { phoneNumber },
       { dataSources, store, t, otp }
     ) {

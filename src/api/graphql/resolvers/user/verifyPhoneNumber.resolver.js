@@ -6,7 +6,7 @@ import { PHONE_NUMBER_KEY_PREFIX } from "~helpers/constants/tokens";
 export default {
   Mutation: {
     async verifyPhoneNumber(
-      _,
+      _parent,
       { token },
       { dataSources, store, tokenInfo, t }
     ) {

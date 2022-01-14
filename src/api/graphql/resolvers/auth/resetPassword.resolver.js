@@ -6,7 +6,7 @@ import { PASSWORD_KEY_PREFIX, allowedClients } from "~helpers/constants/tokens";
 export default {
   Mutation: {
     async resetPassword(
-      _,
+      _parent,
       { input: { password, token } },
       { dataSources, store, t, jwt }
     ) {

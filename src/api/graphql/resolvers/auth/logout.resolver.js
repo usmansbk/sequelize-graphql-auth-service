@@ -4,7 +4,7 @@ import { LOGGED_OUT } from "~helpers/constants/i18n";
 export default {
   Mutation: {
     // Log out is idempotent
-    async logout(_, _args, { store, t, accessToken, jwt, clientId }) {
+    async logout(_parent, _args, { store, t, accessToken, jwt, clientId }) {
       if (accessToken) {
         const tokenInfo = jwt.decode(accessToken);
 

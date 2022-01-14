@@ -5,7 +5,7 @@ import { EMAIL_VERIFICATION_KEY_PREFIX } from "~helpers/constants/tokens";
 
 export default {
   Mutation: {
-    async verifyEmail(_, { token }, { dataSources, store, t, jwt }) {
+    async verifyEmail(_parent, { token }, { dataSources, store, t, jwt }) {
       try {
         const { sub: id } = jwt.verify(token);
         const key = `${EMAIL_VERIFICATION_KEY_PREFIX}:${id}`;

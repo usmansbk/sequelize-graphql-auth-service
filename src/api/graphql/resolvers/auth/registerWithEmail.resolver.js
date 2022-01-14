@@ -6,7 +6,7 @@ import { ID_TOKEN_EXPIRES_IN } from "~helpers/constants/tokens";
 export default {
   Mutation: {
     async registerWithEmail(
-      _,
+      _parent,
       { input },
       { dataSources, jwt, t, store, clientId }
     ) {

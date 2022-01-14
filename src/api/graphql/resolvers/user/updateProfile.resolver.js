@@ -4,7 +4,7 @@ import { BadRequest, Ok } from "~helpers/response";
 
 export default {
   Mutation: {
-    async updateProfile(_, { input }, { dataSources, t }) {
+    async updateProfile(_parent, { input }, { dataSources, t }) {
       try {
         const user = await dataSources.users.updateCurrentUser(input);
 

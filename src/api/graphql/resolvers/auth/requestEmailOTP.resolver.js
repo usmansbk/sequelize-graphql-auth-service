@@ -7,7 +7,11 @@ import { EMAIL_OTP_KEY_PREFIX } from "~helpers/constants/tokens";
 
 export default {
   Mutation: {
-    async requestEmailOTP(_, _args, { dataSources, locale, store, t, otp }) {
+    async requestEmailOTP(
+      _parent,
+      _args,
+      { dataSources, locale, store, t, otp }
+    ) {
       const user = await dataSources.users.currentUser();
 
       const { language, firstName, id, email } = user;

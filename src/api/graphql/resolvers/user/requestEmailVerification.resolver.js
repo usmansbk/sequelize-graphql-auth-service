@@ -11,7 +11,7 @@ import {
 export default {
   Mutation: {
     async requestEmailVerification(
-      _,
+      _parent,
       _args,
       { dataSources, locale, store, t, jwt, clientId }
     ) {

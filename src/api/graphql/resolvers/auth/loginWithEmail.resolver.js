@@ -9,7 +9,7 @@ import { ID_TOKEN_EXPIRES_IN } from "~helpers/constants/tokens";
 export default {
   Mutation: {
     async loginWithEmail(
-      _,
+      _parent,
       { input },
       { dataSources, jwt, t, store, clientId }
     ) {

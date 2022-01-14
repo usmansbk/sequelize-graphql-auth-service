@@ -11,7 +11,7 @@ import {
 export default {
   Mutation: {
     async requestPasswordReset(
-      _,
+      _parent,
       { email },
       { dataSources, locale, store, t, jwt, clientId }
     ) {
