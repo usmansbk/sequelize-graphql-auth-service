@@ -1,8 +1,8 @@
 import dayjs from "~config/dayjs";
+import sendSMS from "~services/sms";
 import { Accepted } from "~helpers/response";
 import { SENT_SMS_OTP } from "~helpers/constants/i18n";
 import { PHONE_NUMBER_KEY_PREFIX } from "~helpers/constants/tokens";
-import sendSMS from "~services/sms";
 
 export default {
   Mutation: {

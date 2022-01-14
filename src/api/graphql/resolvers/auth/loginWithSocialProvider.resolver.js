@@ -1,7 +1,6 @@
-import verifyGoogleToken from "~services/googleOAuth";
 import QueryError from "~utils/errors/QueryError";
+import verifySocialToken from "~utils/verifySocialToken";
 import { BadRequest, Ok, Created } from "~helpers/response";
-import { GOOGLE_PROVIDER } from "~helpers/constants/providers";
 import { ID_TOKEN_EXPIRES_IN } from "~helpers/constants/tokens";
 import { WELCOME_BACK, WELCOME_NEW_USER } from "~helpers/constants/i18n";
 
@@ -9,19 +8,11 @@ export default {
   Mutation: {
     async loginWithSocialProvider(
       _parent,
-      { input: { provider, token } },
+      { input },
       { t, dataSources, jwt, clientId, store }
     ) {
       try {
-        let userInfo;
-        switch (provider) {
-          case GOOGLE_PROVIDER:
-            userInfo = await verifyGoogleToken(token);
-            break;
-          default:
-            break;
-        }
-
+        const userInfo = await verifySocialToken(input);
         const [user, created] = await dataSources.users.findOrCreate(userInfo);
         const { id, firstName, lastName, fullName, language } = user;
 
