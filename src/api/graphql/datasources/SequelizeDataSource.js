@@ -106,17 +106,21 @@ export default class SequelizeDataSource extends DataSource {
   }
 
   async findOrCreate(queryOptions) {
-    const [item, created] = await this.model.findOrCreate(queryOptions);
-    if (item) {
-      this.prime(item);
-    }
+    try {
+      const [item, created] = await this.model.findOrCreate(queryOptions);
+      if (item) {
+        this.prime(item);
+      }
 
-    if (created) {
-      const newImage = item.toJSON();
-      this.onCreate(newImage);
-    }
+      if (created) {
+        const newImage = item.toJSON();
+        this.onCreate(newImage);
+      }
 
-    return [item, created];
+      return [item, created];
+    } catch (e) {
+      return this.onError(e);
+    }
   }
 
   async create(fields) {
