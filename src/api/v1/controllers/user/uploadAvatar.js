@@ -1,15 +1,12 @@
 import multer from "multer";
 import numeral from "numeral";
-import db from "~db/models";
 import fileStorage from "~services/fileStorage";
 import uploadProfilePicture from "~api/v1/middlewares/uploadProfilePicture";
-import { IMAGE_TOO_LARGE, SOMETHING_WENT_WRONG } from "~helpers/constants/i18n";
+import { IMAGE_TOO_LARGE } from "~helpers/constants/i18n";
 import { PROFILE_PICTURE_MAX_FILE_SIZE } from "~helpers/constants/upload";
 import { BYTES } from "~helpers/constants/numeral";
 
 const upload = uploadProfilePicture.single("avatar");
-
-const { User } = db;
 
 const uploadAvatar = async (req, res) => {
   upload(req, res, async (err) => {
@@ -48,19 +45,14 @@ const uploadAvatar = async (req, res) => {
           size,
         };
 
-        const { userInfo } = req;
-        const currentUser = await User.findByPk(userInfo.sub);
+        const { user } = req;
 
-        if (!currentUser) {
-          throw new Error(SOMETHING_WENT_WRONG);
-        }
-
-        let avatar = await currentUser.getAvatar();
+        let avatar = await user.getAvatar();
         if (avatar) {
           fileStorage.remove(avatar.toJSON());
           avatar = await avatar.update(file);
         } else {
-          avatar = await currentUser.createAvatar(file);
+          avatar = await user.createAvatar(file);
         }
 
         res.send({

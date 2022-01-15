@@ -6,14 +6,14 @@ import { UNAUTHORIZED } from "~helpers/constants/i18n";
 const authMiddleware = async (req, _res, next) => {
   try {
     const token = req.headers.authorization;
-    const userInfo = jwt.verify(token);
-    const user = userInfo && (await db.User.findByPk(userInfo.sub));
+    const tokenInfo = jwt.verify(token);
+    const user = tokenInfo && (await db.User.findByPk(tokenInfo.sub));
 
     if (!user) {
       throw new TokenError(UNAUTHORIZED);
     }
 
-    req.userInfo = userInfo;
+    req.user = user;
     return next();
   } catch (e) {
     return next(e);
