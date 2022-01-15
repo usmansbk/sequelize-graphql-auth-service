@@ -1,13 +1,11 @@
 import multer from "multer";
 import multerS3 from "multer-s3";
-import aws from "aws-sdk";
 import { nanoid } from "nanoid";
+import s3 from "~services/s3";
 import { UNSUPPORTED_FILE_TYPE } from "~helpers/constants/i18n";
 import { PROFILE_PICTURE_MAX_FILE_SIZE } from "~helpers/constants/upload";
 
-const { AWS_REGION, S3_BUCKET } = process.env;
-
-const s3 = new aws.S3({ region: AWS_REGION });
+const { S3_BUCKET } = process.env;
 
 const MAX_FILE_SIZE = PROFILE_PICTURE_MAX_FILE_SIZE;
 
