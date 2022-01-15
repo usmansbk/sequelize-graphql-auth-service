@@ -3,7 +3,7 @@ import v1 from "~api/v1/routes";
 import startApolloServer from "~api/graphql";
 import log from "~utils/logger";
 import { useLanguageMiddleware } from "~config/i18n";
-import rateLimiter from "~middlewares/rateLimiter";
+import rateLimiter from "~api/v1/middlewares/rateLimiter";
 
 const app = express();
 

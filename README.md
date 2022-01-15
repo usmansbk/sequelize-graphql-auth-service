@@ -9,7 +9,7 @@
 - [x] Social authentication (Google and Facebook)
 - [ ] RBAC
 - [x] Profile (Update and Delete)
-- [ ] File Upload
+- [x] File Upload
 - [ ] Push Notification
 - [x] i18n
 
@@ -129,6 +129,8 @@ Follow the official Twilio documentation to setup your Twilio account and add yo
 
 - Add your `S3_BUCKET` to `env` file
 - Ensure you've set the full s3 permissions
+
+## Images CDN
 
 ## Coding standard
 

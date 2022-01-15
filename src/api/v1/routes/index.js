@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import express from "express";
 import TokenError from "~utils/errors/TokenError";
-import authMiddleware from "~middlewares/auth";
+import authMiddleware from "~api/v1/middlewares/auth";
 import { SOMETHING_WENT_WRONG } from "~helpers/constants/i18n";
 
 import authRouter from "./auth";
