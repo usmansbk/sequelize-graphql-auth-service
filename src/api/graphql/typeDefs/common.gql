@@ -6,6 +6,24 @@ type FieldError {
   field: String!
 }
 
+enum ImageResizeMode {
+  cover
+  contain
+  fill
+  inside
+  outside
+}
+
+
+"""
+https://sharp.pixelplumbing.com/api-resize#resize
+"""
+input ImageResize {
+  width: Int!
+  height: Int!
+  fit: ImageResizeMode
+}
+
 type RequestResponse implements Response {
   code: Int!
   success: Boolean!
