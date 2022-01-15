@@ -8,6 +8,8 @@ const { AWS_REGION, S3_BUCKET } = process.env;
 
 const s3 = new aws.S3({ region: AWS_REGION });
 
+const MAX_FILE_SIZE = 1000000; // 1MB
+
 const uploadProfilePicture = multer({
   storage: multerS3({
     s3,
@@ -21,10 +23,10 @@ const uploadProfilePicture = multer({
     },
   }),
   limits: {
-    fileSize: 1024 * 1024, // 1MB
+    fileSize: MAX_FILE_SIZE,
   },
   fileFilter(req, file, cb) {
-    if (!["image/png", "image/jpeg", "image/jpg"].includes(file.mimetype)) {
+    if (!["image/png", "image/jpeg"].includes(file.mimetype)) {
       cb(new Error(req.t(UNSUPPORTED_FILE_TYPE)));
     }
     cb(null, true);
