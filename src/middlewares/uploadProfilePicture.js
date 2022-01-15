@@ -26,9 +26,9 @@ const uploadProfilePicture = multer({
   limits: {
     fileSize: MAX_FILE_SIZE,
   },
-  fileFilter(req, file, cb) {
+  fileFilter(_req, file, cb) {
     if (!["image/png", "image/jpeg"].includes(file.mimetype)) {
-      cb(new Error(req.t(UNSUPPORTED_FILE_TYPE)));
+      cb(new Error(UNSUPPORTED_FILE_TYPE));
     }
     cb(null, true);
   },
