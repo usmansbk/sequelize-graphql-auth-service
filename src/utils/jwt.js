@@ -26,7 +26,7 @@ const publicKey = fs.readFileSync(process.env.JWT_PUBLIC_KEY);
  * Buffer or string payloads are not checked for JSON validity.
  * exp, nbf, aud, sub and iss can be provided in the payload directly, but you can't include in both places.
  */
-export function sign(payload, expiresIn = "15m") {
+export const sign = (payload, expiresIn = "15m") => {
   const id = nanoid();
   const token = jwt.sign(payload, privateKey, {
     jwtid: id,
@@ -36,9 +36,9 @@ export function sign(payload, expiresIn = "15m") {
   });
 
   return { token, id };
-}
+};
 
-export function verify(token, options = {}) {
+export const verify = (token, options = {}) => {
   try {
     return jwt.verify(token, publicKey, {
       ...options,
@@ -56,19 +56,17 @@ export function verify(token, options = {}) {
       throw e;
     }
   }
-}
+};
 
-export function decode(token) {
-  return jwt.decode(token);
-}
+export const decode = (token) => jwt.decode(token);
 
-export function generateToken(payload = {}, expiresIn = "5 minutes") {
+export const generateToken = (payload = {}, expiresIn = "5 minutes") => {
   const { token, id } = sign(payload, expiresIn);
   const [time, units] = expiresIn.split(" ");
   const exp = dayjs.duration(Number.parseInt(time, 10), units).asSeconds();
 
   return { token, exp, id };
-}
+};
 
 /**
  *
@@ -77,11 +75,11 @@ export function generateToken(payload = {}, expiresIn = "5 minutes") {
  * @param { string } refreshTokenExp  - refresh token expiresIn (days)
  * @returns
  */
-export function generateAuthTokens(
+export const generateAuthTokens = (
   { aud, ...payload },
   tokenExp = ACCESS_TOKEN_EXPIRES_IN,
   refreshTokenExp = REFRESH_TOKEN_EXPIRES_IN
-) {
+) => {
   const accessToken = generateToken({ aud, ...payload }, tokenExp);
   const refreshToken = generateToken({ aud }, refreshTokenExp);
 
@@ -92,4 +90,4 @@ export function generateAuthTokens(
     refreshTokenId: refreshToken.id,
     exp: refreshToken.exp,
   };
-}
+};

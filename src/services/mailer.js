@@ -39,7 +39,7 @@ const email = new Email({
   send: isProduction,
 });
 
-export default async function sendMail({ template, message, locals }) {
+const sendMail = async ({ template, message, locals }) => {
   try {
     const info = await email.send({ template, message, locals });
 
@@ -49,4 +49,6 @@ export default async function sendMail({ template, message, locals }) {
   } catch (e) {
     log.error(e.message);
   }
-}
+};
+
+export default sendMail;
