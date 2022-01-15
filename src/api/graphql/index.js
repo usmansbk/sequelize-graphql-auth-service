@@ -6,6 +6,7 @@ import log from "~utils/logger";
 import * as jwt from "~utils/jwt";
 import * as otp from "~utils/otp";
 import store from "~utils/store";
+import fileStorage from "~services/fileStorage";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 import { UserDS, FileDS } from "./datasources";
@@ -45,6 +46,7 @@ export const createApolloServer = (app) => {
         clientId: req.headers.client_id,
         accessToken,
         otp,
+        fileStorage,
       };
     },
   });

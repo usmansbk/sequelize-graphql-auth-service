@@ -1,6 +1,7 @@
 import multer from "multer";
 import numeral from "numeral";
 import db from "~db/models";
+import fileStorage from "~services/fileStorage";
 import uploadProfilePicture from "~api/v1/middlewares/uploadProfilePicture";
 import { IMAGE_TOO_LARGE, SOMETHING_WENT_WRONG } from "~helpers/constants/i18n";
 import { PROFILE_PICTURE_MAX_FILE_SIZE } from "~helpers/constants/upload";
@@ -62,6 +63,8 @@ const uploadAvatar = async (req, res) => {
         });
       } catch (error) {
         // remove uploaded file from s3
+        fileStorage.remove(req.file);
+
         res.status(400).send({
           success: false,
           message: req.t(error.message),

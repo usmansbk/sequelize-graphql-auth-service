@@ -30,6 +30,12 @@ export default class UserDS extends SequelizeDataSource {
     });
   }
 
+  onDestroy(user) {
+    if (user.avatarId) {
+      this.context.dataSources.files.destroy(user.avatarId);
+    }
+  }
+
   async createWithEmail(fields) {
     let user = await this.findOne({
       where: {
