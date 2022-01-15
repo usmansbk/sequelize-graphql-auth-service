@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import express from "express";
+import morgan from "morgan";
 import TokenError from "~utils/errors/TokenError";
 import authMiddleware from "~api/v1/middlewares/auth";
 import { SOMETHING_WENT_WRONG } from "~helpers/constants/i18n";
@@ -11,6 +12,7 @@ const router = express.Router();
 
 router.get("/ip", (request, response) => response.send(request.ip));
 
+router.use(morgan("combined"));
 router.use("/auth", authRouter);
 router.use("/user", authMiddleware, userRouter);
 
