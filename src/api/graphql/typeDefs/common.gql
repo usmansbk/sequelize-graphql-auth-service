@@ -14,9 +14,7 @@ enum ImageResizeMode {
   outside
 }
 
-"""
-https://sharp.pixelplumbing.com/api-resize#resize
-"""
+"https://sharp.pixelplumbing.com/api-resize#resize"
 input ImageResizeInput {
   width: Int!
   height: Int!
