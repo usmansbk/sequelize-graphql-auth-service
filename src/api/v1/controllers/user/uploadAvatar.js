@@ -2,7 +2,7 @@ import multer from "multer";
 import numeral from "numeral";
 import db from "~db/models";
 import uploadProfilePicture from "~api/v1/middlewares/uploadProfilePicture";
-import { IMAGE_TOO_LARGE } from "~helpers/constants/i18n";
+import { IMAGE_TOO_LARGE, SOMETHING_WENT_WRONG } from "~helpers/constants/i18n";
 import { PROFILE_PICTURE_MAX_FILE_SIZE } from "~helpers/constants/upload";
 import { BYTES } from "~helpers/constants/numeral";
 
@@ -45,28 +45,26 @@ const uploadAvatar = async (req, res) => {
           name,
           mimeType,
           size,
-          // thumbnail: links.imageUrl({
-          //   ...imageRequest,
-          //   edits: { resize: { width: 32, height: 32 } },
-          // }),
-          // url: links.imageUrl({
-          //   ...imageRequest,
-          //   edits: { resize: { width: 180, height: 180 } },
-          // }),
         };
 
         const { userInfo } = req;
         const currentUser = await User.findByPk(userInfo.sub);
+
+        if (!currentUser) {
+          throw new Error(SOMETHING_WENT_WRONG);
+        }
+
         const avatar = await currentUser.createAvatar(file);
 
         res.send({
           success: true,
-          avatar,
+          avatar: avatar.toJSON(),
         });
-      } catch (e) {
+      } catch (error) {
+        // remove uploaded file from s3
         res.status(400).send({
           success: false,
-          message: req.t(err.message),
+          message: req.t(error.message),
         });
       }
     }
