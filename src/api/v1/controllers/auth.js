@@ -29,7 +29,7 @@ const refreshToken = async (req, res) => {
     } = jwt.generateAuthTokens({
       aud: clientId,
       sub: decodedRefreshToken.sub,
-      lng: expiredToken.language,
+      lng: expiredToken.lng,
     });
 
     // rotate refresh token
