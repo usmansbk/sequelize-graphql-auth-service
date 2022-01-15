@@ -3,6 +3,8 @@
 
 The `@auth` directive is used to check if a user is logged in and has
 the necessary permissions to access the field.
+
+https://www.graphql-tools.com/docs/schema-directives#enforcing-access-permissions
 """
 directive @auth on FIELD_DEFINITION
 
