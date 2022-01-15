@@ -25,5 +25,8 @@ export default {
 
       return null; // or default image placeholder
     },
+    isOwner(parent, _args, { tokenInfo }) {
+      return parent.id === tokenInfo?.sub;
+    },
   },
 };
