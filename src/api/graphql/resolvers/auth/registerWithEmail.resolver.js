@@ -29,7 +29,7 @@ export default {
           jwt.generateAuthTokens({
             sub: id,
             aud: clientId,
-            language,
+            lng: language,
           });
 
         // refresh token rotation
