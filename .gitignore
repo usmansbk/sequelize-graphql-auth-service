@@ -8,6 +8,7 @@ uploads
 build
 .env
 .env.production
+*.error
 
 # Keys
 *.key
