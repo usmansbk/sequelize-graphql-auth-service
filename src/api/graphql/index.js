@@ -11,12 +11,15 @@ import fileStorage from "~services/fileStorage";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 import { UserDS, FileDS } from "./datasources";
+import authDirectiveTransformer from "./directives/auth";
 
 const createSchema = () => {
-  const schema = makeExecutableSchema({
+  let schema = makeExecutableSchema({
     typeDefs,
     resolvers,
   });
+
+  schema = authDirectiveTransformer(schema, "auth");
 
   return schema;
 };

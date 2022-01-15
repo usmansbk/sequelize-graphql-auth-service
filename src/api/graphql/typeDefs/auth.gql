@@ -34,8 +34,8 @@ type Mutation {
   loginWithEmail(input: EmailLoginInput!): AuthFormMutationResponse!
   loginWithSocialProvider(input: SocialLoginInput!): AuthMutationResponse!
   resetPassword(input: PasswordResetInput!): AuthFormMutationResponse!
-  deleteAccount(token: String!): AuthMutationResponse! @auth
-  logout: AuthMutationResponse! @auth
+  deleteAccount(token: String!): AuthMutationResponse!
+  logout: AuthMutationResponse!
 }
 
 type AuthFormMutationResponse implements Response & FormErrors {
