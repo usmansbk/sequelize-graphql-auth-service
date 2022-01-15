@@ -1,3 +1,11 @@
+"""
+## [WIP] Authentication and Authorization directive
+
+The `@auth` directive is used to check if a user is logged in and has
+the necessary permissions to access the field.
+"""
+directive @auth on FIELD_DEFINITION
+
 enum SocialProvider {
   GOOGLE
   FACEBOOK
