@@ -83,4 +83,15 @@ export default class UserDS extends SequelizeDataSource {
   verifyPhoneNumber(id) {
     return this.update(id, { phoneNumberVerified: true });
   }
+
+  async deleteAvatar(id) {
+    const user = await this.findByPk(id);
+
+    if (user.avatarId) {
+      await this.context.dataSources.files.destroy(user.avatarId);
+      await user.reload();
+    }
+
+    return user;
+  }
 }

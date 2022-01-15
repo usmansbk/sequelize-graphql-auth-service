@@ -39,6 +39,7 @@ type Mutation {
   verifyEmail(token: String!): UserPayload!
   verifyPhoneNumber(token: String!): UserPayload!
   updateProfile(input: UpdateProfileInput!): UserFormMutationResponse!
+  removeProfilePicture: UserPayload!
 }
 
 type UserPayload implements Response {
