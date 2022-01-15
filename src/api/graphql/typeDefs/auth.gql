@@ -28,14 +28,14 @@ input PasswordResetInput {
 
 type Mutation {
   requestPasswordReset(email: String!): RequestResponse!
-  requestDeleteAccount: RequestResponse!
-  requestEmailOTP: RequestResponse!
+  requestDeleteAccount: RequestResponse! @auth
+  requestEmailOTP: RequestResponse! @auth
   registerWithEmail(input: CreateUserInput!): AuthFormMutationResponse!
   loginWithEmail(input: EmailLoginInput!): AuthFormMutationResponse!
   loginWithSocialProvider(input: SocialLoginInput!): AuthMutationResponse!
   resetPassword(input: PasswordResetInput!): AuthFormMutationResponse!
-  deleteAccount(token: String!): AuthMutationResponse!
-  logout: AuthMutationResponse!
+  deleteAccount(token: String!): AuthMutationResponse! @auth
+  logout: AuthMutationResponse! @auth
 }
 
 type AuthFormMutationResponse implements Response & FormErrors {

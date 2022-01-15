@@ -32,16 +32,16 @@ input UpdateProfileInput {
 }
 
 type Query {
-  me: UserPayload! # allows us to be flexible. Example: We could use the message field to send specific in-app notification 
+  me: UserPayload! @auth
 }
 
 type Mutation {
-  requestEmailVerification: RequestResponse!
-  requestPhoneNumberVerification(phoneNumber: String!): RequestResponse!
+  requestEmailVerification: RequestResponse! @auth
+  requestPhoneNumberVerification(phoneNumber: String!): RequestResponse! @auth
   verifyEmail(token: String!): UserPayload!
-  verifyPhoneNumber(token: String!): UserPayload!
-  updateProfile(input: UpdateProfileInput!): UserFormMutationResponse!
-  removeProfilePicture: UserPayload!
+  verifyPhoneNumber(token: String!): UserPayload! @auth
+  updateProfile(input: UpdateProfileInput!): UserFormMutationResponse! @auth
+  removeProfilePicture: UserPayload! @auth
 }
 
 type UserPayload implements Response {
