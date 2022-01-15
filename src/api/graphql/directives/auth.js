@@ -1,7 +1,7 @@
 import { mapSchema, getDirective, MapperKind } from "@graphql-tools/utils";
 import { AuthenticationError } from "apollo-server-core";
 import { defaultFieldResolver } from "graphql";
-import { UNAUTHORIZED } from "~helpers/constants/i18n";
+import { UNAUTHENTICATED } from "~helpers/constants/i18n";
 
 const authDirectiveTransformer = (schema, directiveName) =>
   mapSchema(schema, {
@@ -21,7 +21,7 @@ const authDirectiveTransformer = (schema, directiveName) =>
             tokenInfo && (await dataSources.users.findByPk(tokenInfo.sub));
 
           if (!user) {
-            throw new AuthenticationError(UNAUTHORIZED);
+            throw new AuthenticationError(UNAUTHENTICATED);
           }
 
           // TODO: RBAC

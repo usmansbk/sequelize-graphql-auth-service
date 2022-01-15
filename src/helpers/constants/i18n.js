@@ -47,4 +47,5 @@ export const UNSUPPORTED_FILE_TYPE = "unsupportedFileType";
 
 // auth
 export const UNAUTHORIZED = "unauthorized";
+export const UNAUTHENTICATED = "unauthenticated";
 export const SOMETHING_WENT_WRONG = "somethingWentWrong";
