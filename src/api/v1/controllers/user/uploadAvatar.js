@@ -55,16 +55,17 @@ const uploadAvatar = async (req, res) => {
           throw new Error(SOMETHING_WENT_WRONG);
         }
 
-        const oldAvatar = await currentUser.getAvatar();
-        if (oldAvatar) {
-          fileStorage.remove(oldAvatar.toJSON());
-          oldAvatar.destroy();
+        let avatar = await currentUser.getAvatar();
+        if (avatar) {
+          fileStorage.remove(avatar.toJSON());
+          avatar = await avatar.update(file);
+        } else {
+          avatar = await currentUser.createAvatar(file);
         }
-        const newAvatar = await currentUser.createAvatar(file);
 
         res.send({
           success: true,
-          avatar: newAvatar.toJSON(),
+          avatar: avatar.toJSON(),
         });
       } catch (error) {
         // remove uploaded file from s3
