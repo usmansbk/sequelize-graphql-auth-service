@@ -10,7 +10,7 @@ const upload = uploadProfilePicture.single("picture");
 
 // const { User } = db;
 
-const picture = async (req, res) => {
+const uploadAvatar = async (req, res) => {
   upload(req, res, (err) => {
     if (err instanceof multer.MulterError) {
       let { message } = err;
@@ -48,6 +48,4 @@ const picture = async (req, res) => {
   });
 };
 
-export default {
-  picture,
-};
+export default uploadAvatar;

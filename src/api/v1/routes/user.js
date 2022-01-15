@@ -3,6 +3,6 @@ import UserController from "../controllers/user";
 
 const router = express.Router();
 
-router.post("/picture", UserController.picture);
+router.post("/avatar", UserController.uploadAvatar);
 
 export default router;
