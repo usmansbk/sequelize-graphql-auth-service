@@ -1,20 +1,17 @@
 import multer from "multer";
 import numeral from "numeral";
+import db from "~db/models";
 import uploadProfilePicture from "~api/v1/middlewares/uploadProfilePicture";
 import { IMAGE_TOO_LARGE } from "~helpers/constants/i18n";
 import { PROFILE_PICTURE_MAX_FILE_SIZE } from "~helpers/constants/upload";
 import { BYTES } from "~helpers/constants/numeral";
-import links from "~helpers/links";
-
-const { S3_BUCKET } = process.env;
 
 const upload = uploadProfilePicture.single("avatar");
-// import db from "~db/models";
 
-// const { User } = db;
+const { User } = db;
 
 const uploadAvatar = async (req, res) => {
-  upload(req, res, (err) => {
+  upload(req, res, async (err) => {
     if (err instanceof multer.MulterError) {
       let { message } = err;
 
@@ -34,8 +31,6 @@ const uploadAvatar = async (req, res) => {
       });
     } else {
       try {
-        // const { userInfo } = req;
-        // const currentUser = await User.findByPk(userInfo.sub);
         const {
           mimetype: mimeType,
           originalname: name,
@@ -44,30 +39,29 @@ const uploadAvatar = async (req, res) => {
           key,
         } = req.file;
 
-        const imageRequest = {
-          bucket: S3_BUCKET,
-          key,
-        };
-
         const file = {
           key,
           bucket,
           name,
           mimeType,
           size,
-          thumbnail: links.imageUrl({
-            ...imageRequest,
-            edits: { resize: { width: 32, height: 32 } },
-          }),
-          url: links.imageUrl({
-            ...imageRequest,
-            edits: { resize: { width: 180, height: 180 } },
-          }),
+          // thumbnail: links.imageUrl({
+          //   ...imageRequest,
+          //   edits: { resize: { width: 32, height: 32 } },
+          // }),
+          // url: links.imageUrl({
+          //   ...imageRequest,
+          //   edits: { resize: { width: 180, height: 180 } },
+          // }),
         };
+
+        const { userInfo } = req;
+        const currentUser = await User.findByPk(userInfo.sub);
+        const avatar = await currentUser.createAvatar(file);
 
         res.send({
           success: true,
-          file,
+          avatar,
         });
       } catch (e) {
         res.status(400).send({

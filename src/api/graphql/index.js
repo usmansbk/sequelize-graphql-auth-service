@@ -8,7 +8,7 @@ import * as otp from "~utils/otp";
 import store from "~utils/store";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
-import { UserDS } from "./datasources";
+import { UserDS, FileDS } from "./datasources";
 
 export const createApolloServer = (app) => {
   const httpServer = http.createServer(app);
@@ -19,6 +19,7 @@ export const createApolloServer = (app) => {
     logger: log,
     dataSources: () => ({
       users: new UserDS(db.User),
+      files: new FileDS(db.File),
     }),
     context: async ({ req }) => {
       let tokenInfo;

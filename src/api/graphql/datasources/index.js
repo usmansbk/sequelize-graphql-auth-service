@@ -1,5 +1,6 @@
 import UserDS from "./user";
+import FileDS from "./file";
 
-export { UserDS };
+export { UserDS, FileDS };
 
-export default { UserDS };
+export default { UserDS, FileDS };
