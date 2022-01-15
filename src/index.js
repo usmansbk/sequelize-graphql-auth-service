@@ -1,7 +1,7 @@
 import express from "express";
 import v1 from "~api/v1/routes";
 import startApolloServer from "~api/graphql";
-import log from "~config/logger";
+import log from "~utils/logger";
 import { useLanguageMiddleware } from "~config/i18n";
 import rateLimiter from "~middlewares/rateLimiter";
 

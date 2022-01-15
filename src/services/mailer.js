@@ -2,7 +2,7 @@ import Email from "email-templates";
 import nodemailer from "nodemailer";
 import aws from "aws-sdk";
 import { defaultProvider } from "@aws-sdk/credential-provider-node";
-import log from "~config/logger";
+import log from "~utils/logger";
 
 const { NODE_ENV, MAIL_FROM, AWS_REGION } = process.env;
 

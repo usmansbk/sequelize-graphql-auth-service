@@ -2,7 +2,7 @@ import { ApolloServer } from "apollo-server-express";
 import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import http from "http";
 import db from "~db/models";
-import log from "~config/logger";
+import log from "~utils/logger";
 import * as jwt from "~utils/jwt";
 import * as otp from "~utils/otp";
 import store from "~services/store";

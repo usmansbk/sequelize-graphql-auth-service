@@ -1,4 +1,4 @@
-import dayjs from "~config/dayjs";
+import dayjs from "~utils/dayjs";
 import sendMail from "~services/mailer";
 import { Accepted } from "~helpers/response";
 import emailTemplates from "~helpers/constants/emailTemplates";

@@ -5,7 +5,7 @@ import jwt, {
   JsonWebTokenError,
 } from "jsonwebtoken";
 import { nanoid } from "nanoid";
-import dayjs from "~config/dayjs";
+import dayjs from "~utils/dayjs";
 import {
   TOKEN_EXPIRED_ERROR,
   TOKEN_INVALID_ERROR,
