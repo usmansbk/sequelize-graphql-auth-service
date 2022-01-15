@@ -6,7 +6,8 @@ const links = {
   verifyEmail: (token) => `${HOST}/verify_email?token=${token}`,
   resetPassword: (token) => `${HOST}/reset_password?token=${token}`,
   deleteAccount: (token) => `${HOST}/delete_account?token=${token}`,
-  imageUrl: (imageRequest) => `${CLOUDFRONT_API_ENDPOINT}${btoa(imageRequest)}`,
+  imageUrl: (imageRequest) =>
+    `${CLOUDFRONT_API_ENDPOINT}${btoa(JSON.stringify(imageRequest))}`,
 };
 
 export default links;

@@ -44,22 +44,25 @@ const uploadAvatar = async (req, res) => {
           key,
         } = req.file;
 
-        const imageRequest = JSON.stringify({
+        const imageRequest = {
           bucket: S3_BUCKET,
           key,
-          edits: {
-            width: 110,
-            height: 110,
-          },
-        });
-        const url = links.imageUrl(imageRequest);
+        };
+
         const file = {
           key,
           bucket,
           name,
           mimeType,
           size,
-          url,
+          thumbnail: links.imageUrl({
+            ...imageRequest,
+            edits: { resize: { width: 32, height: 32 } },
+          }),
+          url: links.imageUrl({
+            ...imageRequest,
+            edits: { resize: { width: 180, height: 180 } },
+          }),
         };
 
         res.send({
