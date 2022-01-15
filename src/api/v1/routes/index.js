@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import express from "express";
 import morgan from "morgan";
-import TokenError from "~utils/errors/TokenError";
+import { AuthenticationError } from "apollo-server-core";
 import authMiddleware from "~api/v1/middlewares/auth";
 import { SOMETHING_WENT_WRONG } from "~helpers/constants/i18n";
 
@@ -17,7 +17,7 @@ router.use("/auth", authRouter);
 router.use("/user", authMiddleware, userRouter);
 
 const errorHandler = (err, req, res, _next) => {
-  if (err instanceof TokenError) {
+  if (err instanceof AuthenticationError) {
     res.status(401).json({
       success: false,
       message: req.t(err.message),

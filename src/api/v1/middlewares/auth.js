@@ -1,7 +1,7 @@
 import * as jwt from "~utils/jwt";
 import db from "~db/models";
-import TokenError from "~utils/errors/TokenError";
-import { UNAUTHORIZED } from "~helpers/constants/i18n";
+import { UNAUTHENTICATED } from "~helpers/constants/i18n";
+import { AuthenticationError } from "apollo-server-core";
 
 const authMiddleware = async (req, _res, next) => {
   try {
@@ -10,7 +10,7 @@ const authMiddleware = async (req, _res, next) => {
     const user = tokenInfo && (await db.User.findByPk(tokenInfo.sub));
 
     if (!user) {
-      throw new TokenError(UNAUTHORIZED);
+      throw new AuthenticationError(UNAUTHENTICATED);
     }
 
     req.user = user;
