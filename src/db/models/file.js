@@ -41,6 +41,7 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      // You can add extra fields like 'status' to enable locking of files
     },
     {
       sequelize,
