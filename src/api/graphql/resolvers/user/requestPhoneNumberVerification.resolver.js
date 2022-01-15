@@ -17,7 +17,7 @@ export default {
       const key = `${PHONE_NUMBER_KEY_PREFIX}:${id}`;
       const sentToken = await store.get(key);
 
-      if (!(sentToken && phoneNumberVerified)) {
+      if (!(sentToken || phoneNumberVerified)) {
         const token = otp.getSmsOtp();
         const expiresIn = dayjs.duration(10, "hours").asSeconds();
 
