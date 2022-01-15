@@ -16,6 +16,7 @@ import {
   INVALID_LOCALE,
   INVALID_URL,
 } from "~helpers/constants/i18n";
+import { AVATAR_ALIAS } from "~helpers/constants/models";
 
 export default (sequelize, DataTypes) => {
   class User extends Model {
@@ -24,9 +25,13 @@ export default (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    // static associate(models) {
-    //   // define association here
-    // }
+    static associate(models) {
+      User.hasOne(models.File, {
+        as: AVATAR_ALIAS,
+        foreignKey: "userId",
+        onDelete: "CASCADE",
+      });
+    }
 
     checkPassword(password) {
       return bcrypt.compare(password, this.password);

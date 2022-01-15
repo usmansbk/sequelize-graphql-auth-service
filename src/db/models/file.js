@@ -1,4 +1,5 @@
 import { Model } from "sequelize";
+import { AVATAR_ALIAS } from "~helpers/constants/models";
 
 export default (sequelize, DataTypes) => {
   class File extends Model {
@@ -7,9 +8,9 @@ export default (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    // static associate(models) {
-    //   // define association here
-    // }
+    static associate(models) {
+      File.belongsTo(models.User, { as: AVATAR_ALIAS, foreignKey: "userId" });
+    }
   }
   File.init(
     {
