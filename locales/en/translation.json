@@ -11,5 +11,8 @@
   "loggedOut": "You've logged out",
   "invalidPasswordLength": "Password should be 6 - 64 characters long",
   "sentEmailOtp": "You'll receive an email shortly",
-  "imageFileTooLarge": "Image file should not be more than {{size}}"
+  "imageFileTooLarge": "Image file should not be more than {{size}}",
+  "unsupportedFileType": "Unsupported file type",
+  "somethingWentWrong": "Something went wrong",
+  "unauthorized": "You're unauthorized to access this endpoint"
 }
