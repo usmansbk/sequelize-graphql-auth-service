@@ -46,6 +46,7 @@
     "apollo-server-express": "^3.6.1",
     "aws-sdk": "^2.1058.0",
     "bcrypt": "^5.0.1",
+    "btoa": "^1.2.1",
     "bunyan": "^1.8.15",
     "cls-hooked": "^4.2.2",
     "dataloader": "^2.0.0",
