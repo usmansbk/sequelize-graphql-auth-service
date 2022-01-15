@@ -5,7 +5,7 @@ type User {
   fullName: String!
   email: String!
   phoneNumber: String
-  picture(resize: ImageResize): String
+  picture(resize: ImageResizeInput): String
   language: String!
   emailVerified: Boolean!
   phoneNumberVerified: Boolean!
