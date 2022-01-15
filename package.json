@@ -41,6 +41,8 @@
     "@babel/runtime": "^7.16.7",
     "@graphql-tools/load-files": "^6.5.3",
     "@graphql-tools/merge": "^8.2.1",
+    "@graphql-tools/schema": "^8.3.1",
+    "@graphql-tools/utils": "^8.6.1",
     "apollo-datasource": "^3.3.0",
     "apollo-server-core": "^3.6.1",
     "apollo-server-express": "^3.6.1",
