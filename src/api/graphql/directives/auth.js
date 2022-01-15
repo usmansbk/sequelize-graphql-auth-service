@@ -30,6 +30,7 @@ const authDirectiveTransformer = (schema, directiveName) =>
 
           return result;
         };
+        return newFieldConfig;
       }
       return fieldConfig;
     },
