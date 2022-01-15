@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 import express from "express";
+import TokenError from "~utils/errors/TokenError";
 import authMiddleware from "~middlewares/auth";
+import { SOMETHING_WENT_WRONG } from "~helpers/constants/i18n";
 
 import authRouter from "./auth";
 import userRouter from "./user";
@@ -13,10 +15,17 @@ router.use("/auth", authRouter);
 router.use("/user", authMiddleware, userRouter);
 
 const errorHandler = (err, req, res, _next) => {
-  res.status(400).json({
-    success: false,
-    message: req.t(err.message),
-  });
+  if (err instanceof TokenError) {
+    res.status(401).json({
+      success: false,
+      message: req.t(err.message),
+    });
+  } else {
+    res.status(500).json({
+      success: false,
+      message: req.t(SOMETHING_WENT_WRONG),
+    });
+  }
 };
 
 router.use(errorHandler);
