@@ -9,7 +9,7 @@ export default (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      File.belongsTo(models.User, { as: AVATAR_ALIAS, foreignKey: "userId" });
+      File.hasOne(models.User, { as: AVATAR_ALIAS, foreignKey: "avatarId" });
     }
   }
   File.init(
