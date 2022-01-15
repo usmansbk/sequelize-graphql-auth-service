@@ -7,8 +7,6 @@ import { PROFILE_PICTURE_MAX_FILE_SIZE } from "~helpers/constants/upload";
 
 const { S3_BUCKET } = process.env;
 
-const MAX_FILE_SIZE = PROFILE_PICTURE_MAX_FILE_SIZE;
-
 const uploadProfilePicture = multer({
   storage: multerS3({
     s3,
@@ -22,7 +20,7 @@ const uploadProfilePicture = multer({
     },
   }),
   limits: {
-    fileSize: MAX_FILE_SIZE,
+    fileSize: PROFILE_PICTURE_MAX_FILE_SIZE,
   },
   fileFilter(_req, file, cb) {
     if (!["image/png", "image/jpeg"].includes(file.mimetype)) {
