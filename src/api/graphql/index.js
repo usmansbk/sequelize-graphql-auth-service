@@ -5,7 +5,7 @@ import db from "~db/models";
 import log from "~utils/logger";
 import * as jwt from "~utils/jwt";
 import * as otp from "~utils/otp";
-import store from "~services/store";
+import store from "~utils/store";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 import { UserDS } from "./datasources";

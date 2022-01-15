@@ -1,5 +1,5 @@
 import * as jwt from "~utils/jwt";
-import store from "~services/store";
+import store from "~utils/store";
 import TokenError from "~utils/errors/TokenError";
 import { TOKEN_INVALID_ERROR } from "~helpers/constants/i18n";
 
