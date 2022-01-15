@@ -42,7 +42,7 @@ export const SENT_EMAIL_OTP = "sentEmailOtp";
 export const SENT_SMS_OTP = "sentSmsOtp";
 
 // upload
-export const FILE_TOO_LARGE = "fileTooLarge";
+export const IMAGE_TOO_LARGE = "imageFileTooLarge";
 export const UNSUPPORTED_FILE_TYPE = "unsupportedFileType";
 
 // auth

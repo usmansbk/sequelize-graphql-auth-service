@@ -10,5 +10,6 @@
   "accountDeleted": "Your account is deleted",
   "loggedOut": "You've logged out",
   "invalidPasswordLength": "Password should be 6 - 64 characters long",
-  "sentEmailOtp": "You'll receive an email shortly"
+  "sentEmailOtp": "You'll receive an email shortly",
+  "imageFileTooLarge": "Image file should not be more than {{size}}"
 }
