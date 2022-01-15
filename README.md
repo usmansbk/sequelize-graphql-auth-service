@@ -122,7 +122,7 @@ Follow the official Twilio documentation to setup your Twilio account and add yo
 ## Facebook authentication
 
 - Create a new [Facebook](https://developers.facebook.com/) app
-- Get your [FACEBOOK_APP_ACCESS_TOKEN](https://developers.facebook.com/tools/access_token/) and `FACEBOOK_APP_ID` env variables
+- Get your [`FACEBOOK_APP_ACCESS_TOKEN`](https://developers.facebook.com/tools/access_token/) and `FACEBOOK_APP_ID` env variables
 - Navigate to **Roles** ⟶ **Test Users** to get a test account access tokens
 
 ## File upload (S3)
