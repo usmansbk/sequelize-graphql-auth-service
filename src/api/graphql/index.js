@@ -7,7 +7,7 @@ import log from "~utils/logger";
 import * as jwt from "~utils/jwt";
 import * as otp from "~utils/otp";
 import store from "~utils/store";
-import fileStorage from "~services/fileStorage";
+import fileStorage from "~utils/fileStorage";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 import { UserDS, FileDS } from "./datasources";

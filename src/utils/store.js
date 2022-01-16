@@ -1,4 +1,4 @@
-import createRedisServer from "~config/redis";
+import createRedisServer from "~services/redis";
 
 const redis = createRedisServer();
 
