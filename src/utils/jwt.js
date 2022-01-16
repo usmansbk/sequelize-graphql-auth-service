@@ -80,8 +80,11 @@ export const generateAuthTokens = (
   tokenExp = ACCESS_TOKEN_EXPIRES_IN,
   refreshTokenExp = REFRESH_TOKEN_EXPIRES_IN
 ) => {
-  const accessToken = generateToken({ aud, ...payload }, tokenExp);
   const refreshToken = generateToken({ aud }, refreshTokenExp);
+  const accessToken = generateToken(
+    { aud, rid: refreshToken.id, ...payload },
+    tokenExp
+  );
 
   return {
     accessToken: accessToken.token,
