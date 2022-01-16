@@ -10,9 +10,9 @@ const authMiddleware = async (req, _res, next) => {
     const clientId = req.headers.client_id;
 
     const tokenInfo = jwt.verify(token);
-    const refreshToken =
+    const hasRefreshToken =
       tokenInfo && (await store.get(`${clientId}:${tokenInfo.sub}`));
-    const isLoggedIn = tokenInfo && refreshToken;
+    const isLoggedIn = tokenInfo && hasRefreshToken;
     const user = isLoggedIn && (await db.User.findByPk(tokenInfo.sub));
 
     if (!user) {
