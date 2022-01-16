@@ -26,7 +26,7 @@ export default {
 
         // invalidate all refresh tokens
         allowedClients.forEach(async (clientId) => {
-          await store.remove(`${sub}:${clientId}`);
+          await store.remove(`${clientId}:${sub}`);
         });
 
         // we can send an email here to inform user of the change...

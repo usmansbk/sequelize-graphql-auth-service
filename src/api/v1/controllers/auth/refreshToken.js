@@ -14,7 +14,7 @@ const refreshToken = async (req, res) => {
     const expiredToken = jwt.decode(authorization);
     const decodedRefreshToken = jwt.verify(rfToken); // this will throw an error if invalid
 
-    const key = `${expiredToken.sub}:${clientId}`;
+    const key = `${clientId}:${expiredToken.sub}`;
     const expectedJti = await store.get(key);
 
     if (decodedRefreshToken.jti !== expectedJti) {

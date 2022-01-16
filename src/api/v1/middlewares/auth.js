@@ -1,13 +1,19 @@
 import { AuthenticationError } from "apollo-server-core";
 import * as jwt from "~utils/jwt";
 import db from "~db/models";
+import store from "~utils/store";
 import { UNAUTHENTICATED } from "~helpers/constants/i18n";
 
 const authMiddleware = async (req, _res, next) => {
   try {
     const token = req.headers.authorization;
+    const clientId = req.headers.client_id;
+
     const tokenInfo = jwt.verify(token);
-    const user = tokenInfo && (await db.User.findByPk(tokenInfo.sub));
+    const refreshToken =
+      tokenInfo && (await store.get(`${clientId}:${tokenInfo.sub}`));
+    const isLoggedIn = tokenInfo && refreshToken;
+    const user = isLoggedIn && (await db.User.findByPk(tokenInfo.sub));
 
     if (!user) {
       throw new AuthenticationError(UNAUTHENTICATED);

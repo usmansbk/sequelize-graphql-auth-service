@@ -16,9 +16,12 @@ const authDirectiveTransformer = (schema, directiveName) =>
 
         const newFieldConfig = { ...fieldConfig };
         newFieldConfig.resolve = async (source, args, context, info) => {
-          const { tokenInfo, dataSources } = context;
+          const { tokenInfo, dataSources, store, clientId } = context;
+          const refreshToken =
+            tokenInfo && (await store.get(`${clientId}:${tokenInfo.sub}`)); // No refresh token means user already logged out
+          const isLoggedIn = tokenInfo && refreshToken;
           const user =
-            tokenInfo && (await dataSources.users.findByPk(tokenInfo.sub));
+            isLoggedIn && (await dataSources.users.findByPk(tokenInfo.sub));
 
           if (!user) {
             throw new AuthenticationError(UNAUTHENTICATED);

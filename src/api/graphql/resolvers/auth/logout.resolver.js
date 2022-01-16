@@ -9,7 +9,7 @@ export default {
         const tokenInfo = jwt.decode(accessToken);
 
         // No refresh token means the user never logged in
-        await store.remove(`${tokenInfo.sub}:${clientId}`);
+        await store.remove(`${clientId}:${tokenInfo.sub}`);
       }
 
       return Ok({
