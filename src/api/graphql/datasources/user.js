@@ -61,12 +61,6 @@ export default class UserDS extends SequelizeDataSource {
     return user;
   }
 
-  async getAvatar(id) {
-    const user = await this.findByPk(id);
-
-    return user?.getAvatar();
-  }
-
   updatePassword({ id, password }) {
     // updating a password is proof user owns an email
     return this.update(id, { password, emailVerified: true });
@@ -87,7 +81,7 @@ export default class UserDS extends SequelizeDataSource {
   async deleteAvatar(id) {
     const user = await this.findByPk(id);
 
-    if (user.avatarId) {
+    if (user?.avatarId) {
       await this.context.dataSources.files.destroy(user.avatarId);
       await user.reload();
     }

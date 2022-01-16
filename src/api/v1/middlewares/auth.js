@@ -13,6 +13,8 @@ const authMiddleware = async (req, _res, next) => {
       throw new AuthenticationError(UNAUTHENTICATED);
     }
 
+    // TODO: RBAC
+
     req.user = user;
     return next();
   } catch (e) {
