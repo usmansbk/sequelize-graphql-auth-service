@@ -27,6 +27,10 @@ type RequestResponse implements Response {
   message: String!
 }
 
+type Photo {
+  url: String
+}
+
 # All Queries and Mutations must implement this interface
 interface Response {
   code: Int!

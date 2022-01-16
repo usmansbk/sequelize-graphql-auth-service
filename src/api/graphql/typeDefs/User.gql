@@ -5,7 +5,7 @@ type User {
   fullName: String!
   email: String!
   phoneNumber: String
-  picture(resize: ImageResizeInput): String
+  picture(resize: ImageResizeInput): Photo 
   "This profile belongs to loogged in user?"
   isOwner: Boolean!
   language: String!

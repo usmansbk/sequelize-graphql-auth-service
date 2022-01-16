@@ -5,6 +5,7 @@ export default {
     async picture(parent, { resize }, { dataSources }) {
       const avatar = await dataSources.files.findByPk(parent.avatarId);
 
+      let url;
       if (avatar) {
         let imageRequest = avatar.toJSON();
 
@@ -16,14 +17,16 @@ export default {
             },
           };
         }
-        return links.imageUrl(imageRequest);
+        url = links.imageUrl(imageRequest);
       }
 
       if (parent.socialAvatarURL) {
-        return parent.socialAvatarURL;
+        url = parent.socialAvatarURL;
       }
 
-      return null; // or default image placeholder
+      return {
+        url,
+      };
     },
     isOwner(parent, _args, { tokenInfo }) {
       return parent.id === tokenInfo?.sub;
