@@ -1,3 +1,6 @@
+/**
+ * This plugin translates the errors to the client request language
+ */
 const i18nErrorPlugin = {
   async requestDidStart() {
     return {
