@@ -30,6 +30,7 @@ const uploadProfilePicture = multer({
   fileFilter(_req, file, cb) {
     if (!SUPPORTED_PROFILE_PICTURE_FILE_TYPES.includes(file.mimetype)) {
       cb(new UserInputError(UNSUPPORTED_FILE_TYPE));
+      return;
     }
     cb(null, true);
   },
