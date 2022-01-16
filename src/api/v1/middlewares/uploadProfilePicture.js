@@ -4,7 +4,10 @@ import { nanoid } from "nanoid";
 import { UserInputError } from "apollo-server-core";
 import s3 from "~services/s3";
 import { UNSUPPORTED_FILE_TYPE } from "~helpers/constants/i18n";
-import { PROFILE_PICTURE_MAX_FILE_SIZE } from "~helpers/constants/upload";
+import {
+  PROFILE_PICTURE_MAX_FILE_SIZE,
+  SUPPORTED_PROFILE_PICTURE_FILE_TYPES,
+} from "~helpers/constants/upload";
 
 const { S3_BUCKET } = process.env;
 
@@ -24,7 +27,7 @@ const uploadProfilePicture = multer({
     fileSize: PROFILE_PICTURE_MAX_FILE_SIZE,
   },
   fileFilter(_req, file, cb) {
-    if (!["image/png", "image/jpeg"].includes(file.mimetype)) {
+    if (!SUPPORTED_PROFILE_PICTURE_FILE_TYPES.includes(file.mimetype)) {
       cb(new UserInputError(UNSUPPORTED_FILE_TYPE));
     }
     cb(null, true);
