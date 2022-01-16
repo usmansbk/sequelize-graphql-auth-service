@@ -5,6 +5,7 @@ import { UserInputError } from "apollo-server-core";
 import s3 from "~services/s3";
 import { UNSUPPORTED_FILE_TYPE } from "~helpers/constants/i18n";
 import {
+  AVATARS_FOLDER,
   PROFILE_PICTURE_MAX_FILE_SIZE,
   SUPPORTED_PROFILE_PICTURE_FILE_TYPES,
 } from "~helpers/constants/upload";
@@ -20,7 +21,7 @@ const uploadProfilePicture = multer({
       cb(null, { fieldName: file.fieldname, originalName: file.originalname });
     },
     key(_req, _file, cb) {
-      cb(null, `avatar/${nanoid()}`);
+      cb(null, `${AVATARS_FOLDER}/${nanoid()}`);
     },
   }),
   limits: {
