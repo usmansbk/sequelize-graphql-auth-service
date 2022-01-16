@@ -31,6 +31,15 @@ type Photo {
   url: String
 }
 
+type File {
+  id: ID!
+  size: Int!
+  name: String!
+  mimeType: String!
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
 # All Queries and Mutations must implement this interface
 interface Response {
   code: Int!
