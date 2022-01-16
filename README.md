@@ -129,6 +129,8 @@ Follow the official Twilio documentation to setup your Twilio account and add yo
 
 We upload files via `REST` endpoints. [Why not File Upload mutation?](https://www.apollographql.com/blog/backend/file-uploads/file-upload-best-practices/)
 
+To set up your `S3` for file storage:
+
 - Add your `S3_BUCKET` to `env` file
 - Ensure you've set the full s3 permissions
 
