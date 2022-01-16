@@ -29,9 +29,7 @@ const authDirectiveTransformer = (schema, directiveName) =>
 
           // TODO: RBAC
 
-          const result = await resolve(source, args, context, info);
-
-          return result;
+          return resolve(source, args, context, info);
         };
         return newFieldConfig;
       }
