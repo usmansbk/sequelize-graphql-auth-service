@@ -12,6 +12,7 @@ import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 import { UserDS, FileDS } from "./datasources";
 import authDirectiveTransformer from "./directives/auth";
+import i18nErrorPlugin from "./plugins/i18nErrorPlugin";
 
 const createSchema = () => {
   let schema = makeExecutableSchema({
@@ -28,7 +29,10 @@ export const createApolloServer = (app) => {
   const httpServer = http.createServer(app);
   const server = new ApolloServer({
     schema: createSchema(),
-    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    plugins: [
+      ApolloServerPluginDrainHttpServer({ httpServer }),
+      i18nErrorPlugin,
+    ],
     logger: log,
     dataSources: () => ({
       users: new UserDS(db.User),
@@ -74,7 +78,7 @@ const startApolloServer = async (app) => {
     httpServer.listen({ port: 4000 }, resolve);
   });
   await db.sequelize.authenticate();
-  await db.sequelize.sync({ force: false });
+  await db.sequelize.sync({ force: true });
 
   return server;
 };

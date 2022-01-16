@@ -1,7 +1,7 @@
+import { AuthenticationError } from "apollo-server-core";
 import * as jwt from "~utils/jwt";
 import db from "~db/models";
 import { UNAUTHENTICATED } from "~helpers/constants/i18n";
-import { AuthenticationError } from "apollo-server-core";
 
 const authMiddleware = async (req, _res, next) => {
   try {

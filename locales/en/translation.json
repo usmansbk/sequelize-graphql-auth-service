@@ -14,5 +14,6 @@
   "imageFileTooLarge": "Image file should not be more than {{size}}",
   "unsupportedFileType": "Unsupported file type",
   "somethingWentWrong": "Something went wrong",
-  "unauthorized": "You're unauthorized to access this endpoint"
+  "unauthorized": "You're unauthorized to access this endpoint",
+  "unauthenticated": "You're not logged in"
 }
