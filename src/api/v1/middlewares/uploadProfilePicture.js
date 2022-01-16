@@ -1,8 +1,8 @@
 import multer from "multer";
 import multerS3 from "multer-s3";
 import { nanoid } from "nanoid";
-import s3 from "~services/s3";
 import { UserInputError } from "apollo-server-core";
+import s3 from "~services/s3";
 import { UNSUPPORTED_FILE_TYPE } from "~helpers/constants/i18n";
 import { PROFILE_PICTURE_MAX_FILE_SIZE } from "~helpers/constants/upload";
 
