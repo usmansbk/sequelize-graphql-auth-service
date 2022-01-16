@@ -1,6 +1,4 @@
-import createRedisServer from "~services/redis";
-
-const redis = createRedisServer();
+import redis from "~services/redis";
 
 const set = ({ key, value, expiresIn }) => redis.setex(key, expiresIn, value);
 

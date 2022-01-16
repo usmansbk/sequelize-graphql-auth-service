@@ -75,6 +75,7 @@
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
     "pug": "^3.0.2",
+    "rate-limit-redis": "^2.1.0",
     "sequelize": "^6.13.0",
     "twilio": "^3.73.0"
   },
