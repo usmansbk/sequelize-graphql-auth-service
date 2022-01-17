@@ -8,7 +8,6 @@ import {
 import { DataSource } from "apollo-datasource";
 import DataLoader from "dataloader";
 import FieldErrors from "~utils/errors/FieldErrors";
-import QueryError from "~utils/errors/QueryError";
 import formatErrors from "~utils/errors/formatErrors";
 
 /**
@@ -52,11 +51,7 @@ export default class SequelizeDataSource extends DataSource {
 
   onError(e) {
     if (e instanceof ValidationError || e instanceof UniqueConstraintError) {
-      const cause = new FieldErrors(
-        e.message,
-        formatErrors(e.errors, this.context.t)
-      );
-      throw new QueryError(e.message, cause);
+      throw new FieldErrors(e.message, formatErrors(e.errors, this.context.t));
     } else {
       throw e;
     }

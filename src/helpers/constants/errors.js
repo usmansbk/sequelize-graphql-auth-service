@@ -1,0 +1,3 @@
+export const FIELD_ERRORS = "FIELD_ERRORS";
+export const USER_NOT_FOUND = "USER_NOT_FOUND";
+export const ACCOUNT_SUSPENDED = "ACCOUNT_SUSPENDED";

@@ -49,7 +49,8 @@ export default {
         if (e instanceof QueryError) {
           return BadRequest({
             message: t(SIGNUP_FAILED),
-            errors: e.cause?.errors,
+            code: e.code,
+            errors: e.errors,
           });
         }
         throw e;
