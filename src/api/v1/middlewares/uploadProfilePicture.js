@@ -8,7 +8,7 @@ import {
   AVATARS_FOLDER,
   PROFILE_PICTURE_MAX_FILE_SIZE,
   SUPPORTED_PROFILE_PICTURE_FILE_TYPES,
-} from "~helpers/constants/upload";
+} from "~helpers/constants/files";
 
 const { S3_BUCKET } = process.env;
 

@@ -1,3 +1,0 @@
-export const FIELD_ERRORS = "FIELD_ERRORS";
-export const ITEM_NOT_FOUND = "ITEM_NOT_FOUND";
-export const ACCOUNT_SUSPENDED = "ACCOUNT_SUSPENDED";
