@@ -41,8 +41,12 @@ export const createApolloServer = (app) => {
     context: async ({ req }) => {
       let tokenInfo;
       let refreshTokenId;
-      const accessToken = req.headers.authorization;
-      const clientId = req.headers.client_id;
+      const {
+        authorization: accessToken,
+        client_id: clientId,
+        t,
+        locale,
+      } = req.headers;
 
       if (accessToken) {
         try {
@@ -61,8 +65,8 @@ export const createApolloServer = (app) => {
         jwt,
         store,
         tokenInfo,
-        t: req.t,
-        locale: req.locale, // we still need default locale for when user is not logged in, E.g reset password email
+        t,
+        locale,
         clientId,
         refreshTokenId,
         accessToken,
