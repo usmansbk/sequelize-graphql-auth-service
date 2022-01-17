@@ -17,9 +17,9 @@ app.set("trust proxy", 1);
 
 const main = async () => {
   try {
-    const server = await startApolloServer(app);
     await db.sequelize.authenticate();
     await db.sequelize.sync({ force: false });
+    const server = await startApolloServer(app);
     log.info(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
   } catch (error) {
     log.error(error);
