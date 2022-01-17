@@ -16,8 +16,8 @@ const authDirectiveTransformer = (schema, directiveName) =>
 
         const newFieldConfig = { ...fieldConfig };
         newFieldConfig.resolve = async (source, args, context, info) => {
-          const { tokenInfo, dataSources, refreshTokenId } = context;
-          const isLoggedIn = tokenInfo?.rid === refreshTokenId;
+          const { tokenInfo, dataSources, sessionId } = context;
+          const isLoggedIn = tokenInfo?.sid === sessionId;
           const user =
             isLoggedIn && (await dataSources.users.findByPk(tokenInfo.sub));
 

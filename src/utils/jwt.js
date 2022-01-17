@@ -82,7 +82,7 @@ export const generateAuthTokens = (
 ) => {
   const refreshToken = generateToken({ aud }, refreshTokenExp);
   const accessToken = generateToken(
-    { aud, rid: refreshToken.id, ...payload },
+    { aud, sid: refreshToken.id, ...payload },
     tokenExp
   );
 
