@@ -51,3 +51,7 @@ export const UNSUPPORTED_FILE_TYPE = "UnsupportedFileType";
 export const UNAUTHORIZED = "Unauthorized";
 export const UNAUTHENTICATED = "Unauthenticated";
 export const SOMETHING_WENT_WRONG = "SomethingWentWrong";
+
+// errors
+export const FIELD_ERRORS = "FieldErrors";
+export const ITEM_NOT_FOUND = "ItemNotFound";

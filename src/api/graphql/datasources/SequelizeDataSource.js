@@ -10,7 +10,7 @@ import DataLoader from "dataloader";
 import formatErrors from "~utils/errors/formatErrors";
 import FieldErrors from "~utils/errors/FieldErrors";
 import QueryError from "~utils/errors/QueryError";
-import { FIELD_ERRORS, ITEM_NOT_FOUND } from "~helpers/constants/errors";
+import { FIELD_ERRORS, ITEM_NOT_FOUND } from "~helpers/constants/i18n";
 
 /**
  * The SequelizeDataSource abstract class helps you query data from an SQL database. Your server
