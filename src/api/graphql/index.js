@@ -41,12 +41,7 @@ export const createApolloServer = (app) => {
     context: async ({ req }) => {
       let tokenInfo;
       let refreshTokenId;
-      const {
-        authorization: accessToken,
-        client_id: clientId,
-        t,
-        locale,
-      } = req.headers;
+      const { authorization: accessToken, client_id: clientId } = req.headers;
 
       if (accessToken) {
         try {
@@ -65,8 +60,8 @@ export const createApolloServer = (app) => {
         jwt,
         store,
         tokenInfo,
-        t,
-        locale,
+        t: req.t,
+        locale: req.locale,
         clientId,
         refreshTokenId,
         accessToken,
