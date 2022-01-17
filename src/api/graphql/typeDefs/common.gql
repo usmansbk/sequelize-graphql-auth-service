@@ -1,17 +1,24 @@
 scalar Date
 scalar DateTime
 
-type FieldError {
-  message: String!
-  field: String!
-}
-
 enum ImageResizeMode {
   cover
   contain
   fill
   inside
   outside
+}
+
+# All Queries and Mutations must implement this interface
+interface Response {
+  code: ID! 
+  success: Boolean!
+  message: String!
+}
+
+# All Form mutations, e.g Login, Register, etc must implement this interface to return validation errors
+interface FormErrors {
+  errors: [FieldError!]
 }
 
 "https://sharp.pixelplumbing.com/api-resize#resize"
@@ -22,9 +29,14 @@ input ImageResizeInput {
 }
 
 type RequestResponse implements Response {
-  code: Int!
+  code: ID! 
   success: Boolean!
   message: String!
+}
+
+type FieldError {
+  message: String!
+  field: String!
 }
 
 type Photo {
@@ -40,14 +52,3 @@ type File {
   updatedAt: DateTime
 }
 
-# All Queries and Mutations must implement this interface
-interface Response {
-  code: Int!
-  success: Boolean!
-  message: String!
-}
-
-# All Form mutations, e.g Login, Register, etc must implement this interface to return validation errors
-interface FormErrors {
-  errors: [FieldError!]
-}

@@ -1,7 +1,8 @@
 export default class AbstractError extends Error {
-  constructor(message, code) {
-    super(message);
+  constructor(message, cause) {
+    super(message, cause);
     this.name = this.constructor.name;
-    this.code = code;
+    this.code = message;
+    this.cause = cause;
   }
 }

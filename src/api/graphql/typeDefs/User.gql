@@ -48,14 +48,14 @@ type Mutation {
 }
 
 type UserPayload implements Response {
-  code: Int!
+  code: ID!
   success: Boolean!
   message: String!
   user: User
 }
 
 type UserFormMutationResponse implements Response & FormErrors {
-  code: Int!
+  code: ID!
   success: Boolean!
   message: String!
   errors: [FieldError!]

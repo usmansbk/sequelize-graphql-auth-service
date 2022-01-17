@@ -53,9 +53,13 @@ export default class SequelizeDataSource extends DataSource {
 
   onError(e) {
     if (e instanceof ValidationError || e instanceof UniqueConstraintError) {
-      throw new FieldErrors(e.message, formatErrors(e.errors, this.context.t));
+      throw new FieldErrors(
+        e.message,
+        formatErrors(e.errors, this.context.t),
+        e
+      );
     } else if (e instanceof EmptyResultError) {
-      throw new QueryError(ITEM_NOT_FOUND);
+      throw new QueryError(ITEM_NOT_FOUND, e);
     } else {
       throw e;
     }
