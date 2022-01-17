@@ -40,11 +40,14 @@ export const createApolloServer = (app) => {
     }),
     context: async ({ req }) => {
       let tokenInfo;
+      let refreshTokenId;
       const accessToken = req.headers.authorization;
+      const clientId = req.headers.client_id;
 
       if (accessToken) {
         try {
           tokenInfo = jwt.verify(accessToken);
+          refreshTokenId = await store.get(`${clientId}:${tokenInfo.sub}`);
           if (tokenInfo?.lng) {
             // check if logged in user has a preferred language and use it
             await req.i18n.changeLanguage(tokenInfo.lng);
@@ -60,7 +63,8 @@ export const createApolloServer = (app) => {
         tokenInfo,
         t: req.t,
         locale: req.locale, // we still need default locale for when user is not logged in, E.g reset password email
-        clientId: req.headers.client_id,
+        clientId,
+        refreshTokenId,
         accessToken,
         otp,
         fileStorage,
