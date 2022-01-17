@@ -10,7 +10,7 @@ import DataLoader from "dataloader";
 import formatErrors from "~utils/errors/formatErrors";
 import FieldErrors from "~utils/errors/FieldErrors";
 import QueryError from "~utils/errors/QueryError";
-import { ITEM_NOT_FOUND } from "~helpers/constants/errors";
+import { FIELD_ERRORS, ITEM_NOT_FOUND } from "~helpers/constants/errors";
 
 /**
  * The SequelizeDataSource abstract class helps you query data from an SQL database. Your server
@@ -54,7 +54,7 @@ export default class SequelizeDataSource extends DataSource {
   onError(e) {
     if (e instanceof ValidationError || e instanceof UniqueConstraintError) {
       throw new FieldErrors(
-        e.message,
+        FIELD_ERRORS,
         formatErrors(e.errors, this.context.t),
         e
       );
