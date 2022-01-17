@@ -21,15 +21,16 @@ export default {
         return Ok({
           message: t(ACCOUNT_DELETED),
         });
-      } catch (error) {
-        if (error instanceof QueryError) {
+      } catch (e) {
+        if (e instanceof QueryError) {
           return BadRequest({
-            message: t(error.message),
-            errors: error.cause?.errors,
+            message: t(e.message),
+            errors: e.errors,
+            code: e.code,
           });
         }
 
-        throw error;
+        throw e;
       }
     },
   },

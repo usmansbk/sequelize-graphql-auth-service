@@ -34,15 +34,15 @@ export default {
         return Ok({
           message: t(PASSWORD_CHANGED),
         });
-      } catch (error) {
-        if (error instanceof QueryError) {
+      } catch (e) {
+        if (e instanceof QueryError) {
           return BadRequest({
-            message: t(error.message),
-            errors: error.cause?.errors,
+            message: t(e.message),
+            errors: e.errors,
           });
         }
 
-        throw error;
+        throw e;
       }
     },
   },

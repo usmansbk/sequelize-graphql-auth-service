@@ -64,6 +64,7 @@ export default {
         if (e instanceof QueryError) {
           return BadRequest({
             message: t(e.message),
+            code: e.code,
           });
         }
         throw e;

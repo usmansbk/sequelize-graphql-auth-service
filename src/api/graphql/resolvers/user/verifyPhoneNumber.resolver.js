@@ -28,14 +28,15 @@ export default {
           message: t(PHONE_NUMBER_VERIFIED),
           user,
         });
-      } catch (error) {
-        if (error instanceof QueryError) {
+      } catch (e) {
+        if (e instanceof QueryError) {
           return BadRequest({
-            message: t(error.message),
+            message: t(e.message),
+            code: e.code,
           });
         }
 
-        throw error;
+        throw e;
       }
     },
   },

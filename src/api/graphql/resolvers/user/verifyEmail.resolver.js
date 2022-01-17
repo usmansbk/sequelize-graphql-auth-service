@@ -26,14 +26,14 @@ export default {
           message: t(EMAIL_VERIFIED),
           user,
         });
-      } catch (error) {
-        if (error instanceof QueryError) {
+      } catch (e) {
+        if (e instanceof QueryError) {
           return BadRequest({
-            message: t(error.message),
+            message: t(e.message),
           });
         }
 
-        throw error;
+        throw e;
       }
     },
   },
