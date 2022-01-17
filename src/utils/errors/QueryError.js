@@ -7,5 +7,6 @@ export default class QueryError extends AbstractError {
   constructor(message, cause) {
     super(message);
     this.cause = cause;
+    this.code = message;
   }
 }

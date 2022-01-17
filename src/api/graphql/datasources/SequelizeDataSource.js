@@ -135,7 +135,7 @@ export default class SequelizeDataSource extends DataSource {
       const item = await this.findByPk(id);
 
       if (!item) {
-        throw new QueryError(USER_DOES_NOT_EXIST, ITEM_NOT_FOUND);
+        throw new QueryError(USER_DOES_NOT_EXIST);
       }
 
       const oldImage = item.toJSON();
