@@ -91,7 +91,7 @@ While in production, a Redis server `REDIS_URL` environment variable is required
 Each supported client must pass a `client_id` in their request headers. Client IDs are strings assigned by the server. To support a new client, add the ID to the list of supported clients. This will allow users to login from multiple clients.
 
 ```sh
-## src/helpers/constants/tokens
+## src/helpers/constants/auth
 export const allowedClients = [process.env.TEST_CLIENT_ID, 'your-new-client-id'];
 ```
 

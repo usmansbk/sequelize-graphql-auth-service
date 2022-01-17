@@ -6,7 +6,7 @@ import { SENT_RESET_PASSWORD_EMAIL } from "~helpers/constants/i18n";
 import {
   PASSWORD_KEY_PREFIX,
   RESET_PASSWORD_TOKEN_EXPIRES_IN,
-} from "~helpers/constants/tokens";
+} from "~helpers/constants/auth";
 
 export default {
   Mutation: {

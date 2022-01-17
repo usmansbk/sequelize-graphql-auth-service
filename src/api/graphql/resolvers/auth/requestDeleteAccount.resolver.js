@@ -6,7 +6,7 @@ import { SENT_CONFIRM_DELETE_ACCOUNT_EMAIL } from "~helpers/constants/i18n";
 import {
   DELETE_ACCOUNT_KEY_PREFIX,
   DELETE_ACCOUNT_TOKEN_EXPIRES_IN,
-} from "~helpers/constants/tokens";
+} from "~helpers/constants/auth";
 
 export default {
   Mutation: {

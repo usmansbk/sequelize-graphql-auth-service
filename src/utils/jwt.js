@@ -15,7 +15,7 @@ import {
   ACCESS_TOKEN_EXPIRES_IN,
   REFRESH_TOKEN_EXPIRES_IN,
   allowedClients,
-} from "~helpers/constants/tokens";
+} from "~helpers/constants/auth";
 import TokenError from "./errors/TokenError";
 
 const privateKey = fs.readFileSync(process.env.JWT_PRIVATE_KEY);

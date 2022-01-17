@@ -6,7 +6,7 @@ import { SENT_VERIFICATION_EMAIL } from "~helpers/constants/i18n";
 import {
   EMAIL_VERIFICATION_TOKEN_EXPIRES_IN,
   EMAIL_VERIFICATION_KEY_PREFIX,
-} from "~helpers/constants/tokens";
+} from "~helpers/constants/auth";
 
 export default {
   Mutation: {

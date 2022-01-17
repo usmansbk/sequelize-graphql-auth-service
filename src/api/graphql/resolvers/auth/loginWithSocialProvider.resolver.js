@@ -1,7 +1,7 @@
 import QueryError from "~utils/errors/QueryError";
 import verifySocialToken from "~utils/verifySocialToken";
 import { BadRequest, Ok, Created } from "~helpers/response";
-import { ID_TOKEN_EXPIRES_IN } from "~helpers/constants/tokens";
+import { ID_TOKEN_EXPIRES_IN } from "~helpers/constants/auth";
 import { WELCOME_BACK, WELCOME_NEW_USER } from "~helpers/constants/i18n";
 
 export default {

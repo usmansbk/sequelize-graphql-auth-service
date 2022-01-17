@@ -1,7 +1,7 @@
 import { BadRequest, Ok } from "~helpers/response";
 import { EMAIL_VERIFIED, INVALID_LINK } from "~helpers/constants/i18n";
 import QueryError from "~utils/errors/QueryError";
-import { EMAIL_VERIFICATION_KEY_PREFIX } from "~helpers/constants/tokens";
+import { EMAIL_VERIFICATION_KEY_PREFIX } from "~helpers/constants/auth";
 
 export default {
   Mutation: {

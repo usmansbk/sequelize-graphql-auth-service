@@ -4,7 +4,7 @@ import {
   INCORRECT_EMAIL_OR_PASSWORD,
   WELCOME_BACK,
 } from "~helpers/constants/i18n";
-import { ID_TOKEN_EXPIRES_IN } from "~helpers/constants/tokens";
+import { ID_TOKEN_EXPIRES_IN } from "~helpers/constants/auth";
 
 export default {
   Mutation: {
