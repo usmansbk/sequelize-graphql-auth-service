@@ -1,7 +1,7 @@
 import dayjs from "~utils/dayjs";
 import sendMail from "~services/mailer";
 import { Accepted } from "~helpers/response";
-import emailTemplates from "~helpers/constants/emailTemplates";
+import emailTemplates from "~helpers/emailTemplates";
 import { SENT_EMAIL_OTP } from "~helpers/constants/i18n";
 import { EMAIL_OTP_KEY_PREFIX } from "~helpers/constants/auth";
 

@@ -1,7 +1,7 @@
 import sendMail from "~services/mailer";
 import links from "~helpers/links";
 import { Accepted } from "~helpers/response";
-import emailTemplates from "~helpers/constants/emailTemplates";
+import emailTemplates from "~helpers/emailTemplates";
 import { SENT_CONFIRM_DELETE_ACCOUNT_EMAIL } from "~helpers/constants/i18n";
 import {
   DELETE_ACCOUNT_KEY_PREFIX,

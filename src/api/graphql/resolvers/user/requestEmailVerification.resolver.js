@@ -1,7 +1,7 @@
 import sendMail from "~services/mailer";
 import links from "~helpers/links";
 import { Accepted } from "~helpers/response";
-import emailTemplates from "~helpers/constants/emailTemplates";
+import emailTemplates from "~helpers/emailTemplates";
 import { SENT_VERIFICATION_EMAIL } from "~helpers/constants/i18n";
 import {
   EMAIL_VERIFICATION_TOKEN_EXPIRES_IN,
