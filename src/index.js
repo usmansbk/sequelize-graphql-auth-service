@@ -13,7 +13,9 @@ useLanguageMiddleware(app);
 app.use(rateLimiter);
 app.use("/v1", v1);
 
-app.set("trust proxy", 1);
+if (app.get("env") === "production") {
+  app.set("trust proxy", 1);
+}
 
 const main = async () => {
   try {
