@@ -46,7 +46,7 @@ export const createApolloServer = (app) => {
       if (accessToken) {
         try {
           tokenInfo = jwt.verify(accessToken);
-          sessionId = await store.get(`${clientId}:${tokenInfo.sub}`);
+          sessionId = await store.get(tokenInfo.sid);
           if (tokenInfo?.lng) {
             // check if logged in user has a preferred language and use it
             await req.i18n.changeLanguage(tokenInfo.lng);
