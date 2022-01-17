@@ -4,9 +4,9 @@ import AbstractError from "./AbstractError";
  * This class represents both "mutation" and "query" errors.
  */
 export default class QueryError extends AbstractError {
-  constructor(message, cause) {
-    super(message);
+  constructor(i18nKeyCode, cause) {
+    super(i18nKeyCode);
     this.cause = cause;
-    this.code = message;
+    this.code = i18nKeyCode;
   }
 }

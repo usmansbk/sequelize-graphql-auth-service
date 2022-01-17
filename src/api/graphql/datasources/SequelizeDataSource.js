@@ -1,13 +1,16 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable class-methods-use-this */
-import { UniqueConstraintError, ValidationError } from "sequelize";
+import {
+  EmptyResultError,
+  UniqueConstraintError,
+  ValidationError,
+} from "sequelize";
 import { DataSource } from "apollo-datasource";
 import DataLoader from "dataloader";
 import formatErrors from "~utils/errors/formatErrors";
 import FieldErrors from "~utils/errors/FieldErrors";
 import QueryError from "~utils/errors/QueryError";
 import { ITEM_NOT_FOUND } from "~helpers/constants/errors";
-import { USER_DOES_NOT_EXIST } from "~helpers/constants/i18n";
 
 /**
  * The SequelizeDataSource abstract class helps you query data from an SQL database. Your server
@@ -51,6 +54,8 @@ export default class SequelizeDataSource extends DataSource {
   onError(e) {
     if (e instanceof ValidationError || e instanceof UniqueConstraintError) {
       throw new FieldErrors(e.message, formatErrors(e.errors, this.context.t));
+    } else if (e instanceof EmptyResultError) {
+      throw new QueryError(ITEM_NOT_FOUND);
     } else {
       throw e;
     }
@@ -135,7 +140,7 @@ export default class SequelizeDataSource extends DataSource {
       const item = await this.findByPk(id);
 
       if (!item) {
-        throw new QueryError(USER_DOES_NOT_EXIST);
+        throw EmptyResultError();
       }
 
       const oldImage = item.toJSON();
