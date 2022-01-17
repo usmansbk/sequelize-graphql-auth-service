@@ -3,6 +3,7 @@ type User {
   firstName: String!
   lastName: String!
   fullName: String!
+  userName: String
   email: String!
   phoneNumber: String
   picture(resize: ImageResizeInput): Photo 
@@ -18,6 +19,7 @@ type User {
 input CreateUserInput {
   firstName: String!
   lastName: String!
+  userName: String
   email: String!
   password: String!
   phoneNumber: String
@@ -27,6 +29,7 @@ input CreateUserInput {
 input UpdateProfileInput {
   firstName: String
   lastName: String
+  userName: String
   phoneNumber: String
   language: String
 }

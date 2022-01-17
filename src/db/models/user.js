@@ -15,6 +15,7 @@ import {
   INVALID_PASSWORD,
   INVALID_LOCALE,
   INVALID_URL,
+  USERNAME_NAME_LEN,
 } from "~helpers/constants/i18n";
 import { AVATAR_ALIAS } from "~helpers/constants/models";
 
@@ -85,6 +86,18 @@ export default (sequelize, DataTypes) => {
         },
         set() {
           throw new Error("Do not try to set the `fullName` value!");
+        },
+      },
+      userName: {
+        type: DataTypes.STRING,
+        validate: {
+          len: {
+            args: [2, 100],
+            msg: USERNAME_NAME_LEN,
+          },
+          notEmpty: {
+            msg: USERNAME_NAME_LEN,
+          },
         },
       },
       email: {
