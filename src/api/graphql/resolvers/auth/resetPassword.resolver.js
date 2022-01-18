@@ -1,5 +1,5 @@
 import QueryError from "~utils/errors/QueryError";
-import { BadRequest, Success } from "~helpers/response";
+import { Fail, Success } from "~helpers/response";
 import { INVALID_LINK, PASSWORD_CHANGED } from "~helpers/constants/i18n";
 import { PASSWORD_KEY_PREFIX, allowedClients } from "~helpers/constants/auth";
 
@@ -36,7 +36,7 @@ export default {
         });
       } catch (e) {
         if (e instanceof QueryError) {
-          return BadRequest({
+          return Fail({
             message: t(e.message),
             errors: e.errors,
           });

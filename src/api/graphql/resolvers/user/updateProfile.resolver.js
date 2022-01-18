@@ -1,6 +1,6 @@
 import QueryError from "~utils/errors/QueryError";
 import { PROFILE_UPDATED } from "~helpers/constants/i18n";
-import { BadRequest, Success } from "~helpers/response";
+import { Fail, Success } from "~helpers/response";
 
 export default {
   Mutation: {
@@ -14,7 +14,7 @@ export default {
         });
       } catch (e) {
         if (e instanceof QueryError) {
-          return BadRequest({
+          return Fail({
             message: t(e.message),
             code: e.code,
             errors: e.errors,

@@ -35,6 +35,8 @@ export const ACCOUNT_DELETED = "AccountDeleted";
 export const LOGGED_OUT = "LoggedOut";
 export const PROFILE_UPDATED = "ProfileUpdated";
 export const PHONE_NUMBER_VERIFIED = "PhoneNumberVerified";
+export const SUCCESS = "Success";
+export const FAIL = "Fail";
 
 // send emails
 export const SENT_VERIFICATION_EMAIL = "SentInstructionsEmail";

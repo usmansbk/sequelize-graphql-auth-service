@@ -1,6 +1,6 @@
 import QueryError from "~utils/errors/QueryError";
 import verifySocialToken from "~utils/verifySocialToken";
-import { BadRequest, Success } from "~helpers/response";
+import { Fail, Success } from "~helpers/response";
 import { WELCOME_BACK, WELCOME_NEW_USER } from "~helpers/constants/i18n";
 
 export default {
@@ -39,7 +39,7 @@ export default {
         });
       } catch (e) {
         if (e instanceof QueryError) {
-          return BadRequest({
+          return Fail({
             message: t(e.message),
             code: e.code,
           });

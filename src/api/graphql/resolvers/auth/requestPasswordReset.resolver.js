@@ -1,6 +1,6 @@
 import sendMail from "~services/mailer";
 import links from "~helpers/links";
-import { Accepted } from "~helpers/response";
+import { Success } from "~helpers/response";
 import emailTemplates from "~helpers/emailTemplates";
 import { SENT_RESET_PASSWORD_EMAIL } from "~helpers/constants/i18n";
 import {
@@ -55,7 +55,7 @@ export default {
         }
       }
 
-      return Accepted({
+      return Success({
         message: t(SENT_RESET_PASSWORD_EMAIL, { email }),
       });
     },

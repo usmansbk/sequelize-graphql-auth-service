@@ -1,6 +1,6 @@
 import dayjs from "~utils/dayjs";
 import sendMail from "~services/mailer";
-import { Accepted } from "~helpers/response";
+import { Success } from "~helpers/response";
 import emailTemplates from "~helpers/emailTemplates";
 import { SENT_EMAIL_OTP } from "~helpers/constants/i18n";
 import { EMAIL_OTP_KEY_PREFIX } from "~helpers/constants/auth";
@@ -41,7 +41,7 @@ export default {
         });
       }
 
-      return Accepted({
+      return Success({
         message: t(SENT_EMAIL_OTP),
       });
     },

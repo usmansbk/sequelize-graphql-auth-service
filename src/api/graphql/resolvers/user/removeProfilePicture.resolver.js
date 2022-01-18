@@ -1,4 +1,4 @@
-import { BadRequest, Success } from "~helpers/response";
+import { Fail, Success } from "~helpers/response";
 import QueryError from "~utils/errors/QueryError";
 
 export default {
@@ -10,7 +10,7 @@ export default {
         return Success({ user });
       } catch (e) {
         if (e instanceof QueryError) {
-          return BadRequest({
+          return Fail({
             message: t(e.message),
           });
         }

@@ -1,6 +1,6 @@
 import QueryError from "~utils/errors/QueryError";
 import { SIGNUP_FAILED, WELCOME_NEW_USER } from "~helpers/constants/i18n";
-import { Created, BadRequest } from "~helpers/response";
+import { Success, Fail } from "~helpers/response";
 
 export default {
   Mutation: {
@@ -26,14 +26,14 @@ export default {
           expiresIn: exp,
         });
 
-        return Created({
+        return Success({
           message: t(WELCOME_NEW_USER, { firstName }),
           accessToken,
           refreshToken,
         });
       } catch (e) {
         if (e instanceof QueryError) {
-          return BadRequest({
+          return Fail({
             message: t(SIGNUP_FAILED),
             code: e.code,
             errors: e.errors,

@@ -1,5 +1,5 @@
 import QueryError from "~utils/errors/QueryError";
-import { BadRequest, Success } from "~helpers/response";
+import { Fail, Success } from "~helpers/response";
 import {
   INCORRECT_EMAIL_OR_PASSWORD,
   WELCOME_BACK,
@@ -41,7 +41,7 @@ export default {
         });
       } catch (e) {
         if (e instanceof QueryError) {
-          return BadRequest({
+          return Fail({
             message: t(e.message),
             code: e.code,
           });

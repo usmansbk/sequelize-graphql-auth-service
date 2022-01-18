@@ -1,5 +1,5 @@
 import QueryError from "~utils/errors/QueryError";
-import { BadRequest, Success } from "~helpers/response";
+import { Fail, Success } from "~helpers/response";
 import { ACCOUNT_DELETED, INVALID_LINK } from "~helpers/constants/i18n";
 import { DELETE_ACCOUNT_KEY_PREFIX } from "~helpers/constants/auth";
 
@@ -12,7 +12,7 @@ export default {
         const expectedToken = await store.get(key);
 
         if (token !== expectedToken) {
-          // we can track the number of failed attempts here and lock the account
+          // we can track the number of Fail attempts here and lock the account
           throw new QueryError(INVALID_LINK);
         }
 
@@ -23,7 +23,7 @@ export default {
         });
       } catch (e) {
         if (e instanceof QueryError) {
-          return BadRequest({
+          return Fail({
             message: t(e.message),
             errors: e.errors,
             code: e.code,

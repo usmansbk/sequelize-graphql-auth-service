@@ -1,4 +1,4 @@
-import { BadRequest, Success } from "~helpers/response";
+import { Fail, Success } from "~helpers/response";
 import { INVALID_OTP, PHONE_NUMBER_VERIFIED } from "~helpers/constants/i18n";
 import QueryError from "~utils/errors/QueryError";
 import { PHONE_NUMBER_KEY_PREFIX } from "~helpers/constants/auth";
@@ -30,7 +30,7 @@ export default {
         });
       } catch (e) {
         if (e instanceof QueryError) {
-          return BadRequest({
+          return Fail({
             message: t(e.message),
             code: e.code,
           });

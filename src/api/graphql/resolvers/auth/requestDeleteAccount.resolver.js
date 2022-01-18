@@ -1,6 +1,6 @@
 import sendMail from "~services/mailer";
 import links from "~helpers/links";
-import { Accepted } from "~helpers/response";
+import { Success } from "~helpers/response";
 import emailTemplates from "~helpers/emailTemplates";
 import { SENT_CONFIRM_DELETE_ACCOUNT_EMAIL } from "~helpers/constants/i18n";
 import {
@@ -49,7 +49,7 @@ export default {
         });
       }
 
-      return Accepted({
+      return Success({
         message: t(SENT_CONFIRM_DELETE_ACCOUNT_EMAIL, { email }),
       });
     },
