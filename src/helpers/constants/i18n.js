@@ -1,20 +1,20 @@
 // models
-export const FIRST_NAME_LEN = "FirstNameLength";
-export const FIRST_NAME_REQUIRED = "FirstNameRequired";
-export const FIRST_NAME_EMPTY = "FirstNameEmpty";
-export const LAST_NAME_LEN = "LastNameLength";
-export const USERNAME_NAME_LEN = "UserNameLength";
-export const USERNAME_NAME_EMPTY = "UserNameEmpty";
-export const LAST_NAME_REQUIRED = "LastNameRequired";
-export const LAST_NAME_EMPTY = "LastNameEmpty";
-export const EMAIL_UNAVAILABLE = "EmailUsed";
-export const INVALID_EMAIL = "InvalidEmail";
-export const PHONE_NUMBER_UNAVAILABLE = "PhoneNumberUnavailable";
-export const INVALID_PHONE_NUMBER = "InvalidPhoneNumber";
-export const PASSWORD_LEN = "InvalidPasswordLength";
-export const INVALID_PASSWORD = "InvalidPassword";
-export const INVALID_LOCALE = "InvalidLocale";
-export const INVALID_URL = "InvalidUrl";
+export const FIRST_NAME_LEN = "FirstNameLengthError";
+export const FIRST_NAME_REQUIRED = "FirstNameRequiredError";
+export const FIRST_NAME_EMPTY = "FirstNameEmptyError";
+export const LAST_NAME_LEN = "LastNameLengthError";
+export const USERNAME_NAME_LEN = "UserNameLengthError";
+export const USERNAME_NAME_EMPTY = "UserNameEmptyError";
+export const LAST_NAME_REQUIRED = "LastNameRequiredError";
+export const LAST_NAME_EMPTY = "LastNameEmptyError";
+export const EMAIL_UNAVAILABLE = "EmailUsedError";
+export const INVALID_EMAIL = "InvalidEmailError";
+export const PHONE_NUMBER_UNAVAILABLE = "PhoneNumberUnavailableError";
+export const INVALID_PHONE_NUMBER = "InvalidPhoneNumberError";
+export const PASSWORD_LEN = "InvalidPasswordLengthError";
+export const INVALID_PASSWORD = "InvalidPasswordError";
+export const INVALID_LOCALE = "InvalidLocaleError";
+export const INVALID_URL = "InvalidUrlError";
 
 // jwt token
 export const TOKEN_EXPIRED_ERROR = "TokenExpiredError";
@@ -24,13 +24,13 @@ export const INVALID_LINK = "InvalidLink";
 export const INVALID_OTP = "InvalidOtp";
 
 // resolvers
-export const INCORRECT_EMAIL_OR_PASSWORD = "IncorrectEmailPassword";
+export const INCORRECT_EMAIL_OR_PASSWORD = "IncorrectEmailAndPassword";
 export const SIGNUP_FAILED = "SignUpFailed";
 export const WELCOME_NEW_USER = "WelcomeNewUser";
 export const WELCOME_BACK = "WelcomeBack";
 export const EMAIL_VERIFIED = "EmailVerified";
 export const PASSWORD_CHANGED = "PasswordChanged";
-export const USER_DOES_NOT_EXIST = "AccountDoesNotExist";
+export const USER_DOES_NOT_EXIST = "UserDoesNotExist";
 export const ACCOUNT_DELETED = "AccountDeleted";
 export const LOGGED_OUT = "LoggedOut";
 export const PROFILE_UPDATED = "ProfileUpdated";
@@ -39,9 +39,9 @@ export const SUCCESS = "Success";
 export const FAIL = "Fail";
 
 // send emails
-export const SENT_VERIFICATION_EMAIL = "SentInstructionsEmail";
-export const SENT_RESET_PASSWORD_EMAIL = "SentInstructionsEmail";
-export const SENT_CONFIRM_DELETE_ACCOUNT_EMAIL = "SentInstructionsEmail";
+export const SENT_VERIFICATION_EMAIL = "SentVerificationEmail";
+export const SENT_RESET_PASSWORD_EMAIL = "SentResetPasswordEmail";
+export const SENT_CONFIRM_DELETE_ACCOUNT_EMAIL = "SentDeleteConfirmationEmail";
 export const SENT_EMAIL_OTP = "SentEmailOtp";
 export const SENT_SMS_OTP = "SentSmsOtp";
 
