@@ -8,7 +8,7 @@ uploads
 build
 .env
 .env.production
-*.error
+yarn-error.log
 
 # Keys
 *.key
