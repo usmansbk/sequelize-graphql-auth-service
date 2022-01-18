@@ -1,5 +1,5 @@
 import QueryError from "~utils/errors/QueryError";
-import { BadRequest, Ok } from "~helpers/response";
+import { BadRequest, Success } from "~helpers/response";
 import { INVALID_LINK, PASSWORD_CHANGED } from "~helpers/constants/i18n";
 import { PASSWORD_KEY_PREFIX, allowedClients } from "~helpers/constants/auth";
 
@@ -31,7 +31,7 @@ export default {
 
         // we can send an email here to inform user of the change...
 
-        return Ok({
+        return Success({
           message: t(PASSWORD_CHANGED),
         });
       } catch (e) {

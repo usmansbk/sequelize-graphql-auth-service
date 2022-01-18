@@ -1,4 +1,4 @@
-import { Ok } from "~helpers/response";
+import { Success } from "~helpers/response";
 import { LOGGED_OUT } from "~helpers/constants/i18n";
 
 export default {
@@ -12,7 +12,7 @@ export default {
         await store.remove(`${clientId}:${tokenInfo.sub}`);
       }
 
-      return Ok({
+      return Success({
         message: t(LOGGED_OUT),
       });
     },

@@ -1,6 +1,6 @@
 import QueryError from "~utils/errors/QueryError";
 import { PROFILE_UPDATED } from "~helpers/constants/i18n";
-import { BadRequest, Ok } from "~helpers/response";
+import { BadRequest, Success } from "~helpers/response";
 
 export default {
   Mutation: {
@@ -8,7 +8,7 @@ export default {
       try {
         const user = await dataSources.users.updateCurrentUser(input);
 
-        return Ok({
+        return Success({
           message: t(PROFILE_UPDATED),
           user,
         });

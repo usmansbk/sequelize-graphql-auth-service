@@ -1,5 +1,5 @@
 import QueryError from "~utils/errors/QueryError";
-import { BadRequest, Ok } from "~helpers/response";
+import { BadRequest, Success } from "~helpers/response";
 import { ACCOUNT_DELETED, INVALID_LINK } from "~helpers/constants/i18n";
 import { DELETE_ACCOUNT_KEY_PREFIX } from "~helpers/constants/auth";
 
@@ -18,7 +18,7 @@ export default {
 
         await dataSources.users.destroy(sub);
 
-        return Ok({
+        return Success({
           message: t(ACCOUNT_DELETED),
         });
       } catch (e) {

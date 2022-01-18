@@ -1,4 +1,4 @@
-import { BadRequest, Ok } from "~helpers/response";
+import { BadRequest, Success } from "~helpers/response";
 import { INVALID_OTP, PHONE_NUMBER_VERIFIED } from "~helpers/constants/i18n";
 import QueryError from "~utils/errors/QueryError";
 import { PHONE_NUMBER_KEY_PREFIX } from "~helpers/constants/auth";
@@ -24,7 +24,7 @@ export default {
 
         await store.remove(key);
 
-        return Ok({
+        return Success({
           message: t(PHONE_NUMBER_VERIFIED),
           user,
         });

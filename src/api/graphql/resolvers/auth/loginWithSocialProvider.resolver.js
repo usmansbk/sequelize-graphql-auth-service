@@ -1,6 +1,6 @@
 import QueryError from "~utils/errors/QueryError";
 import verifySocialToken from "~utils/verifySocialToken";
-import { BadRequest, Ok, Created } from "~helpers/response";
+import { BadRequest, Success } from "~helpers/response";
 import { WELCOME_BACK, WELCOME_NEW_USER } from "~helpers/constants/i18n";
 
 export default {
@@ -33,17 +33,8 @@ export default {
           refreshToken,
         };
 
-        if (created) {
-          // Send official welcome email here for new users...
-
-          return Created({
-            message: t(WELCOME_NEW_USER, { firstName }),
-            ...payload,
-          });
-        }
-
-        return Ok({
-          message: t(WELCOME_BACK, { firstName }),
+        return Success({
+          message: t(created ? WELCOME_NEW_USER : WELCOME_BACK, { firstName }),
           ...payload,
         });
       } catch (e) {

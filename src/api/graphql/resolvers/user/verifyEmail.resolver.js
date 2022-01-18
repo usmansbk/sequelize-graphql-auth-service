@@ -1,4 +1,4 @@
-import { BadRequest, Ok } from "~helpers/response";
+import { BadRequest, Success } from "~helpers/response";
 import { EMAIL_VERIFIED, INVALID_LINK } from "~helpers/constants/i18n";
 import QueryError from "~utils/errors/QueryError";
 import { EMAIL_VERIFICATION_KEY_PREFIX } from "~helpers/constants/auth";
@@ -22,7 +22,7 @@ export default {
 
         // Optionally, we can send an official welcome email here...
 
-        return Ok({
+        return Success({
           message: t(EMAIL_VERIFIED),
           user,
         });

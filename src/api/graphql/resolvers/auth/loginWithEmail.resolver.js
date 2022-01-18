@@ -1,5 +1,5 @@
 import QueryError from "~utils/errors/QueryError";
-import { BadRequest, Ok } from "~helpers/response";
+import { BadRequest, Success } from "~helpers/response";
 import {
   INCORRECT_EMAIL_OR_PASSWORD,
   WELCOME_BACK,
@@ -34,7 +34,7 @@ export default {
           expiresIn: exp,
         });
 
-        return Ok({
+        return Success({
           message: t(WELCOME_BACK, { firstName }),
           accessToken,
           refreshToken,

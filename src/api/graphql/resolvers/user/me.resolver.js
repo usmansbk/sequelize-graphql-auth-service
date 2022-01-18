@@ -1,4 +1,4 @@
-import { BadRequest, Ok } from "~helpers/response";
+import { BadRequest, Success } from "~helpers/response";
 import QueryError from "~utils/errors/QueryError";
 
 export default {
@@ -7,7 +7,7 @@ export default {
       try {
         const user = await dataSources.users.currentUser();
 
-        return Ok({ user });
+        return Success({ user });
       } catch (e) {
         if (e instanceof QueryError) {
           return BadRequest({
