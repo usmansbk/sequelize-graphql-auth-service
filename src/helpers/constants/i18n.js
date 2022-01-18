@@ -1,11 +1,11 @@
 // models
-export const FIRST_NAME_LEN = "firstNameLength";
-export const FIRST_NAME_REQUIRED = "firstNameRequired";
-export const FIRST_NAME_EMPTY = "firstNameEmpty";
-export const LAST_NAME_LEN = "lastNameLength";
-export const USERNAME_NAME_LEN = "userNameLength";
-export const USERNAME_NAME_EMPTY = "userNameEmpty";
-export const LAST_NAME_REQUIRED = "lastNameRequired";
+export const FIRST_NAME_LEN = "FirstNameLength";
+export const FIRST_NAME_REQUIRED = "FirstNameRequired";
+export const FIRST_NAME_EMPTY = "FirstNameEmpty";
+export const LAST_NAME_LEN = "LastNameLength";
+export const USERNAME_NAME_LEN = "UserNameLength";
+export const USERNAME_NAME_EMPTY = "UserNameEmpty";
+export const LAST_NAME_REQUIRED = "LastNameRequired";
 export const LAST_NAME_EMPTY = "LastNameEmpty";
 export const EMAIL_UNAVAILABLE = "EmailUsed";
 export const INVALID_EMAIL = "InvalidEmail";
