@@ -4,7 +4,6 @@ import {
   INCORRECT_EMAIL_OR_PASSWORD,
   WELCOME_BACK,
 } from "~helpers/constants/i18n";
-import { ID_TOKEN_EXPIRES_IN } from "~helpers/constants/auth";
 
 export default {
   Mutation: {
@@ -20,18 +19,7 @@ export default {
           throw new QueryError(INCORRECT_EMAIL_OR_PASSWORD);
         }
 
-        const { id, firstName, lastName, fullName, language } = user;
-
-        const { token: idToken } = jwt.generateToken(
-          {
-            firstName,
-            lastName,
-            fullName,
-            language,
-            aud: clientId,
-          },
-          ID_TOKEN_EXPIRES_IN
-        );
+        const { id, firstName, language } = user;
 
         const { accessToken, refreshToken, refreshTokenId, exp } =
           jwt.generateAuthTokens({
@@ -49,7 +37,6 @@ export default {
 
         return Ok({
           message: t(WELCOME_BACK, { firstName }),
-          idToken,
           accessToken,
           refreshToken,
         });

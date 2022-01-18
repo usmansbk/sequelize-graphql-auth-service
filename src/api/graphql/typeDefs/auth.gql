@@ -45,7 +45,6 @@ type AuthFormMutationResponse implements Response & FormErrors {
   success: Boolean!
   message: String!
   errors: [FieldError!]
-  idToken: String
   accessToken: String
   refreshToken: String
 }
@@ -54,7 +53,6 @@ type AuthMutationResponse implements Response {
   code: ID!
   success: Boolean!
   message: String!
-  idToken: String
   accessToken: String
   refreshToken: String
 }

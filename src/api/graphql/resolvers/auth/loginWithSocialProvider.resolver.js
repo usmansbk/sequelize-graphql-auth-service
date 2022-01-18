@@ -1,7 +1,6 @@
 import QueryError from "~utils/errors/QueryError";
 import verifySocialToken from "~utils/verifySocialToken";
 import { BadRequest, Ok, Created } from "~helpers/response";
-import { ID_TOKEN_EXPIRES_IN } from "~helpers/constants/auth";
 import { WELCOME_BACK, WELCOME_NEW_USER } from "~helpers/constants/i18n";
 
 export default {
@@ -14,18 +13,7 @@ export default {
       try {
         const userInfo = await verifySocialToken(input);
         const [user, created] = await dataSources.users.findOrCreate(userInfo);
-        const { id, firstName, lastName, fullName, language } = user;
-
-        const { token: idToken } = jwt.generateToken(
-          {
-            firstName,
-            lastName,
-            fullName,
-            language,
-            aud: clientId,
-          },
-          ID_TOKEN_EXPIRES_IN
-        );
+        const { id, firstName, language } = user;
 
         const { accessToken, refreshToken, refreshTokenId, exp } =
           jwt.generateAuthTokens({
@@ -42,7 +30,6 @@ export default {
         });
 
         const payload = {
-          idToken,
           accessToken,
           refreshToken,
         };

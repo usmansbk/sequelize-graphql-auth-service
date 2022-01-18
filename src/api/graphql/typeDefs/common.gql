@@ -51,4 +51,3 @@ type File {
   createdAt: DateTime!
   updatedAt: DateTime
 }
-
