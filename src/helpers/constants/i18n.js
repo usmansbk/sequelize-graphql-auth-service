@@ -26,8 +26,8 @@ export const INVALID_OTP = "InvalidOtp";
 // resolvers
 export const INCORRECT_EMAIL_OR_PASSWORD = "IncorrectEmailPassword";
 export const SIGNUP_FAILED = "SignUpFailed";
-export const WELCOME_NEW_USER = "Welcome";
-export const WELCOME_BACK = "WelcomeExistingUser";
+export const WELCOME_NEW_USER = "WelcomeNewUser";
+export const WELCOME_BACK = "WelcomeBack";
 export const EMAIL_VERIFIED = "EmailVerified";
 export const PASSWORD_CHANGED = "PasswordChanged";
 export const USER_DOES_NOT_EXIST = "AccountDoesNotExist";
