@@ -90,7 +90,7 @@ export const generateAuthTokens = (
     accessToken: accessToken.token,
     refreshToken: refreshToken.token,
     accessTokenId: accessToken.id,
-    refreshTokenId: refreshToken.id,
+    sid: refreshToken.id,
     exp: refreshToken.exp,
   };
 };

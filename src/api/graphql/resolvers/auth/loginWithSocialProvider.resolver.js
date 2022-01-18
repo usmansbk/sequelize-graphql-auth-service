@@ -15,17 +15,16 @@ export default {
         const [user, created] = await dataSources.users.findOrCreate(userInfo);
         const { id, firstName, language } = user;
 
-        const { accessToken, refreshToken, refreshTokenId, exp } =
-          jwt.generateAuthTokens({
-            sub: id,
-            aud: clientId,
-            lng: language,
-          });
+        const { accessToken, refreshToken, sid, exp } = jwt.generateAuthTokens({
+          sub: id,
+          aud: clientId,
+          lng: language,
+        });
 
         // refresh token rotation
         await store.set({
           key: `${clientId}:${id}`,
-          value: refreshTokenId,
+          value: sid,
           expiresIn: exp,
         });
 

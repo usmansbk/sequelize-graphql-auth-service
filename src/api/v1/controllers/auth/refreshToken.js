@@ -3,7 +3,7 @@ import store from "~utils/store";
 import TokenError from "~utils/errors/TokenError";
 import { TOKEN_INVALID_ERROR } from "~helpers/constants/i18n";
 
-const refreshToken = async (req, res) => {
+const refreshTokenController = async (req, res) => {
   const {
     authorization,
     refresh_token: rfToken,
@@ -21,12 +21,7 @@ const refreshToken = async (req, res) => {
       throw new TokenError(TOKEN_INVALID_ERROR);
     }
 
-    const {
-      accessToken,
-      refreshToken: newRefreshToken,
-      refreshTokenId,
-      exp,
-    } = jwt.generateAuthTokens({
+    const { accessToken, refreshToken, sid, exp } = jwt.generateAuthTokens({
       aud: clientId,
       sub: decodedRefreshToken.sub,
       lng: expiredToken.lng,
@@ -35,14 +30,14 @@ const refreshToken = async (req, res) => {
     // rotate refresh token
     await store.set({
       key,
-      value: refreshTokenId,
+      value: sid,
       expiresIn: exp,
     });
 
     res.send({
       success: true,
       accessToken,
-      refreshToken: newRefreshToken,
+      refreshToken,
     });
   } catch (e) {
     res.status(401).send({
@@ -52,4 +47,4 @@ const refreshToken = async (req, res) => {
   }
 };
 
-export default refreshToken;
+export default refreshTokenController;
