@@ -1,21 +1,21 @@
 import { Model } from "sequelize";
 import bcrypt from "bcrypt";
 import {
-  FIRST_NAME_EMPTY,
-  FIRST_NAME_REQUIRED,
-  FIRST_NAME_LEN,
-  LAST_NAME_LEN,
-  LAST_NAME_REQUIRED,
-  LAST_NAME_EMPTY,
-  EMAIL_UNAVAILABLE,
-  INVALID_EMAIL,
-  PHONE_NUMBER_UNAVAILABLE,
-  INVALID_PHONE_NUMBER,
-  PASSWORD_LEN,
-  INVALID_PASSWORD,
-  INVALID_LOCALE,
-  INVALID_URL,
-  USERNAME_NAME_LEN,
+  FIRST_NAME_EMPTY_ERROR,
+  FIRST_NAME_REQUIRED_ERROR,
+  FIRST_NAME_LEN_ERROR,
+  LAST_NAME_LEN_ERROR,
+  LAST_NAME_REQUIRED_ERROR,
+  LAST_NAME_EMPTY_ERROR,
+  EMAIL_UNAVAILABLE_ERROR,
+  INVALID_EMAIL_ERROR,
+  PHONE_NUMBER_UNAVAILABLE_ERROR,
+  INVALID_PHONE_NUMBER_ERROR,
+  PASSWORD_LEN_ERROR,
+  INVALID_PASSWORD_ERROR,
+  INVALID_LOCALE_ERROR,
+  INVALID_URL_ERROR,
+  USERNAME_NAME_LEN_ERROR,
 } from "~helpers/constants/i18n";
 import { AVATAR_ALIAS } from "~helpers/constants/models";
 
@@ -53,13 +53,13 @@ export default (sequelize, DataTypes) => {
         validate: {
           len: {
             args: [2, 100],
-            msg: FIRST_NAME_LEN,
+            msg: FIRST_NAME_LEN_ERROR,
           },
           notNull: {
-            msg: FIRST_NAME_REQUIRED,
+            msg: FIRST_NAME_REQUIRED_ERROR,
           },
           notEmpty: {
-            msg: FIRST_NAME_EMPTY,
+            msg: FIRST_NAME_EMPTY_ERROR,
           },
         },
       },
@@ -69,13 +69,13 @@ export default (sequelize, DataTypes) => {
         validate: {
           len: {
             args: [2, 100],
-            msg: LAST_NAME_LEN,
+            msg: LAST_NAME_LEN_ERROR,
           },
           notNull: {
-            msg: LAST_NAME_REQUIRED,
+            msg: LAST_NAME_REQUIRED_ERROR,
           },
           notEmpty: {
-            msg: LAST_NAME_EMPTY,
+            msg: LAST_NAME_EMPTY_ERROR,
           },
         },
       },
@@ -93,10 +93,10 @@ export default (sequelize, DataTypes) => {
         validate: {
           len: {
             args: [2, 100],
-            msg: USERNAME_NAME_LEN,
+            msg: USERNAME_NAME_LEN_ERROR,
           },
           notEmpty: {
-            msg: USERNAME_NAME_LEN,
+            msg: USERNAME_NAME_LEN_ERROR,
           },
         },
       },
@@ -104,14 +104,14 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         unique: {
-          msg: EMAIL_UNAVAILABLE,
+          msg: EMAIL_UNAVAILABLE_ERROR,
         },
         validate: {
           isEmail: {
-            msg: INVALID_EMAIL,
+            msg: INVALID_EMAIL_ERROR,
           },
           notNull: {
-            msg: INVALID_EMAIL,
+            msg: INVALID_EMAIL_ERROR,
           },
         },
       },
@@ -128,11 +128,11 @@ export default (sequelize, DataTypes) => {
       phoneNumber: {
         type: DataTypes.STRING,
         unique: {
-          msg: PHONE_NUMBER_UNAVAILABLE,
+          msg: PHONE_NUMBER_UNAVAILABLE_ERROR,
         },
         validate: {
           notEmpty: {
-            msg: INVALID_PHONE_NUMBER,
+            msg: INVALID_PHONE_NUMBER_ERROR,
           },
         },
       },
@@ -142,13 +142,13 @@ export default (sequelize, DataTypes) => {
         validate: {
           len: {
             args: [6, 64],
-            msg: PASSWORD_LEN,
+            msg: PASSWORD_LEN_ERROR,
           },
           notEmpty: {
-            msg: INVALID_PASSWORD,
+            msg: INVALID_PASSWORD_ERROR,
           },
           notNull: {
-            msg: INVALID_PASSWORD,
+            msg: INVALID_PASSWORD_ERROR,
           },
         },
       },
@@ -157,7 +157,7 @@ export default (sequelize, DataTypes) => {
         defaultValue: "en",
         validate: {
           isAlpha: {
-            msg: INVALID_LOCALE,
+            msg: INVALID_LOCALE_ERROR,
           },
         },
       },
@@ -165,7 +165,7 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         validate: {
           isUrl: {
-            msg: INVALID_URL,
+            msg: INVALID_URL_ERROR,
           },
         },
       },

@@ -1,20 +1,20 @@
 // models
-export const FIRST_NAME_LEN = "FirstNameLengthError";
-export const FIRST_NAME_REQUIRED = "FirstNameRequiredError";
-export const FIRST_NAME_EMPTY = "FirstNameEmptyError";
-export const LAST_NAME_LEN = "LastNameLengthError";
-export const USERNAME_NAME_LEN = "UserNameLengthError";
-export const USERNAME_NAME_EMPTY = "UserNameEmptyError";
-export const LAST_NAME_REQUIRED = "LastNameRequiredError";
-export const LAST_NAME_EMPTY = "LastNameEmptyError";
-export const EMAIL_UNAVAILABLE = "EmailUsedError";
-export const INVALID_EMAIL = "InvalidEmailError";
-export const PHONE_NUMBER_UNAVAILABLE = "PhoneNumberUnavailableError";
-export const INVALID_PHONE_NUMBER = "InvalidPhoneNumberError";
-export const PASSWORD_LEN = "InvalidPasswordLengthError";
-export const INVALID_PASSWORD = "InvalidPasswordError";
-export const INVALID_LOCALE = "InvalidLocaleError";
-export const INVALID_URL = "InvalidUrlError";
+export const FIRST_NAME_LEN_ERROR = "FirstNameLengthError";
+export const FIRST_NAME_REQUIRED_ERROR = "FirstNameRequiredError";
+export const FIRST_NAME_EMPTY_ERROR = "FirstNameEmptyError";
+export const LAST_NAME_LEN_ERROR = "LastNameLengthError";
+export const USERNAME_NAME_LEN_ERROR = "UserNameLengthError";
+export const USERNAME_NAME_EMPTY_ERROR = "UserNameEmptyError";
+export const LAST_NAME_REQUIRED_ERROR = "LastNameRequiredError";
+export const LAST_NAME_EMPTY_ERROR = "LastNameEmptyError";
+export const EMAIL_UNAVAILABLE_ERROR = "EmailUsedError";
+export const INVALID_EMAIL_ERROR = "InvalidEmailError";
+export const PHONE_NUMBER_UNAVAILABLE_ERROR = "PhoneNumberUnavailableError";
+export const INVALID_PHONE_NUMBER_ERROR = "InvalidPhoneNumberError";
+export const PASSWORD_LEN_ERROR = "InvalidPasswordLengthError";
+export const INVALID_PASSWORD_ERROR = "InvalidPasswordError";
+export const INVALID_LOCALE_ERROR = "InvalidLocaleError";
+export const INVALID_URL_ERROR = "InvalidUrlError";
 
 // jwt token
 export const TOKEN_EXPIRED_ERROR = "TokenExpiredError";
