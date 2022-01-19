@@ -8,6 +8,8 @@ const upload = uploadProfilePicture.single("avatar");
 
 const uploadAvatar = async (req, res) => {
   upload(req, res, async (err) => {
+    const { user, fileStorage, t } = req;
+
     if (err instanceof multer.MulterError) {
       let { message } = err;
 
@@ -16,14 +18,14 @@ const uploadAvatar = async (req, res) => {
       }
       res.status(400).send({
         success: false,
-        message: req.t(message, {
+        message: t(message, {
           size: numeral(PROFILE_PICTURE_MAX_FILE_SIZE).format(BYTES),
         }),
       });
     } else if (err) {
       res.status(400).send({
         success: false,
-        message: req.t(err.message),
+        message: t(err.message),
       });
     } else {
       try {
@@ -43,11 +45,9 @@ const uploadAvatar = async (req, res) => {
           size,
         };
 
-        const { user } = req;
-
         let avatar = await user.getAvatar();
         if (avatar) {
-          req.fileStorage.remove(avatar.toJSON());
+          fileStorage.remove(avatar.toJSON());
           avatar = await avatar.update(file);
         } else {
           avatar = await user.createAvatar(file);
@@ -59,12 +59,12 @@ const uploadAvatar = async (req, res) => {
         });
       } catch (error) {
         if (req.file) {
-          req.fileStorage.remove(req.file);
+          fileStorage.remove(req.file);
         }
 
         res.status(400).send({
           success: false,
-          message: req.t(error.message),
+          message: t(error.message),
         });
       }
     }

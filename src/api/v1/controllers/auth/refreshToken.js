@@ -1,5 +1,3 @@
-import * as jwt from "~utils/jwt";
-import store from "~utils/store";
 import TokenError from "~utils/errors/TokenError";
 import { TOKEN_INVALID_ERROR } from "~helpers/constants/i18n";
 
@@ -9,6 +7,7 @@ const refreshTokenController = async (req, res) => {
     refresh_token: rfToken,
     client_id: clientId,
   } = req.headers;
+  const { store, jwt, t } = req;
 
   try {
     const expiredToken = jwt.decode(authorization);
@@ -34,15 +33,15 @@ const refreshTokenController = async (req, res) => {
       expiresIn: exp,
     });
 
-    res.send({
+    res.json({
       success: true,
       accessToken,
       refreshToken,
     });
   } catch (e) {
-    res.status(401).send({
+    res.status(401).json({
       success: false,
-      message: req.t(e.message),
+      message: t(e.message),
     });
   }
 };
