@@ -17,6 +17,7 @@ const authDirectiveTransformer = (schema, directiveName) =>
 
         const newFieldConfig = { ...fieldConfig };
         newFieldConfig.resolve = async (source, args, context, info) => {
+          // check authentication
           const { tokenInfo, dataSources, sessionId } = context;
           const isLoggedIn = tokenInfo?.sid === sessionId;
           const user =
@@ -26,14 +27,17 @@ const authDirectiveTransformer = (schema, directiveName) =>
             throw new AuthenticationError(UNAUTHENTICATED);
           }
 
+          // check authorization
           const { rules } = authDirective;
           if (rules) {
             const hasPermissions = rules.some((rule) => {
               const { allow, ownerField } = rule;
-              if (allow === AUTH_OWNER_STRATEGY) {
-                return source[ownerField] === user.id;
+              switch (allow) {
+                case AUTH_OWNER_STRATEGY:
+                  return source[ownerField] === user.id;
+                default:
+                  return false;
               }
-              return false;
             });
             if (!hasPermissions) {
               throw new ForbiddenError(UNAUTHORIZED);
