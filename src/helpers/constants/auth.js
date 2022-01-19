@@ -25,3 +25,12 @@ export const GOOGLE_PROVIDER = "GOOGLE";
 export const FACEBOOK_PROVIDER = "FACEBOOK";
 
 export const allowedClients = [process.env.TEST_CLIENT_ID];
+
+export const AUTH_OWNER_STRATEGY = "owner";
+export const AUTH_ROLE_STRATEGY = "role";
+export const AUTH_SCOPE_STRATEGY = "scope";
+export const AUTH_STRATEGIES = [
+  AUTH_OWNER_STRATEGY,
+  AUTH_ROLE_STRATEGY,
+  AUTH_SCOPE_STRATEGY,
+];
