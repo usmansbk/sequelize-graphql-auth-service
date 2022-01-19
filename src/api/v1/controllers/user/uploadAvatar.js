@@ -59,8 +59,9 @@ const uploadAvatar = async (req, res) => {
           avatar: avatar.toJSON(),
         });
       } catch (error) {
-        // remove uploaded file from s3
-        req.fileStorage.remove(req.file);
+        if (req.file) {
+          req.fileStorage.remove(req.file);
+        }
 
         res.status(400).send({
           success: false,
