@@ -1,11 +1,25 @@
+type Query {
+  me: UserPayload! @auth
+  getUser(id: ID!): UserPayload!
+}
+
+type Mutation {
+  requestEmailVerification: RequestResponse! @auth
+  requestPhoneNumberVerification(phoneNumber: String!): RequestResponse! @auth
+  verifyEmail(token: String!): UserPayload!
+  verifyPhoneNumber(token: String!): UserPayload! @auth
+  updateProfile(input: UpdateProfileInput!): UserFormMutationResponse! @auth
+  removeProfilePicture: UserPayload! @auth
+}
+
 type User {
   id: ID!
   firstName: String!
   lastName: String!
   fullName: String!
   userName: String
-  email: String!
-  phoneNumber: String
+  email: String! @auth(rules: [{ allow: owner }])
+  phoneNumber: String @auth(rules: [{ allow: owner }])
   picture(resize: ImageResizeInput): Photo 
   "This profile belongs to logged in user?"
   isOwner: Boolean!
@@ -32,19 +46,6 @@ input UpdateProfileInput {
   userName: String
   phoneNumber: String
   language: String
-}
-
-type Query {
-  me: UserPayload! @auth
-}
-
-type Mutation {
-  requestEmailVerification: RequestResponse! @auth
-  requestPhoneNumberVerification(phoneNumber: String!): RequestResponse! @auth
-  verifyEmail(token: String!): UserPayload!
-  verifyPhoneNumber(token: String!): UserPayload! @auth
-  updateProfile(input: UpdateProfileInput!): UserFormMutationResponse! @auth
-  removeProfilePicture: UserPayload! @auth
 }
 
 type UserPayload implements Response {

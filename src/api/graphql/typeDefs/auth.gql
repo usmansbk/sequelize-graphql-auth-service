@@ -1,12 +1,14 @@
-"""
-## [WIP] Authentication and Authorization directive
-
-The `@auth` directive is used to check if a user is logged in and has
-the necessary permissions to access the field.
-
-https://www.graphql-tools.com/docs/schema-directives#enforcing-access-permissions
-"""
-directive @auth on FIELD_DEFINITION
+type Mutation {
+  requestPasswordReset(email: String!): RequestResponse!
+  requestDeleteAccount: RequestResponse! @auth
+  requestEmailOTP: RequestResponse! @auth
+  registerWithEmail(input: CreateUserInput!): AuthFormMutationResponse!
+  loginWithEmail(input: EmailLoginInput!): AuthFormMutationResponse!
+  loginWithSocialProvider(input: SocialLoginInput!): AuthMutationResponse!
+  resetPassword(input: PasswordResetInput!): AuthFormMutationResponse!
+  deleteAccount(token: String!): AuthMutationResponse!
+  logout: AuthMutationResponse!
+}
 
 enum SocialProvider {
   GOOGLE
@@ -28,18 +30,6 @@ input PasswordResetInput {
   token: String!
 }
 
-type Mutation {
-  requestPasswordReset(email: String!): RequestResponse!
-  requestDeleteAccount: RequestResponse! @auth
-  requestEmailOTP: RequestResponse! @auth
-  registerWithEmail(input: CreateUserInput!): AuthFormMutationResponse!
-  loginWithEmail(input: EmailLoginInput!): AuthFormMutationResponse!
-  loginWithSocialProvider(input: SocialLoginInput!): AuthMutationResponse!
-  resetPassword(input: PasswordResetInput!): AuthFormMutationResponse!
-  deleteAccount(token: String!): AuthMutationResponse!
-  logout: AuthMutationResponse!
-}
-
 type AuthFormMutationResponse implements Response & FormErrors {
   code: ID!
   success: Boolean!
@@ -55,4 +45,44 @@ type AuthMutationResponse implements Response {
   message: String!
   accessToken: String
   refreshToken: String
+}
+
+"""
+## [WIP] Authentication and Authorization directive
+
+Any field with no @auth directive is public by default
+Calling the @auth directive without any rules means the user must be authenticated
+Calling the @auth(rules: [{ ... }]) with rules means the user must be authorized according to the set rules
+**Authorization rules operate on the deny-by-default principle**. Meaning that if an authorization rule is not specifically configured, it is denied.
+
+Reference:
+
+- [AWS AppSync](https://docs.amplify.aws/cli/graphql/authorization-rules/#public-data-access)
+- [graphql-tools](https://www.graphql-tools.com/docs/schema-directives#enforcing-access-permissions)
+"""
+directive @auth(rules: [AuthRule!]) on FIELD_DEFINITION
+
+enum AuthStrategy {
+  """
+  To restrict a record's access to a specific user, use the `owner` strategy.
+  When `owner` authorization is configured, only the record's `owner` is allowed the specified operations.
+  """
+  owner
+  role 
+  scope
+}
+
+enum AuthOperation {
+  create
+  read
+  update
+  delete
+}
+
+type AuthRule {
+  allow: AuthStrategy!
+  operations: [AuthOperation!]
+  ownerField: String = "owner"
+  roles: [String!]
+  scopes: [String!]
 }
