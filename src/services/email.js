@@ -35,6 +35,7 @@ const email = new Email({
   subjectPrefix: isProduction ? false : `[${env.toUpperCase()}] `,
   i18n: {
     locales: ["en"],
+    directory: "./locales/emails",
   },
   send: isProduction,
 });
