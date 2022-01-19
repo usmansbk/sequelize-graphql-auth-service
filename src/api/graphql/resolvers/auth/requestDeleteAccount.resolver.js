@@ -1,4 +1,4 @@
-import sendMail from "~services/mailer";
+import sendMail from "~services/email";
 import links from "~helpers/links";
 import { Success } from "~helpers/response";
 import emailTemplates from "~helpers/emailTemplates";

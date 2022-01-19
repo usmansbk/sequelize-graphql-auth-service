@@ -1,4 +1,4 @@
-import sendMail from "~services/mailer";
+import sendMail from "~services/email";
 import { Success } from "~helpers/response";
 import emailTemplates from "~helpers/emailTemplates";
 import { SENT_EMAIL_OTP } from "~helpers/constants/i18n";
