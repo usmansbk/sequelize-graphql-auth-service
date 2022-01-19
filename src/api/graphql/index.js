@@ -56,13 +56,13 @@ export const createApolloServer = (app) => {
       return {
         t,
         jwt,
+        otp,
         store,
         locale,
-        tokenInfo,
         clientId,
         sessionId,
+        tokenInfo,
         accessToken,
-        otp,
         fileStorage,
       };
     },
