@@ -37,7 +37,7 @@ const email = new Email({
     locales: ["en"],
     directory: "./locales/emails",
   },
-  send: isProduction,
+  // send: isProduction,
 });
 
 const sendMail = async ({ template, message, locals }) => {
