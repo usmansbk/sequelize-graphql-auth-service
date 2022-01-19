@@ -1,7 +1,8 @@
 import { mapSchema, getDirective, MapperKind } from "@graphql-tools/utils";
-import { AuthenticationError } from "apollo-server-core";
+import { AuthenticationError, ForbiddenError } from "apollo-server-core";
 import { defaultFieldResolver } from "graphql";
-import { UNAUTHENTICATED } from "~helpers/constants/i18n";
+import { AUTH_OWNER_STRATEGY } from "~helpers/constants/auth";
+import { UNAUTHENTICATED, UNAUTHORIZED } from "~helpers/constants/i18n";
 
 const authDirectiveTransformer = (schema, directiveName) =>
   mapSchema(schema, {
@@ -25,7 +26,19 @@ const authDirectiveTransformer = (schema, directiveName) =>
             throw new AuthenticationError(UNAUTHENTICATED);
           }
 
-          // TODO: RBAC
+          const { rules } = authDirective;
+          if (rules) {
+            const hasPermissions = rules.some((rule) => {
+              const { allow, ownerField } = rule;
+              if (allow === AUTH_OWNER_STRATEGY) {
+                return source[ownerField] === user.id;
+              }
+              return false;
+            });
+            if (!hasPermissions) {
+              throw new ForbiddenError(UNAUTHORIZED);
+            }
+          }
 
           return resolve(source, args, context, info);
         };
