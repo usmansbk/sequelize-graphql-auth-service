@@ -84,8 +84,8 @@ enum AuthOperation {
 
 input AuthRule {
   allow: AuthStrategy!
-  operations: [AuthOperation!]
-  ownerField: String = "id"
+  operations: [AuthOperation!] = [create, read, update, delete]
+  ownerField: String = "ownerId"
   roles: [String!]
   scopes: [String!]
 }
