@@ -1,5 +1,5 @@
 import links from "~helpers/links";
-import { MIN_THUMBNAIL_SIZE } from "~helpers/constants/files";
+import { MIN_AVATAR_THUMBNAIL_SIZE } from "~helpers/constants/files";
 
 export default {
   User: {
@@ -7,19 +7,19 @@ export default {
       const avatar = await dataSources.files.findByPk(parent.avatarId);
 
       if (avatar) {
-        let imageRequest = avatar.toJSON();
+        const file = avatar.toJSON();
+        const imageRequest = {
+          ...file,
+          edits: {
+            resize,
+          },
+        };
 
-        if (resize) {
-          imageRequest = {
-            ...imageRequest,
-            edits: {
-              resize,
-            },
-          };
-        }
-        const size = Math.max(MIN_THUMBNAIL_SIZE, resize.thumbnailSize);
+        const size = resize
+          ? Math.max(MIN_AVATAR_THUMBNAIL_SIZE, resize.thumbnailSize)
+          : MIN_AVATAR_THUMBNAIL_SIZE;
         const thumbnailRequest = {
-          ...imageRequest,
+          ...file,
           edits: {
             resize: {
               width: size,
@@ -27,6 +27,7 @@ export default {
             },
           },
         };
+
         return {
           url: links.imageUrl(imageRequest),
           thumbnail: links.imageUrl(thumbnailRequest),
