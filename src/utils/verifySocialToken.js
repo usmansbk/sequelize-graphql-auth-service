@@ -1,9 +1,6 @@
 import verifyGoogleToken from "~services/googleOAuth";
 import verifyFacebookToken from "~services/facebookOAuth";
-import {
-  FACEBOOK_PROVIDER,
-  GOOGLE_PROVIDER,
-} from "~helpers/constants/providers";
+import { FACEBOOK_PROVIDER, GOOGLE_PROVIDER } from "~helpers/constants/auth";
 
 const verifySocialToken = async ({ provider, token }) => {
   let userInfo;

@@ -14,4 +14,7 @@ export const EMAIL_OTP_KEY_PREFIX = "email:otp";
 export const PHONE_NUMBER_KEY_PREFIX = "phoneNumber";
 export const DELETE_ACCOUNT_KEY_PREFIX = "account:delete";
 
+export const GOOGLE_PROVIDER = "GOOGLE";
+export const FACEBOOK_PROVIDER = "FACEBOOK";
+
 export const allowedClients = [process.env.TEST_CLIENT_ID];

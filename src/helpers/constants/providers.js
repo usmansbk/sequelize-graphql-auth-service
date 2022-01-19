@@ -1,2 +1,0 @@
-export const GOOGLE_PROVIDER = "GOOGLE";
-export const FACEBOOK_PROVIDER = "FACEBOOK";
