@@ -8,4 +8,4 @@ export const SUPPORTED_PROFILE_PICTURE_FILE_TYPES = ["image/png", "image/jpeg"];
 export const AVATARS_FOLDER = "avatars";
 
 // format
-export const BYTES = "0b";
+export const BYTES = "0b"; // KB, MB, GB etc
