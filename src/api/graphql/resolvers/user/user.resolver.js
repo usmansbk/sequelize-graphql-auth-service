@@ -1,4 +1,5 @@
 import links from "~helpers/links";
+import { MIN_THUMBNAIL_SIZE } from "~helpers/constants/files";
 
 export default {
   User: {
@@ -16,7 +17,7 @@ export default {
             },
           };
         }
-        const size = Math.max(32, resize.thumbnailSize);
+        const size = Math.max(MIN_THUMBNAIL_SIZE, resize.thumbnailSize);
         const thumbnailRequest = {
           ...imageRequest,
           edits: {
