@@ -19,9 +19,9 @@ const authMiddleware = async (req, _res, next) => {
     // TODO: RBAC
 
     req.user = user;
-    return next();
+    next();
   } catch (e) {
-    return next(e);
+    next(e);
   }
 };
 
