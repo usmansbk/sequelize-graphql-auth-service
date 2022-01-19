@@ -1,8 +1,10 @@
-import dayjs from "~utils/dayjs";
 import sendSMS from "~services/sms";
 import { Success } from "~helpers/response";
 import { SENT_SMS_OTP } from "~helpers/constants/i18n";
-import { PHONE_NUMBER_KEY_PREFIX } from "~helpers/constants/auth";
+import {
+  PHONE_NUMBER_KEY_PREFIX,
+  SMS_OTP_EXPIRES_IN,
+} from "~helpers/constants/auth";
 
 export default {
   Mutation: {
@@ -19,12 +21,11 @@ export default {
 
       if (!(sentToken || phoneNumberVerified)) {
         const token = otp.getSmsOtp();
-        const expiresIn = dayjs.duration(10, "hours").asSeconds();
 
         await store.set({
           key,
           value: token,
-          expiresIn,
+          expiresIn: SMS_OTP_EXPIRES_IN,
         });
 
         sendSMS(token, phoneNumber);

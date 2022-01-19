@@ -1,9 +1,11 @@
-import dayjs from "~utils/dayjs";
 import sendMail from "~services/mailer";
 import { Success } from "~helpers/response";
 import emailTemplates from "~helpers/emailTemplates";
 import { SENT_EMAIL_OTP } from "~helpers/constants/i18n";
-import { EMAIL_OTP_KEY_PREFIX } from "~helpers/constants/auth";
+import {
+  EMAIL_OTP_EXPIRES_IN,
+  EMAIL_OTP_KEY_PREFIX,
+} from "~helpers/constants/auth";
 
 export default {
   Mutation: {
@@ -20,12 +22,11 @@ export default {
 
       if (!sentToken) {
         const token = otp.getEmailOtp();
-        const expiresIn = dayjs.duration(5, "minutes").asSeconds();
 
         await store.set({
           key,
           value: token,
-          expiresIn,
+          expiresIn: EMAIL_OTP_EXPIRES_IN,
         });
 
         sendMail({
