@@ -69,6 +69,7 @@ enum AuthStrategy {
   """
   owner
   role 
+  """works together with `scopes` AuthRule"""
   scope
 }
 
@@ -79,7 +80,7 @@ enum AuthOperation {
   delete
 }
 
-type AuthRule {
+input AuthRule {
   allow: AuthStrategy!
   operations: [AuthOperation!]
   ownerField: String = "owner"
