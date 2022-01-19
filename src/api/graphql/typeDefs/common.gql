@@ -26,6 +26,7 @@ input ImageResizeInput {
   width: Int!
   height: Int!
   fit: ImageResizeMode
+  thumbnailSize: Int = 32
 }
 
 type RequestResponse implements Response {
@@ -40,7 +41,8 @@ type FieldError {
 }
 
 type Photo {
-  url: String
+  url: String!
+  thumbnail: String
 }
 
 type File {
