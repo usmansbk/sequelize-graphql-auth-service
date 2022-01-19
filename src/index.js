@@ -4,12 +4,14 @@ import db from "~db/models";
 import startApolloServer from "~api/graphql";
 import log from "~utils/logger";
 import { useLanguageMiddleware } from "~config/i18n";
+import contextMiddleware from "~api/v1/middlewares/context";
 import rateLimiter from "~api/v1/middlewares/rateLimiter";
 
 const app = express();
 
 useLanguageMiddleware(app);
 
+app.use(contextMiddleware);
 app.use(rateLimiter);
 app.use("/v1", v1);
 

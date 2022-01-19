@@ -4,10 +4,6 @@ import { makeExecutableSchema } from "@graphql-tools/schema";
 import http from "http";
 import db from "~db/models";
 import log from "~utils/logger";
-import * as jwt from "~utils/jwt";
-import * as otp from "~utils/otp";
-import store from "~utils/store";
-import fileStorage from "~utils/fileStorage";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 import { UserDS, FileDS } from "./datasources";
@@ -42,6 +38,7 @@ export const createApolloServer = (app) => {
       let tokenInfo;
       let sessionId;
       const { authorization: accessToken, client_id: clientId } = req.headers;
+      const { t, store, locale, jwt, otp, fileStorage } = req;
 
       if (accessToken) {
         try {
@@ -57,11 +54,11 @@ export const createApolloServer = (app) => {
       }
 
       return {
+        t,
         jwt,
         store,
+        locale,
         tokenInfo,
-        t: req.t,
-        locale: req.locale,
         clientId,
         sessionId,
         accessToken,
