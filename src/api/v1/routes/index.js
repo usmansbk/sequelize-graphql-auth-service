@@ -3,6 +3,7 @@ import express from "express";
 import morgan from "morgan";
 import { AuthenticationError } from "apollo-server-core";
 import authMiddleware from "~api/v1/middlewares/auth";
+import contextMiddleware from "~api/v1/middlewares/context";
 import { SOMETHING_WENT_WRONG } from "~helpers/constants/i18n";
 
 import authRouter from "./auth";
@@ -13,6 +14,7 @@ const router = express.Router();
 router.get("/ip", (request, response) => response.send(request.ip));
 
 router.use(morgan("combined"));
+router.use(contextMiddleware);
 router.use("/auth", authRouter);
 router.use("/user", authMiddleware, userRouter);
 
