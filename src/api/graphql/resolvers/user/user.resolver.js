@@ -46,5 +46,8 @@ export default {
     isOwner(parent, _args, { tokenInfo }) {
       return parent.id === tokenInfo?.sub;
     },
+    roles() {
+      return [{ name: "ADMIN" }]; // PLACEHOLDER
+    },
   },
 };

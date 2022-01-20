@@ -68,7 +68,7 @@ enum AuthStrategy {
   When `owner` authorization is configured, only the record's `owner` is allowed the specified operations.
   """
   owner
-  role 
+  role
 }
 
 enum AuthRole {
@@ -83,7 +83,7 @@ input AuthRule {
   scopes: [String!]
 }
 
-type Role {
+type Role @auth(rules: [{ allow: role, roles: [ADMIN] }]) {
   id: ID!
   name: AuthRole!
   users: [User]!

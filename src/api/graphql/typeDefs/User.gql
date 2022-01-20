@@ -20,13 +20,13 @@ type User {
   userName: String
   email: String! @auth(rules: [{ allow: owner, identityClaim: "id" }])
   phoneNumber: String @auth(rules: [{ allow: owner, identityClaim: "id" }])
-  picture(resize: ImageResizeInput): Photo 
+  picture(resize: ImageResizeInput): Photo
   "This profile belongs to logged in user?"
   isOwner: Boolean!
   language: String!
   emailVerified: Boolean!
   phoneNumberVerified: Boolean!
-  roles: [Role!] @auth(rules: [{ allow: role, roles: [ADMIN] }])
+  roles: [Role!]
   createdAt: DateTime!
   updatedAt: DateTime
 }
