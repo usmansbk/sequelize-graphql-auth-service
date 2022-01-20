@@ -15,7 +15,7 @@ import {
   USER_INVALID_PASSWORD_ERROR,
   USER_INVALID_LOCALE_ERROR,
   USER_INVALID_PICTURE_URL_ERROR,
-  USERNAME_NAME_LEN_ERROR,
+  USER_USERNAME_LEN_ERROR,
 } from "~helpers/constants/i18n";
 import {
   AVATAR_ALIAS,
@@ -100,10 +100,10 @@ export default (sequelize, DataTypes) => {
         validate: {
           len: {
             args: [2, 100],
-            msg: USERNAME_NAME_LEN_ERROR,
+            msg: USER_USERNAME_LEN_ERROR,
           },
           notEmpty: {
-            msg: USERNAME_NAME_LEN_ERROR,
+            msg: USER_USERNAME_LEN_ERROR,
           },
         },
       },
