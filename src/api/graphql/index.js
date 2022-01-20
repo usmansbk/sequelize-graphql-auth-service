@@ -2,11 +2,10 @@ import { ApolloServer } from "apollo-server-express";
 import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import http from "http";
-import db from "~db/models";
-import log from "~utils/logger";
+import logger from "~utils/logger";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
-import { UserDS, FileDS, RoleDS } from "./datasources";
+import dataSources from "./datasources";
 import authDirectiveTransformer from "./directives/auth";
 import i18nErrorPlugin from "./plugins/i18nErrorPlugin";
 
@@ -29,12 +28,8 @@ export const createApolloServer = (app) => {
       ApolloServerPluginDrainHttpServer({ httpServer }),
       i18nErrorPlugin,
     ],
-    logger: log,
-    dataSources: () => ({
-      users: new UserDS(db.User),
-      files: new FileDS(db.File),
-      roles: new RoleDS(db.Role),
-    }),
+    logger,
+    dataSources,
     context: async ({ req }) => {
       let tokenInfo;
       let sessionId;
@@ -50,7 +45,7 @@ export const createApolloServer = (app) => {
             await req.i18n.changeLanguage(tokenInfo.lng);
           }
         } catch (e) {
-          log.warn(e.message);
+          logger.warn(e.message);
         }
       }
 

@@ -1,7 +1,12 @@
+import db from "~db/models";
 import UserDS from "./user";
 import FileDS from "./file";
 import RoleDS from "./role";
 
-export { UserDS, FileDS, RoleDS };
+const dataSources = () => ({
+  users: new UserDS(db.User),
+  files: new FileDS(db.File),
+  roles: new RoleDS(db.Role),
+});
 
-export default { UserDS, FileDS, RoleDS };
+export default dataSources;
