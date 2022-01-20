@@ -6,18 +6,16 @@ import logger from "~utils/logger";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 import dataSources from "./datasources";
-import authDirectiveTransformer from "./directives/auth";
+import applyDirectives from "./directives";
 import i18nErrorPlugin from "./plugins/i18nErrorPlugin";
 
 const createSchema = () => {
-  let schema = makeExecutableSchema({
+  const schema = makeExecutableSchema({
     typeDefs,
     resolvers,
   });
 
-  schema = authDirectiveTransformer(schema, "auth");
-
-  return schema;
+  return applyDirectives(schema);
 };
 
 export const createApolloServer = (app) => {
