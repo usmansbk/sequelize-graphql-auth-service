@@ -1,5 +1,5 @@
 import links from "~helpers/links";
-import { MIN_AVATAR_THUMBNAIL_SIZE } from "~helpers/constants/files";
+import { MIN_THUMBNAIL_SIZE } from "~helpers/constants/files";
 
 const getImage = (file, resize) => {
   const imageRequest = {
@@ -10,8 +10,8 @@ const getImage = (file, resize) => {
   };
 
   const size = resize
-    ? Math.max(MIN_AVATAR_THUMBNAIL_SIZE, resize.thumbnailSize)
-    : MIN_AVATAR_THUMBNAIL_SIZE;
+    ? Math.max(MIN_THUMBNAIL_SIZE, resize.thumbnailSize)
+    : MIN_THUMBNAIL_SIZE;
   const thumbnailRequest = {
     ...imageRequest,
     edits: {
