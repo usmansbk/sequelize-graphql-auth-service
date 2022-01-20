@@ -26,6 +26,7 @@ type User {
   language: String!
   emailVerified: Boolean!
   phoneNumberVerified: Boolean!
+  roles: [Role!] @auth(rules: [{ allow: role, roles: [ADMIN] }])
   createdAt: DateTime!
   updatedAt: DateTime
 }

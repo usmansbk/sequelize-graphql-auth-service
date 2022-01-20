@@ -1,0 +1,9 @@
+type Role {
+  id: ID!
+  name: String!
+  permissions: [String!]!
+  users: [User]!
+	creator: User!
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
