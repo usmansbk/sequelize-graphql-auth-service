@@ -20,7 +20,7 @@ export default {
       const { language, firstName, id, email, emailVerified } = user;
       const key = `${EMAIL_VERIFICATION_KEY_PREFIX}:${id}`;
 
-      const sentToken = await store.get(key); // rate limiter
+      const sentToken = await store.get(key);
 
       if (!(sentToken || emailVerified)) {
         const { token, exp } = jwt.generateToken(

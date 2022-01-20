@@ -20,7 +20,7 @@ export default {
 
         await store.remove(key);
 
-        // Optionally, we can send an official welcome email here...
+        // TODO: send an official welcome email here...
 
         return Success({
           message: t(EMAIL_VERIFIED),
