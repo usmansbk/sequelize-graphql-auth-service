@@ -11,7 +11,7 @@ const links = {
     `${CLOUDFRONT_API_ENDPOINT}${btoa(JSON.stringify(imageRequest))}`,
 };
 
-export const getPhoto = (file, resize) => {
+export const getPhotoLinks = (file, resize) => {
   const imageRequest = {
     ...file.toJSON(),
     edits: {

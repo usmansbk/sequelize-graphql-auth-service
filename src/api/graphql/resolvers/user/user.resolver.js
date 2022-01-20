@@ -1,4 +1,4 @@
-import { getPhoto } from "~helpers/links";
+import { getPhotoLinks } from "~helpers/links";
 
 export default {
   User: {
@@ -6,7 +6,7 @@ export default {
       const file = await dataSources.files.findByPk(parent.avatarId);
 
       if (file) {
-        return getPhoto(file, resize);
+        return getPhotoLinks(file, resize);
       }
 
       if (parent.socialAvatarURL) {
