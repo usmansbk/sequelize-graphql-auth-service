@@ -1,5 +1,4 @@
-import links from "~helpers/links";
-import { MIN_AVATAR_THUMBNAIL_SIZE } from "~helpers/constants/files";
+import getImage from "~utils/getImage";
 
 export default {
   User: {
@@ -7,31 +6,7 @@ export default {
       const file = await dataSources.files.findByPk(parent.avatarId);
 
       if (file) {
-        const avatar = file.toJSON();
-        const imageRequest = {
-          ...avatar,
-          edits: {
-            resize,
-          },
-        };
-
-        const size = resize
-          ? Math.max(MIN_AVATAR_THUMBNAIL_SIZE, resize.thumbnailSize)
-          : MIN_AVATAR_THUMBNAIL_SIZE;
-        const thumbnailRequest = {
-          ...avatar,
-          edits: {
-            resize: {
-              width: size,
-              height: size,
-            },
-          },
-        };
-
-        return {
-          url: links.imageUrl(imageRequest),
-          thumbnail: links.imageUrl(thumbnailRequest),
-        };
+        return getImage(file, resize);
       }
 
       if (parent.socialAvatarURL) {
