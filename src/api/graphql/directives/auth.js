@@ -35,10 +35,10 @@ const authDirectiveTransformer = (schema, directiveName) =>
           const { rules } = authDirective;
           if (rules) {
             const hasPermissions = rules.some((rule) => {
-              const { allow, ownerField } = rule;
+              const { allow, identityClaim } = rule;
               switch (allow) {
                 case AUTH_OWNER_STRATEGY:
-                  return source[ownerField] === user.id;
+                  return source[identityClaim] === user.id;
                 case AUTH_ROLE_STRATEGY:
                   return false; // TODO
                 case AUTH_SCOPE_STRATEGY:

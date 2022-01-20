@@ -18,8 +18,8 @@ type User {
   lastName: String!
   fullName: String!
   userName: String
-  email: String! @auth(rules: [{ allow: owner, ownerField: "id" }])
-  phoneNumber: String @auth(rules: [{ allow: owner, ownerField: "id" }])
+  email: String! @auth(rules: [{ allow: owner, identityClaim: "id" }])
+  phoneNumber: String @auth(rules: [{ allow: owner, identityClaim: "id" }])
   picture(resize: ImageResizeInput): Photo 
   "This profile belongs to logged in user?"
   isOwner: Boolean!
