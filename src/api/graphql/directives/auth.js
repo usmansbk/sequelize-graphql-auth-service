@@ -8,14 +8,21 @@ import {
 } from "~helpers/constants/auth";
 import { UNAUTHENTICATED, UNAUTHORIZED } from "~helpers/constants/i18n";
 
-const authDirectiveTransformer = (schema, directiveName) =>
-  mapSchema(schema, {
-    [MapperKind.OBJECT_FIELD]: (fieldConfig) => {
-      const authDirective = getDirective(
-        schema,
-        fieldConfig,
-        directiveName
-      )?.[0];
+const authDirectiveTransformer = (schema, directiveName) => {
+  const typeDirectiveArgumentMaps = {};
+
+  return mapSchema(schema, {
+    [MapperKind.TYPE]: (type) => {
+      const authDirective = getDirective(schema, type, directiveName)?.[0];
+      if (authDirective) {
+        typeDirectiveArgumentMaps[type.name] = authDirective;
+      }
+      return undefined;
+    },
+    [MapperKind.OBJECT_FIELD]: (fieldConfig, _fieldName, typeName) => {
+      const authDirective =
+        getDirective(schema, fieldConfig, directiveName)?.[0] ??
+        typeDirectiveArgumentMaps[typeName];
       if (authDirective) {
         const { resolve = defaultFieldResolver } = fieldConfig;
 
@@ -73,5 +80,6 @@ const authDirectiveTransformer = (schema, directiveName) =>
       return fieldConfig;
     },
   });
+};
 
 export default authDirectiveTransformer;

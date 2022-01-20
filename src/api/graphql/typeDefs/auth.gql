@@ -60,7 +60,7 @@ Reference:
 - [AWS AppSync](https://docs.amplify.aws/cli/graphql/authorization-rules/#public-data-access)
 - [graphql-tools](https://www.graphql-tools.com/docs/schema-directives#enforcing-access-permissions)
 """
-directive @auth(rules: [AuthRule!]) on FIELD_DEFINITION
+directive @auth(rules: [AuthRule!]) on FIELD_DEFINITION | OBJECT
 
 enum AuthStrategy {
   """
