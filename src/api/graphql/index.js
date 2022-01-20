@@ -6,7 +6,7 @@ import db from "~db/models";
 import log from "~utils/logger";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
-import { UserDS, FileDS } from "./datasources";
+import { UserDS, FileDS, RoleDS } from "./datasources";
 import authDirectiveTransformer from "./directives/auth";
 import i18nErrorPlugin from "./plugins/i18nErrorPlugin";
 
@@ -33,6 +33,7 @@ export const createApolloServer = (app) => {
     dataSources: () => ({
       users: new UserDS(db.User),
       files: new FileDS(db.File),
+      roles: new RoleDS(db.Role),
     }),
     context: async ({ req }) => {
       let tokenInfo;

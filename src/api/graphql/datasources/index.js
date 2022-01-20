@@ -1,6 +1,7 @@
 import UserDS from "./user";
 import FileDS from "./file";
+import RoleDS from "./role";
 
-export { UserDS, FileDS };
+export { UserDS, FileDS, RoleDS };
 
-export default { UserDS, FileDS };
+export default { UserDS, FileDS, RoleDS };
