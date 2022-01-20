@@ -15,9 +15,15 @@ export default (sequelize, DataTypes) => {
     {
       userId: {
         type: DataTypes.UUID,
+        references: {
+          model: "User",
+        },
       },
       roleId: {
         type: DataTypes.UUID,
+        references: {
+          model: "Role",
+        },
       },
     },
     {
