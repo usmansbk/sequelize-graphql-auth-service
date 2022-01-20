@@ -38,11 +38,11 @@ const authDirectiveTransformer = (schema, directiveName) =>
               const { allow, identityClaim } = rule;
               switch (allow) {
                 case AUTH_OWNER_STRATEGY:
-                  return new Promise((res, reject) => {
+                  return new Promise((permit, reject) => {
                     if (source[identityClaim] !== user.id) {
                       reject();
                     }
-                    res();
+                    permit();
                   });
                 case AUTH_ROLE_STRATEGY:
                   return new Promise((_, reject) => {
