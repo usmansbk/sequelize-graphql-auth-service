@@ -34,20 +34,34 @@ const authDirectiveTransformer = (schema, directiveName) =>
           // check authorization
           const { rules } = authDirective;
           if (rules) {
-            const hasPermissions = rules.some((rule) => {
+            const checks = rules.map((rule) => {
               const { allow, identityClaim } = rule;
               switch (allow) {
                 case AUTH_OWNER_STRATEGY:
-                  return source[identityClaim] === user.id;
+                  return new Promise((res, reject) => {
+                    if (source[identityClaim] !== user.id) {
+                      reject();
+                    }
+                    res();
+                  });
                 case AUTH_ROLE_STRATEGY:
-                  return false; // TODO
+                  return new Promise((_, reject) => {
+                    reject();
+                  }); // TODO
                 case AUTH_SCOPE_STRATEGY:
-                  return false; // TODO
+                  return new Promise((_, reject) => {
+                    reject();
+                  }); // TODO
                 default:
-                  return false;
+                  return new Promise((_, reject) => {
+                    reject();
+                  });
               }
             });
-            if (!hasPermissions) {
+
+            try {
+              await Promise.any(checks);
+            } catch (e) {
               throw new ForbiddenError(UNAUTHORIZED);
             }
           }
