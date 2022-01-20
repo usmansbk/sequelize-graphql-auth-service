@@ -7,5 +7,7 @@
   "verify-email-button": "verify-email-button",
   "verify-thanks": "verify-thanks",
   "verify-team": "verify-team",
-  "verify-footer-text": "verify-footer-text"
+  "verify-footer-text": "verify-footer-text",
+  "failed-login-title": "failed-login-title",
+  "failed-login-paragraph": "failed-login-paragraph"
 }
