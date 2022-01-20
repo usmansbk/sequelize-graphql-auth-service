@@ -72,11 +72,6 @@ enum AuthStrategy {
   scope
 }
 
-enum AuthRole {
-  admin
-  user
-}
-
 input AuthRule {
   allow: AuthStrategy!
   ownerField: String = "ownerId"
