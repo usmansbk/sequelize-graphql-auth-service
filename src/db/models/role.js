@@ -1,4 +1,5 @@
 import { Model } from "sequelize";
+import { ROLE_NAME_FORMAT_ERROR } from "~helpers/constants/i18n";
 
 export default (sequelize, DataTypes) => {
   class Role extends Model {
@@ -28,6 +29,9 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+        validate: {
+          isAlpha: ROLE_NAME_FORMAT_ERROR,
+        },
       },
     },
     {
