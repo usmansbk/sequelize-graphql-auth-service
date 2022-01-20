@@ -12,7 +12,7 @@ export default {
         const expectedToken = await store.get(key);
 
         if (token !== expectedToken) {
-          // we can track the number of Fail attempts here and lock the account
+          // TODO: track number of attempts here and lock the account
           throw new QueryError(INVALID_LINK);
         }
 
