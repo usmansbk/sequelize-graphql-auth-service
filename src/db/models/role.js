@@ -1,5 +1,4 @@
 import { Model } from "sequelize";
-import { USER_ROLES_JOIN_TABLE } from "~helpers/constants/models";
 
 export default (sequelize, DataTypes) => {
   class Role extends Model {
@@ -9,7 +8,10 @@ export default (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Role.belongsToMany(models.User, { through: USER_ROLES_JOIN_TABLE });
+      Role.belongsToMany(models.User, {
+        through: models.UserRoles,
+        foreignKey: "roleId",
+      });
     }
   }
   Role.init(

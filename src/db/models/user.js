@@ -20,7 +20,6 @@ import {
 import {
   AVATAR_ALIAS,
   USER_AVATAR_FORIEGN_KEY,
-  USER_ROLES_JOIN_TABLE,
 } from "~helpers/constants/models";
 
 export default (sequelize, DataTypes) => {
@@ -36,7 +35,8 @@ export default (sequelize, DataTypes) => {
         foreignKey: USER_AVATAR_FORIEGN_KEY,
       });
       User.belongsToMany(models.Role, {
-        through: USER_ROLES_JOIN_TABLE,
+        through: models.UserRoles,
+        foreignKey: "userId",
       });
     }
 
