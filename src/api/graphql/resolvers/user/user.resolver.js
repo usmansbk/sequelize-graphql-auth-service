@@ -4,9 +4,10 @@ import { MIN_AVATAR_THUMBNAIL_SIZE } from "~helpers/constants/files";
 export default {
   User: {
     async picture(parent, { resize }, { dataSources }) {
-      const file = await dataSources.files.findByPk(parent.avatarId);
+      const avatar = await dataSources.files.findByPk(parent.avatarId);
 
-      if (file) {
+      if (avatar) {
+        const file = avatar.toJSON();
         const imageRequest = {
           ...file,
           edits: {
