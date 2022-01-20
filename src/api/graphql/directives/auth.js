@@ -29,7 +29,7 @@ const authDirectiveTransformer = (schema, directiveName) => {
         newFieldConfig.resolve = async (source, args, context, info) => {
           // check authentication
           const { tokenInfo, dataSources, sessionId } = context;
-          const isLoggedIn = tokenInfo?.sid === sessionId;
+          const isLoggedIn = tokenInfo && tokenInfo.sid === sessionId;
           const user =
             isLoggedIn && (await dataSources.users.findByPk(tokenInfo.sub));
 
@@ -41,7 +41,7 @@ const authDirectiveTransformer = (schema, directiveName) => {
           const { rules } = authDirective;
           if (rules) {
             const checks = rules.map((rule) => {
-              const { allow, identityClaim } = rule;
+              const { allow, identityClaim, role } = rule;
               switch (allow) {
                 case AUTH_OWNER_STRATEGY:
                   return new Promise((permit, reject) => {
@@ -51,9 +51,14 @@ const authDirectiveTransformer = (schema, directiveName) => {
                     permit();
                   });
                 case AUTH_ROLE_STRATEGY:
-                  return new Promise((_, reject) => {
-                    reject();
-                  }); // TODO
+                  return new Promise((permit, reject) => {
+                    user.hasRole(role).then((granted) => {
+                      if (!granted) {
+                        reject();
+                      }
+                      permit();
+                    });
+                  });
                 default:
                   return new Promise((_, reject) => {
                     reject();

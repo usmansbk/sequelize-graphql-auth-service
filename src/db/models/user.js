@@ -43,6 +43,11 @@ export default (sequelize, DataTypes) => {
     checkPassword(password) {
       return bcrypt.compare(password, this.password);
     }
+
+    async hasRole(role) {
+      const roles = await this.getRoles();
+      return roles.some(({ name }) => name === role);
+    }
   }
   User.init(
     {

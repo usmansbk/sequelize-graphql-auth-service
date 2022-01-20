@@ -7,7 +7,7 @@
 - [x] Email authentication
 - [x] SMS OTP
 - [x] Social authentication (Google and Facebook)
-- [ ] RBAC
+- [x] RBAC
 - [x] Profile (Update and Delete)
 - [x] File Upload
 - [ ] Push Notification

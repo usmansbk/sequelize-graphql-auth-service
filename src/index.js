@@ -22,7 +22,7 @@ if (app.get("env") === "production") {
 const main = async () => {
   try {
     await db.sequelize.authenticate();
-    await db.sequelize.sync({ force: true });
+    await db.sequelize.sync({ force: false });
     const server = await startApolloServer(app);
     log.info(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
   } catch (error) {
