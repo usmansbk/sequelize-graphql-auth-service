@@ -1,20 +1,21 @@
 // models
-export const FIRST_NAME_LEN_ERROR = "FirstNameLengthError";
-export const FIRST_NAME_REQUIRED_ERROR = "FirstNameRequiredError";
-export const FIRST_NAME_EMPTY_ERROR = "FirstNameEmptyError";
-export const LAST_NAME_LEN_ERROR = "LastNameLengthError";
+export const USER_FIRST_NAME_LEN_ERROR = "UserFirstNameLengthError";
+export const USER_FIRST_NAME_REQUIRED_ERROR = "UserFirstNameRequiredError";
+export const USER_FIRST_NAME_EMPTY_ERROR = "UserFirstNameEmptyError";
+export const USER_LAST_NAME_LEN_ERROR = "UserLastNameLengthError";
 export const USERNAME_NAME_LEN_ERROR = "UserNameLengthError";
 export const USERNAME_NAME_EMPTY_ERROR = "UserNameEmptyError";
-export const LAST_NAME_REQUIRED_ERROR = "LastNameRequiredError";
-export const LAST_NAME_EMPTY_ERROR = "LastNameEmptyError";
-export const EMAIL_UNAVAILABLE_ERROR = "EmailUsedError";
-export const INVALID_EMAIL_ERROR = "InvalidEmailError";
-export const PHONE_NUMBER_UNAVAILABLE_ERROR = "PhoneNumberUnavailableError";
-export const INVALID_PHONE_NUMBER_ERROR = "InvalidPhoneNumberError";
-export const PASSWORD_LEN_ERROR = "InvalidPasswordLengthError";
-export const INVALID_PASSWORD_ERROR = "InvalidPasswordError";
-export const INVALID_LOCALE_ERROR = "InvalidLocaleError";
-export const INVALID_URL_ERROR = "InvalidUrlError";
+export const USER_LAST_NAME_REQUIRED_ERROR = "UserLastNameRequiredError";
+export const USER_LAST_NAME_EMPTY_ERROR = "UserLastNameEmptyError";
+export const USER_EMAIL_UNAVAILABLE_ERROR = "UserEmailUnavailable";
+export const USER_INVALID_EMAIL_ERROR = "UserInvalidEmailError";
+export const USER_PHONE_NUMBER_UNAVAILABLE_ERROR =
+  "UserPhoneNumberUnavailableError";
+export const USER_PHONE_NUMBER_FORMAT_ERROR = "UserPhoneNumberFormatError";
+export const USER_PASSWORD_LEN_ERROR = "UserInvalidPasswordLengthError";
+export const USER_INVALID_PASSWORD_ERROR = "UserInvalidPasswordError";
+export const USER_INVALID_LOCALE_ERROR = "UserInvalidLocaleError";
+export const USER_INVALID_PICTURE_URL_ERROR = "UserInvalidPictureUrlError";
 export const ROLE_NAME_FORMAT_ERROR = "RoleNameInvalidFormatError";
 export const ROLE_NAME_LEN_ERROR = "RoleNameLengthError";
 
@@ -22,8 +23,6 @@ export const ROLE_NAME_LEN_ERROR = "RoleNameLengthError";
 export const TOKEN_EXPIRED_ERROR = "TokenExpiredError";
 export const TOKEN_INVALID_ERROR = "TokenInvalidError";
 export const TOKEN_NOT_BEFORE_ERROR = "TokenNotBeforeError";
-export const INVALID_LINK = "InvalidLink";
-export const INVALID_OTP = "InvalidOtp";
 
 // resolvers
 export const INCORRECT_EMAIL_OR_PASSWORD = "IncorrectEmailAndPassword";
@@ -39,6 +38,8 @@ export const PROFILE_UPDATED = "ProfileUpdated";
 export const PHONE_NUMBER_VERIFIED = "PhoneNumberVerified";
 export const SUCCESS = "Success";
 export const FAIL = "Fail";
+export const INVALID_LINK = "InvalidLink";
+export const INVALID_OTP = "InvalidOtp";
 
 // send emails
 export const SENT_VERIFICATION_EMAIL = "SentVerificationEmail";
