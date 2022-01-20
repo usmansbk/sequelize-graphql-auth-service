@@ -17,7 +17,11 @@ import {
   INVALID_URL_ERROR,
   USERNAME_NAME_LEN_ERROR,
 } from "~helpers/constants/i18n";
-import { AVATAR_ALIAS } from "~helpers/constants/models";
+import {
+  AVATAR_ALIAS,
+  USER_AVATAR_FORIEGN_KEY,
+  USER_ROLES_JOIN_TABLE,
+} from "~helpers/constants/models";
 
 export default (sequelize, DataTypes) => {
   class User extends Model {
@@ -29,7 +33,10 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       User.belongsTo(models.File, {
         as: AVATAR_ALIAS,
-        foreignKey: "avatarId",
+        foreignKey: USER_AVATAR_FORIEGN_KEY,
+      });
+      User.belongsToMany(models.Role, {
+        through: USER_ROLES_JOIN_TABLE,
       });
     }
 

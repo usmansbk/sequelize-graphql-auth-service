@@ -4,7 +4,6 @@ import { defaultFieldResolver } from "graphql";
 import {
   AUTH_OWNER_STRATEGY,
   AUTH_ROLE_STRATEGY,
-  AUTH_SCOPE_STRATEGY,
 } from "~helpers/constants/auth";
 import { UNAUTHENTICATED, UNAUTHORIZED } from "~helpers/constants/i18n";
 
@@ -52,10 +51,6 @@ const authDirectiveTransformer = (schema, directiveName) => {
                     permit();
                   });
                 case AUTH_ROLE_STRATEGY:
-                  return new Promise((_, reject) => {
-                    reject();
-                  }); // TODO
-                case AUTH_SCOPE_STRATEGY:
                   return new Promise((_, reject) => {
                     reject();
                   }); // TODO

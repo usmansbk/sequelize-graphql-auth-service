@@ -1,5 +1,8 @@
 import { Model } from "sequelize";
-import { AVATAR_ALIAS } from "~helpers/constants/models";
+import {
+  AVATAR_ALIAS,
+  USER_AVATAR_FORIEGN_KEY,
+} from "~helpers/constants/models";
 
 export default (sequelize, DataTypes) => {
   class File extends Model {
@@ -9,7 +12,10 @@ export default (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      File.hasOne(models.User, { as: AVATAR_ALIAS, foreignKey: "avatarId" });
+      File.hasOne(models.User, {
+        as: AVATAR_ALIAS,
+        foreignKey: USER_AVATAR_FORIEGN_KEY,
+      });
     }
   }
   File.init(
