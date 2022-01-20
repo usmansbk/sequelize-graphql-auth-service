@@ -20,6 +20,7 @@ export const EMAIL_VERIFICATION_KEY_PREFIX = "email:verification";
 export const EMAIL_OTP_KEY_PREFIX = "email:otp";
 export const PHONE_NUMBER_KEY_PREFIX = "phone";
 export const DELETE_ACCOUNT_KEY_PREFIX = "account:delete";
+export const FAILED_LOGIN_ATTEMPT_KEY_PREFIX = "login:attempt";
 
 export const GOOGLE_PROVIDER = "GOOGLE";
 export const FACEBOOK_PROVIDER = "FACEBOOK";
@@ -34,3 +35,6 @@ export const AUTH_STRATEGIES = [
   AUTH_ROLE_STRATEGY,
   AUTH_SCOPE_STRATEGY,
 ];
+
+export const MAX_LOGIN_ATTEMPTS = 5;
+export const LOGIN_ATTEMPTS_INTERVAL = dayjs.duration(5, "minutes").asSeconds();

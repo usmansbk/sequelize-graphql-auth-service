@@ -16,7 +16,6 @@ export default {
         const user = await dataSources.users.findByEmailAndPassword(input);
 
         if (!user) {
-          // TODO: count number of attempts and report suspicious activity
           throw new QueryError(INCORRECT_EMAIL_OR_PASSWORD);
         }
 
