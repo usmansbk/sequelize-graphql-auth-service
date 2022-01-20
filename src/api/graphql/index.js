@@ -29,23 +29,18 @@ export const createApolloServer = (app) => {
     logger,
     dataSources,
     context: async ({ req }) => {
-      let tokenInfo;
-      let sessionId;
-      const { authorization: accessToken, client_id: clientId } = req.headers;
-      const { t, store, locale, jwt, otp, fileStorage } = req;
-
-      if (accessToken) {
-        try {
-          tokenInfo = jwt.verify(accessToken);
-          sessionId = await store.get(`${clientId}:${tokenInfo.sub}`);
-          if (tokenInfo?.lng) {
-            // check if logged in user has a preferred language and use it
-            await req.i18n.changeLanguage(tokenInfo.lng);
-          }
-        } catch (e) {
-          logger.warn(e.message);
-        }
-      }
+      const {
+        t,
+        jwt,
+        otp,
+        store,
+        locale,
+        clientId,
+        sessionId,
+        tokenInfo,
+        accessToken,
+        fileStorage,
+      } = req;
 
       return {
         t,
