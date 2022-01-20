@@ -15,7 +15,8 @@ export const PASSWORD_LEN_ERROR = "InvalidPasswordLengthError";
 export const INVALID_PASSWORD_ERROR = "InvalidPasswordError";
 export const INVALID_LOCALE_ERROR = "InvalidLocaleError";
 export const INVALID_URL_ERROR = "InvalidUrlError";
-export const ROLE_NAME_FORMAT_ERROR = "InvalidRoleNameFormatError";
+export const ROLE_NAME_FORMAT_ERROR = "RoleNameInvalidFormatError";
+export const ROLE_NAME_LEN_ERROR = "RoleNameLengthError";
 
 // jwt token
 export const TOKEN_EXPIRED_ERROR = "TokenExpiredError";

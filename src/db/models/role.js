@@ -1,5 +1,8 @@
 import { Model } from "sequelize";
-import { ROLE_NAME_FORMAT_ERROR } from "~helpers/constants/i18n";
+import {
+  ROLE_NAME_FORMAT_ERROR,
+  ROLE_NAME_LEN_ERROR,
+} from "~helpers/constants/i18n";
 
 export default (sequelize, DataTypes) => {
   class Role extends Model {
@@ -31,6 +34,10 @@ export default (sequelize, DataTypes) => {
         unique: true,
         validate: {
           isAlpha: ROLE_NAME_FORMAT_ERROR,
+          len: {
+            args: [4, 64],
+            msg: ROLE_NAME_LEN_ERROR,
+          },
         },
       },
     },
