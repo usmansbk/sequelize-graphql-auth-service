@@ -1,4 +1,5 @@
 import btoa from "btoa";
+import { MIN_THUMBNAIL_SIZE } from "~helpers/constants/files";
 
 const { HOST, CLOUDFRONT_API_ENDPOINT } = process.env;
 
@@ -8,6 +9,33 @@ const links = {
   deleteAccount: (token) => `${HOST}/delete_account?token=${token}`,
   imageUrl: (imageRequest) =>
     `${CLOUDFRONT_API_ENDPOINT}${btoa(JSON.stringify(imageRequest))}`,
+};
+
+export const getPhoto = (file, resize) => {
+  const imageRequest = {
+    ...file.toJSON(),
+    edits: {
+      resize,
+    },
+  };
+
+  const size = resize
+    ? Math.max(MIN_THUMBNAIL_SIZE, resize.thumbnailSize)
+    : MIN_THUMBNAIL_SIZE;
+  const thumbnailRequest = {
+    ...imageRequest,
+    edits: {
+      resize: {
+        width: size,
+        height: size,
+      },
+    },
+  };
+
+  return {
+    url: links.imageUrl(imageRequest),
+    thumbnail: links.imageUrl(thumbnailRequest),
+  };
 };
 
 export default links;
