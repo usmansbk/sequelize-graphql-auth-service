@@ -48,6 +48,7 @@ export const SENT_SMS_OTP = "SentSmsOtp";
 // upload
 export const IMAGE_TOO_LARGE = "ImageFileTooLarge";
 export const UNSUPPORTED_FILE_TYPE = "UnsupportedFileType";
+export const NOTHING_TO_UPLOAD = "NothingToUpload";
 
 // auth
 export const UNAUTHORIZED = "Unauthorized";

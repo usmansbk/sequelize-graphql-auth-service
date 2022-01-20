@@ -1,8 +1,9 @@
 import multer from "multer";
 import numeral from "numeral";
 import uploadProfilePicture from "~api/v1/middlewares/uploadProfilePicture";
-import { IMAGE_TOO_LARGE } from "~helpers/constants/i18n";
+import { IMAGE_TOO_LARGE, NOTHING_TO_UPLOAD } from "~helpers/constants/i18n";
 import { PROFILE_PICTURE_MAX_FILE_SIZE, BYTES } from "~helpers/constants/files";
+import { UserInputError } from "apollo-server-core";
 
 const upload = uploadProfilePicture.single("avatar");
 
@@ -29,6 +30,10 @@ const uploadAvatar = async (req, res) => {
       });
     } else {
       try {
+        if (!req.file) {
+          throw new UserInputError(NOTHING_TO_UPLOAD);
+        }
+
         const {
           mimetype: mimeType,
           originalname: name,
