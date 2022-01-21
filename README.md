@@ -143,3 +143,17 @@ Follow these [instructions](https://aws.amazon.com/solutions/implementations/ser
 We use Eslint AirBnB coding guidelines and import alias. All aliases are prefixed with a `~`. To add a new alias, update the `jsconfig.json`, `.eslintrc.js`, and `babel.config.json` files. We also make use of Husky precommit hook to enforce standard.
 
 Model specific logic should be moved to their associated data sources, and resolver errors should be handled using [Wrapping Exception](https://javascript.info/custom-errors) technique.
+
+## Readings
+
+- [GraphQL Schema Design: Building Evolvable Schemas](https://www.apollographql.com/blog/backend/schema-design/graphql-building-evolvable-schemas/)
+
+- [Simplifying the GraphQL data](https://blog.logrocket.com/simplifying-the-graphql-data-model/)
+
+- [Code-first vs Schema-first development in GraphQL](https://blog.logrocket.com/code-first-vs-schema-first-development-graphql/)
+
+- [Apollo Server File Upload Best Practices](https://www.apollographql.com/blog/backend/file-uploads/file-upload-best-practices/)
+
+- [Designing a GraphQL server for optimal performance](https://blog.logrocket.com/designing-graphql-server-optimal-performance/)
+
+- [GraphQL Cursors Connections Specification](https://relay.dev/graphql/connections.htm)
