@@ -48,7 +48,7 @@ type AuthMutationResponse implements Response {
 }
 
 """
-## [WIP] Authentication and Authorization directive
+## Authentication and Authorization directive
 
 Any field with no @auth directive is public by default
 Calling the @auth directive without any rules means the user must be authenticated
@@ -80,7 +80,6 @@ input AuthRule {
   allow: AuthStrategy!
   identityClaim: String = "ownerId"
   roles: [AuthRole!]
-  scopes: [String!]
 }
 
 type Role @auth(rules: [{ allow: role, roles: [ADMIN] }]) {
