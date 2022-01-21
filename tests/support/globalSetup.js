@@ -2,10 +2,8 @@ import db from "~db/models";
 
 const { sequelize } = db;
 
-beforeAll(async () => {
+const globalSetup = async () => {
   await sequelize.sync({ force: true });
-});
+};
 
-afterAll(async () => {
-  await sequelize.close();
-});
+export default globalSetup;
