@@ -28,14 +28,10 @@ export default {
           expiresIn: exp,
         });
 
-        const payload = {
-          accessToken,
-          refreshToken,
-        };
-
         return Success({
           message: t(created ? WELCOME_NEW_USER : WELCOME_BACK, { firstName }),
-          ...payload,
+          accessToken,
+          refreshToken,
         });
       } catch (e) {
         if (e instanceof QueryError) {
