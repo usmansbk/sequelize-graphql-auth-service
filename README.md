@@ -148,10 +148,6 @@ Model specific logic should be moved to their associated data sources, and resol
 
 - [GraphQL Schema Design: Building Evolvable Schemas](https://www.apollographql.com/blog/backend/schema-design/graphql-building-evolvable-schemas/)
 
-- [Simplifying the GraphQL data](https://blog.logrocket.com/simplifying-the-graphql-data-model/)
-
-- [Code-first vs Schema-first development in GraphQL](https://blog.logrocket.com/code-first-vs-schema-first-development-graphql/)
-
 - [Apollo Server File Upload Best Practices](https://www.apollographql.com/blog/backend/file-uploads/file-upload-best-practices/)
 
 - [Designing a GraphQL server for optimal performance](https://blog.logrocket.com/designing-graphql-server-optimal-performance/)
