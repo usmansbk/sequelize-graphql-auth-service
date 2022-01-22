@@ -1,6 +1,6 @@
 import { gql } from "apollo-server-express";
 import createApolloTestServer from "../../apolloServer";
-import { userAttributes } from "../../../factories";
+import attributes from "../../../attributes";
 
 const query = gql`
   mutation RegisterWithEmail($input: CreateUserInput!) {
@@ -27,7 +27,7 @@ describe("Mutation.registerWithEmail", () => {
     const res = await server.executeOperation({
       query,
       variables: {
-        input: userAttributes(),
+        input: attributes.user(),
       },
     });
     expect(res).toMatchSnapshot();
