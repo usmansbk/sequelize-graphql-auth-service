@@ -29,7 +29,6 @@ export const sign = (payload, expiresIn = "15m") => {
   const token = jwt.sign(payload, secret, {
     jwtid: id,
     expiresIn,
-    issuer: process.env.HOST,
   });
 
   return { token, id };
@@ -39,7 +38,6 @@ export const verify = (token, options = {}) => {
   try {
     return jwt.verify(token, secret, {
       ...options,
-      issuer: process.env.HOST,
       audience: allowedClients,
     });
   } catch (e) {

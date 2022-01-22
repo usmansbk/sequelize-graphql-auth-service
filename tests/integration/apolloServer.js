@@ -22,6 +22,7 @@ const createApolloTestServer = () => {
         jwt,
         store,
         fileStorage,
+        clientId: process.env.TEST_CLIENT_ID,
       };
     },
   });
