@@ -1,6 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Mutation.registerWithEmail should create a new user 1`] = `
+exports[`Mutation.registerWithEmail should not register a new user with existing verified email 1`] = `
+Object {
+  "data": null,
+  "errors": Array [
+    [GraphQLError: t is not a function],
+  ],
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Mutation.registerWithEmail should register a new user and return access and refresh tokens 1`] = `
+Object {
+  "data": null,
+  "errors": Array [
+    [GraphQLError: Cannot read property 'generateAuthTokens' of undefined],
+  ],
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Mutation.registerWithEmail should register a new user with an existing unverified email 1`] = `
 Object {
   "data": null,
   "errors": Array [

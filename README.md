@@ -153,3 +153,5 @@ Model specific logic should be moved to their associated data sources, and resol
 - [Designing a GraphQL server for optimal performance](https://blog.logrocket.com/designing-graphql-server-optimal-performance/)
 
 - [GraphQL Cursors Connections Specification](https://relay.dev/graphql/connections.htm)
+
+- [TDD, Where Did It All Go Wrong - Ian Cooper](https://www.youtube.com/watch?v=EZ05e7EMOLM&list=TLPQMjIwMTIwMjJnzh0h4NGjEg&index=2)
