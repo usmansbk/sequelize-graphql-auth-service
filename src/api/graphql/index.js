@@ -9,7 +9,7 @@ import dataSources from "./datasources";
 import applyDirectives from "./directives";
 import i18nErrorPlugin from "./plugins/i18nErrorPlugin";
 
-const createSchema = () => {
+export const createSchema = () => {
   const schema = makeExecutableSchema({
     typeDefs,
     resolvers,
@@ -18,7 +18,7 @@ const createSchema = () => {
   return applyDirectives(schema);
 };
 
-export const createApolloServer = (app) => {
+const createApolloServer = (app) => {
   const httpServer = http.createServer(app);
   const server = new ApolloServer({
     schema: createSchema(),
