@@ -11,6 +11,10 @@ const REGISTER_WITH_EMAIL = gql`
       message
       accessToken
       refreshToken
+      errors {
+        field
+        message
+      }
     }
   }
 `;
@@ -27,36 +31,47 @@ describe("Mutation.registerWithEmail", () => {
   });
 
   test("should register a new user and return the access and refresh tokens", async () => {
-    const res = await server.executeOperation({
+    const {
+      data: { registerWithEmail },
+    } = await server.executeOperation({
       query: REGISTER_WITH_EMAIL,
       variables: {
         input: attributes.user(),
       },
     });
-    expect(res).toMatchSnapshot();
+    expect(registerWithEmail.message).toMatch("WelcomeNewUser");
+    expect(registerWithEmail.accessToken).toBeDefined();
+    expect(registerWithEmail.refreshToken).toBeDefined();
   });
 
   test("should not register a user if the email is already taken and verified by an existing user", async () => {
     const existingUser = await db.User.create(
       attributes.user({ emailVerified: true })
     );
-    const res = await server.executeOperation({
+    const {
+      data: { registerWithEmail },
+    } = await server.executeOperation({
       query: REGISTER_WITH_EMAIL,
       variables: {
         input: attributes.user({ email: existingUser.email }),
       },
     });
-    expect(res).toMatchSnapshot();
+    expect(registerWithEmail.message).toMatch("SignUpFailed");
+    expect(registerWithEmail.errors).toEqual([
+      { field: "email", message: "UserEmailUnavailableError" },
+    ]);
   });
 
   test("should register a new user if the email is taken but unverified", async () => {
     const existingUser = await db.User.create(attributes.user());
-    const res = await server.executeOperation({
+    const {
+      data: { registerWithEmail },
+    } = await server.executeOperation({
       query: REGISTER_WITH_EMAIL,
       variables: {
         input: attributes.user({ email: existingUser.email }),
       },
     });
-    expect(res).toMatchSnapshot();
+    expect(registerWithEmail.message).toMatch("WelcomeNewUser");
   });
 });

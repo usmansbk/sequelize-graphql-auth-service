@@ -7,7 +7,7 @@ export const USER_USERNAME_LEN_ERROR = "UserNameLengthError";
 export const USER_USERNAME_EMPTY_ERROR = "UserNameEmptyError";
 export const USER_LAST_NAME_REQUIRED_ERROR = "UserLastNameRequiredError";
 export const USER_LAST_NAME_EMPTY_ERROR = "UserLastNameEmptyError";
-export const USER_EMAIL_UNAVAILABLE_ERROR = "UserEmailUnavailable";
+export const USER_EMAIL_UNAVAILABLE_ERROR = "UserEmailUnavailableError";
 export const USER_INVALID_EMAIL_ERROR = "UserInvalidEmailError";
 export const USER_PHONE_NUMBER_UNAVAILABLE_ERROR =
   "UserPhoneNumberUnavailableError";
