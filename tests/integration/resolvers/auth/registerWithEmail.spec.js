@@ -35,7 +35,7 @@ describe("Mutation.registerWithEmail", () => {
     expect(res).toMatchSnapshot();
   });
 
-  test("should not register a new user with existing verified email", async () => {
+  test("should not register a user if the email is already taken and verified by an existing user", async () => {
     const existingUser = await db.User.create(
       attributes.user({ emailVerified: true })
     );
@@ -48,7 +48,7 @@ describe("Mutation.registerWithEmail", () => {
     expect(res).toMatchSnapshot();
   });
 
-  test("should register a new user with an existing unverified email", async () => {
+  test("should register a new user if the email is taken but unverified", async () => {
     const existingUser = await db.User.create(attributes.user());
     const res = await server.executeOperation({
       query: REGISTER_WITH_EMAIL,
