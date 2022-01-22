@@ -1,12 +1,12 @@
-import redis from "~services/redis";
+import client from "~services/redis";
 
-const set = ({ key, value, expiresIn }) => redis.setex(key, expiresIn, value);
+const set = ({ key, value, expiresIn }) => client.setex(key, expiresIn, value);
 
-const get = (key) => redis.get(key);
+const get = (key) => client.get(key);
 
-const remove = (key) => redis.del(key);
+const remove = (key) => client.del(key);
 
-const increment = (key) => redis.incr(key);
+const increment = (key) => client.incr(key);
 
 export default {
   set,
