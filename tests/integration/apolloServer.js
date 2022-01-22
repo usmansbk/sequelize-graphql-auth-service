@@ -7,8 +7,6 @@ import store from "~utils/store";
 import fileStorage from "~utils/fileStorage";
 
 jest.mock("~utils/store");
-jest.mock("~utils/jwt");
-jest.mock("~utils/fileStorage");
 
 const createApolloTestServer = () => {
   const schema = createSchema();
