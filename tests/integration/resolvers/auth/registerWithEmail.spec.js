@@ -25,7 +25,7 @@ describe("Mutation.registerWithEmail", () => {
     db.sequelize.close();
   });
 
-  test("should register a new user and return access and refresh tokens", async () => {
+  test("should register a new user and return the access and refresh tokens", async () => {
     const res = await server.executeOperation({
       query: REGISTER_WITH_EMAIL,
       variables: {
