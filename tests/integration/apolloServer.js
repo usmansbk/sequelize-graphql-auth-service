@@ -6,6 +6,8 @@ import jwt from "~utils/jwt";
 import store from "~utils/store";
 import fileStorage from "~utils/fileStorage";
 
+jest.mock("~utils/store");
+
 const createApolloTestServer = () => {
   const schema = createSchema();
   const server = new ApolloServer({

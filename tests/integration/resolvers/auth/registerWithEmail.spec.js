@@ -6,6 +6,7 @@ import attributes from "tests/attributes";
 const REGISTER_WITH_EMAIL = gql`
   mutation RegisterWithEmail($input: CreateUserInput!) {
     registerWithEmail(input: $input) {
+      success
       code
       message
       accessToken
