@@ -73,5 +73,7 @@ describe("Mutation.registerWithEmail", () => {
       },
     });
     expect(registerWithEmail.message).toMatch("WelcomeNewUser");
+    expect(registerWithEmail.accessToken).toBeDefined();
+    expect(registerWithEmail.refreshToken).toBeDefined();
   });
 });
