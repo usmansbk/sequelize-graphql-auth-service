@@ -25,11 +25,22 @@ describe("Mutation.registerWithEmail", () => {
     db.sequelize.close();
   });
 
-  test("should create a new user", async () => {
+  test("should register a new user with correct inputs", async () => {
     const res = await server.executeOperation({
       query: REGISTER_WITH_EMAIL,
       variables: {
         input: attributes.user(),
+      },
+    });
+    expect(res).toMatchSnapshot();
+  });
+
+  test("should not register a user with existing email", async () => {
+    const existingUser = await db.User.create(attributes.user());
+    const res = await server.executeOperation({
+      query: REGISTER_WITH_EMAIL,
+      variables: {
+        input: attributes.user({ email: existingUser.email }),
       },
     });
     expect(res).toMatchSnapshot();
