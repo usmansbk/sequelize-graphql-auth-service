@@ -37,7 +37,7 @@
     "sequelize-cli": "^6.4.1"
   },
   "dependencies": {
-    "@aws-sdk/credential-provider-node": "^3.47.0",
+    "@aws-sdk/credential-provider-node": "^3.48.0",
     "@babel/runtime": "^7.16.7",
     "@graphql-tools/load-files": "^6.5.3",
     "@graphql-tools/merge": "^8.2.1",
@@ -46,7 +46,7 @@
     "apollo-datasource": "^3.3.1",
     "apollo-server-core": "^3.6.2",
     "apollo-server-express": "^3.6.2",
-    "aws-sdk": "^2.1060.0",
+    "aws-sdk": "^2.1062.0",
     "bcrypt": "^5.0.1",
     "btoa": "^1.2.1",
     "bunyan": "^1.8.15",
@@ -61,7 +61,7 @@
     "google-auth-library": "^7.11.0",
     "graphql": "^16.2.0",
     "graphql-iso-date": "^3.6.1",
-    "i18next": "^21.6.6",
+    "i18next": "^21.6.7",
     "i18next-fs-backend": "^1.1.4",
     "i18next-http-middleware": "^3.1.5",
     "ioredis": "^4.28.3",
