@@ -12,7 +12,8 @@
           "~utils": "./src/utils",
           "~services": "./src/services",
           "~db": "./src/db",
-          "~helpers": "./src/helpers"
+          "~helpers": "./src/helpers",
+          "tests": "./tests"
         }
       }
     ]
