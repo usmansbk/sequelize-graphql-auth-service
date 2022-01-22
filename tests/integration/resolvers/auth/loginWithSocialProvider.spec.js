@@ -14,7 +14,7 @@ const LOGIN_WITH_SOCIAL_PROVIDER = gql`
   }
 `;
 
-describe("Mutation.registerWithEmail", () => {
+describe("Mutation.loginWithSocialProvider", () => {
   let server;
   beforeAll(() => {
     server = createApolloTestServer();
