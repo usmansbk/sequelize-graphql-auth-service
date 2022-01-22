@@ -3,18 +3,15 @@ import db from "~db/models";
 import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
 
-const REGISTER_WITH_EMAIL = gql`
-  mutation RegisterWithEmail($input: CreateUserInput!) {
-    registerWithEmail(input: $input) {
-      code
+const EXAMPLE_QUERY = gql`
+  mutation Example($arg: ExampleArg!) {
+    example(arg: $arg) {
       message
-      accessToken
-      refreshToken
     }
   }
 `;
 
-describe("Mutation.registerWithEmail", () => {
+describe("Mutation.example", () => {
   let server;
   beforeAll(() => {
     server = createApolloTestServer();
@@ -25,9 +22,9 @@ describe("Mutation.registerWithEmail", () => {
     db.sequelize.close();
   });
 
-  test("should create a new user", async () => {
+  test("should serve as a template", async () => {
     const res = await server.executeOperation({
-      query: REGISTER_WITH_EMAIL,
+      query: EXAMPLE_QUERY,
       variables: {
         input: attributes.user(),
       },
