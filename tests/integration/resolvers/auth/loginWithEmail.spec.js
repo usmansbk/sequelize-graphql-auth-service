@@ -77,21 +77,22 @@ describe("Mutation.loginWithEmail", () => {
     const fields = attributes.user({ emailVerified: true });
     await db.User.create(fields);
 
-    const attempts = new Array(5).fill(fields).map(({ email }) => {
-      return new Promise((resolve) => {
-        return server
-          .executeOperation({
-            query: LOGIN_WITH_EMAIL,
-            variables: {
-              input: {
-                email: email,
-                password: email,
+    const attempts = new Array(5).fill(fields).map(
+      ({ email }) =>
+        new Promise((resolve) =>
+          server
+            .executeOperation({
+              query: LOGIN_WITH_EMAIL,
+              variables: {
+                input: {
+                  email: email,
+                  password: email,
+                },
               },
-            },
-          })
-          .then((res) => resolve(res.data.loginWithEmail.message));
-      });
-    });
+            })
+            .then((res) => resolve(res.data.loginWithEmail.message))
+        )
+    );
 
     await Promise.all(attempts);
 
