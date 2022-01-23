@@ -7,20 +7,16 @@ import { TOKEN_INVALID_ERROR } from "~helpers/constants/i18n";
 
 jwt.verifySocialToken = jest.fn();
 
-jwt.verifySocialToken
-  .mockReturnValueOnce({
-    firstName: "Usman",
-    lastName: "Suleiman",
-    email: "usmansbk@gmail.com",
-  })
-  .mockReturnValueOnce({
-    firstName: "Usman",
-    lastName: "Suleiman",
-    email: "usmansbk@gmail.com",
-  })
-  .mockImplementation(() => {
+jwt.verifySocialToken.mockImplementation(({ token }) => {
+  if (token === "invalid") {
     throw new TokenError(TOKEN_INVALID_ERROR);
-  });
+  }
+  return {
+    firstName: "Usman",
+    lastName: "Suleiman",
+    email: "test@gmail.com",
+  };
+});
 
 const LOGIN_WITH_SOCIAL_PROVIDER = gql`
   mutation LoginWithSocialProvider($input: SocialLoginInput!) {
