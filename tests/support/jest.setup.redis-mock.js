@@ -1,1 +1,1 @@
-jest.mock("~services/redis", () => jest.requireActual("redis-mock"));
+jest.mock("ioredis", () => jest.requireActual("ioredis-mock/jest"));

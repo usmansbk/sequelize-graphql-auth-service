@@ -2,6 +2,9 @@ import { gql } from "apollo-server-express";
 import db from "~db/models";
 import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
+import mailer from "~utils/mailer";
+
+mailer.sendEmail = jest.fn();
 
 const LOGIN_WITH_EMAIL = gql`
   mutation RegisterWithEmail($input: EmailLoginInput!) {
@@ -68,5 +71,30 @@ describe("Mutation.loginWithEmail", () => {
     expect(loginWithEmail.message).toMatch("IncorrectEmailAndPassword");
     expect(loginWithEmail.accessToken).toBeNull();
     expect(loginWithEmail.refreshToken).toBeNull();
+  });
+
+  test("should should report on 5 failed attempts", async () => {
+    const fields = attributes.user();
+    await db.User.create(fields);
+
+    const attempts = new Array(5).fill(fields).map(({ email }) => {
+      return new Promise((resolve) => {
+        return server
+          .executeOperation({
+            query: LOGIN_WITH_EMAIL,
+            variables: {
+              input: {
+                email: email,
+                password: email,
+              },
+            },
+          })
+          .then((res) => resolve(res.data.loginWithEmail.message));
+      });
+    });
+
+    await Promise.all(attempts);
+
+    expect(mailer.sendEmail.mock.calls.length).toBe(1);
   });
 });

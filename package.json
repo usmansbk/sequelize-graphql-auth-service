@@ -30,11 +30,11 @@
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.25.4",
     "husky": ">=6",
+    "ioredis-mock": "^5.9.0",
     "jest": "^27.4.7",
     "lint-staged": "^12.2.2",
     "nodemon": "^2.0.15",
     "prettier": "2.5.1",
-    "redis-mock": "^0.56.3",
     "sequelize-cli": "^6.4.1"
   },
   "dependencies": {
