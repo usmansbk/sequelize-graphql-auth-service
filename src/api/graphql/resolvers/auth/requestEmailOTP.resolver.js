@@ -1,4 +1,3 @@
-import sendMail from "~services/email";
 import { Success } from "~helpers/response";
 import emailTemplates from "~helpers/emailTemplates";
 import { SENT_EMAIL_OTP } from "~helpers/constants/i18n";
@@ -12,7 +11,7 @@ export default {
     async requestEmailOTP(
       _parent,
       _args,
-      { dataSources, locale, store, t, otp }
+      { dataSources, locale, store, t, otp, mailer }
     ) {
       const user = await dataSources.users.currentUser();
 
@@ -29,7 +28,7 @@ export default {
           expiresIn: EMAIL_OTP_EXPIRES_IN,
         });
 
-        sendMail({
+        mailer.sendEmail({
           template: emailTemplates.OTP,
           message: {
             to: email,

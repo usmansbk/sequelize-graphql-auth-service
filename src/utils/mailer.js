@@ -1,7 +1,9 @@
-import twilio from "~services/twilio";
+import sms from "~services/sms";
+import email from "~services/email";
 
 const mailer = {
-  sendSMS: twilio,
+  sendSMS: sms,
+  sendEmail: email,
 };
 
 export default mailer;

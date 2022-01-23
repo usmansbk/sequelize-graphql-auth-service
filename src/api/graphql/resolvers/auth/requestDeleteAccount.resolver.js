@@ -1,4 +1,3 @@
-import sendMail from "~services/email";
 import links from "~helpers/links";
 import { Success } from "~helpers/response";
 import emailTemplates from "~helpers/emailTemplates";
@@ -13,7 +12,7 @@ export default {
     async requestDeleteAccount(
       _parent,
       _args,
-      { dataSources, locale, store, t, jwt, clientId }
+      { dataSources, locale, store, t, jwt, clientId, mailer }
     ) {
       const user = await dataSources.users.currentUser();
 
@@ -36,7 +35,7 @@ export default {
           expiresIn: exp,
         });
 
-        sendMail({
+        mailer.sendEmail({
           template: emailTemplates.CONFIRM_DELETE_ACCOUNT,
           message: {
             to: email,
