@@ -15,7 +15,7 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.16.8",
-    "@babel/core": "^7.16.10",
+    "@babel/core": "^7.16.12",
     "@babel/node": "^7.16.8",
     "@babel/plugin-transform-runtime": "^7.16.10",
     "@babel/preset-env": "^7.16.11",
@@ -32,7 +32,7 @@
     "husky": ">=6",
     "ioredis-mock": "^5.9.0",
     "jest": "^27.4.7",
-    "lint-staged": "^12.2.2",
+    "lint-staged": "^12.3.1",
     "nodemon": "^2.0.15",
     "prettier": "2.5.1",
     "sequelize-cli": "^6.4.1"
@@ -78,7 +78,7 @@
     "pg-hstore": "^2.3.4",
     "pug": "^3.0.2",
     "rate-limit-redis": "2.1.0",
-    "sequelize": "^6.13.0",
+    "sequelize": "^6.14.0",
     "twilio": "^3.73.0"
   },
   "lint-staged": {
