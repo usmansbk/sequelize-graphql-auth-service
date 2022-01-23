@@ -19,7 +19,7 @@ export default {
       const sentToken = await store.get(key);
 
       if (!(sentToken || phoneNumberVerified)) {
-        const token = otp.getSmsOtp();
+        const token = otp.getSmsOTP();
 
         await store.set({
           key,

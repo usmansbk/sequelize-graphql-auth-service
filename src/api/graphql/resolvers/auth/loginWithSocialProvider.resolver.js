@@ -1,5 +1,4 @@
 import QueryError from "~utils/errors/QueryError";
-import verifySocialToken from "~utils/verifySocialToken";
 import { Fail, Success } from "~helpers/response";
 import { WELCOME_BACK, WELCOME_NEW_USER } from "~helpers/constants/i18n";
 
@@ -11,7 +10,7 @@ export default {
       { t, dataSources, jwt, clientId, store }
     ) {
       try {
-        const userInfo = await verifySocialToken(input);
+        const userInfo = await jwt.verifySocialToken(input);
         const [user, created] = await dataSources.users.findOrCreate(userInfo);
         const { id, firstName, language } = user;
 

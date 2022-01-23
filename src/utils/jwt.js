@@ -6,6 +6,8 @@ import jwt, {
 } from "jsonwebtoken";
 import { nanoid } from "nanoid";
 import dayjs from "~utils/dayjs";
+import verifyGoogleToken from "~services/googleOAuth";
+import verifyFacebookToken from "~services/facebookOAuth";
 import {
   TOKEN_EXPIRED_ERROR,
   TOKEN_INVALID_ERROR,
@@ -14,6 +16,8 @@ import {
 import {
   ACCESS_TOKEN_EXPIRES_IN,
   REFRESH_TOKEN_EXPIRES_IN,
+  FACEBOOK_PROVIDER,
+  GOOGLE_PROVIDER,
   allowedClients,
 } from "~helpers/constants/auth";
 import TokenError from "./errors/TokenError";
@@ -26,7 +30,7 @@ const publicKey = fs.readFileSync(process.env.JWT_PUBLIC_KEY);
  * Buffer or string payloads are not checked for JSON validity.
  * exp, nbf, aud, sub and iss can be provided in the payload directly, but you can't include in both places.
  */
-export const sign = (payload, expiresIn = "15m") => {
+const sign = (payload, expiresIn = "15m") => {
   const id = nanoid();
   const token = jwt.sign(payload, privateKey, {
     jwtid: id,
@@ -38,7 +42,7 @@ export const sign = (payload, expiresIn = "15m") => {
   return { token, id };
 };
 
-export const verify = (token, options = {}) => {
+const verify = (token, options = {}) => {
   try {
     return jwt.verify(token, publicKey, {
       ...options,
@@ -58,9 +62,9 @@ export const verify = (token, options = {}) => {
   }
 };
 
-export const decode = (token) => jwt.decode(token);
+const decode = (token) => jwt.decode(token);
 
-export const generateToken = (payload = {}, expiresIn = "5 minutes") => {
+const generateToken = (payload = {}, expiresIn = "5 minutes") => {
   const { token, id } = sign(payload, expiresIn);
   const [time, units] = expiresIn.split(" ");
   const exp = dayjs.duration(Number.parseInt(time, 10), units).asSeconds();
@@ -75,7 +79,7 @@ export const generateToken = (payload = {}, expiresIn = "5 minutes") => {
  * @param { string } refreshTokenExp  - refresh token expiresIn (days)
  * @returns
  */
-export const generateAuthTokens = (
+const generateAuthTokens = (
   { aud, ...payload },
   tokenExp = ACCESS_TOKEN_EXPIRES_IN,
   refreshTokenExp = REFRESH_TOKEN_EXPIRES_IN
@@ -93,4 +97,29 @@ export const generateAuthTokens = (
     sid: refreshToken.id,
     exp: refreshToken.exp,
   };
+};
+
+const verifySocialToken = async ({ provider, token }) => {
+  let userInfo;
+  switch (provider) {
+    case GOOGLE_PROVIDER:
+      userInfo = await verifyGoogleToken(token);
+      break;
+    case FACEBOOK_PROVIDER:
+      userInfo = await verifyFacebookToken(token);
+      break;
+    default:
+      break;
+  }
+
+  return userInfo;
+};
+
+export default {
+  sign,
+  verify,
+  decode,
+  generateToken,
+  generateAuthTokens,
+  verifySocialToken,
 };

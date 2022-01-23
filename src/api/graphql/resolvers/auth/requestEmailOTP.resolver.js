@@ -20,7 +20,7 @@ export default {
       const sentToken = await store.get(key);
 
       if (!sentToken) {
-        const token = otp.getEmailOtp();
+        const token = otp.getEmailOTP();
 
         await store.set({
           key,

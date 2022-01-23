@@ -2,8 +2,6 @@ import { gql } from "apollo-server-express";
 import db from "~db/models";
 import createApolloTestServer from "tests/integration/apolloServer";
 
-jest.mock("~utils/verifySocialToken");
-
 const LOGIN_WITH_SOCIAL_PROVIDER = gql`
   mutation LoginWithSocialProvider($input: SocialLoginInput!) {
     loginWithSocialProvider(input: $input) {

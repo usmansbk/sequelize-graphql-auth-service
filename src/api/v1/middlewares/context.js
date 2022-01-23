@@ -1,5 +1,5 @@
-import * as jwt from "~utils/jwt";
-import * as otp from "~utils/otp";
+import jwt from "~utils/jwt";
+import otp from "~utils/otp";
 import db from "~db/models";
 import log from "~utils/logger";
 import store from "~utils/store";
