@@ -33,7 +33,7 @@ describe("Mutation.requestEmailOTP", () => {
     expect(errors[0].message).toBe("Unauthenticated");
   });
 
-  test("should send an email to a verified and authenticated user", async () => {
+  test("should send an email to a verified user", async () => {
     const loggedInUser = await db.User.create(
       attributes.user({ emailVerified: true })
     );
@@ -46,7 +46,7 @@ describe("Mutation.requestEmailOTP", () => {
     expect(mailer.sendEmail.mock.calls.length).toBe(1);
   });
 
-  test("should not send an email to unverified and authenticated user", async () => {
+  test("should not send an email to unverified user", async () => {
     const loggedInUser = await db.User.create(attributes.user());
     await server.executeOperation(
       {
