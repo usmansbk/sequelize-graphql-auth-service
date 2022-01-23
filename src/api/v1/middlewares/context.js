@@ -1,8 +1,9 @@
 import * as jwt from "~utils/jwt";
+import * as otp from "~utils/otp";
 import db from "~db/models";
 import log from "~utils/logger";
 import store from "~utils/store";
-import * as otp from "~utils/otp";
+import mailer from "~utils/mailer";
 import fileStorage from "~utils/fileStorage";
 
 const contextMiddleware = async (req, _res, next) => {
@@ -32,6 +33,7 @@ const contextMiddleware = async (req, _res, next) => {
   req.tokenInfo = tokenInfo;
   req.sessionId = sessionId;
   req.clientId = clientId;
+  req.mailer = mailer;
   req.accessToken = accessToken;
   next();
 };

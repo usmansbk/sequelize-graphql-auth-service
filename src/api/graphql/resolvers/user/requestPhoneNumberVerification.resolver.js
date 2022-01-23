@@ -1,4 +1,3 @@
-import sendSMS from "~services/sms";
 import { Success } from "~helpers/response";
 import { SENT_SMS_OTP } from "~helpers/constants/i18n";
 import {
@@ -11,7 +10,7 @@ export default {
     async requestPhoneNumberVerification(
       _parent,
       { phoneNumber },
-      { dataSources, store, t, otp }
+      { dataSources, store, t, otp, mailer }
     ) {
       const user = await dataSources.users.updateCurrentUser({ phoneNumber });
 
@@ -28,7 +27,7 @@ export default {
           expiresIn: SMS_OTP_EXPIRES_IN,
         });
 
-        sendSMS(token, phoneNumber);
+        mailer.sendSMS(token, phoneNumber);
       }
 
       return Success({
