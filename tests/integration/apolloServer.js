@@ -7,7 +7,6 @@ import store from "~utils/store";
 import fileStorage from "~utils/fileStorage";
 
 jest.mock("~utils/store");
-jest.mock("~utils/verifySocialToken");
 
 const createApolloTestServer = () => {
   const schema = createSchema();
