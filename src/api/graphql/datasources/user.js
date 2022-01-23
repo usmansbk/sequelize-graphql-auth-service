@@ -26,7 +26,7 @@ export default class UserDS extends SequelizeDataSource {
       return user;
     }
 
-    if (user) {
+    if (user?.emailVerified) {
       const attempts = await store.increment(attemptCountKey);
       if (attempts === MAX_LOGIN_ATTEMPTS) {
         mailer.sendEmail({

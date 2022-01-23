@@ -73,8 +73,8 @@ describe("Mutation.loginWithEmail", () => {
     expect(loginWithEmail.refreshToken).toBeNull();
   });
 
-  test("should report on 5 failed attempts if account with email exist", async () => {
-    const fields = attributes.user();
+  test("should report on 5 failed attempts if account with verified email exist", async () => {
+    const fields = attributes.user({ emailVerified: true });
     await db.User.create(fields);
 
     const attempts = new Array(5).fill(fields).map(({ email }) => {
