@@ -15,11 +15,11 @@ export default {
     ) {
       const user = await dataSources.users.currentUser();
 
-      const { language, firstName, id, email } = user;
+      const { language, firstName, id, email, emailVerified } = user;
       const key = `${EMAIL_OTP_KEY_PREFIX}:${id}`;
       const sentToken = await store.get(key);
 
-      if (!sentToken) {
+      if (!sentToken && emailVerified) {
         const token = otp.getEmailOTP();
 
         await store.set({

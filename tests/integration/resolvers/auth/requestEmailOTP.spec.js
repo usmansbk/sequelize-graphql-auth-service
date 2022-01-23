@@ -26,41 +26,34 @@ describe("Mutation.requestEmailOTP", () => {
     db.sequelize.close();
   });
 
-  test("should be requested by authenticated users", async () => {
+  test("should not be accessed by unauthenticated users", async () => {
     const { errors } = await server.executeOperation({
       query: REQUEST_EMAIL_OTP,
     });
     expect(errors[0].message).toBe("Unauthenticated");
   });
 
-  test("should send an email to verified user", async () => {
-    const existingUser = await db.User.create(
+  test("should send an email to a verified and authenticated user", async () => {
+    const loggedInUser = await db.User.create(
       attributes.user({ emailVerified: true })
     );
-    const {
-      data: { requestEmailOTP },
-    } = await server.executeOperation({
-      query: REQUEST_EMAIL_OTP,
-    });
+    await server.executeOperation(
+      {
+        query: REQUEST_EMAIL_OTP,
+      },
+      { tokenInfo: { sub: loggedInUser.id } }
+    );
     expect(mailer.sendEmail.mock.calls.length).toBe(1);
   });
 
-  test("should not send an email to unverified user", async () => {
-    const existingUser = await db.User.create(attributes.user());
-    const {
-      data: { requestEmailOTP },
-    } = await server.executeOperation({
-      query: REQUEST_EMAIL_OTP,
-    });
-    expect(mailer.sendEmail.mock.calls.length).toBe(1);
-  });
-
-  test("should not send an email to non-existent user", async () => {
-    const {
-      data: { requestEmailOTP },
-    } = await server.executeOperation({
-      query: REQUEST_EMAIL_OTP,
-    });
-    expect(mailer.sendEmail.mock.calls.length).toBe(1);
+  test("should not send an email to unverified and authenticated user", async () => {
+    const loggedInUser = await db.User.create(attributes.user());
+    await server.executeOperation(
+      {
+        query: REQUEST_EMAIL_OTP,
+      },
+      { tokenInfo: { sub: loggedInUser.id } }
+    );
+    expect(mailer.sendEmail.mock.calls.length).toBe(0);
   });
 });

@@ -12,7 +12,7 @@ const createApolloTestServer = () => {
   const server = new ApolloServer({
     schema,
     dataSources,
-    context: () => {
+    context: (extraOptions = {}) => {
       return {
         t: (msg) => msg,
         otp,
@@ -21,6 +21,7 @@ const createApolloTestServer = () => {
         mailer,
         fileStorage,
         clientId: process.env.TEST_CLIENT_ID,
+        ...extraOptions,
       };
     },
   });
