@@ -1,6 +1,6 @@
 import Redis from "ioredis";
 
-const createRedisClient = () => {
+const createClient = () => {
   if (process.env.REDIS_URL) {
     return new Redis(process.env.REDIS_URL);
   }
@@ -8,6 +8,4 @@ const createRedisClient = () => {
   return new Redis();
 };
 
-const redisClient = createRedisClient();
-
-export default redisClient;
+export default { createClient };

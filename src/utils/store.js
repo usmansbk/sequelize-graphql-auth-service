@@ -1,4 +1,6 @@
-import client from "~services/redis";
+import redis from "~services/redis";
+
+const client = redis.createClient();
 
 const set = ({ key, value, expiresIn }) => client.setex(key, expiresIn, value);
 
