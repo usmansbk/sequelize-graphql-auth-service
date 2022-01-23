@@ -1,6 +1,26 @@
 import { gql } from "apollo-server-express";
 import db from "~db/models";
 import createApolloTestServer from "tests/integration/apolloServer";
+import jwt from "~utils/jwt";
+import TokenError from "~utils/errors/TokenError";
+import { TOKEN_INVALID_ERROR } from "~helpers/constants/i18n";
+
+jwt.verifySocialToken = jest.fn();
+
+jwt.verifySocialToken
+  .mockReturnValueOnce({
+    firstName: "Usman",
+    lastName: "Suleiman",
+    email: "usmansbk@gmail.com",
+  })
+  .mockReturnValueOnce({
+    firstName: "Usman",
+    lastName: "Suleiman",
+    email: "usmansbk@gmail.com",
+  })
+  .mockImplementation(() => {
+    throw new TokenError(TOKEN_INVALID_ERROR);
+  });
 
 const LOGIN_WITH_SOCIAL_PROVIDER = gql`
   mutation LoginWithSocialProvider($input: SocialLoginInput!) {
