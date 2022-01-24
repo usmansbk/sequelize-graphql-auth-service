@@ -32,10 +32,11 @@ describe("Mutation.loginWithSocialProvider", () => {
   });
 
   test("should register a new user if they don't exist", async () => {
+    const { firstName, lastName, email } = attributes.user();
     jwt.verifySocialToken.mockReturnValue({
-      firstName: "New",
-      lastName: "User",
-      email: "test@gmail.com",
+      firstName,
+      lastName,
+      email,
     });
     const {
       data: { loginWithSocialProvider },
@@ -51,11 +52,12 @@ describe("Mutation.loginWithSocialProvider", () => {
   });
 
   test("should login an already existing user", async () => {
-    await db.User.create(attributes.user({ email: "test2@gmail.com" }));
+    const fields = attributes.user();
+    await db.User.create(fields);
     jwt.verifySocialToken.mockReturnValue({
-      firstName: "Existing",
-      lastName: "User",
-      email: "test2@gmail.com",
+      firstName: fields.firstName,
+      lastName: fields.lastName,
+      email: fields.email,
     });
     const {
       data: { loginWithSocialProvider },
