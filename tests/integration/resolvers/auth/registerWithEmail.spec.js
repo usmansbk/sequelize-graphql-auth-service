@@ -25,9 +25,9 @@ describe("Mutation.registerWithEmail", () => {
     server = createApolloTestServer();
   });
 
-  afterAll(() => {
-    server.stop();
-    db.sequelize.close();
+  afterAll(async () => {
+    await server.stop();
+    await db.sequelize.close();
   });
 
   test("should register a new user and return the access and refresh tokens", async () => {

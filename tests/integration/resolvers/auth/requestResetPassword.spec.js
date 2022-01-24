@@ -22,9 +22,9 @@ describe("Mutation.requestResetPassword", () => {
     server = createApolloTestServer();
   });
 
-  afterAll(() => {
-    server.stop();
-    db.sequelize.close();
+  afterAll(async () => {
+    await server.stop();
+    await db.sequelize.close();
   });
 
   test("should send a reset password link to registered user", async () => {

@@ -4,19 +4,9 @@ import createApolloTestServer from "tests/integration/apolloServer";
 import jwt from "~utils/jwt";
 import TokenError from "~utils/errors/TokenError";
 import { TOKEN_INVALID_ERROR } from "~helpers/constants/i18n";
+import attributes from "tests/attributes";
 
 jwt.verifySocialToken = jest.fn();
-
-jwt.verifySocialToken.mockImplementation(({ token }) => {
-  if (token === "invalid") {
-    throw new TokenError(TOKEN_INVALID_ERROR);
-  }
-  return {
-    firstName: "Usman",
-    lastName: "Suleiman",
-    email: "test@gmail.com",
-  };
-});
 
 const LOGIN_WITH_SOCIAL_PROVIDER = gql`
   mutation LoginWithSocialProvider($input: SocialLoginInput!) {
@@ -36,12 +26,17 @@ describe("Mutation.loginWithSocialProvider", () => {
     server = createApolloTestServer();
   });
 
-  afterAll(() => {
-    server.stop();
-    db.sequelize.close();
+  afterAll(async () => {
+    await server.stop();
+    await db.sequelize.close();
   });
 
   test("should register a new user if they don't exist", async () => {
+    jwt.verifySocialToken.mockReturnValue({
+      firstName: "New",
+      lastName: "User",
+      email: "test@gmail.com",
+    });
     const {
       data: { loginWithSocialProvider },
     } = await server.executeOperation({
@@ -56,6 +51,12 @@ describe("Mutation.loginWithSocialProvider", () => {
   });
 
   test("should login an already existing user", async () => {
+    await db.User.create(attributes.user({ email: "test2@gmail.com" }));
+    jwt.verifySocialToken.mockReturnValue({
+      firstName: "Existing",
+      lastName: "User",
+      email: "test2@gmail.com",
+    });
     const {
       data: { loginWithSocialProvider },
     } = await server.executeOperation({
@@ -70,6 +71,9 @@ describe("Mutation.loginWithSocialProvider", () => {
   });
 
   test("should throw an error for invalid token", async () => {
+    jwt.verifySocialToken.mockImplementation(() => {
+      throw new TokenError(TOKEN_INVALID_ERROR);
+    });
     const { errors } = await server.executeOperation({
       query: LOGIN_WITH_SOCIAL_PROVIDER,
       variables: {

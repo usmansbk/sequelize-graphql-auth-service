@@ -22,9 +22,9 @@ describe("Mutation.requestEmailOTP", () => {
     server = createApolloTestServer();
   });
 
-  afterAll(() => {
-    server.stop();
-    db.sequelize.close();
+  afterAll(async () => {
+    await server.stop();
+    await db.sequelize.close();
   });
 
   test("should not be accessed by unauthenticated users", async () => {

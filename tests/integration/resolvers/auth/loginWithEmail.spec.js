@@ -28,9 +28,9 @@ describe("Mutation.loginWithEmail", () => {
     server = createApolloTestServer();
   });
 
-  afterAll(() => {
-    server.stop();
-    db.sequelize.close();
+  afterAll(async () => {
+    await server.stop();
+    await db.sequelize.close();
   });
 
   test("should login a user with correct email & password combination", async () => {
