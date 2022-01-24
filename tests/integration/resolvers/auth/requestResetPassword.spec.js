@@ -11,6 +11,7 @@ const REQUEST_PASSWORD_RESET = gql`
     requestPasswordReset(email: $email) {
       success
       message
+      code
     }
   }
 `;

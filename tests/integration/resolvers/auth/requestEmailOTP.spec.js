@@ -11,6 +11,7 @@ const REQUEST_EMAIL_OTP = gql`
     requestEmailOTP {
       success
       message
+      code
     }
   }
 `;
