@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable class-methods-use-this */
 import {
   EmptyResultError,
@@ -45,11 +44,11 @@ export default class SequelizeDataSource extends DataSource {
     this.context = context;
   }
 
-  onCreate(_newImage) {}
+  onCreate() {}
 
-  onUpdate(_oldImage, _newImage) {}
+  onUpdate() {}
 
-  onDestroy(_oldImage) {}
+  onDestroy() {}
 
   onError(e) {
     if (e instanceof ValidationError || e instanceof UniqueConstraintError) {
@@ -117,7 +116,7 @@ export default class SequelizeDataSource extends DataSource {
 
       if (created) {
         const newImage = item.toJSON();
-        this.onCreate(newImage);
+        this.onCreate({ newImage });
       }
 
       return [item, created];
@@ -153,7 +152,7 @@ export default class SequelizeDataSource extends DataSource {
       const newImage = newItem.toJSON();
 
       this.prime(newItem);
-      this.onUpdate(oldImage, newImage);
+      this.onUpdate({ oldImage, newImage });
 
       return newItem;
     } catch (e) {
@@ -169,7 +168,7 @@ export default class SequelizeDataSource extends DataSource {
     if (item) {
       const oldImage = item.toJSON();
       await item.destroy();
-      this.onDestroy(oldImage);
+      this.onDestroy({ oldImage });
     }
   }
 }

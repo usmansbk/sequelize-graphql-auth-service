@@ -61,7 +61,7 @@ describe("Mutation.requestResetPassword", () => {
   test("should not send email until previous one is used or expired", async () => {
     const fields = attributes.user();
     await db.User.create(fields);
-    const NUMBER_OF_REQUESTS = 4;
+    const NUMBER_OF_REQUESTS = 2;
 
     const requests = new Array(NUMBER_OF_REQUESTS).fill(fields).map(
       ({ email }) =>

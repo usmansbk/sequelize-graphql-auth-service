@@ -55,9 +55,9 @@ export default class UserDS extends SequelizeDataSource {
     });
   }
 
-  onDestroy(user) {
-    if (user.avatarId) {
-      this.context.dataSources.files.destroy(user.avatarId);
+  onDestroy({ oldImage }) {
+    if (oldImage.avatarId) {
+      this.context.dataSources.files.destroy(oldImage.avatarId);
     }
   }
 
