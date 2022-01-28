@@ -7,7 +7,7 @@ type Mutation {
   loginWithSocialProvider(input: SocialLoginInput!): AuthMutationResponse!
   resetPassword(input: PasswordResetInput!): AuthFormMutationResponse!
   deleteAccount(token: String!): AuthMutationResponse!
-  logout: AuthMutationResponse!
+  logout(all: Boolean): AuthMutationResponse!
 }
 
 enum SocialProvider {
