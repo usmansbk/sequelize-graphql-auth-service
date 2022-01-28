@@ -2,10 +2,15 @@ import { Fail, Success } from "~helpers/response";
 import { EMAIL_VERIFIED, INVALID_LINK } from "~helpers/constants/i18n";
 import QueryError from "~utils/errors/QueryError";
 import { EMAIL_VERIFICATION_KEY_PREFIX } from "~helpers/constants/auth";
+import emailTemplates from "~helpers/emailTemplates";
 
 export default {
   Mutation: {
-    async verifyEmail(_parent, { token }, { dataSources, store, t, jwt }) {
+    async verifyEmail(
+      _parent,
+      { token },
+      { dataSources, store, t, jwt, mailer, locale }
+    ) {
       try {
         const { sub: id } = jwt.verify(token);
         const key = `${EMAIL_VERIFICATION_KEY_PREFIX}:${id}`;
@@ -20,7 +25,18 @@ export default {
 
         await store.remove(key);
 
-        // TODO: send an official welcome email here...
+        const { email, language, firstName } = user;
+
+        mailer.sendEmail({
+          template: emailTemplates.WELCOME,
+          message: {
+            to: email,
+          },
+          locals: {
+            locale: language || locale,
+            name: firstName,
+          },
+        });
 
         return Success({
           message: t(EMAIL_VERIFIED),

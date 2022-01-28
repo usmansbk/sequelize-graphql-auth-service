@@ -4,6 +4,7 @@ const emailTemplates = {
   CONFIRM_DELETE_ACCOUNT: "confirm_delete_account",
   OTP: "otp",
   FAILED_LOGIN: "failed_login",
+  WELCOME: "welcome",
 };
 
 export default emailTemplates;
