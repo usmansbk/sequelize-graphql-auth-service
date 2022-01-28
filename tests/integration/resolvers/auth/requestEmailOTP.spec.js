@@ -1,10 +1,14 @@
 import { gql } from "apollo-server-express";
 import db from "~db/models";
+import mailer from "~utils/mailer";
 import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
-import mailer from "~utils/mailer";
 
-mailer.sendEmail = jest.fn();
+jest.mock("~utils/mailer", () => {
+  return {
+    sendEmail: jest.fn(),
+  };
+});
 
 const REQUEST_EMAIL_OTP = gql`
   mutation RequestEmailOTP {

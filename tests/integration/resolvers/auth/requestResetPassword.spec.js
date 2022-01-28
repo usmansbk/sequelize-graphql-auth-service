@@ -4,7 +4,11 @@ import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
 import mailer from "~utils/mailer";
 
-mailer.sendEmail = jest.fn();
+jest.mock("~utils/mailer", () => {
+  return {
+    sendEmail: jest.fn(),
+  };
+});
 
 const REQUEST_PASSWORD_RESET = gql`
   mutation RequestPasswordReset($email: String!) {
