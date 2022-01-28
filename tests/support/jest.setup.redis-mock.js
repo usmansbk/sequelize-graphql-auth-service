@@ -1,1 +1,1 @@
-jest.mock("ioredis", () => jest.requireActual("ioredis-mock/jest"));
+jest.mock("ioredis", () => require("ioredis-mock"));
