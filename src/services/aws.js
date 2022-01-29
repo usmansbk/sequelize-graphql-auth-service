@@ -10,3 +10,5 @@ export const ses = new aws.SES({
   region: AWS_REGION,
   defaultProvider,
 });
+
+export default aws;
