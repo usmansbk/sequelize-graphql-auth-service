@@ -8,7 +8,7 @@ import attributes from "tests/attributes";
 
 jwt.verifySocialToken = jest.fn();
 
-const LOGIN_WITH_SOCIAL_PROVIDER = gql`
+const query = gql`
   mutation LoginWithSocialProvider($input: SocialLoginInput!) {
     loginWithSocialProvider(input: $input) {
       success
@@ -41,7 +41,7 @@ describe("Mutation.loginWithSocialProvider", () => {
     const {
       data: { loginWithSocialProvider },
     } = await server.executeOperation({
-      query: LOGIN_WITH_SOCIAL_PROVIDER,
+      query,
       variables: {
         input: { token: "faketoken", provider: "GOOGLE" },
       },
@@ -62,7 +62,7 @@ describe("Mutation.loginWithSocialProvider", () => {
     const {
       data: { loginWithSocialProvider },
     } = await server.executeOperation({
-      query: LOGIN_WITH_SOCIAL_PROVIDER,
+      query,
       variables: {
         input: { token: "faketoken", provider: "GOOGLE" },
       },
@@ -77,7 +77,7 @@ describe("Mutation.loginWithSocialProvider", () => {
       throw new TokenError(TOKEN_INVALID_ERROR);
     });
     const { errors } = await server.executeOperation({
-      query: LOGIN_WITH_SOCIAL_PROVIDER,
+      query,
       variables: {
         input: { token: "invalid", provider: "GOOGLE" },
       },

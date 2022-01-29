@@ -10,7 +10,7 @@ jest.mock("~utils/mailer", () => {
   };
 });
 
-const REQUEST_EMAIL_OTP = gql`
+const query = gql`
   mutation RequestEmailOTP {
     requestEmailOTP {
       success
@@ -33,7 +33,7 @@ describe("Mutation.requestEmailOTP", () => {
 
   test("should not be accessed by unauthenticated users", async () => {
     const { errors } = await server.executeOperation({
-      query: REQUEST_EMAIL_OTP,
+      query,
     });
     expect(errors[0].message).toBe("Unauthenticated");
   });
@@ -44,7 +44,7 @@ describe("Mutation.requestEmailOTP", () => {
     );
     await server.executeOperation(
       {
-        query: REQUEST_EMAIL_OTP,
+        query,
       },
       { tokenInfo: { sub: loggedInUser.id } }
     );
@@ -55,7 +55,7 @@ describe("Mutation.requestEmailOTP", () => {
     const loggedInUser = await db.User.create(attributes.user());
     await server.executeOperation(
       {
-        query: REQUEST_EMAIL_OTP,
+        query,
       },
       { tokenInfo: { sub: loggedInUser.id } }
     );

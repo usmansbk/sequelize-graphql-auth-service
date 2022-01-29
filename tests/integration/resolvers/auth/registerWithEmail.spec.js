@@ -3,7 +3,7 @@ import db from "~db/models";
 import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
 
-const REGISTER_WITH_EMAIL = gql`
+const query = gql`
   mutation RegisterWithEmail($input: CreateUserInput!) {
     registerWithEmail(input: $input) {
       success
@@ -34,7 +34,7 @@ describe("Mutation.registerWithEmail", () => {
     const {
       data: { registerWithEmail },
     } = await server.executeOperation({
-      query: REGISTER_WITH_EMAIL,
+      query,
       variables: {
         input: attributes.user(),
       },
@@ -51,7 +51,7 @@ describe("Mutation.registerWithEmail", () => {
     const {
       data: { registerWithEmail },
     } = await server.executeOperation({
-      query: REGISTER_WITH_EMAIL,
+      query,
       variables: {
         input: attributes.user({ email: existingUser.email }),
       },
@@ -67,7 +67,7 @@ describe("Mutation.registerWithEmail", () => {
     const {
       data: { registerWithEmail },
     } = await server.executeOperation({
-      query: REGISTER_WITH_EMAIL,
+      query,
       variables: {
         input: attributes.user({ email: existingUser.email }),
       },

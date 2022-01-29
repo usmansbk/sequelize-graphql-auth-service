@@ -6,7 +6,7 @@ import mailer from "~utils/mailer";
 
 mailer.sendEmail = jest.fn();
 
-const LOGIN_WITH_EMAIL = gql`
+const query = gql`
   mutation RegisterWithEmail($input: EmailLoginInput!) {
     loginWithEmail(input: $input) {
       success
@@ -40,7 +40,7 @@ describe("Mutation.loginWithEmail", () => {
     const {
       data: { loginWithEmail },
     } = await server.executeOperation({
-      query: LOGIN_WITH_EMAIL,
+      query,
       variables: {
         input: {
           email: fields.email,
@@ -60,7 +60,7 @@ describe("Mutation.loginWithEmail", () => {
     const {
       data: { loginWithEmail },
     } = await server.executeOperation({
-      query: LOGIN_WITH_EMAIL,
+      query,
       variables: {
         input: {
           email: fields.email,
@@ -82,7 +82,7 @@ describe("Mutation.loginWithEmail", () => {
         new Promise((resolve) =>
           server
             .executeOperation({
-              query: LOGIN_WITH_EMAIL,
+              query,
               variables: {
                 input: {
                   email: email,

@@ -10,7 +10,7 @@ jest.mock("~utils/mailer", () => {
   };
 });
 
-const REQUEST_PASSWORD_RESET = gql`
+const query = gql`
   mutation RequestPasswordReset($email: String!) {
     requestPasswordReset(email: $email) {
       success
@@ -36,7 +36,7 @@ describe("Mutation.requestResetPassword", () => {
     const {
       data: { requestPasswordReset },
     } = await server.executeOperation({
-      query: REQUEST_PASSWORD_RESET,
+      query,
       variables: {
         email: loggedInUser.email,
       },
@@ -49,7 +49,7 @@ describe("Mutation.requestResetPassword", () => {
     const {
       data: { requestPasswordReset },
     } = await server.executeOperation({
-      query: REQUEST_PASSWORD_RESET,
+      query,
       variables: {
         email: attributes.user().email,
       },
@@ -68,7 +68,7 @@ describe("Mutation.requestResetPassword", () => {
         new Promise((resolve) => {
           server
             .executeOperation({
-              query: REQUEST_PASSWORD_RESET,
+              query,
               variables: {
                 email,
               },
