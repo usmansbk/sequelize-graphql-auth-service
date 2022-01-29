@@ -5,7 +5,7 @@
     "build": "babel src -d build --copy-files",
     "start": "node -r dotenv/config build",
     "dev": "nodemon --exec babel-node -r dotenv/config src",
-    "test": "jest",
+    "test": "jest --testTimeout=10000",
     "prepare": "husky install"
   },
   "description": "Apollo GraphQL server template",
