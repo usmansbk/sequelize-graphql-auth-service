@@ -5,7 +5,7 @@ import otp from "~utils/otp";
 import jwt from "~utils/jwt";
 import mailer from "~utils/mailer";
 import store from "~utils/store";
-import fileStorage from "~utils/fileStorage";
+import files from "~utils/files";
 
 const createApolloTestServer = () => {
   const schema = createSchema();
@@ -18,8 +18,8 @@ const createApolloTestServer = () => {
         otp,
         jwt,
         store,
+        files,
         mailer,
-        fileStorage,
         clientId: process.env.TEST_CLIENT_ID,
         ...extraOptions,
       };

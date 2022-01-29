@@ -9,7 +9,7 @@ const upload = uploadProfilePicture.single("avatar");
 
 const uploadAvatar = async (req, res) => {
   upload(req, res, async (err) => {
-    const { user, fileStorage, t } = req;
+    const { user, files, t } = req;
 
     if (err instanceof multer.MulterError) {
       let { message } = err;
@@ -52,7 +52,7 @@ const uploadAvatar = async (req, res) => {
 
         let avatar = await user.getAvatar();
         if (avatar) {
-          fileStorage.remove(avatar.toJSON());
+          files.remove(avatar.toJSON());
           avatar = await avatar.update(file);
         } else {
           avatar = await user.createAvatar(file);
@@ -64,7 +64,7 @@ const uploadAvatar = async (req, res) => {
         });
       } catch (error) {
         if (req.file) {
-          fileStorage.remove(req.file);
+          files.remove(req.file);
         }
 
         res.status(400).send({

@@ -33,6 +33,7 @@ const createApolloServer = (app) => {
         t,
         jwt,
         otp,
+        files,
         store,
         mailer,
         locale,
@@ -40,13 +41,13 @@ const createApolloServer = (app) => {
         sessionId,
         tokenInfo,
         accessToken,
-        fileStorage,
       } = req;
 
       return {
         t,
         jwt,
         otp,
+        files,
         store,
         mailer,
         locale,
@@ -54,7 +55,6 @@ const createApolloServer = (app) => {
         sessionId,
         tokenInfo,
         accessToken,
-        fileStorage,
       };
     },
   });

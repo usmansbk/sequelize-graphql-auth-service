@@ -13,8 +13,8 @@ const remove = ({ key: Key, bucket: Bucket }) => {
   });
 };
 
-const fileStorage = {
+const files = {
   remove,
 };
 
-export default fileStorage;
+export default files;
