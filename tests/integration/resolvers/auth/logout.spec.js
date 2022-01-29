@@ -1,9 +1,9 @@
 import { gql } from "apollo-server-express";
 import db from "~db/models";
-import jwt from "~utils/jwt";
 import store from "~utils/store";
 import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
+import auth from "tests/support/auth";
 
 const query = gql`
   mutation Logout($all: Boolean) {
@@ -28,15 +28,12 @@ describe("Mutation.logout", () => {
 
   let user;
   let accessToken;
-  const clientId = "test";
+  let clientId;
   beforeEach(async () => {
     user = await db.User.create(attributes.user());
-    const tokens = jwt.generateAuthTokens({
-      aud: clientId,
-      sub: user.id,
-    });
-    accessToken = tokens.accessToken;
-    await store.set({ key: `${clientId}:${user.id}`, value: tokens.sid });
+    const response = await auth.login(user);
+    accessToken = response.accessToken;
+    clientId = response.clientId;
   });
 
   test("should clear current user session", async () => {
