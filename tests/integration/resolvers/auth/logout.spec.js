@@ -1,9 +1,9 @@
 import { gql } from "apollo-server-express";
 import db from "~db/models";
+import jwt from "~utils/jwt";
+import store from "~utils/store";
 import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
-import jwt from "utils/jwt";
-import store from "utils/store";
 
 const query = gql`
   mutation Logout($all: Boolean) {
