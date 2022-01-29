@@ -1,10 +1,9 @@
 import Email from "email-templates";
 import nodemailer from "nodemailer";
-import aws from "aws-sdk";
-import { defaultProvider } from "@aws-sdk/credential-provider-node";
 import log from "~utils/logger";
+import aws, { ses } from "./aws";
 
-const { NODE_ENV, MAIL_FROM, AWS_REGION } = process.env;
+const { NODE_ENV, MAIL_FROM } = process.env;
 
 const env = NODE_ENV || "development";
 
@@ -12,12 +11,6 @@ let transport;
 const isProduction = env === "production";
 
 if (isProduction) {
-  const ses = new aws.SES({
-    apiVersion: "2010-12-01",
-    region: AWS_REGION,
-    defaultProvider,
-  });
-
   transport = nodemailer.createTransport({
     SES: { ses, aws },
   });

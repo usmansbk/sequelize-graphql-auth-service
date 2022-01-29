@@ -1,4 +1,4 @@
-import s3 from "~services/s3";
+import { s3 } from "~services/aws";
 import log from "~utils/logger";
 
 const remove = ({ key: Key, bucket: Bucket }) => {

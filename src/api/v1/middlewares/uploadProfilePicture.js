@@ -2,7 +2,7 @@ import multer from "multer";
 import multerS3 from "multer-s3";
 import { nanoid } from "nanoid";
 import { UserInputError } from "apollo-server-core";
-import s3 from "~services/s3";
+import { s3 } from "~services/aws";
 import { UNSUPPORTED_FILE_TYPE } from "~helpers/constants/i18n";
 import {
   AVATARS_FOLDER,
