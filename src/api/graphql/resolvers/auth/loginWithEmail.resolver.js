@@ -36,6 +36,7 @@ export default {
 
         return Success({
           message: t(WELCOME_BACK, { firstName }),
+          code: WELCOME_BACK,
           accessToken,
           refreshToken,
         });

@@ -28,6 +28,7 @@ export default {
 
         return Success({
           message: t(WELCOME_NEW_USER, { firstName }),
+          code: WELCOME_NEW_USER,
           accessToken,
           refreshToken,
         });

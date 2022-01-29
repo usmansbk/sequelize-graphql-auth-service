@@ -51,6 +51,7 @@ export default {
 
       return Success({
         message: t(SENT_VERIFICATION_EMAIL, { email }),
+        code: SENT_VERIFICATION_EMAIL,
       });
     },
   },

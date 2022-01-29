@@ -49,6 +49,7 @@ export default {
 
         return Success({
           message: t(SENT_EMAIL_OTP),
+          code: SENT_EMAIL_OTP,
         });
       } catch (e) {
         return Fail({

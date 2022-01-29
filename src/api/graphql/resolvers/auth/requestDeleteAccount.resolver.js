@@ -50,6 +50,7 @@ export default {
 
       return Success({
         message: t(SENT_CONFIRM_DELETE_ACCOUNT_EMAIL, { email }),
+        code: SENT_CONFIRM_DELETE_ACCOUNT_EMAIL,
       });
     },
   },

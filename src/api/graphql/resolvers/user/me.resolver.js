@@ -12,6 +12,7 @@ export default {
         if (e instanceof QueryError) {
           return Fail({
             message: t(e.message),
+            code: e.code,
           });
         }
         throw e;

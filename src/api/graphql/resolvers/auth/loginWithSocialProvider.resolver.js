@@ -27,8 +27,10 @@ export default {
           expiresIn: exp,
         });
 
+        const code = created ? WELCOME_NEW_USER : WELCOME_BACK;
         return Success({
-          message: t(created ? WELCOME_NEW_USER : WELCOME_BACK, { firstName }),
+          message: t(code, { firstName }),
+          code,
           accessToken,
           refreshToken,
         });

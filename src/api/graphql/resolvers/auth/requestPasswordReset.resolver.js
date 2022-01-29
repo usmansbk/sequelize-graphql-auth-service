@@ -56,6 +56,7 @@ export default {
 
       return Success({
         message: t(SENT_RESET_PASSWORD_EMAIL, { email }),
+        code: SENT_RESET_PASSWORD_EMAIL,
       });
     },
   },

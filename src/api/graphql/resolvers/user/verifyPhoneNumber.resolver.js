@@ -26,6 +26,7 @@ export default {
 
         return Success({
           message: t(PHONE_NUMBER_VERIFIED),
+          code: PHONE_NUMBER_VERIFIED,
           user,
         });
       } catch (e) {

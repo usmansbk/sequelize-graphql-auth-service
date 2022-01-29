@@ -33,6 +33,7 @@ export default {
 
         return Success({
           message: t(PASSWORD_CHANGED),
+          code: PASSWORD_CHANGED,
         });
       } catch (e) {
         if (e instanceof QueryError) {

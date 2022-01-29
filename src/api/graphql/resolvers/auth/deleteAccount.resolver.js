@@ -19,6 +19,7 @@ export default {
 
         return Success({
           message: t(ACCOUNT_DELETED),
+          code: ACCOUNT_DELETED,
         });
       } catch (e) {
         if (e instanceof QueryError) {

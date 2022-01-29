@@ -9,6 +9,7 @@ export default {
         const user = await dataSources.users.updateCurrentUser(input);
 
         return Success({
+          code: PROFILE_UPDATED,
           message: t(PROFILE_UPDATED),
           user,
         });

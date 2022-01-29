@@ -21,6 +21,7 @@ export default {
 
       return Success({
         message: t(LOGGED_OUT),
+        code: LOGGED_OUT,
       });
     },
   },
