@@ -20,7 +20,7 @@ const verifyGoogleToken = async (idToken) => {
       language: payload.locale,
     };
   } catch (e) {
-    throw new TokenError(TOKEN_INVALID_ERROR);
+    throw new TokenError(TOKEN_INVALID_ERROR, e);
   }
 };
 
