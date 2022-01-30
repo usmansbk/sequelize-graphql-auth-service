@@ -78,7 +78,7 @@
     "pg-hstore": "^2.3.4",
     "pug": "^3.0.2",
     "rate-limit-redis": "^3.0.0",
-    "sequelize": "^6.14.1",
+    "sequelize": "^6.15.0",
     "twilio": "^3.73.1"
   },
   "lint-staged": {
