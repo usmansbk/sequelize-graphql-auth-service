@@ -4,20 +4,46 @@ import {
   INCORRECT_EMAIL_OR_PASSWORD,
   WELCOME_BACK,
 } from "~helpers/constants/i18n";
+import emailTemplates from "~helpers/emailTemplates";
+import {
+  FAILED_LOGIN_ATTEMPT_KEY_PREFIX,
+  MAX_LOGIN_ATTEMPTS,
+} from "~helpers/constants/auth";
 
 export default {
   Mutation: {
     async loginWithEmail(
       _parent,
       { input },
-      { dataSources, jwt, t, store, clientId }
+      { dataSources, jwt, t, store, clientId, mailer, locale }
     ) {
       try {
-        const user = await dataSources.users.findByEmailAndPassword(input);
+        const [user, granted] = await dataSources.users.findByEmailAndPassword(
+          input
+        );
 
-        if (!user) {
+        const attemptCountKey = `${FAILED_LOGIN_ATTEMPT_KEY_PREFIX}:${user.email}`;
+        if (user && !granted) {
+          const attempts = await store.increment(attemptCountKey);
+          if (attempts === MAX_LOGIN_ATTEMPTS) {
+            mailer.sendEmail({
+              template: emailTemplates.FAILED_LOGIN,
+              message: {
+                to: user.email,
+              },
+              locals: {
+                locale,
+                name: user.firstName,
+              },
+            });
+          }
+        }
+
+        if (!granted) {
           throw new QueryError(INCORRECT_EMAIL_OR_PASSWORD);
         }
+
+        await store.remove(attemptCountKey);
 
         const { id, firstName, language } = user;
 

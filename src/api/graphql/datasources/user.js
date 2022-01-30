@@ -1,9 +1,4 @@
 import { nanoid } from "nanoid";
-import emailTemplates from "~helpers/emailTemplates";
-import {
-  FAILED_LOGIN_ATTEMPT_KEY_PREFIX,
-  MAX_LOGIN_ATTEMPTS,
-} from "~helpers/constants/auth";
 import SequelizeDataSource from "./SequelizeDataSource";
 
 export default class UserDS extends SequelizeDataSource {
@@ -18,31 +13,11 @@ export default class UserDS extends SequelizeDataSource {
       },
     });
 
-    const { store, locale, mailer } = this.context;
-    const attemptCountKey = `${FAILED_LOGIN_ATTEMPT_KEY_PREFIX}:${email}`;
-
     if (user && (await user.checkPassword(password))) {
-      await store.remove(attemptCountKey);
-      return user;
+      return [user, true];
     }
 
-    if (user?.emailVerified) {
-      const attempts = await store.increment(attemptCountKey);
-      if (attempts === MAX_LOGIN_ATTEMPTS) {
-        mailer.sendEmail({
-          template: emailTemplates.FAILED_LOGIN,
-          message: {
-            to: email,
-          },
-          locals: {
-            locale,
-            name: user.firstName,
-          },
-        });
-      }
-    }
-
-    return null;
+    return [user, false];
   }
 
   findOrCreate({ email, ...defaults }) {
