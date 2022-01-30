@@ -13,11 +13,9 @@ export default class UserDS extends SequelizeDataSource {
       },
     });
 
-    if (user && (await user.checkPassword(password))) {
-      return [user, true];
-    }
+    const granted = await user?.checkPassword(password);
 
-    return [user, false];
+    return [user, granted];
   }
 
   findOrCreate({ email, ...defaults }) {
