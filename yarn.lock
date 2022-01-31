@@ -2776,15 +2776,6 @@ array.prototype.flat@^1.2.5:
     define-properties "^1.1.3"
     es-abstract "^1.19.0"
 
-array.prototype.flatmap@^1.2.5:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/array.prototype.flatmap/-/array.prototype.flatmap-1.2.5.tgz#908dc82d8a406930fdf38598d51e7411d18d4446"
-  integrity sha512-08u6rVyi1Lj7oqWbS9nUxliETrtIROT4XGTA4D/LWGten6E3ocm7cy9SIrmNHOL5XVbVuckUp3X6Xyg8/zpvHA==
-  dependencies:
-    call-bind "^1.0.0"
-    define-properties "^1.1.3"
-    es-abstract "^1.19.0"
-
 arrify@^2.0.0, arrify@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/arrify/-/arrify-2.0.1.tgz#c9655e9331e0abcd588d2a7cad7e9956f66701fa"
@@ -3872,10 +3863,10 @@ dot-prop@^5.2.0:
   dependencies:
     is-obj "^2.0.0"
 
-dotenv@^14.3.2:
-  version "14.3.2"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-14.3.2.tgz#7c30b3a5f777c79a3429cb2db358eef6751e8369"
-  integrity sha512-vwEppIphpFdvaMCaHfCEv9IgwcxMljMw2TnAQBB4VWPvzXQLTb82jwmdOKzlEVUL3gNFT4l4TPKO+Bn+sqcrVQ==
+dotenv@^15.0.0:
+  version "15.0.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-15.0.0.tgz#2a585639429bf2c2c62f387f0fffde9c75aafde0"
+  integrity sha512-/l1sXXm79ry34KwwS0y4oVZjB468iw/6u9g1W26dtexKcIJAnVL2pMF+hxQwzZ7LutxOwEgtym9eIxvX33CMKg==
 
 dottie@^2.0.2:
   version "2.0.2"
@@ -5166,12 +5157,11 @@ internal-slot@^1.0.3:
     has "^1.0.3"
     side-channel "^1.0.4"
 
-ioredis-mock@^6.3.0:
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/ioredis-mock/-/ioredis-mock-6.3.0.tgz#907742f72ef2d7491761eae9d0d8012794111bb9"
-  integrity sha512-ZHgREHxPmOAaUiRSx5edugLhlp548+aw4c9XpS69W61iRiUguYhpMJpmWMk18PXqybgjqN/NWleXHg6A5XcszQ==
+ioredis-mock@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/ioredis-mock/-/ioredis-mock-7.0.0.tgz#4e67aeb8743f7c1901d9a045d3f8e99ae05feba7"
+  integrity sha512-JLsog7ivJq6UyqFvcPnv/Cz+0BZY3UvdhpFWsvKSEBY7XM70Td0gq0MZFbZowwLe4D0daKxVCh6vw5i8Qx4Syw==
   dependencies:
-    array.prototype.flatmap "^1.2.5"
     fengari "^0.1.4"
     fengari-interop "^0.1.3"
     redis-commands "^1.7.0"
