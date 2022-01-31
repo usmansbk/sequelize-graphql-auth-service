@@ -10,9 +10,15 @@ const remove = (key) => client.del(key);
 
 const increment = (key) => client.incr(key);
 
+const clearAll = () => client.flushall();
+
+const close = () => client.disconnect();
+
 export default {
   set,
   get,
   remove,
   increment,
+  clearAll,
+  close,
 };
