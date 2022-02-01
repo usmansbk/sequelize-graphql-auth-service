@@ -9,5 +9,7 @@
   "verify-team": "verify-team",
   "verify-footer-text": "verify-footer-text",
   "failed-login-title": "failed-login-title",
-  "failed-login-paragraph": "failed-login-paragraph"
+  "failed-login-paragraph": "failed-login-paragraph",
+  "delete-title": "delete-title",
+  "delete-account-button": "delete-account-button"
 }
