@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import db from "~db/models";
-import { AVATAR_ALIAS } from "~helpers/constants/models";
+import { AVATAR_ALIAS, ROLES_ALIAS } from "~helpers/constants/models";
 import SequelizeDataSource from "./SequelizeDataSource";
 
 export default class UserDS extends SequelizeDataSource {
@@ -13,6 +13,7 @@ export default class UserDS extends SequelizeDataSource {
         },
         {
           model: db.Role,
+          as: ROLES_ALIAS,
         },
       ],
     });

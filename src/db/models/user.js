@@ -19,6 +19,7 @@ import {
 } from "~helpers/constants/i18n";
 import {
   AVATAR_ALIAS,
+  ROLES_ALIAS,
   USER_AVATAR_FORIEGN_KEY,
 } from "~helpers/constants/models";
 
@@ -35,6 +36,7 @@ export default (sequelize, DataTypes) => {
         foreignKey: USER_AVATAR_FORIEGN_KEY,
       });
       User.belongsToMany(models.Role, {
+        as: ROLES_ALIAS,
         through: models.UserRoles,
         foreignKey: "userId",
       });
@@ -45,7 +47,7 @@ export default (sequelize, DataTypes) => {
     }
 
     async hasRole(role) {
-      const roles = await this.get("Roles");
+      const roles = await this.get(ROLES_ALIAS);
       return roles.some(({ name }) => name === role);
     }
   }
