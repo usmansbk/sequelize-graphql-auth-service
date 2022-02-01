@@ -8,6 +8,16 @@ const user = (fields = {}) => ({
   ...fields,
 });
 
+const file = (fields = {}) => ({
+  key: faker.internet.domainName(),
+  name: "fixture",
+  bucket: faker.word.adverb(),
+  size: 10000,
+  mimeType: "png",
+  ...fields,
+});
+
 export default {
   user,
+  file,
 };

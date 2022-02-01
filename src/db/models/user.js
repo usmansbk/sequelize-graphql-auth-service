@@ -33,9 +33,10 @@ export default (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      User.belongsTo(models.File, {
+      User.hasOne(models.File, {
         as: AVATAR_ALIAS,
         foreignKey: USER_AVATAR_FOREIGN_KEY,
+        onDelete: "CASCADE",
       });
       User.belongsToMany(models.Role, {
         as: ROLES_ALIAS,
