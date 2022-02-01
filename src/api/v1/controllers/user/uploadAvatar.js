@@ -50,7 +50,7 @@ const uploadAvatar = async (req, res) => {
           size,
         };
 
-        let avatar = await user.getAvatar();
+        let avatar = await user.avatar;
         if (avatar) {
           files.remove(avatar.toJSON());
           avatar = await avatar.update(file);
