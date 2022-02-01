@@ -45,7 +45,7 @@ export default (sequelize, DataTypes) => {
     }
 
     async hasRole(role) {
-      const roles = await this.getRoles();
+      const roles = await this.get("Roles");
       return roles.some(({ name }) => name === role);
     }
   }

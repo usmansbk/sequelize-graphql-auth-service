@@ -1,7 +1,23 @@
 import { nanoid } from "nanoid";
+import db from "~db/models";
+import { AVATAR_ALIAS } from "~helpers/constants/models";
 import SequelizeDataSource from "./SequelizeDataSource";
 
 export default class UserDS extends SequelizeDataSource {
+  constructor(model) {
+    super(model, {
+      include: [
+        {
+          model: db.File,
+          as: AVATAR_ALIAS,
+        },
+        {
+          model: db.Role,
+        },
+      ],
+    });
+  }
+
   currentUser() {
     return this.findByPk(this.context.tokenInfo?.sub);
   }
