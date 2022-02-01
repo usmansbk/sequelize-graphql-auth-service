@@ -76,4 +76,15 @@ describe("Mutation.deleteAccount", () => {
       success: true,
     });
   });
+
+  test("should fail for invalid token", async () => {
+    const res = await server.executeOperation({
+      query,
+      variables: {
+        token: "invalid",
+      },
+    });
+
+    expect(res.errors[0].message).toBe("TokenInvalidError");
+  });
 });
