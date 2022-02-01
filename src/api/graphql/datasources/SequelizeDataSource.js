@@ -21,7 +21,7 @@ import { FIELD_ERRORS, ITEM_NOT_FOUND } from "~helpers/constants/i18n";
  * Subclasses with catch exceptions they can handle and rethrow unknown errors
  */
 export default class SequelizeDataSource extends DataSource {
-  constructor(model, options = {}) {
+  constructor(model) {
     super();
     this.model = model;
     this.loader = new DataLoader(async (ids) => {
@@ -29,7 +29,6 @@ export default class SequelizeDataSource extends DataSource {
         where: {
           id: ids,
         },
-        ...options,
       });
 
       const map = {};
