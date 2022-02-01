@@ -45,19 +45,19 @@ const authDirectiveTransformer = (schema, directiveName) => {
               switch (allow) {
                 case AUTH_OWNER_STRATEGY:
                   return new Promise((permit, reject) => {
-                    if (source[identityClaim] !== user.id) {
+                    const granted = source[identityClaim] === user.id;
+                    if (!granted) {
                       reject();
                     }
                     permit();
                   });
                 case AUTH_ROLE_STRATEGY:
                   return new Promise((permit, reject) => {
-                    user.hasRole(role).then((granted) => {
-                      if (!granted) {
-                        reject();
-                      }
-                      permit();
-                    });
+                    const granted = user.hasRole(role);
+                    if (!granted) {
+                      reject();
+                    }
+                    permit();
                   });
                 default:
                   return new Promise((_, reject) => {

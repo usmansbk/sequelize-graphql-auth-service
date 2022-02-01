@@ -47,8 +47,8 @@ export default (sequelize, DataTypes) => {
       return bcrypt.compare(password, this.password);
     }
 
-    async hasRole(role) {
-      const roles = await this.get(ROLES_ALIAS);
+    hasRole(role) {
+      const roles = this.get(ROLES_ALIAS);
       return roles.some(({ name }) => name === role);
     }
   }
