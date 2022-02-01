@@ -21,6 +21,7 @@ import {
   AVATAR_ALIAS,
   ROLES_ALIAS,
   USER_AVATAR_FOREIGN_KEY,
+  USER_ROLES_JOIN_TABLE,
   USER_ROLE_FOREIGN_KEY,
 } from "~helpers/constants/models";
 
@@ -38,7 +39,7 @@ export default (sequelize, DataTypes) => {
       });
       User.belongsToMany(models.Role, {
         as: ROLES_ALIAS,
-        through: models.UserRoles,
+        through: USER_ROLES_JOIN_TABLE,
         foreignKey: USER_ROLE_FOREIGN_KEY,
       });
     }
