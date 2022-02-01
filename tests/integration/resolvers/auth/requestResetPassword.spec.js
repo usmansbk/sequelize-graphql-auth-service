@@ -42,7 +42,7 @@ describe("Mutation.requestResetPassword", () => {
       },
     });
     expect(requestPasswordReset.message).toMatch("SentResetPasswordEmail");
-    expect(mailer.sendEmail.mock.calls.length).toBe(1);
+    expect(mailer.sendEmail).toBeCalledTimes(1);
   });
 
   test("should not send a reset password link to unregistered user", async () => {
@@ -55,7 +55,7 @@ describe("Mutation.requestResetPassword", () => {
       },
     });
     expect(requestPasswordReset.message).toMatch("SentResetPasswordEmail");
-    expect(mailer.sendEmail.mock.calls.length).toBe(0);
+    expect(mailer.sendEmail).toBeCalledTimes(0);
   });
 
   test("should not send email until previous one is used or expired", async () => {
@@ -80,6 +80,6 @@ describe("Mutation.requestResetPassword", () => {
     );
     await Promise.all(requests);
     expect(requests.length).toBe(NUMBER_OF_REQUESTS);
-    expect(mailer.sendEmail.mock.calls.length).toBe(1);
+    expect(mailer.sendEmail).toBeCalledTimes(1);
   });
 });

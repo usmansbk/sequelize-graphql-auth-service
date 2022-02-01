@@ -48,7 +48,7 @@ describe("Mutation.requestEmailOTP", () => {
       },
       { tokenInfo: { sub: loggedInUser.id } }
     );
-    expect(mailer.sendEmail.mock.calls.length).toBe(1);
+    expect(mailer.sendEmail).toBeCalledTimes(1);
   });
 
   test("should not send an email to unverified user", async () => {
@@ -59,6 +59,6 @@ describe("Mutation.requestEmailOTP", () => {
       },
       { tokenInfo: { sub: loggedInUser.id } }
     );
-    expect(mailer.sendEmail.mock.calls.length).toBe(0);
+    expect(mailer.sendEmail).toBeCalledTimes(0);
   });
 });

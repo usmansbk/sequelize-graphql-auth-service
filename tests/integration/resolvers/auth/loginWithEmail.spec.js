@@ -96,6 +96,6 @@ describe("Mutation.loginWithEmail", () => {
 
     await Promise.all(attempts);
 
-    expect(mailer.sendEmail.mock.calls.length).toBe(1);
+    expect(mailer.sendEmail).toBeCalledTimes(1);
   });
 });
