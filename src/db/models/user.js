@@ -50,6 +50,13 @@ export default (sequelize, DataTypes) => {
 
     hasRole(role) {
       const roles = this.get(ROLES_ALIAS);
+
+      if (!roles) {
+        throw new Error(
+          "Use `defaultScope` or eager loading to fetch user roles."
+        );
+      }
+
       return roles.some(({ name }) => name === role);
     }
   }
