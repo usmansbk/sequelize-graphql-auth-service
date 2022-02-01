@@ -1,5 +1,5 @@
 import { Model } from "sequelize";
-import { USER_AVATAR_FORIEGN_KEY } from "~helpers/constants/models";
+import { USER_AVATAR_FOREIGN_KEY } from "~helpers/constants/models";
 
 export default (sequelize, DataTypes) => {
   class File extends Model {
@@ -10,7 +10,7 @@ export default (sequelize, DataTypes) => {
      */
     static associate(models) {
       File.hasOne(models.User, {
-        foreignKey: USER_AVATAR_FORIEGN_KEY,
+        foreignKey: USER_AVATAR_FOREIGN_KEY,
       });
     }
   }

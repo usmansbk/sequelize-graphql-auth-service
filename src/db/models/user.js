@@ -20,7 +20,8 @@ import {
 import {
   AVATAR_ALIAS,
   ROLES_ALIAS,
-  USER_AVATAR_FORIEGN_KEY,
+  USER_AVATAR_FOREIGN_KEY,
+  USER_ROLE_FOREIGN_KEY,
 } from "~helpers/constants/models";
 
 export default (sequelize, DataTypes) => {
@@ -33,12 +34,12 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       User.belongsTo(models.File, {
         as: AVATAR_ALIAS,
-        foreignKey: USER_AVATAR_FORIEGN_KEY,
+        foreignKey: USER_AVATAR_FOREIGN_KEY,
       });
       User.belongsToMany(models.Role, {
         as: ROLES_ALIAS,
         through: models.UserRoles,
-        foreignKey: "userId",
+        foreignKey: USER_ROLE_FOREIGN_KEY,
       });
     }
 
