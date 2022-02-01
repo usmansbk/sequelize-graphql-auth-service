@@ -187,6 +187,9 @@ export default (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "User",
+      defaultScope: {
+        include: [{ association: ROLES_ALIAS }, { association: AVATAR_ALIAS }],
+      },
     }
   );
 
