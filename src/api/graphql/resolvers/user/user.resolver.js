@@ -2,11 +2,9 @@ import { getPhotoLinks } from "~helpers/links";
 
 export default {
   User: {
-    async picture(parent, { resize }, { dataSources }) {
-      const file = await dataSources.files.findByPk(parent.avatarId);
-
-      if (file) {
-        return getPhotoLinks(file, resize);
+    async picture(parent, { resize }) {
+      if (parent.avatar) {
+        return getPhotoLinks(parent.avatar, resize);
       }
 
       if (parent.socialAvatarURL) {
@@ -20,9 +18,6 @@ export default {
     },
     isOwner(parent, _args, { tokenInfo }) {
       return parent.id === tokenInfo?.sub;
-    },
-    roles() {
-      return [{ name: "ADMIN" }]; // PLACEHOLDER
     },
   },
 };
