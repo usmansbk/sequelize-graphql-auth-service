@@ -29,8 +29,8 @@ export default class UserDS extends SequelizeDataSource {
   }
 
   onDestroy({ oldImage }) {
-    if (oldImage.avatarId) {
-      this.context.dataSources.files.destroy(oldImage.avatarId);
+    if (oldImage.avatar) {
+      this.context.files.remove(oldImage.avatar);
     }
   }
 
@@ -79,11 +79,10 @@ export default class UserDS extends SequelizeDataSource {
   async deleteAvatar(id) {
     const user = await this.findByPk(id);
 
-    if (user?.avatarId) {
-      await this.context.dataSources.files.destroy(user.avatarId);
-      await user.reload();
+    if (user?.avatar) {
+      this.context.files.remove(user.avatar);
     }
 
-    return user;
+    return this.update(id, { avatar: null });
   }
 }

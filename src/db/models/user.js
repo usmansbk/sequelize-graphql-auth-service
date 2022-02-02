@@ -18,9 +18,7 @@ import {
   USER_USERNAME_LEN_ERROR,
 } from "~helpers/constants/i18n";
 import {
-  AVATAR_ALIAS,
   ROLES_ALIAS,
-  USER_AVATAR_FOREIGN_KEY,
   USER_ROLES_JOIN_TABLE,
   USER_ROLE_FOREIGN_KEY,
 } from "~helpers/constants/models";
@@ -33,11 +31,6 @@ export default (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      User.hasOne(models.File, {
-        as: AVATAR_ALIAS,
-        foreignKey: USER_AVATAR_FOREIGN_KEY,
-        onDelete: "CASCADE",
-      });
       User.belongsToMany(models.Role, {
         as: ROLES_ALIAS,
         through: USER_ROLES_JOIN_TABLE,
@@ -185,6 +178,9 @@ export default (sequelize, DataTypes) => {
           },
         },
       },
+      avatar: {
+        type: DataTypes.JSON,
+      },
       socialAvatarURL: {
         type: DataTypes.TEXT,
         validate: {
@@ -198,7 +194,7 @@ export default (sequelize, DataTypes) => {
       sequelize,
       modelName: "User",
       defaultScope: {
-        include: [{ association: ROLES_ALIAS }, { association: AVATAR_ALIAS }],
+        include: [{ association: ROLES_ALIAS }],
       },
     }
   );

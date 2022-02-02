@@ -50,17 +50,15 @@ const uploadAvatar = async (req, res) => {
           size,
         };
 
-        let avatar = await user.avatar;
-        if (avatar) {
-          files.remove(avatar.toJSON());
-          avatar = await avatar.update(file);
-        } else {
-          avatar = await user.createAvatar(file);
+        if (user.avatar) {
+          files.remove(user.avatar);
         }
+
+        await user.update({ avatar: file });
 
         res.send({
           success: true,
-          avatar: avatar.toJSON(),
+          avatar: file,
         });
       } catch (error) {
         if (req.file) {

@@ -13,7 +13,7 @@ const links = {
 
 export const getPhotoLinks = (file, resize) => {
   const imageRequest = {
-    ...file.toJSON(),
+    ...file,
     edits: {
       resize,
     },
