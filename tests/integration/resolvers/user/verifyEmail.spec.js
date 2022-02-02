@@ -62,7 +62,7 @@ describe("Mutation.verifyEmail", () => {
     });
   });
 
-  test("should not invalid tokens", async () => {
+  test("should fail for invalid tokens", async () => {
     const { errors } = await server.executeOperation({
       query,
       variables: {
