@@ -11,5 +11,6 @@
   "failed-login-title": "failed-login-title",
   "failed-login-paragraph": "failed-login-paragraph",
   "delete-title": "delete-title",
-  "delete-account-button": "delete-account-button"
+  "delete-account-button": "delete-account-button",
+  "welcome-title": "welcome-title"
 }
