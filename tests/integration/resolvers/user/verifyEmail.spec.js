@@ -61,4 +61,14 @@ describe("Mutation.verifyEmail", () => {
       success: true,
     });
   });
+
+  test("should not invalid tokens", async () => {
+    const { errors } = await server.executeOperation({
+      query,
+      variables: {
+        token: "invalid",
+      },
+    });
+    expect(errors[0].message).toMatch("TokenInvalidError");
+  });
 });
