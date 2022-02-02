@@ -35,7 +35,7 @@ describe("Mutation.requestEmailOTP", () => {
     const { errors } = await server.executeOperation({
       query,
     });
-    expect(errors[0].message).toBe("Unauthenticated");
+    expect(errors[0].message).toMatch("Unauthenticated");
   });
 
   test("should send an email to a verified user", async () => {

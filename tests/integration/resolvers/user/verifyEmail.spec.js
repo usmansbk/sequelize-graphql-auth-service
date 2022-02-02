@@ -1,6 +1,7 @@
 import { gql } from "apollo-server-express";
 import db from "~db/models";
 import store from "~utils/store";
+import mailer from "~utils/mailer";
 import { EMAIL_VERIFICATION_KEY_PREFIX } from "~helpers/constants/auth";
 import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
@@ -16,6 +17,12 @@ const query = gql`
   }
 `;
 
+jest.mock("~utils/mailer", () => {
+  return {
+    sendEmail: jest.fn(),
+  };
+});
+
 describe("Mutation.verifyEmail", () => {
   let server;
   beforeAll(() => {
@@ -27,7 +34,7 @@ describe("Mutation.verifyEmail", () => {
     await db.sequelize.close();
   });
 
-  test("should verify registered user email", async () => {
+  test("should verify email and send welcome email", async () => {
     const user = await db.User.create(attributes.user());
     const authPayload = await auth.login(user);
 
@@ -47,6 +54,7 @@ describe("Mutation.verifyEmail", () => {
     await user.reload();
 
     expect(user.emailVerified).toBe(true);
+    expect(mailer.sendEmail).toBeCalledTimes(1);
     expect(res.data.verifyEmail).toEqual({
       code: "EmailVerified",
       message: "EmailVerified",

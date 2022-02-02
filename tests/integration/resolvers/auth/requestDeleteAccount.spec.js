@@ -65,6 +65,6 @@ describe("Mutation.requestDeleteAccount", () => {
 
   test("should not allow unauthenticated users", async () => {
     const res = await server.executeOperation({ query });
-    expect(res.errors[0].message).toEqual("Unauthenticated");
+    expect(res.errors[0].message).toMatch("Unauthenticated");
   });
 });

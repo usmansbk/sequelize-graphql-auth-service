@@ -35,7 +35,7 @@ describe("Mutation.requestEmailVerification", () => {
     const { errors } = await server.executeOperation({
       query,
     });
-    expect(errors[0].message).toBe("Unauthenticated");
+    expect(errors[0].message).toMatch("Unauthenticated");
   });
 
   test("should not send an email to a verified user", async () => {

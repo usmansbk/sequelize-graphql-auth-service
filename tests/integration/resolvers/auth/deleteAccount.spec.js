@@ -86,6 +86,6 @@ describe("Mutation.deleteAccount", () => {
       },
     });
 
-    expect(res.errors[0].message).toBe("TokenInvalidError");
+    expect(res.errors[0].message).toMatch("TokenInvalidError");
   });
 });
