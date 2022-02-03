@@ -4,7 +4,7 @@ import { USER_DOES_NOT_EXIST } from "~helpers/constants/i18n";
 
 export default {
   Query: {
-    async getUser(_parent, { id }, { dataSources, t }) {
+    async getUserById(_parent, { id }, { dataSources, t }) {
       try {
         const user = await dataSources.users.findByPk(id);
 

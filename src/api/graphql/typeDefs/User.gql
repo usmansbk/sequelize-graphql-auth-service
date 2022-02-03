@@ -1,6 +1,6 @@
 type Query {
   me: UserPayload! @auth
-  getUser(id: ID!): UserPayload! @auth
+  getUserById(id: ID!): UserPayload! @auth
 }
 
 type Mutation {

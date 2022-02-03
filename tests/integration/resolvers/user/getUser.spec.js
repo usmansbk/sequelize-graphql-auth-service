@@ -4,8 +4,8 @@ import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
 
 const query = gql`
-  query GetUser($id: ID!) {
-    getUser(id: $id) {
+  query getUserById($id: ID!) {
+    getUserById(id: $id) {
       code
       message
       success
@@ -16,7 +16,7 @@ const query = gql`
   }
 `;
 
-describe("Query.getUser", () => {
+describe("Query.getUserById", () => {
   let server;
   beforeAll(() => {
     server = createApolloTestServer();
@@ -39,7 +39,7 @@ describe("Query.getUser", () => {
       },
       { tokenInfo: { sub: user.id } }
     );
-    expect(res.data.getUser).toEqual({
+    expect(res.data.getUserById).toEqual({
       code: "Success",
       message: "Success",
       success: true,
@@ -62,7 +62,7 @@ describe("Query.getUser", () => {
       },
       { tokenInfo: { sub: user.id } }
     );
-    expect(res.data.getUser).toEqual({
+    expect(res.data.getUserById).toEqual({
       code: "UserDoesNotExist",
       message: "UserDoesNotExist",
       success: false,
