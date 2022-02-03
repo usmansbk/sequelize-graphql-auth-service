@@ -11,6 +11,10 @@ const query = gql`
       success
       user {
         id
+        isOwner
+        picture {
+          url
+        }
       }
     }
   }
@@ -42,6 +46,8 @@ describe("Query.me", () => {
       success: true,
       user: {
         id: user.id,
+        isOwner: true,
+        picture: null,
       },
     });
   });
