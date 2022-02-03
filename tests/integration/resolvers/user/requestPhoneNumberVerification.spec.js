@@ -68,7 +68,7 @@ describe("Mutation.requestPhoneNumberVerification", () => {
       {
         query,
         variables: {
-          phoneNumber: attributes.user().phoneNumber,
+          phoneNumber: attributes.faker.phone.phoneNumber(),
         },
       },
       { tokenInfo: { sub: loggedInUser.id } }

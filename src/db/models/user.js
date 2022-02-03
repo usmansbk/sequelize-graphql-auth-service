@@ -143,6 +143,7 @@ export default (sequelize, DataTypes) => {
       },
       phoneNumber: {
         type: DataTypes.STRING,
+        allowNull: true,
         validate: {
           notEmpty: {
             msg: USER_PHONE_NUMBER_FORMAT_ERROR,
