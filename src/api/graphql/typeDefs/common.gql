@@ -11,7 +11,7 @@ enum ImageResizeMode {
 
 # All Queries and Mutations must implement this interface
 interface Response {
-  code: ID! 
+  code: ID!
   success: Boolean!
   message: String!
 }
@@ -30,9 +30,16 @@ input ImageResizeInput {
 }
 
 type RequestResponse implements Response {
-  code: ID! 
+  code: ID!
   success: Boolean!
   message: String!
+}
+
+type RequestFormResponse implements Response & FormErrors {
+  code: ID!
+  success: Boolean!
+  message: String!
+  errors: [FieldError!]
 }
 
 type FieldError {

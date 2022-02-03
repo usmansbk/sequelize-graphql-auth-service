@@ -5,7 +5,8 @@ type Query {
 
 type Mutation {
   requestEmailVerification: RequestResponse! @auth
-  requestPhoneNumberVerification(phoneNumber: String!): RequestResponse! @auth
+  requestPhoneNumberVerification(phoneNumber: String!): RequestFormResponse!
+    @auth
   verifyEmail(token: String!): UserPayload!
   verifyPhoneNumber(token: String!): UserPayload! @auth
   updateProfile(input: UpdateProfileInput!): UserFormMutationResponse! @auth

@@ -9,7 +9,6 @@ import {
   USER_LAST_NAME_EMPTY_ERROR,
   USER_EMAIL_UNAVAILABLE_ERROR,
   USER_INVALID_EMAIL_ERROR,
-  USER_PHONE_NUMBER_UNAVAILABLE_ERROR,
   USER_PHONE_NUMBER_FORMAT_ERROR,
   USER_PASSWORD_LEN_ERROR,
   USER_INVALID_PASSWORD_ERROR,
@@ -144,9 +143,6 @@ export default (sequelize, DataTypes) => {
       },
       phoneNumber: {
         type: DataTypes.STRING,
-        unique: {
-          msg: USER_PHONE_NUMBER_UNAVAILABLE_ERROR,
-        },
         validate: {
           notEmpty: {
             msg: USER_PHONE_NUMBER_FORMAT_ERROR,
