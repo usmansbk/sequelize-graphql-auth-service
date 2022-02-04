@@ -3,16 +3,23 @@ type Mutation {
   requestDeleteAccount: RequestResponse! @auth
   requestEmailOTP: RequestResponse! @auth
   registerWithEmail(input: CreateUserInput!): AuthFormMutationResponse!
-  loginWithEmail(input: EmailLoginInput!): AuthFormMutationResponse!
+  loginWithEmail(input: EmailLoginInput!): AuthMutationResponse!
   loginWithSocialProvider(input: SocialLoginInput!): AuthMutationResponse!
   resetPassword(input: PasswordResetInput!): AuthFormMutationResponse!
   deleteAccount(token: String!): AuthMutationResponse!
   logout(all: Boolean): AuthMutationResponse!
+
+  loginAsAdmin(input: AdminLoginInput!): AuthMutationResponse!
 }
 
 enum SocialProvider {
   GOOGLE
   FACEBOOK
+}
+
+input AdminLoginInput {
+  username: String!
+  password: String!
 }
 
 input EmailLoginInput {

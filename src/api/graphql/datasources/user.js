@@ -18,6 +18,18 @@ export default class UserDS extends SequelizeDataSource {
     return [user, granted];
   }
 
+  async findByUsernameAndPassword({ username, password }) {
+    const user = await this.findOne({
+      where: {
+        username,
+      },
+    });
+
+    const granted = await user?.checkPassword(password);
+
+    return [user, granted];
+  }
+
   findOrCreate({ email, ...defaults }) {
     return super.findOrCreate({
       where: { email },
