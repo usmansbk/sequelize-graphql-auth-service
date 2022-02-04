@@ -1,3 +1,4 @@
 {
-	"SignUpFailed": "Sign up failed"
+  "SignUpFailed": "Sign up failed",
+  "IncorrectUsernameOrPassword": "Incorrect username or password"
 }

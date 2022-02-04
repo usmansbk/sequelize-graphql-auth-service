@@ -64,7 +64,7 @@ describe("Mutation.loginWithEmail", () => {
         },
       },
     });
-    expect(loginWithEmail.message).toMatch("IncorrectEmailAndPassword");
+    expect(loginWithEmail.message).toMatch("IncorrectEmailOrPassword");
     expect(loginWithEmail.accessToken).toBeNull();
     expect(loginWithEmail.refreshToken).toBeNull();
   });

@@ -1,7 +1,7 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
 import {
-  INCORRECT_EMAIL_AND_PASSWORD,
+  INCORRECT_EMAIL_OR_PASSWORD,
   WELCOME_BACK,
 } from "~helpers/constants/i18n";
 import emailTemplates from "~helpers/emailTemplates";
@@ -40,7 +40,7 @@ export default {
         }
 
         if (!granted) {
-          throw new QueryError(INCORRECT_EMAIL_AND_PASSWORD);
+          throw new QueryError(INCORRECT_EMAIL_OR_PASSWORD);
         }
 
         await store.remove(attemptCountKey);
