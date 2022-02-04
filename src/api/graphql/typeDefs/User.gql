@@ -18,7 +18,7 @@ type User {
   firstName: String!
   lastName: String!
   fullName: String!
-  userName: String
+  username: String
   email: String! @auth(rules: [{ allow: owner, identityClaim: "id" }])
   phoneNumber: String @auth(rules: [{ allow: owner, identityClaim: "id" }])
   picture(resize: ImageResizeInput): Photo
@@ -35,7 +35,7 @@ type User {
 input CreateUserInput {
   firstName: String!
   lastName: String!
-  userName: String
+  username: String
   email: String!
   password: String!
   phoneNumber: String
@@ -45,7 +45,7 @@ input CreateUserInput {
 input UpdateProfileInput {
   firstName: String
   lastName: String
-  userName: String
+  username: String
   phoneNumber: String
   language: String
 }

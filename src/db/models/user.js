@@ -104,7 +104,7 @@ export default (sequelize, DataTypes) => {
           throw new Error("Do not try to set the `fullName` value!");
         },
       },
-      userName: {
+      username: {
         type: DataTypes.STRING,
         validate: {
           len: {
