@@ -53,4 +53,17 @@ describe("Mutation.removeProfilePicture", () => {
       },
     });
   });
+
+  test("should not allow unauthenticated access", async () => {
+    const fields = attributes.user();
+    const { errors } = await server.executeOperation({
+      query,
+      variables: {
+        input: {
+          firstName: fields.firstName,
+        },
+      },
+    });
+    expect(errors[0].message).toMatch("Unauthenticated");
+  });
 });
