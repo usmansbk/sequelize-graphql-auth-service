@@ -22,7 +22,7 @@ export default {
           input
         );
 
-        const attemptCountKey = `${FAILED_LOGIN_ATTEMPT_KEY_PREFIX}:${user.email}`;
+        const attemptCountKey = `${FAILED_LOGIN_ATTEMPT_KEY_PREFIX}:${input.email}`;
         if (user && !granted) {
           const attempts = await store.increment(attemptCountKey);
           if (attempts === MAX_LOGIN_ATTEMPTS) {
