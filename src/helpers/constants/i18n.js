@@ -4,6 +4,7 @@ export const USER_FIRST_NAME_REQUIRED_ERROR = "UserFirstNameRequiredError";
 export const USER_FIRST_NAME_EMPTY_ERROR = "UserFirstNameEmptyError";
 export const USER_LAST_NAME_LEN_ERROR = "UserLastNameLengthError";
 export const USER_USERNAME_LEN_ERROR = "UserNameLengthError";
+export const USER_USERNAME_UNAVAILABLE_ERROR = "UserNameUnavailableError";
 export const USER_USERNAME_EMPTY_ERROR = "UserNameEmptyError";
 export const USER_LAST_NAME_REQUIRED_ERROR = "UserLastNameRequiredError";
 export const USER_LAST_NAME_EMPTY_ERROR = "UserLastNameEmptyError";

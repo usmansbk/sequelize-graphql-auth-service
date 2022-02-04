@@ -14,10 +14,6 @@ const query = gql`
       message
       accessToken
       refreshToken
-      errors {
-        field
-        message
-      }
     }
   }
 `;

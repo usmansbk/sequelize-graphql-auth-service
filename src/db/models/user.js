@@ -15,6 +15,7 @@ import {
   USER_INVALID_LOCALE_ERROR,
   USER_INVALID_PICTURE_URL_ERROR,
   USER_USERNAME_LEN_ERROR,
+  USER_USERNAME_UNAVAILABLE_ERROR,
 } from "~helpers/constants/i18n";
 import {
   ROLES_ALIAS,
@@ -106,6 +107,9 @@ export default (sequelize, DataTypes) => {
       },
       username: {
         type: DataTypes.STRING,
+        unique: {
+          msg: USER_USERNAME_UNAVAILABLE_ERROR,
+        },
         validate: {
           len: {
             args: [2, 100],
