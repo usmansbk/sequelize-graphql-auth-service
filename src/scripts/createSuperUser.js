@@ -16,13 +16,14 @@ const createSuperUser = async () => {
         username: "admin",
       },
       defaults: {
-        email: "admin@@su.com",
+        email: "admin@su.com",
         firstName: "Super",
         lastName: "User",
         password: "admin123",
       },
     });
-    await user.addRole(role);
+    await user.setRole(role);
+    await sequelize.close();
   } catch (e) {
     log.error(e);
   }

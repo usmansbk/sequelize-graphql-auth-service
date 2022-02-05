@@ -41,7 +41,7 @@ const authDirectiveTransformer = (schema, directiveName) => {
           const { rules } = authDirective;
           if (rules) {
             const checks = rules.map((rule) => {
-              const { allow, identityClaim, role } = rule;
+              const { allow, identityClaim, roles } = rule;
               switch (allow) {
                 case AUTH_OWNER_STRATEGY:
                   return new Promise((permit, reject) => {
@@ -53,7 +53,7 @@ const authDirectiveTransformer = (schema, directiveName) => {
                   });
                 case AUTH_ROLE_STRATEGY:
                   return new Promise((permit, reject) => {
-                    const granted = user.hasRole(role);
+                    const granted = user.hasRole(roles);
                     if (!granted) {
                       reject();
                     }

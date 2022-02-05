@@ -1,6 +1,5 @@
 import { Model } from "sequelize";
 import { ROLE_NAME_LEN_ERROR } from "~helpers/constants/i18n";
-import { USER_ROLES_JOIN_TABLE } from "~helpers/constants/models";
 
 export default (sequelize, DataTypes) => {
   class Role extends Model {
@@ -10,9 +9,7 @@ export default (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Role.belongsToMany(models.User, {
-        through: USER_ROLES_JOIN_TABLE,
-      });
+      Role.hasMany(models.User);
     }
   }
   Role.init(

@@ -92,6 +92,7 @@ input AuthRule {
 type Role @auth(rules: [{ allow: role, roles: [ADMIN] }]) {
   id: ID!
   name: AuthRole!
+  description: String
   users: [User]!
   createdAt: DateTime!
   updatedAt: DateTime
