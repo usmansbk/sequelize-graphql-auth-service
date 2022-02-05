@@ -6,6 +6,7 @@ const user = (fields = {}) => ({
   email: faker.unique(faker.internet.email),
   password: faker.internet.password(6),
   phoneNumber: faker.phone.phoneNumber(),
+  username: faker.internet.userName(),
   ...fields,
 });
 

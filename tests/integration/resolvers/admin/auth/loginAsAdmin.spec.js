@@ -7,8 +7,8 @@ import mailer from "~utils/mailer";
 mailer.sendEmail = jest.fn();
 
 const query = gql`
-  mutation LoginWithEmail($input: EmailLoginInput!) {
-    loginWithEmail(input: $input) {
+  mutation AdminLogin($input: AdminLoginInput!) {
+    loginAsAdmin(input: $input) {
       success
       code
       message
@@ -18,7 +18,7 @@ const query = gql`
   }
 `;
 
-describe("Mutation.loginWithEmail", () => {
+describe("Mutation.loginAsAdmin", () => {
   let server;
   beforeAll(() => {
     server = createApolloTestServer();
@@ -34,19 +34,19 @@ describe("Mutation.loginWithEmail", () => {
     await db.User.create(fields);
 
     const {
-      data: { loginWithEmail },
+      data: { loginAsAdmin },
     } = await server.executeOperation({
       query,
       variables: {
         input: {
-          email: fields.email,
+          username: fields.username,
           password: fields.password,
         },
       },
     });
-    expect(loginWithEmail.message).toMatch("WelcomeBack");
-    expect(loginWithEmail.accessToken).toBeDefined();
-    expect(loginWithEmail.refreshToken).toBeDefined();
+    expect(loginAsAdmin.message).toMatch("WelcomeBack");
+    expect(loginAsAdmin.accessToken).toBeDefined();
+    expect(loginAsAdmin.refreshToken).toBeDefined();
   });
 
   test("should not login a user with wrong email & password combination", async () => {
@@ -54,19 +54,19 @@ describe("Mutation.loginWithEmail", () => {
     await db.User.create(fields);
 
     const {
-      data: { loginWithEmail },
+      data: { loginAsAdmin },
     } = await server.executeOperation({
       query,
       variables: {
         input: {
-          email: fields.email,
+          username: fields.username,
           password: fields.email,
         },
       },
     });
-    expect(loginWithEmail.message).toMatch("IncorrectEmailOrPassword");
-    expect(loginWithEmail.accessToken).toBeNull();
-    expect(loginWithEmail.refreshToken).toBeNull();
+    expect(loginAsAdmin.message).toMatch("IncorrectUsernameOrPassword");
+    expect(loginAsAdmin.accessToken).toBeNull();
+    expect(loginAsAdmin.refreshToken).toBeNull();
   });
 
   test("should report on 5 failed attempts if account with verified email exist", async () => {
@@ -74,19 +74,19 @@ describe("Mutation.loginWithEmail", () => {
     await db.User.create(fields);
 
     const attempts = new Array(5).fill(fields).map(
-      ({ email }) =>
+      ({ username }) =>
         new Promise((resolve) =>
           server
             .executeOperation({
               query,
               variables: {
                 input: {
-                  email,
-                  password: email,
+                  username,
+                  password: username,
                 },
               },
             })
-            .then((res) => resolve(res.data.loginWithEmail.message))
+            .then((res) => resolve(res.data.loginAsAdmin.message))
         )
     );
 
