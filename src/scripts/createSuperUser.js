@@ -16,9 +16,9 @@ const createSuperUser = async () => {
         username: "admin",
       },
       defaults: {
-        email: "usmansbk.dev@gmail.com",
-        firstName: "Usman",
-        lastName: "Suleiman",
+        email: "admin@@su.com",
+        firstName: "Super",
+        lastName: "User",
         password: "admin123",
       },
     });
