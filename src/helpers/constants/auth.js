@@ -25,7 +25,10 @@ export const FAILED_LOGIN_ATTEMPT_KEY_PREFIX = "login:attempt";
 export const GOOGLE_PROVIDER = "GOOGLE";
 export const FACEBOOK_PROVIDER = "FACEBOOK";
 
-export const allowedClients = [process.env.TEST_CLIENT_ID];
+export const allowedClients = [
+  process.env.TEST_CLIENT_ID,
+  process.env.ADMIN_CLIENT_ID,
+];
 
 export const AUTH_OWNER_STRATEGY = "owner";
 export const AUTH_ROLE_STRATEGY = "role";
