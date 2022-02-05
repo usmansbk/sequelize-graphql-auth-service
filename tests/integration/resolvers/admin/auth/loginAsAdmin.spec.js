@@ -20,8 +20,10 @@ const query = gql`
 
 describe("Mutation.loginAsAdmin", () => {
   let server;
-  beforeAll(() => {
+  let role;
+  beforeAll(async () => {
     server = createApolloTestServer();
+    role = await db.Role.create({ name: "ADMIN" });
   });
 
   afterAll(async () => {
@@ -29,9 +31,10 @@ describe("Mutation.loginAsAdmin", () => {
     await db.sequelize.close();
   });
 
-  test("should login a user with correct email & password combination", async () => {
+  test("should login a user with correct username & password combination", async () => {
     const fields = attributes.user();
-    await db.User.create(fields);
+    const user = await db.User.create(fields);
+    await user.addRole(role);
 
     const {
       data: { loginAsAdmin },
@@ -49,9 +52,30 @@ describe("Mutation.loginAsAdmin", () => {
     expect(loginAsAdmin.refreshToken).toBeDefined();
   });
 
-  test("should not login a user with wrong email & password combination", async () => {
+  test("should login a non-admin user with correct username & password combination", async () => {
     const fields = attributes.user();
     await db.User.create(fields);
+
+    const {
+      data: { loginAsAdmin },
+    } = await server.executeOperation({
+      query,
+      variables: {
+        input: {
+          username: fields.username,
+          password: fields.password,
+        },
+      },
+    });
+    expect(loginAsAdmin.message).toMatch("IncorrectUsernameOrPassword");
+    expect(loginAsAdmin.accessToken).toBeDefined();
+    expect(loginAsAdmin.refreshToken).toBeDefined();
+  });
+
+  test("should not login a user with wrong username & password combination", async () => {
+    const fields = attributes.user();
+    const user = await db.User.create(fields);
+    await user.addRole(role);
 
     const {
       data: { loginAsAdmin },
@@ -71,7 +95,8 @@ describe("Mutation.loginAsAdmin", () => {
 
   test("should report on 5 failed attempts if account with verified email exist", async () => {
     const fields = attributes.user({ emailVerified: true });
-    await db.User.create(fields);
+    const user = await db.User.create(fields);
+    await user.addRole(role);
 
     const attempts = new Array(5).fill(fields).map(
       ({ username }) =>

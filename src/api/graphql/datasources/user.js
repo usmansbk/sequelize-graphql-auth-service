@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid";
+import { ROLES_ALIAS } from "~helpers/constants/models";
 import SequelizeDataSource from "./SequelizeDataSource";
 
 export default class UserDS extends SequelizeDataSource {
@@ -18,11 +19,20 @@ export default class UserDS extends SequelizeDataSource {
     return [user, granted];
   }
 
-  async findByUsernameAndPassword({ username, password }) {
+  async findAdminByUsernameAndPassword({ username, password }) {
     const user = await this.findOne({
       where: {
         username,
       },
+      include: [
+        {
+          association: ROLES_ALIAS,
+          required: true,
+          where: {
+            name: "ADMIN",
+          },
+        },
+      ],
     });
 
     const granted = await user?.checkPassword(password);

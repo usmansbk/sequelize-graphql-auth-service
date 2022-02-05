@@ -19,7 +19,7 @@ export default {
     ) {
       try {
         const [user, granted] =
-          await dataSources.users.findByUsernameAndPassword(input);
+          await dataSources.users.findAdminByUsernameAndPassword(input);
 
         const attemptCountKey = `${FAILED_LOGIN_ATTEMPT_KEY_PREFIX}:${input.username}`;
         if (user && !granted) {

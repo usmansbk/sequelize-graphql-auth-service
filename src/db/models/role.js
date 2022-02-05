@@ -1,12 +1,6 @@
 import { Model } from "sequelize";
-import {
-  ROLE_NAME_FORMAT_ERROR,
-  ROLE_NAME_LEN_ERROR,
-} from "~helpers/constants/i18n";
-import {
-  USER_ROLES_JOIN_TABLE,
-  USER_ROLE_FOREIGN_KEY,
-} from "~helpers/constants/models";
+import { ROLE_NAME_LEN_ERROR } from "~helpers/constants/i18n";
+import { USER_ROLES_JOIN_TABLE } from "~helpers/constants/models";
 
 export default (sequelize, DataTypes) => {
   class Role extends Model {
@@ -18,7 +12,6 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       Role.belongsToMany(models.User, {
         through: USER_ROLES_JOIN_TABLE,
-        foreignKey: USER_ROLE_FOREIGN_KEY,
       });
     }
   }
@@ -37,12 +30,14 @@ export default (sequelize, DataTypes) => {
         allowNull: false,
         unique: true,
         validate: {
-          isAlpha: ROLE_NAME_FORMAT_ERROR,
           len: {
-            args: [4, 64],
+            args: [1, 64],
             msg: ROLE_NAME_LEN_ERROR,
           },
         },
+      },
+      description: {
+        type: DataTypes.TEXT,
       },
     },
     {

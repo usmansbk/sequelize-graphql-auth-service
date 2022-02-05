@@ -17,11 +17,7 @@ import {
   USER_USERNAME_LEN_ERROR,
   USER_USERNAME_UNAVAILABLE_ERROR,
 } from "~helpers/constants/i18n";
-import {
-  ROLES_ALIAS,
-  USER_ROLES_JOIN_TABLE,
-  USER_ROLE_FOREIGN_KEY,
-} from "~helpers/constants/models";
+import { ROLES_ALIAS, USER_ROLES_JOIN_TABLE } from "~helpers/constants/models";
 
 export default (sequelize, DataTypes) => {
   class User extends Model {
@@ -34,7 +30,6 @@ export default (sequelize, DataTypes) => {
       User.belongsToMany(models.Role, {
         as: ROLES_ALIAS,
         through: USER_ROLES_JOIN_TABLE,
-        foreignKey: USER_ROLE_FOREIGN_KEY,
       });
     }
 
@@ -69,7 +64,7 @@ export default (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           len: {
-            args: [2, 100],
+            args: [1, 100],
             msg: USER_FIRST_NAME_LEN_ERROR,
           },
           notNull: {
@@ -85,7 +80,7 @@ export default (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           len: {
-            args: [2, 100],
+            args: [1, 100],
             msg: USER_LAST_NAME_LEN_ERROR,
           },
           notNull: {
