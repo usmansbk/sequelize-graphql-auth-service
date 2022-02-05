@@ -27,7 +27,7 @@ type User {
   language: String!
   emailVerified: Boolean!
   phoneNumberVerified: Boolean!
-  role: Role
+  roles: [Role!]
   createdAt: DateTime!
   updatedAt: DateTime
 }

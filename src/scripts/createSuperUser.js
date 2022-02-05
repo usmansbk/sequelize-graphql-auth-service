@@ -22,7 +22,7 @@ const createSuperUser = async () => {
         password: "admin123",
       },
     });
-    await user.setRole(role);
+    await user.addRole(role);
     await sequelize.close();
   } catch (e) {
     log.error(e);

@@ -34,7 +34,7 @@ describe("Mutation.loginAsAdmin", () => {
   test("should login a user with correct username & password combination", async () => {
     const fields = attributes.user();
     const user = await db.User.create(fields);
-    await user.setRole(role);
+    await user.addRole(role);
 
     const {
       data: { loginAsAdmin },
@@ -75,7 +75,7 @@ describe("Mutation.loginAsAdmin", () => {
   test("should not login a user with wrong username & password combination", async () => {
     const fields = attributes.user();
     const user = await db.User.create(fields);
-    await user.setRole(role);
+    await user.addRole(role);
 
     const {
       data: { loginAsAdmin },
@@ -96,7 +96,7 @@ describe("Mutation.loginAsAdmin", () => {
   test("should report on 5 failed attempts if account with verified email exist", async () => {
     const fields = attributes.user({ emailVerified: true });
     const user = await db.User.create(fields);
-    await user.setRole(role);
+    await user.addRole(role);
 
     const attempts = new Array(5).fill(fields).map(
       ({ username }) =>

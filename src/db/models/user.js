@@ -17,7 +17,7 @@ import {
   USER_USERNAME_LEN_ERROR,
   USER_USERNAME_UNAVAILABLE_ERROR,
 } from "~helpers/constants/i18n";
-import { ROLE_ALIAS } from "~helpers/constants/models";
+import { ROLES_ALIAS, USER_ROLES_JOIN_TABLE } from "~helpers/constants/models";
 
 export default (sequelize, DataTypes) => {
   class User extends Model {
@@ -27,8 +27,9 @@ export default (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      User.belongsTo(models.Role, {
-        as: ROLE_ALIAS,
+      User.belongsToMany(models.Role, {
+        as: ROLES_ALIAS,
+        through: USER_ROLES_JOIN_TABLE,
       });
     }
 
@@ -37,15 +38,18 @@ export default (sequelize, DataTypes) => {
     }
 
     hasRole(roles) {
-      const role = this.get(ROLE_ALIAS);
+      const userRoles = this.get(ROLES_ALIAS);
 
-      if (!role) {
+      if (!userRoles) {
         throw new Error(
           "Use `defaultScope` or eager loading to fetch user roles."
         );
       }
 
-      return roles.includes(role.toJSON().name);
+      return userRoles.some((roleModel) => {
+        const { name } = roleModel.toJSON();
+        return roles.includes(name);
+      });
     }
   }
   User.init(
@@ -189,7 +193,7 @@ export default (sequelize, DataTypes) => {
       sequelize,
       modelName: "User",
       defaultScope: {
-        include: [{ association: ROLE_ALIAS }],
+        include: [{ association: ROLES_ALIAS }],
       },
     }
   );
