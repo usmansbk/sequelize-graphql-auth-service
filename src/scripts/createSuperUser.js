@@ -29,5 +29,3 @@ const createSuperUser = async () => {
 };
 
 createSuperUser();
-
-export default createSuperUser;
