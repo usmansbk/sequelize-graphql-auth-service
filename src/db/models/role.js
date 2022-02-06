@@ -39,6 +39,10 @@ export default (sequelize, DataTypes) => {
       description: {
         type: DataTypes.TEXT,
       },
+      permissions: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        defaultValue: [],
+      },
     },
     {
       sequelize,
