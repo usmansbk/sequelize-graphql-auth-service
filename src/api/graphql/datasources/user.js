@@ -29,7 +29,7 @@ export default class UserDS extends SequelizeDataSource {
           association: ROLES_ALIAS,
           required: true,
           where: {
-            name: "ADMIN",
+            name: ["EMPLOYEE", "ADMIN"],
           },
         },
       ],
