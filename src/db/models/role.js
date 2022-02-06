@@ -1,5 +1,9 @@
 import { Model } from "sequelize";
-import { ROLE_NAME_LEN_ERROR } from "~helpers/constants/i18n";
+import {
+  ROLE_DESCRIPTION_EMPTY_ERROR,
+  ROLE_DESCRIPTION_LEN_ERROR,
+  ROLE_NAME_LEN_ERROR,
+} from "~helpers/constants/i18n";
 import {
   PERMISSIONS_ALIAS,
   ROLE_PERMISSIONS_JOIN_TABLE,
@@ -46,6 +50,15 @@ export default (sequelize, DataTypes) => {
       },
       description: {
         type: DataTypes.TEXT,
+        validate: {
+          len: {
+            args: [0, 100],
+            msg: ROLE_DESCRIPTION_LEN_ERROR,
+          },
+          notEmpty: {
+            msg: ROLE_DESCRIPTION_EMPTY_ERROR,
+          },
+        },
       },
     },
     {

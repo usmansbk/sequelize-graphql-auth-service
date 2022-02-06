@@ -89,11 +89,21 @@ input AuthRule {
   roles: [AuthRole!]
 }
 
+type RolePermission {
+  id: ID!
+  name: String!
+  action: String!
+  resource: String!
+  description: String
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
 type Role {
   id: ID!
   name: AuthRole!
   description: String
-  permissions: [String]!
+  permissions: [RolePermission]!
   users: [User]!
   userCount: Int!
   createdAt: DateTime!

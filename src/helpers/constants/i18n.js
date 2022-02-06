@@ -17,7 +17,27 @@ export const USER_PASSWORD_LEN_ERROR = "UserInvalidPasswordLengthError";
 export const USER_INVALID_PASSWORD_ERROR = "UserInvalidPasswordError";
 export const USER_INVALID_LOCALE_ERROR = "UserInvalidLocaleError";
 export const USER_INVALID_PICTURE_URL_ERROR = "UserInvalidPictureUrlError";
+
+// Role
 export const ROLE_NAME_LEN_ERROR = "RoleNameLengthError";
+export const ROLE_DESCRIPTION_LEN_ERROR = "RoleDescriptionLengthError";
+export const ROLE_DESCRIPTION_EMPTY_ERROR = "RoleDescriptionEmptyError";
+
+// Permission
+export const PERMISSION_NAME_LEN_ERROR = "PermissionNameLengthError";
+export const PERMISSION_NAME_EMPTY_ERROR = "PermissionNameEmptyError";
+export const PERMISSION_RESOURCE_NAME_LEN_ERROR =
+  "PermissionResourceNameLengthError";
+export const PERMISSION_RESOURCE_NAME_EMPTY_ERROR =
+  "PermissionResourceNameEmptyError";
+export const PERMISSION_ACTION_NAME_LEN_ERROR =
+  "PermissionActionNameLengthError";
+export const PERMISSION_ACTION_EMPTY_LEN_ERROR =
+  "PermissionActionNameEmptyError";
+export const PERMISSION_DESCRIPTION_LEN_ERROR =
+  "PermissionDescriptionLengthError";
+export const PERMISSION_DESCRIPTION_EMPTY_ERROR =
+  "PermissionDescriptionEmptyError";
 
 // jwt token
 export const TOKEN_EXPIRED_ERROR = "TokenExpiredError";
