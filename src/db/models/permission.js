@@ -1,29 +1,21 @@
 import { Model } from "sequelize";
-import { ROLE_NAME_LEN_ERROR } from "~helpers/constants/i18n";
-import {
-  PERMISSIONS_ALIAS,
-  ROLE_PERMISSIONS_JOIN_TABLE,
-  USER_ROLES_JOIN_TABLE,
-} from "~helpers/constants/models";
+import { ROLE_PERMISSIONS_JOIN_TABLE } from "~helpers/constants/models";
 
 export default (sequelize, DataTypes) => {
-  class Role extends Model {
+  class Permission extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Role.belongsToMany(models.User, {
-        through: USER_ROLES_JOIN_TABLE,
-      });
-      Role.belongsToMany(models.Permission, {
-        as: PERMISSIONS_ALIAS,
+      // define association here
+      Permission.belongsToMany(models.Role, {
         through: ROLE_PERMISSIONS_JOIN_TABLE,
       });
     }
   }
-  Role.init(
+  Permission.init(
     {
       id: {
         type: DataTypes.UUID,
@@ -37,24 +29,23 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
-        validate: {
-          len: {
-            args: [1, 64],
-            msg: ROLE_NAME_LEN_ERROR,
-          },
-        },
+      },
+      action: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      resource: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       description: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
       },
     },
     {
       sequelize,
-      modelName: "Role",
-      defaultScope: {
-        include: [{ association: PERMISSIONS_ALIAS }],
-      },
+      modelName: "Permission",
     }
   );
-  return Role;
+  return Permission;
 };
