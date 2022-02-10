@@ -8,8 +8,6 @@ type Mutation {
   resetPassword(input: PasswordResetInput!): AuthFormMutationResponse!
   deleteAccount(token: String!): AuthMutationResponse!
   logout(all: Boolean): AuthMutationResponse!
-
-  loginToAdmin(input: AdminLoginInput!): AuthMutationResponse!
 }
 
 enum SocialProvider {
@@ -87,25 +85,4 @@ input AuthRule {
   allow: AuthStrategy!
   identityClaim: String = "ownerId"
   roles: [AuthRole!]
-}
-
-type RolePermission {
-  id: ID!
-  name: String!
-  action: String!
-  resource: String!
-  description: String
-  createdAt: DateTime!
-  updatedAt: DateTime
-}
-
-type Role {
-  id: ID!
-  name: AuthRole!
-  description: String
-  permissions: [RolePermission]!
-  members: [User]!
-  membersCount: Int!
-  createdAt: DateTime!
-  updatedAt: DateTime
 }

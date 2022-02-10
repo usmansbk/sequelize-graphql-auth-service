@@ -9,14 +9,18 @@ enum ImageResizeMode {
   outside
 }
 
-# All Queries and Mutations must implement this interface
+"""
+All Queries and Mutations must implement this interface
+"""
 interface Response {
   code: ID!
   success: Boolean!
   message: String!
 }
 
-# All Form mutations, e.g Login, Register, etc must implement this interface to return validation errors
+"""
+All Form mutations, e.g Login, Register, etc must implement this interface to return validation errors
+"""
 interface FormErrors {
   errors: [FieldError!]
 }
@@ -27,6 +31,10 @@ input ImageResizeInput {
   height: Int!
   fit: ImageResizeMode
   thumbnailSize: Int = 32
+}
+
+interface List {
+  pageInfo: PageInfo!
 }
 
 type RequestResponse implements Response {
@@ -59,4 +67,22 @@ type File {
   mimeType: String!
   createdAt: DateTime!
   updatedAt: DateTime
+}
+
+type PageInfo {
+  hasPreviousPage: Boolean!
+  hasNextPage: Boolean!
+  startCursor: ID
+  endCursor: ID
+}
+
+"""
+Including a value for both first and last is strongly discouraged,
+as it is likely to lead to confusing queries and results.
+"""
+type Page {
+  before: ID
+  after: ID
+  first: Int
+  last: Int
 }

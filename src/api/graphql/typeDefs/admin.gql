@@ -1,0 +1,8 @@
+type Mutation {
+  loginToAdmin(input: AdminLoginInput!): AuthMutationResponse!
+}
+
+type Query {
+  users(page: Page): UserList!
+  roles(page: Page): RoleList!
+}

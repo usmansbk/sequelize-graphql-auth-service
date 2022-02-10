@@ -1,0 +1,25 @@
+type Role {
+  id: ID!
+  name: AuthRole!
+  description: String
+  permissions: [RolePermission]!
+  members: [User]!
+  memberCount: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
+type RolePermission {
+  id: ID!
+  name: String!
+  action: String!
+  resource: String!
+  description: String
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
+type RoleList implements List {
+  roles: [Role]!
+  pageInfo: PageInfo!
+}

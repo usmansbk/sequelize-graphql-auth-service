@@ -22,7 +22,6 @@ type User {
   email: String! @auth(rules: [{ allow: owner, identityClaim: "id" }])
   phoneNumber: String @auth(rules: [{ allow: owner, identityClaim: "id" }])
   picture(resize: ImageResizeInput): Photo
-  "This profile belongs to logged in user?"
   isOwner: Boolean!
   language: String!
   emailVerified: Boolean!
@@ -31,6 +30,28 @@ type User {
   createdAt: DateTime!
   updatedAt: DateTime
 }
+
+type UserPayload implements Response {
+  code: ID!
+  success: Boolean!
+  message: String!
+  user: User
+}
+
+type UserFormMutationResponse implements Response & FormErrors {
+  code: ID!
+  success: Boolean!
+  message: String!
+  errors: [FieldError!]
+  user: User
+}
+
+type UserList implements List {
+  users: [User]!
+  pageInfo: PageInfo!
+}
+
+# Inputs
 
 input CreateUserInput {
   firstName: String!
@@ -48,19 +69,4 @@ input UpdateProfileInput {
   username: String
   phoneNumber: String
   language: String
-}
-
-type UserPayload implements Response {
-  code: ID!
-  success: Boolean!
-  message: String!
-  user: User
-}
-
-type UserFormMutationResponse implements Response & FormErrors {
-  code: ID!
-  success: Boolean!
-  message: String!
-  errors: [FieldError!]
-  user: User
 }
