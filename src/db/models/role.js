@@ -6,6 +6,7 @@ import {
 } from "~helpers/constants/i18n";
 import {
   PERMISSIONS_ALIAS,
+  ROLE_MEMBERS_ALAIS,
   ROLE_PERMISSIONS_JOIN_TABLE,
   USER_ROLES_JOIN_TABLE,
 } from "~helpers/constants/models";
@@ -19,6 +20,7 @@ export default (sequelize, DataTypes) => {
      */
     static associate(models) {
       Role.belongsToMany(models.User, {
+        as: ROLE_MEMBERS_ALAIS,
         through: USER_ROLES_JOIN_TABLE,
       });
       Role.belongsToMany(models.Permission, {

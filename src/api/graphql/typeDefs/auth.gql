@@ -104,8 +104,8 @@ type Role {
   name: AuthRole!
   description: String
   permissions: [RolePermission]!
-  users: [User]!
-  userCount: Int!
+  members: [User]!
+  membersCount: Int!
   createdAt: DateTime!
   updatedAt: DateTime
 }
