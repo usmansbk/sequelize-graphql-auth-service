@@ -1,6 +1,5 @@
 import { Success } from "~helpers/response";
 import { LOGGED_OUT } from "~helpers/constants/i18n";
-import { allowedClients } from "~helpers/constants/auth";
 
 export default {
   Mutation: {
@@ -11,7 +10,7 @@ export default {
 
         // delete session
         if (all) {
-          allowedClients.forEach((aud) => {
+          jwt.audience.forEach((aud) => {
             store.remove(`${aud}:${sub}`);
           });
         } else {

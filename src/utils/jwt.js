@@ -18,12 +18,13 @@ import {
   REFRESH_TOKEN_EXPIRES_IN,
   FACEBOOK_PROVIDER,
   GOOGLE_PROVIDER,
-  allowedClients,
 } from "~helpers/constants/auth";
 import TokenError from "./errors/TokenError";
 
 const privateKey = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
 const publicKey = fs.readFileSync(process.env.JWT_PUBLIC_KEY);
+
+const audience = [process.env.TEST_CLIENT_ID, process.env.ADMIN_CLIENT_ID];
 
 /**
  * exp or any other claim is only set if the payload is an object literal.
@@ -47,7 +48,7 @@ const verify = (token, options = {}) => {
     return jwt.verify(token, publicKey, {
       ...options,
       issuer: process.env.HOST,
-      audience: allowedClients,
+      audience,
     });
   } catch (e) {
     if (e instanceof NotBeforeError) {
@@ -122,4 +123,5 @@ export default {
   generateToken,
   generateAuthTokens,
   verifySocialToken,
+  audience,
 };

@@ -1,7 +1,7 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
 import { INVALID_LINK, PASSWORD_CHANGED } from "~helpers/constants/i18n";
-import { PASSWORD_KEY_PREFIX, allowedClients } from "~helpers/constants/auth";
+import { PASSWORD_KEY_PREFIX } from "~helpers/constants/auth";
 
 export default {
   Mutation: {
@@ -25,8 +25,8 @@ export default {
         await store.remove(key);
 
         // invalidate all refresh tokens
-        allowedClients.forEach(async (clientId) => {
-          await store.remove(`${clientId}:${sub}`);
+        jwt.audience.forEach(async (aud) => {
+          await store.remove(`${aud}:${sub}`);
         });
 
         // we can send an email here to inform user of the change...
