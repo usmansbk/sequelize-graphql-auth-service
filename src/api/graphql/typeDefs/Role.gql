@@ -23,3 +23,8 @@ type RoleList implements List {
   roles: [Role]!
   pageInfo: PageInfo!
 }
+
+type PermissionList implements List {
+  permissions: [RolePermission]!
+  pageInfo: PageInfo!
+}

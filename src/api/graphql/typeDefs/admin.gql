@@ -5,4 +5,5 @@ type Mutation {
 type Query {
   users(page: Page): UserList!
   roles(page: Page): RoleList!
+  permissions(page: Page): PermissionList!
 }
