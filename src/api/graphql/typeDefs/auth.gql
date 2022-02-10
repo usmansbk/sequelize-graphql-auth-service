@@ -79,6 +79,7 @@ enum AuthStrategy {
 enum AuthRole {
   ADMIN
   USER
+  STAFF
 }
 
 input AuthRule {
