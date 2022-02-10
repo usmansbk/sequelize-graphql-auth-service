@@ -12,7 +12,7 @@ import {
 
 export default {
   Mutation: {
-    async loginAsAdmin(
+    async adminLogin(
       _parent,
       { input },
       { dataSources, jwt, t, store, clientId, mailer, locale }

@@ -8,7 +8,7 @@ mailer.sendEmail = jest.fn();
 
 const query = gql`
   mutation AdminLogin($input: AdminLoginInput!) {
-    loginAsAdmin(input: $input) {
+    adminLogin(input: $input) {
       success
       code
       message
@@ -18,7 +18,7 @@ const query = gql`
   }
 `;
 
-describe("Mutation.loginAsAdmin", () => {
+describe("Mutation.adminLogin", () => {
   let server;
   let role;
   beforeAll(async () => {
@@ -37,7 +37,7 @@ describe("Mutation.loginAsAdmin", () => {
     await user.addRole(role);
 
     const {
-      data: { loginAsAdmin },
+      data: { adminLogin },
     } = await server.executeOperation({
       query,
       variables: {
@@ -47,9 +47,9 @@ describe("Mutation.loginAsAdmin", () => {
         },
       },
     });
-    expect(loginAsAdmin.message).toMatch("WelcomeBack");
-    expect(loginAsAdmin.accessToken).toBeDefined();
-    expect(loginAsAdmin.refreshToken).toBeDefined();
+    expect(adminLogin.message).toMatch("WelcomeBack");
+    expect(adminLogin.accessToken).toBeDefined();
+    expect(adminLogin.refreshToken).toBeDefined();
   });
 
   test("should login a non-admin user with correct username & password combination", async () => {
@@ -57,7 +57,7 @@ describe("Mutation.loginAsAdmin", () => {
     await db.User.create(fields);
 
     const {
-      data: { loginAsAdmin },
+      data: { adminLogin },
     } = await server.executeOperation({
       query,
       variables: {
@@ -67,9 +67,9 @@ describe("Mutation.loginAsAdmin", () => {
         },
       },
     });
-    expect(loginAsAdmin.message).toMatch("IncorrectUsernameOrPassword");
-    expect(loginAsAdmin.accessToken).toBeDefined();
-    expect(loginAsAdmin.refreshToken).toBeDefined();
+    expect(adminLogin.message).toMatch("IncorrectUsernameOrPassword");
+    expect(adminLogin.accessToken).toBeDefined();
+    expect(adminLogin.refreshToken).toBeDefined();
   });
 
   test("should not login a user with wrong username & password combination", async () => {
@@ -78,7 +78,7 @@ describe("Mutation.loginAsAdmin", () => {
     await user.addRole(role);
 
     const {
-      data: { loginAsAdmin },
+      data: { adminLogin },
     } = await server.executeOperation({
       query,
       variables: {
@@ -88,9 +88,9 @@ describe("Mutation.loginAsAdmin", () => {
         },
       },
     });
-    expect(loginAsAdmin.message).toMatch("IncorrectUsernameOrPassword");
-    expect(loginAsAdmin.accessToken).toBeNull();
-    expect(loginAsAdmin.refreshToken).toBeNull();
+    expect(adminLogin.message).toMatch("IncorrectUsernameOrPassword");
+    expect(adminLogin.accessToken).toBeNull();
+    expect(adminLogin.refreshToken).toBeNull();
   });
 
   test("should report on 5 failed attempts if account with verified email exist", async () => {
@@ -111,7 +111,7 @@ describe("Mutation.loginAsAdmin", () => {
                 },
               },
             })
-            .then((res) => resolve(res.data.loginAsAdmin.message))
+            .then((res) => resolve(res.data.adminLogin.message))
         )
     );
 

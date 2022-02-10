@@ -9,7 +9,7 @@ type Mutation {
   deleteAccount(token: String!): AuthMutationResponse!
   logout(all: Boolean): AuthMutationResponse!
 
-  loginAsAdmin(input: AdminLoginInput!): AuthMutationResponse!
+  adminLogin(input: AdminLoginInput!): AuthMutationResponse!
 }
 
 enum SocialProvider {
