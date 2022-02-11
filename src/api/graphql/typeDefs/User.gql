@@ -27,6 +27,7 @@ type User {
   emailVerified: Boolean!
   phoneNumberVerified: Boolean!
   roles: [Role!]
+  roleCount: Int!
   createdAt: DateTime!
   updatedAt: DateTime
 }
