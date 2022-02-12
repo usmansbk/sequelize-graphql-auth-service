@@ -48,7 +48,7 @@ type UserFormMutationResponse implements Response & FormErrors {
 }
 
 type UserList implements List {
-  users: [User]!
+  items: [User]!
   pageInfo: PageInfo!
 }
 

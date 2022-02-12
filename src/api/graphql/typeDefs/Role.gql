@@ -21,11 +21,11 @@ type RolePermission {
 }
 
 type RoleList implements List {
-  roles: [Role]!
+  items: [Role]!
   pageInfo: PageInfo!
 }
 
 type PermissionList implements List {
-  permissions: [RolePermission]!
+  items: [RolePermission]!
   pageInfo: PageInfo!
 }
