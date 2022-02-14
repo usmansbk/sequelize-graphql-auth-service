@@ -100,7 +100,7 @@ interface Edge {
 }
 
 input ListPage {
-  limit: Int
+  limit: Int = 100
   cursor: ID
   order: String
   direction: OrderDirection
