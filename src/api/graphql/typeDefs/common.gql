@@ -95,6 +95,10 @@ interface Connection {
   pageInfo: PageInfo!
 }
 
+interface Edge {
+  cursor: ID!
+}
+
 input ListPage {
   limit: Int
   cursor: ID
