@@ -1,0 +1,15 @@
+type Permission {
+  id: ID!
+  name: String!
+  action: String!
+  resource: String!
+  description: String
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
+type PermissionList implements List {
+  items: [Permission]!
+  nextCursor: ID
+  totalCount: Int!
+}

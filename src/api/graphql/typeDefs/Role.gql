@@ -2,30 +2,16 @@ type Role {
   id: ID!
   name: AuthRole!
   description: String
-  permissions: [RolePermission]!
-  permissionCount: Int!
-  members: [User]!
-  memberCount: Int!
+  permissions: PermissionList!
+  members: UserList!
   createdAt: DateTime!
   updatedAt: DateTime
 }
 
-type RolePermission {
-  id: ID!
-  name: String!
-  action: String!
-  resource: String!
-  description: String
-  createdAt: DateTime!
-  updatedAt: DateTime
-}
+# Pagination
 
 type RoleList implements List {
   items: [Role]!
-  pageInfo: PageInfo!
-}
-
-type PermissionList implements List {
-  items: [RolePermission]!
-  pageInfo: PageInfo!
+  nextCursor: ID
+  totalCount: Int!
 }

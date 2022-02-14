@@ -26,8 +26,7 @@ type User {
   language: String!
   emailVerified: Boolean!
   phoneNumberVerified: Boolean!
-  roles: [Role!]
-  roleCount: Int!
+  roles: RoleList!
   createdAt: DateTime!
   updatedAt: DateTime
 }
@@ -45,11 +44,6 @@ type UserFormMutationResponse implements Response & FormErrors {
   message: String!
   errors: [FieldError!]
   user: User
-}
-
-type UserList implements List {
-  items: [User]!
-  pageInfo: PageInfo!
 }
 
 # Inputs
@@ -70,4 +64,12 @@ input UpdateProfileInput {
   username: String
   phoneNumber: String
   language: String
+}
+
+# Pagination
+
+type UserList implements List {
+  items: [User]!
+  nextCursor: ID
+  totalCount: Int!
 }

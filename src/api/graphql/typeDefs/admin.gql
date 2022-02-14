@@ -3,7 +3,7 @@ type Mutation {
 }
 
 type Query {
-  users(page: Page): UserList! @auth
-  roles(page: Page): RoleList! @auth
-  permissions(page: Page): PermissionList! @auth
+  users(page: ListPage): UserList! @auth
+  roles(page: ListPage): RoleList! @auth
+  permissions(page: ListPage): PermissionList! @auth
 }

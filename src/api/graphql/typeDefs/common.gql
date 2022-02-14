@@ -25,21 +25,6 @@ interface FormErrors {
   errors: [FieldError!]
 }
 
-interface List {
-  pageInfo: PageInfo!
-}
-
-"""
-Including a value for both first and last is strongly discouraged,
-as it is likely to lead to confusing queries and results.
-"""
-input Page {
-  before: ID
-  after: ID
-  first: Int
-  last: Int
-}
-
 "https://sharp.pixelplumbing.com/api-resize#resize"
 input ImageResizeInput {
   width: Int!
@@ -80,9 +65,44 @@ type File {
   updatedAt: DateTime
 }
 
+# Pagination
+
 type PageInfo {
   hasPreviousPage: Boolean!
   hasNextPage: Boolean!
   startCursor: ID
   endCursor: ID
+}
+
+enum OrderDirection {
+  ASC
+  DESC
+}
+
+"""
+Including a value for both first and last is strongly discouraged,
+as it is likely to lead to confusing queries and results.
+"""
+input ConnectionPage {
+  before: ID
+  after: ID
+  first: Int = 20
+  last: Int = 20
+}
+
+interface Connection {
+  totalCount: Int!
+  pageInfo: PageInfo!
+}
+
+input ListPage {
+  limit: Int = 50
+  cursor: ID
+  order: String
+  direction: OrderDirection
+}
+
+interface List {
+  nextCursor: ID
+  totalCount: Int!
 }
