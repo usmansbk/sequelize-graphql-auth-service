@@ -96,7 +96,7 @@ interface Connection {
 }
 
 input ListPage {
-  limit: Int = 50
+  limit: Int
   cursor: ID
   order: String
   direction: OrderDirection
