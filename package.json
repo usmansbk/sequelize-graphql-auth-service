@@ -33,7 +33,7 @@
     "husky": ">=6",
     "ioredis-mock": "^7.0.0",
     "jest": "^27.5.1",
-    "lint-staged": "^12.3.3",
+    "lint-staged": "^12.3.4",
     "nodemon": "^2.0.15",
     "prettier": "2.5.1",
     "sequelize-cli": "^6.4.1"
