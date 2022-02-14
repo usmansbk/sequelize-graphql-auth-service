@@ -2,7 +2,7 @@ type Role {
   id: ID!
   name: AuthRole!
   description: String
-  permissions: PermissionList!
+  permissions: [Permission]!
   members: UserList!
   createdAt: DateTime!
   updatedAt: DateTime
