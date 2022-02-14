@@ -86,8 +86,8 @@ as it is likely to lead to confusing queries and results.
 input ConnectionPage {
   before: ID
   after: ID
-  first: Int = 20
-  last: Int = 20
+  first: Int = 50
+  last: Int = 50
 }
 
 interface Connection {
