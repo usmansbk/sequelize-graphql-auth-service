@@ -63,7 +63,7 @@ input UpdateProfileInput {
   lastName: String
   username: String
   phoneNumber: String
-  language: Language = en
+  language: Language
 }
 
 # Pagination
