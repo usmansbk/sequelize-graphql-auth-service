@@ -23,7 +23,7 @@ type User {
   phoneNumber: String @auth(rules: [{ allow: owner, identityClaim: "id" }])
   picture(resize: ImageResizeInput): Photo
   isOwner: Boolean!
-  language: String!
+  language: Language!
   emailVerified: Boolean!
   phoneNumberVerified: Boolean!
   roles: [Role]!
@@ -55,7 +55,7 @@ input CreateUserInput {
   email: String!
   password: String!
   phoneNumber: String
-  language: String
+  language: Language = en
 }
 
 input UpdateProfileInput {
@@ -63,7 +63,7 @@ input UpdateProfileInput {
   lastName: String
   username: String
   phoneNumber: String
-  language: String
+  language: Language = en
 }
 
 # Pagination
