@@ -39,7 +39,7 @@
     "sequelize-cli": "^6.4.1"
   },
   "dependencies": {
-    "@aws-sdk/credential-provider-node": "^3.52.0",
+    "@aws-sdk/credential-provider-node": "^3.53.0",
     "@babel/runtime": "^7.17.2",
     "@graphql-tools/load-files": "^6.5.3",
     "@graphql-tools/merge": "^8.2.3",
@@ -48,7 +48,7 @@
     "apollo-datasource": "^3.3.1",
     "apollo-server-core": "^3.6.3",
     "apollo-server-express": "^3.6.3",
-    "aws-sdk": "^2.1080.0",
+    "aws-sdk": "^2.1081.0",
     "bcrypt": "^5.0.1",
     "btoa": "^1.2.1",
     "bunyan": "^1.8.15",
@@ -79,7 +79,7 @@
     "pg-hstore": "^2.3.4",
     "pug": "^3.0.2",
     "rate-limit-redis": "^3.0.0",
-    "sequelize": "^6.16.3",
+    "sequelize": "^6.17.0",
     "twilio": "^3.75.0"
   },
   "lint-staged": {
