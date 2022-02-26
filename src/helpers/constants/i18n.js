@@ -38,6 +38,7 @@ export const PERMISSION_DESCRIPTION_LEN_ERROR =
   "PermissionDescriptionLengthError";
 export const PERMISSION_DESCRIPTION_EMPTY_ERROR =
   "PermissionDescriptionEmptyError";
+export const PERMISSION_INVALID_NAME_ERROR = "PermissionInvalidNameError";
 
 // jwt token
 export const TOKEN_EXPIRED_ERROR = "TokenExpiredError";

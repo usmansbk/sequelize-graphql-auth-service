@@ -7,6 +7,7 @@ import {
   PERMISSION_ACTION_EMPTY_LEN_ERROR,
   PERMISSION_RESOURCE_NAME_EMPTY_ERROR,
   PERMISSION_DESCRIPTION_EMPTY_ERROR,
+  PERMISSION_INVALID_NAME_ERROR,
 } from "~helpers/constants/i18n";
 import { ROLE_PERMISSIONS_JOIN_TABLE } from "~helpers/constants/models";
 
@@ -45,6 +46,9 @@ export default (sequelize, DataTypes) => {
           },
           notEmpty: {
             msg: PERMISSION_NAME_EMPTY_ERROR,
+          },
+          isAlphanumeric: {
+            msg: PERMISSION_INVALID_NAME_ERROR,
           },
         },
       },
