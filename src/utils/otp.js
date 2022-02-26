@@ -1,7 +1,7 @@
 import { nanoid, customAlphabet } from "nanoid";
 import { EMAIL_OTP_LENGTH, SMS_OTP_LENGTH } from "~helpers/constants/auth";
 
-const getSmsOTP = (size = SMS_OTP_LENGTH) => {
+const getNumberCode = (size = SMS_OTP_LENGTH) => {
   const numid = customAlphabet("1234567890", size);
   return numid();
 };
@@ -9,6 +9,6 @@ const getSmsOTP = (size = SMS_OTP_LENGTH) => {
 const getEmailOTP = (size = EMAIL_OTP_LENGTH) => nanoid(size);
 
 export default {
-  getSmsOTP,
+  getNumberCode,
   getEmailOTP,
 };

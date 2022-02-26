@@ -18,6 +18,7 @@ import {
   USER_USERNAME_UNAVAILABLE_ERROR,
 } from "~helpers/constants/i18n";
 import { ROLES_ALIAS, USER_ROLES_JOIN_TABLE } from "~helpers/constants/models";
+import otp from "~utils/otp";
 
 export default (sequelize, DataTypes) => {
   class User extends Model {
@@ -116,6 +117,9 @@ export default (sequelize, DataTypes) => {
           notEmpty: {
             msg: USER_USERNAME_LEN_ERROR,
           },
+        },
+        defaultValue() {
+          return `user${otp.getNumberCode(10)}`;
         },
       },
       email: {
