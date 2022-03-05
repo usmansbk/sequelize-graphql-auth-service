@@ -1,15 +1,12 @@
 import { Model } from "sequelize";
 import {
   PERMISSION_NAME_LEN_ERROR,
-  PERMISSION_ACTION_NAME_LEN_ERROR,
-  PERMISSION_RESOURCE_NAME_LEN_ERROR,
   PERMISSION_NAME_EMPTY_ERROR,
-  PERMISSION_ACTION_EMPTY_LEN_ERROR,
-  PERMISSION_RESOURCE_NAME_EMPTY_ERROR,
   PERMISSION_DESCRIPTION_EMPTY_ERROR,
   PERMISSION_INVALID_NAME_ERROR,
 } from "~helpers/constants/i18n";
 import { ROLE_PERMISSIONS_JOIN_TABLE } from "~helpers/constants/models";
+import { actions, resources } from "~helpers/constants/permission";
 
 export default (sequelize, DataTypes) => {
   class Permission extends Model {
@@ -53,30 +50,12 @@ export default (sequelize, DataTypes) => {
         },
       },
       action: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM(actions),
         allowNull: false,
-        validate: {
-          len: {
-            args: [1, 20],
-            msg: PERMISSION_ACTION_NAME_LEN_ERROR,
-          },
-          notEmpty: {
-            msg: PERMISSION_ACTION_EMPTY_LEN_ERROR,
-          },
-        },
       },
       resource: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM(resources),
         allowNull: false,
-        validate: {
-          len: {
-            args: [1, 64],
-            msg: PERMISSION_RESOURCE_NAME_LEN_ERROR,
-          },
-          notEmpty: {
-            msg: PERMISSION_RESOURCE_NAME_EMPTY_ERROR,
-          },
-        },
       },
       description: {
         type: DataTypes.STRING,

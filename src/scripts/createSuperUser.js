@@ -1,28 +1,57 @@
 import db from "~db/models";
 import log from "~utils/logger";
+import { PERMISSIONS_ALIAS, ROLES_ALIAS } from "~helpers/constants/models";
 
-const { sequelize, User, Role } = db;
+const permissions = [
+  {
+    name: "CreateRoles",
+    action: "create",
+    resource: "roles",
+  },
+  {
+    name: "CreatePermissions",
+    action: "create",
+    resource: "permissions",
+  },
+  {
+    name: "CreateUsers",
+    action: "create",
+    resource: "users",
+  },
+];
+
+const { sequelize, User } = db;
 const createSuperUser = async () => {
   try {
     await sequelize.authenticate();
-    const [role] = await Role.findOrCreate({
-      where: { name: "ADMIN" },
-      defaults: {
-        description: "Admin group",
-      },
-    });
-    const [user] = await User.findOrCreate({
-      where: {
-        username: "admin",
-      },
-      defaults: {
+    await User.create(
+      {
         email: "admin@su.com",
         firstName: "Super",
         lastName: "User",
+        username: "admin",
         password: "admin123",
+        roles: [
+          {
+            name: "ADMIN",
+            description: "Admin group",
+            permissions,
+          },
+        ],
       },
-    });
-    await user.addRole(role);
+      {
+        include: [
+          {
+            association: ROLES_ALIAS,
+            include: [
+              {
+                association: PERMISSIONS_ALIAS,
+              },
+            ],
+          },
+        ],
+      }
+    );
     await sequelize.close();
   } catch (e) {
     log.error(e);
