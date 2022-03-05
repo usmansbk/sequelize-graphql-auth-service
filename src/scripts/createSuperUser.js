@@ -40,10 +40,10 @@ const createSuperUser = async () => {
     );
     const admin = await User.create({
       email: "usman@su.com",
-      firstName: "User",
+      firstName: "Usman",
       lastName: "Suleiman",
-      username: "admin",
-      password: "admin123",
+      username: "usman",
+      password: "qwertyadmin48",
     });
     await admin.addRole(role);
     await sequelize.close();
