@@ -1,6 +1,6 @@
 import db from "~db/models";
 import log from "~utils/logger";
-import { PERMISSIONS_ALIAS, ROLES_ALIAS } from "~helpers/constants/models";
+import { PERMISSIONS_ALIAS } from "~helpers/constants/models";
 
 const permissions = [
   {
@@ -20,38 +20,32 @@ const permissions = [
   },
 ];
 
-const { sequelize, User } = db;
+const { sequelize, User, Role } = db;
 const createSuperUser = async () => {
   try {
-    await sequelize.authenticate();
-    await User.create(
+    await sequelize.sync({ force: true });
+    const role = await Role.create(
       {
-        email: "admin@su.com",
-        firstName: "Super",
-        lastName: "User",
-        username: "admin",
-        password: "admin123",
-        roles: [
-          {
-            name: "ADMIN",
-            description: "Admin group",
-            permissions,
-          },
-        ],
+        name: "ADMIN",
+        description: "Admin group",
+        permissions,
       },
       {
         include: [
           {
-            association: ROLES_ALIAS,
-            include: [
-              {
-                association: PERMISSIONS_ALIAS,
-              },
-            ],
+            association: PERMISSIONS_ALIAS,
           },
         ],
       }
     );
+    const admin = await User.create({
+      email: "usman@su.com",
+      firstName: "User",
+      lastName: "Suleiman",
+      username: "admin",
+      password: "admin123",
+    });
+    await admin.addRole(role);
     await sequelize.close();
   } catch (e) {
     log.error(e);
