@@ -41,7 +41,7 @@ This template uses PostgreSQL as the default database.
 
 ```sh
 # Install PostgreSQL
-sudo apt install postgresql-11 libpq-dev
+sudo apt install postgresql-12 libpq-dev
 ```
 
 The postgres installation doesn't setup a user for you, so you'll need to follow these steps to create a user with permission to create databases. Feel free to replace `apollo-server-express` with your username and remember to update your `.env` file `DB_USERNAME` key.
