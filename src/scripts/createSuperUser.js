@@ -42,7 +42,7 @@ const createSuperUser = async () => {
       email: "usmansbk.dev@gmail.com",
       firstName: "Usman",
       lastName: "Suleiman",
-      username: "admin",
+      username: "usman",
       password: "qwertyadmin48",
     });
     await admin.addRole(role);
