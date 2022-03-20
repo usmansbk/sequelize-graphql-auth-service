@@ -16,7 +16,7 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.17.6",
-    "@babel/core": "^7.17.7",
+    "@babel/core": "^7.17.8",
     "@babel/node": "^7.16.8",
     "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@aws-sdk/credential-provider-node": "^3.54.1",
-    "@babel/runtime": "^7.17.7",
+    "@babel/runtime": "^7.17.8",
     "@graphql-tools/load-files": "^6.5.3",
     "@graphql-tools/merge": "^8.2.4",
     "@graphql-tools/schema": "^8.3.3",
@@ -48,7 +48,7 @@
     "apollo-datasource": "^3.3.1",
     "apollo-server-core": "^3.6.4",
     "apollo-server-express": "^3.6.4",
-    "aws-sdk": "^2.1095.0",
+    "aws-sdk": "^2.1096.0",
     "bcrypt": "^5.0.1",
     "btoa": "^1.2.1",
     "bunyan": "^1.8.15",
