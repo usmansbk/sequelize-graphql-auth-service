@@ -20,7 +20,7 @@ const contextMiddleware = async (req, _res, next) => {
       sessionId = await store.get(`${clientId}:${tokenInfo.sub}`);
       user = await db.User.findByPk(tokenInfo.sub);
       if (user?.language) {
-        await req.i18n.changeLanguage(user?.language);
+        await req.i18n.changeLanguage(user.language);
       }
     } catch (e) {
       log.warn(e.message);
