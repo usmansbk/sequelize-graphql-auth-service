@@ -18,7 +18,7 @@ const contextMiddleware = async (req, _res, next) => {
     try {
       tokenInfo = jwt.verify(accessToken);
       sessionId = await store.get(`${clientId}:${tokenInfo.sub}`);
-      currentUser = await db.User.findByPk(tokenInfo.sub);
+      currentUser = await db.User.scope("permissions").findByPk(tokenInfo.sub);
       if (currentUser?.language) {
         await req.i18n.changeLanguage(currentUser.language);
       }

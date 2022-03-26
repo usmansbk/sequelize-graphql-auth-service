@@ -17,7 +17,11 @@ import {
   USER_USERNAME_LEN_ERROR,
   USER_USERNAME_UNAVAILABLE_ERROR,
 } from "~constants/i18n";
-import { ROLES_ALIAS, USER_ROLES_JOIN_TABLE } from "~constants/models";
+import {
+  PERMISSIONS_ALIAS,
+  ROLES_ALIAS,
+  USER_ROLES_JOIN_TABLE,
+} from "~constants/models";
 import otp from "~utils/otp";
 
 export default (sequelize, DataTypes) => {
@@ -196,8 +200,15 @@ export default (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "User",
-      defaultScope: {
-        include: [{ association: ROLES_ALIAS }],
+      scopes: {
+        permissions: {
+          include: [
+            {
+              association: ROLES_ALIAS,
+              include: [{ association: PERMISSIONS_ALIAS }],
+            },
+          ],
+        },
       },
     }
   );
