@@ -42,12 +42,11 @@ export default {
 
         await store.remove(attemptCountKey);
 
-        const { id, firstName, language } = user;
+        const { id, firstName } = user;
 
         const { accessToken, refreshToken, sid, exp } = jwt.generateAuthTokens({
           sub: id,
           aud: clientId,
-          lng: language,
         });
 
         // refresh token rotation

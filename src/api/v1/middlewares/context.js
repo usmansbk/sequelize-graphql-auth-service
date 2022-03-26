@@ -12,15 +12,14 @@ const contextMiddleware = async (req, _res, next) => {
   let tokenInfo;
   let sessionId;
   const accessToken = authorization?.split(" ")[1];
+  let user;
 
   if (accessToken) {
     try {
       tokenInfo = jwt.verify(accessToken);
       sessionId = await store.get(`${clientId}:${tokenInfo.sub}`);
-      if (tokenInfo?.lng) {
-        // check if logged in user has a preferred language and use it
-        await req.i18n.changeLanguage(tokenInfo.lng);
-      }
+      user = await db.User.findByPk(tokenInfo.sub);
+      await req.i18n.changeLanguage(user?.language);
     } catch (e) {
       log.warn(e.message);
     }
@@ -36,6 +35,7 @@ const contextMiddleware = async (req, _res, next) => {
   req.clientId = clientId;
   req.mailer = mailer;
   req.accessToken = accessToken;
+  req.user = user;
   next();
 };
 

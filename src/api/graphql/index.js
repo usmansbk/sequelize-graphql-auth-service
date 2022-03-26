@@ -41,6 +41,7 @@ const createApolloServer = (app) => {
         sessionId,
         tokenInfo,
         accessToken,
+        user,
       } = req;
 
       return {
@@ -55,6 +56,7 @@ const createApolloServer = (app) => {
         sessionId,
         tokenInfo,
         accessToken,
+        user,
       };
     },
   });

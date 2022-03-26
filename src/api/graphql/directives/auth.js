@@ -25,12 +25,10 @@ const authDirectiveTransformer = (schema, directiveName) => {
         const newFieldConfig = { ...fieldConfig };
         newFieldConfig.resolve = async (source, args, context, info) => {
           // check authentication
-          const { tokenInfo, dataSources, sessionId } = context;
+          const { tokenInfo, sessionId, user } = context;
           const isLoggedIn = tokenInfo && tokenInfo.sid === sessionId;
-          const user =
-            isLoggedIn && (await dataSources.users.findByPk(tokenInfo.sub));
 
-          if (!user) {
+          if (!(isLoggedIn && user)) {
             throw new AuthenticationError(UNAUTHENTICATED);
           }
 

@@ -10,13 +10,13 @@ export default {
       { dataSources, jwt, t, store, clientId }
     ) {
       try {
-        const { id, firstName, language } =
-          await dataSources.users.createWithEmail(input);
+        const { id, firstName } = await dataSources.users.createWithEmail(
+          input
+        );
 
         const { accessToken, refreshToken, sid, exp } = jwt.generateAuthTokens({
           sub: id,
           aud: clientId,
-          lng: language,
         });
 
         // refresh token rotation
