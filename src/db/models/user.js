@@ -16,8 +16,8 @@ import {
   USER_INVALID_PICTURE_URL_ERROR,
   USER_USERNAME_LEN_ERROR,
   USER_USERNAME_UNAVAILABLE_ERROR,
-} from "~helpers/constants/i18n";
-import { ROLES_ALIAS, USER_ROLES_JOIN_TABLE } from "~helpers/constants/models";
+} from "~constants/i18n";
+import { ROLES_ALIAS, USER_ROLES_JOIN_TABLE } from "~constants/models";
 import otp from "~utils/otp";
 
 export default (sequelize, DataTypes) => {

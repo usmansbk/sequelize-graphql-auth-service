@@ -3,13 +3,13 @@ import {
   ROLE_DESCRIPTION_EMPTY_ERROR,
   ROLE_DESCRIPTION_LEN_ERROR,
   ROLE_NAME_LEN_ERROR,
-} from "~helpers/constants/i18n";
+} from "~constants/i18n";
 import {
   PERMISSIONS_ALIAS,
   ROLE_MEMBERS_ALAIS,
   ROLE_PERMISSIONS_JOIN_TABLE,
   USER_ROLES_JOIN_TABLE,
-} from "~helpers/constants/models";
+} from "~constants/models";
 
 export default (sequelize, DataTypes) => {
   class Role extends Model {

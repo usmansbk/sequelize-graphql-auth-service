@@ -1,7 +1,7 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
-import { INVALID_LINK, PASSWORD_CHANGED } from "~helpers/constants/i18n";
-import { PASSWORD_KEY_PREFIX } from "~helpers/constants/auth";
+import { INVALID_LINK, PASSWORD_CHANGED } from "~constants/i18n";
+import { PASSWORD_KEY_PREFIX } from "~constants/auth";
 
 export default {
   Mutation: {

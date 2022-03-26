@@ -5,7 +5,7 @@ import files from "~utils/files";
 import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
 import auth from "tests/support/auth";
-import { DELETE_ACCOUNT_KEY_PREFIX } from "~helpers/constants/auth";
+import { DELETE_ACCOUNT_KEY_PREFIX } from "~constants/auth";
 
 files.remove = jest.fn();
 

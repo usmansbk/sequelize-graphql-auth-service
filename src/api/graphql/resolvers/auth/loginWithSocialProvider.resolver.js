@@ -1,6 +1,6 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
-import { WELCOME_BACK, WELCOME_NEW_USER } from "~helpers/constants/i18n";
+import { WELCOME_BACK, WELCOME_NEW_USER } from "~constants/i18n";
 
 export default {
   Mutation: {

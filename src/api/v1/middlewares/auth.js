@@ -1,5 +1,5 @@
 import { AuthenticationError } from "apollo-server-core";
-import { UNAUTHENTICATED } from "~helpers/constants/i18n";
+import { UNAUTHENTICATED } from "~constants/i18n";
 
 const authMiddleware = async (req, _res, next) => {
   try {

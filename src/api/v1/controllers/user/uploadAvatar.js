@@ -4,13 +4,17 @@ import multerS3 from "multer-s3";
 import { nanoid } from "nanoid";
 import { UserInputError } from "apollo-server-core";
 import { s3 } from "~services/aws";
-import { IMAGE_TOO_LARGE, NOTHING_TO_UPLOAD , UNSUPPORTED_FILE_TYPE } from "~helpers/constants/i18n";
+import {
+  IMAGE_TOO_LARGE,
+  NOTHING_TO_UPLOAD,
+  UNSUPPORTED_FILE_TYPE,
+} from "~constants/i18n";
 import {
   AVATARS_FOLDER,
   SUPPORTED_PROFILE_PICTURE_FILE_TYPES,
   PROFILE_PICTURE_MAX_FILE_SIZE,
   BYTES,
-} from "~helpers/constants/files";
+} from "~constants/files";
 
 const { S3_BUCKET } = process.env;
 

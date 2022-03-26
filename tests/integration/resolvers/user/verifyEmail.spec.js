@@ -2,7 +2,7 @@ import { gql } from "apollo-server-express";
 import db from "~db/models";
 import store from "~utils/store";
 import mailer from "~utils/mailer";
-import { EMAIL_VERIFICATION_KEY_PREFIX } from "~helpers/constants/auth";
+import { EMAIL_VERIFICATION_KEY_PREFIX } from "~constants/auth";
 import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
 import auth from "tests/support/auth";

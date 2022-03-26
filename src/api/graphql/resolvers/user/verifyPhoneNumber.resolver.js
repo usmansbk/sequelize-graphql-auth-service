@@ -1,7 +1,7 @@
 import { Fail, Success } from "~helpers/response";
-import { INVALID_OTP, PHONE_NUMBER_VERIFIED } from "~helpers/constants/i18n";
+import { INVALID_OTP, PHONE_NUMBER_VERIFIED } from "~constants/i18n";
 import QueryError from "~utils/errors/QueryError";
-import { PHONE_NUMBER_KEY_PREFIX } from "~helpers/constants/auth";
+import { PHONE_NUMBER_KEY_PREFIX } from "~constants/auth";
 
 export default {
   Mutation: {

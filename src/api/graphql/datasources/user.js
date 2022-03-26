@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { ROLES_ALIAS } from "~helpers/constants/models";
+import { ROLES_ALIAS } from "~constants/models";
 import SequelizeDataSource from "./SequelizeDataSource";
 
 export default class UserDS extends SequelizeDataSource {

@@ -1,7 +1,7 @@
 import { gql } from "apollo-server-express";
 import db from "~db/models";
 import store from "~utils/store";
-import { PHONE_NUMBER_KEY_PREFIX } from "~helpers/constants/auth";
+import { PHONE_NUMBER_KEY_PREFIX } from "~constants/auth";
 import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
 import auth from "tests/support/auth";

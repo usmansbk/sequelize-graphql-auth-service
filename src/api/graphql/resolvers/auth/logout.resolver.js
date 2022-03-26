@@ -1,5 +1,5 @@
 import { Success } from "~helpers/response";
-import { LOGGED_OUT } from "~helpers/constants/i18n";
+import { LOGGED_OUT } from "~constants/i18n";
 
 export default {
   Mutation: {

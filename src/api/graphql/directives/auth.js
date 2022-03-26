@@ -1,11 +1,8 @@
 import { mapSchema, getDirective, MapperKind } from "@graphql-tools/utils";
 import { AuthenticationError, ForbiddenError } from "apollo-server-core";
 import { defaultFieldResolver } from "graphql";
-import {
-  AUTH_OWNER_STRATEGY,
-  AUTH_ROLE_STRATEGY,
-} from "~helpers/constants/auth";
-import { UNAUTHENTICATED, UNAUTHORIZED } from "~helpers/constants/i18n";
+import { AUTH_OWNER_STRATEGY, AUTH_ROLE_STRATEGY } from "~constants/auth";
+import { UNAUTHENTICATED, UNAUTHORIZED } from "~constants/i18n";
 
 const authDirectiveTransformer = (schema, directiveName) => {
   const typeDirectiveArgumentMaps = {};

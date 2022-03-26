@@ -1,6 +1,6 @@
 import db from "~db/models";
 import log from "~utils/logger";
-import { PERMISSIONS_ALIAS } from "~helpers/constants/models";
+import { PERMISSIONS_ALIAS } from "~constants/models";
 
 const permissions = [
   {

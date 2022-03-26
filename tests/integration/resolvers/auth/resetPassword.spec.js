@@ -4,7 +4,7 @@ import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
 import store from "~utils/store";
 import jwt from "~utils/jwt";
-import { PASSWORD_KEY_PREFIX } from "~helpers/constants/auth";
+import { PASSWORD_KEY_PREFIX } from "~constants/auth";
 import dayjs from "dayjs";
 import auth from "tests/support/auth";
 

@@ -1,11 +1,11 @@
 import links from "~helpers/links";
 import { Success } from "~helpers/response";
 import emailTemplates from "~helpers/emailTemplates";
-import { SENT_RESET_PASSWORD_EMAIL } from "~helpers/constants/i18n";
+import { SENT_RESET_PASSWORD_EMAIL } from "~constants/i18n";
 import {
   PASSWORD_KEY_PREFIX,
   RESET_PASSWORD_TOKEN_EXPIRES_IN,
-} from "~helpers/constants/auth";
+} from "~constants/auth";
 
 export default {
   Mutation: {

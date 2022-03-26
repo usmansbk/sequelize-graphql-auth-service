@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import { TOKEN_INVALID_ERROR } from "~helpers/constants/i18n";
+import { TOKEN_INVALID_ERROR } from "~constants/i18n";
 import TokenError from "~utils/errors/TokenError";
 
 const FB_GRAPH_ENDPOINT = "https://graph.facebook.com";

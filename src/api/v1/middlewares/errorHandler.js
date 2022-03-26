@@ -1,5 +1,5 @@
 import { AuthenticationError } from "apollo-server-core";
-import { SOMETHING_WENT_WRONG } from "~helpers/constants/i18n";
+import { SOMETHING_WENT_WRONG } from "~constants/i18n";
 
 const errorHandler = (err, req, res, next) => {
   if (err instanceof AuthenticationError) {

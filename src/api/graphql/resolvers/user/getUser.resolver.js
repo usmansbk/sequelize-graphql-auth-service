@@ -1,6 +1,6 @@
 import { Fail, Success } from "~helpers/response";
 import QueryError from "~utils/errors/QueryError";
-import { USER_DOES_NOT_EXIST } from "~helpers/constants/i18n";
+import { USER_DOES_NOT_EXIST } from "~constants/i18n";
 
 export default {
   Query: {

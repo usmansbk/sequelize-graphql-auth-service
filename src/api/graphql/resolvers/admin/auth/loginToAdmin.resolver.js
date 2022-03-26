@@ -1,14 +1,11 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
-import {
-  INCORRECT_USERNAME_OR_PASSWORD,
-  WELCOME_BACK,
-} from "~helpers/constants/i18n";
+import { INCORRECT_USERNAME_OR_PASSWORD, WELCOME_BACK } from "~constants/i18n";
 import emailTemplates from "~helpers/emailTemplates";
 import {
   FAILED_LOGIN_ATTEMPT_KEY_PREFIX,
   MAX_LOGIN_ATTEMPTS,
-} from "~helpers/constants/auth";
+} from "~constants/auth";
 
 export default {
   Mutation: {

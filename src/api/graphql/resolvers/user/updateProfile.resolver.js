@@ -1,5 +1,5 @@
 import QueryError from "~utils/errors/QueryError";
-import { PROFILE_UPDATED } from "~helpers/constants/i18n";
+import { PROFILE_UPDATED } from "~constants/i18n";
 import { Fail, Success } from "~helpers/response";
 
 export default {

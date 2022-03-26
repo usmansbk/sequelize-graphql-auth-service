@@ -4,9 +4,9 @@ import {
   PERMISSION_NAME_EMPTY_ERROR,
   PERMISSION_DESCRIPTION_EMPTY_ERROR,
   PERMISSION_INVALID_NAME_ERROR,
-} from "~helpers/constants/i18n";
-import { ROLE_PERMISSIONS_JOIN_TABLE } from "~helpers/constants/models";
-import { actions, resources } from "~helpers/constants/permission";
+} from "~constants/i18n";
+import { ROLE_PERMISSIONS_JOIN_TABLE } from "~constants/models";
+import { actions, resources } from "~constants/permission";
 
 export default (sequelize, DataTypes) => {
   class Permission extends Model {

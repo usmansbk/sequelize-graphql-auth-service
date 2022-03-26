@@ -1,5 +1,5 @@
 import btoa from "btoa";
-import { MIN_THUMBNAIL_SIZE } from "~helpers/constants/files";
+import { MIN_THUMBNAIL_SIZE } from "~constants/files";
 
 const { HOST, CLOUDFRONT_API_ENDPOINT } = process.env;
 

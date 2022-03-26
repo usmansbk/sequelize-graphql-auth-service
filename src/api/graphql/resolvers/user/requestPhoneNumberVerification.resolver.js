@@ -1,9 +1,6 @@
 import { Fail, Success } from "~helpers/response";
-import { SENT_SMS_OTP } from "~helpers/constants/i18n";
-import {
-  PHONE_NUMBER_KEY_PREFIX,
-  SMS_OTP_EXPIRES_IN,
-} from "~helpers/constants/auth";
+import { SENT_SMS_OTP } from "~constants/i18n";
+import { PHONE_NUMBER_KEY_PREFIX, SMS_OTP_EXPIRES_IN } from "~constants/auth";
 import QueryError from "~utils/errors/QueryError";
 
 export default {

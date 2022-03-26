@@ -3,7 +3,7 @@ import db from "~db/models";
 import createApolloTestServer from "tests/integration/apolloServer";
 import jwt from "~utils/jwt";
 import TokenError from "~utils/errors/TokenError";
-import { TOKEN_INVALID_ERROR } from "~helpers/constants/i18n";
+import { TOKEN_INVALID_ERROR } from "~constants/i18n";
 import attributes from "tests/attributes";
 
 jwt.verifySocialToken = jest.fn();

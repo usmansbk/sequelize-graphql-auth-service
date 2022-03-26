@@ -1,11 +1,11 @@
 import links from "~helpers/links";
 import { Success } from "~helpers/response";
 import emailTemplates from "~helpers/emailTemplates";
-import { SENT_CONFIRM_DELETE_ACCOUNT_EMAIL } from "~helpers/constants/i18n";
+import { SENT_CONFIRM_DELETE_ACCOUNT_EMAIL } from "~constants/i18n";
 import {
   DELETE_ACCOUNT_KEY_PREFIX,
   DELETE_ACCOUNT_TOKEN_EXPIRES_IN,
-} from "~helpers/constants/auth";
+} from "~constants/auth";
 
 export default {
   Mutation: {

@@ -1,5 +1,5 @@
 import QueryError from "~utils/errors/QueryError";
-import { SIGNUP_FAILED, WELCOME_NEW_USER } from "~helpers/constants/i18n";
+import { SIGNUP_FAILED, WELCOME_NEW_USER } from "~constants/i18n";
 import { Success, Fail } from "~helpers/response";
 
 export default {

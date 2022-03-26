@@ -1,7 +1,7 @@
 import { Fail, Success } from "~helpers/response";
-import { EMAIL_VERIFIED, INVALID_LINK } from "~helpers/constants/i18n";
+import { EMAIL_VERIFIED, INVALID_LINK } from "~constants/i18n";
 import QueryError from "~utils/errors/QueryError";
-import { EMAIL_VERIFICATION_KEY_PREFIX } from "~helpers/constants/auth";
+import { EMAIL_VERIFICATION_KEY_PREFIX } from "~constants/auth";
 import emailTemplates from "~helpers/emailTemplates";
 
 export default {

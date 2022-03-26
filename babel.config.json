@@ -5,16 +5,12 @@
     [
       "module-resolver",
       {
-        "root": ["./src"],
+        "root": ["./"],
         "alias": {
-          "~config": "./src/config",
-          "~api": "./src/api",
-          "~utils": "./src/utils",
-          "~services": "./src/services",
-          "~db": "./src/db",
-          "~helpers": "./src/helpers",
+          "^~(.+)": "./src/\\1",
           "tests": "./tests"
-        }
+        },
+        "extensions": [".js"]
       }
     ]
   ]

@@ -1,4 +1,4 @@
-import { FAIL, SUCCESS } from "./constants/i18n";
+import { FAIL, SUCCESS } from "~constants/i18n";
 
 export const Success = ({ message = SUCCESS, ...payload }) => ({
   message,

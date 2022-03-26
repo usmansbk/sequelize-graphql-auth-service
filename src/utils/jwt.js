@@ -12,13 +12,13 @@ import {
   TOKEN_EXPIRED_ERROR,
   TOKEN_INVALID_ERROR,
   TOKEN_NOT_BEFORE_ERROR,
-} from "~helpers/constants/i18n";
+} from "~constants/i18n";
 import {
   ACCESS_TOKEN_EXPIRES_IN,
   REFRESH_TOKEN_EXPIRES_IN,
   FACEBOOK_PROVIDER,
   GOOGLE_PROVIDER,
-} from "~helpers/constants/auth";
+} from "~constants/auth";
 import TokenError from "./errors/TokenError";
 
 const privateKey = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
