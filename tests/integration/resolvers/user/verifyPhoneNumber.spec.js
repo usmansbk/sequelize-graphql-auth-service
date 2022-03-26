@@ -28,10 +28,10 @@ describe("Mutation.verifyPhoneNumber", () => {
   });
 
   test("should verify phone number", async () => {
-    const user = await db.User.create(attributes.user());
-    const authPayload = await auth.login(user);
+    const currentUser = await db.User.create(attributes.user());
+    const authPayload = await auth.login(currentUser);
 
-    const key = `${PHONE_NUMBER_KEY_PREFIX}:${user.id}`;
+    const key = `${PHONE_NUMBER_KEY_PREFIX}:${currentUser.id}`;
     await store.set({
       key,
       value: authPayload.accessToken,
@@ -45,11 +45,11 @@ describe("Mutation.verifyPhoneNumber", () => {
           token: authPayload.accessToken,
         },
       },
-      { tokenInfo: { sub: user.id } }
+      { tokenInfo: { sub: currentUser.id }, currentUser }
     );
-    await user.reload();
+    await currentUser.reload();
 
-    expect(user.phoneNumberVerified).toBe(true);
+    expect(currentUser.phoneNumberVerified).toBe(true);
     expect(res.data.verifyPhoneNumber).toEqual({
       code: "PhoneNumberVerified",
       message: "PhoneNumberVerified",
@@ -68,7 +68,7 @@ describe("Mutation.verifyPhoneNumber", () => {
           token: authPayload.accessToken,
         },
       },
-      { tokenInfo: { sub: user.id } }
+      { tokenInfo: { sub: user.id }, currentUser: user }
     );
     await user.reload();
 

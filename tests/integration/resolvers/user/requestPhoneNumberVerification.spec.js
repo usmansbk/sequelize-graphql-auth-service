@@ -42,7 +42,7 @@ describe("Mutation.requestPhoneNumberVerification", () => {
   });
 
   test("should send an sms to logged-in user", async () => {
-    const loggedInUser = await db.User.create(attributes.user());
+    const currentUser = await db.User.create(attributes.user());
     const res = await server.executeOperation(
       {
         query,
@@ -50,7 +50,7 @@ describe("Mutation.requestPhoneNumberVerification", () => {
           phoneNumber: "+2348037863727",
         },
       },
-      { tokenInfo: { sub: loggedInUser.id } }
+      { tokenInfo: { sub: currentUser.id }, currentUser }
     );
     expect(mailer.sendSMS).toBeCalledTimes(1);
     expect(res.data.requestPhoneNumberVerification).toEqual({
@@ -61,7 +61,7 @@ describe("Mutation.requestPhoneNumberVerification", () => {
   });
 
   test("should unverify phone number", async () => {
-    const loggedInUser = await db.User.create(
+    const currentUser = await db.User.create(
       attributes.user({ phoneNumberVerified: true })
     );
     const res = await server.executeOperation(
@@ -71,11 +71,11 @@ describe("Mutation.requestPhoneNumberVerification", () => {
           phoneNumber: attributes.faker.phone.phoneNumber(),
         },
       },
-      { tokenInfo: { sub: loggedInUser.id } }
+      { tokenInfo: { sub: currentUser.id }, currentUser }
     );
-    await loggedInUser.reload();
+    await currentUser.reload();
 
-    expect(loggedInUser.phoneNumberVerified).toBe(false);
+    expect(currentUser.phoneNumberVerified).toBe(false);
     expect(res.data.requestPhoneNumberVerification).toEqual({
       code: "SentSmsOtp",
       message: "SentSmsOtp",

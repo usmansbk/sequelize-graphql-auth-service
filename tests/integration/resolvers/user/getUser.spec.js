@@ -37,7 +37,7 @@ describe("Query.getUserById", () => {
           id: user.id,
         },
       },
-      { tokenInfo: { sub: user.id } }
+      { tokenInfo: { sub: user.id }, currentUser: user }
     );
     expect(res.data.getUserById).toEqual({
       code: "Success",
@@ -60,7 +60,7 @@ describe("Query.getUserById", () => {
           id: unregisteredUser.id,
         },
       },
-      { tokenInfo: { sub: user.id } }
+      { tokenInfo: { sub: user.id }, currentUser: user }
     );
     expect(res.data.getUserById).toEqual({
       code: "UserDoesNotExist",

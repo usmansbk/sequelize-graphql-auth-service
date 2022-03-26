@@ -32,13 +32,13 @@ describe("Mutation.requestResetPassword", () => {
   });
 
   test("should send a reset password link to registered user", async () => {
-    const loggedInUser = await db.User.create(attributes.user());
+    const currentUser = await db.User.create(attributes.user());
     const {
       data: { requestPasswordReset },
     } = await server.executeOperation({
       query,
       variables: {
-        email: loggedInUser.email,
+        email: currentUser.email,
       },
     });
     expect(requestPasswordReset.message).toMatch("SentResetPasswordEmail");

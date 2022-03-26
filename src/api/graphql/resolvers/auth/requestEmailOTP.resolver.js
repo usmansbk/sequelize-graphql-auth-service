@@ -9,12 +9,10 @@ export default {
     async requestEmailOTP(
       _parent,
       _args,
-      { dataSources, locale, store, t, otp, mailer }
+      { locale, store, t, otp, mailer, currentUser }
     ) {
       try {
-        const user = await dataSources.users.currentUser();
-
-        const { language, firstName, id, email, emailVerified } = user;
+        const { language, firstName, id, email, emailVerified } = currentUser;
         const key = `${EMAIL_OTP_KEY_PREFIX}:${id}`;
         const sentToken = await store.get(key);
 

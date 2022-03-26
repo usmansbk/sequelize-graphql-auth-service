@@ -39,25 +39,25 @@ describe("Mutation.requestEmailVerification", () => {
   });
 
   test("should not send an email to a verified user", async () => {
-    const loggedInUser = await db.User.create(
+    const currentUser = await db.User.create(
       attributes.user({ emailVerified: true })
     );
     await server.executeOperation(
       {
         query,
       },
-      { tokenInfo: { sub: loggedInUser.id } }
+      { tokenInfo: { sub: currentUser.id }, currentUser }
     );
     expect(mailer.sendEmail).toBeCalledTimes(0);
   });
 
   test("should send an email to an unverified user", async () => {
-    const loggedInUser = await db.User.create(attributes.user());
+    const currentUser = await db.User.create(attributes.user());
     await server.executeOperation(
       {
         query,
       },
-      { tokenInfo: { sub: loggedInUser.id } }
+      { tokenInfo: { sub: currentUser.id }, currentUser }
     );
     expect(mailer.sendEmail).toBeCalledTimes(1);
   });

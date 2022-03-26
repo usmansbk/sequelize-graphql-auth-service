@@ -29,35 +29,9 @@ const createApolloServer = (app) => {
     logger,
     dataSources,
     context: async ({ req }) => {
-      const {
-        t,
-        jwt,
-        otp,
-        files,
-        store,
-        mailer,
-        locale,
-        clientId,
-        sessionId,
-        tokenInfo,
-        accessToken,
-        user,
-      } = req;
+      const { t, context } = req;
 
-      return {
-        t,
-        jwt,
-        otp,
-        files,
-        store,
-        mailer,
-        locale,
-        clientId,
-        sessionId,
-        tokenInfo,
-        accessToken,
-        user,
-      };
+      return { t, ...context };
     },
   });
   return { server, httpServer };

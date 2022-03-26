@@ -45,7 +45,7 @@ describe("Mutation.updateProfile", () => {
           },
         },
       },
-      { tokenInfo: { sub: user.id } }
+      { tokenInfo: { sub: user.id }, currentUser: user }
     );
     expect(res.data.updateProfile).toEqual({
       code: "ProfileUpdated",

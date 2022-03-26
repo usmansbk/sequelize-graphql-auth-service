@@ -3,10 +3,10 @@ import { UNAUTHENTICATED } from "~constants/i18n";
 
 const authMiddleware = async (req, _res, next) => {
   try {
-    const { tokenInfo, sessionId, user } = req;
+    const { tokenInfo, sessionId, currentUser } = req.context;
     const isLoggedIn = tokenInfo && tokenInfo.sid === sessionId;
 
-    if (!(isLoggedIn && user)) {
+    if (!(isLoggedIn && currentUser)) {
       throw new AuthenticationError(UNAUTHENTICATED);
     }
     next();

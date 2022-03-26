@@ -38,7 +38,7 @@ describe("Query.me", () => {
       {
         query,
       },
-      { tokenInfo: { sub: user.id } }
+      { tokenInfo: { sub: user.id }, currentUser: user }
     );
     expect(res.data.me).toEqual({
       code: "Success",

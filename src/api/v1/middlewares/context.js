@@ -12,32 +12,34 @@ const contextMiddleware = async (req, _res, next) => {
   let tokenInfo;
   let sessionId;
   const accessToken = authorization?.split(" ")[1];
-  let user;
+  let currentUser;
 
   if (accessToken) {
     try {
       tokenInfo = jwt.verify(accessToken);
       sessionId = await store.get(`${clientId}:${tokenInfo.sub}`);
-      user = await db.User.findByPk(tokenInfo.sub);
-      if (user?.language) {
-        await req.i18n.changeLanguage(user.language);
+      currentUser = await db.User.findByPk(tokenInfo.sub);
+      if (currentUser?.language) {
+        await req.i18n.changeLanguage(currentUser.language);
       }
     } catch (e) {
       log.warn(e.message);
     }
   }
 
-  req.db = db;
-  req.otp = otp;
-  req.jwt = jwt;
-  req.store = store;
-  req.fileStorage = fileStorage;
-  req.tokenInfo = tokenInfo;
-  req.sessionId = sessionId;
-  req.clientId = clientId;
-  req.mailer = mailer;
-  req.accessToken = accessToken;
-  req.user = user;
+  req.context = {
+    db,
+    otp,
+    jwt,
+    store,
+    fileStorage,
+    tokenInfo,
+    sessionId,
+    clientId,
+    mailer,
+    accessToken,
+    currentUser,
+  };
   next();
 };
 

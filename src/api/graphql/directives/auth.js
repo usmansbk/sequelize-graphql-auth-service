@@ -25,10 +25,10 @@ const authDirectiveTransformer = (schema, directiveName) => {
         const newFieldConfig = { ...fieldConfig };
         newFieldConfig.resolve = async (source, args, context, info) => {
           // check authentication
-          const { tokenInfo, sessionId, user } = context;
+          const { tokenInfo, sessionId, currentUser } = context;
           const isLoggedIn = tokenInfo && tokenInfo.sid === sessionId;
 
-          if (!(isLoggedIn && user)) {
+          if (!(isLoggedIn && currentUser)) {
             throw new AuthenticationError(UNAUTHENTICATED);
           }
 
@@ -40,7 +40,7 @@ const authDirectiveTransformer = (schema, directiveName) => {
               switch (allow) {
                 case AUTH_OWNER_STRATEGY:
                   return new Promise((permit, reject) => {
-                    const granted = source[identityClaim] === user.id;
+                    const granted = source[identityClaim] === currentUser.id;
                     if (!granted) {
                       reject();
                     }
@@ -48,7 +48,7 @@ const authDirectiveTransformer = (schema, directiveName) => {
                   });
                 case AUTH_ROLE_STRATEGY:
                   return new Promise((permit, reject) => {
-                    const granted = user.hasRole(roles);
+                    const granted = currentUser.hasRole(roles);
                     if (!granted) {
                       reject();
                     }

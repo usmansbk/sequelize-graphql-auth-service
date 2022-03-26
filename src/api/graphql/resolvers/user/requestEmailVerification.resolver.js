@@ -12,11 +12,9 @@ export default {
     async requestEmailVerification(
       _parent,
       _args,
-      { dataSources, locale, store, t, jwt, clientId, mailer }
+      { locale, store, t, jwt, clientId, mailer, currentUser }
     ) {
-      const user = await dataSources.users.currentUser();
-
-      const { language, firstName, id, email, emailVerified } = user;
+      const { language, firstName, id, email, emailVerified } = currentUser;
       const key = `${EMAIL_VERIFICATION_KEY_PREFIX}:${id}`;
 
       const sentToken = await store.get(key);

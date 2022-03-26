@@ -12,11 +12,9 @@ export default {
     async requestDeleteAccount(
       _parent,
       _args,
-      { dataSources, locale, store, t, jwt, clientId, mailer }
+      { locale, store, t, jwt, clientId, mailer, currentUser }
     ) {
-      const user = await dataSources.users.currentUser();
-
-      const { language, firstName, id, email } = user;
+      const { language, firstName, id, email } = currentUser;
       const key = `${DELETE_ACCOUNT_KEY_PREFIX}:${id}`;
       const sentToken = await store.get(key);
 

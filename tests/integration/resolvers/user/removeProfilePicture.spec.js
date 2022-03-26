@@ -41,7 +41,7 @@ describe("Mutation.removeProfilePicture", () => {
       {
         query,
       },
-      { tokenInfo: { sub: user.id } }
+      { tokenInfo: { sub: user.id }, currentUser: user }
     );
     expect(fileStorage.remove).toBeCalled();
     expect(res.data.removeProfilePicture).toEqual({

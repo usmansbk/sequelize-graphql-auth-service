@@ -3,11 +3,9 @@ import QueryError from "~utils/errors/QueryError";
 
 export default {
   Query: {
-    async me(_parent, _args, { dataSources, t }) {
+    async me(_parent, _args, { t, currentUser }) {
       try {
-        const user = await dataSources.users.currentUser();
-
-        return Success({ user });
+        return Success({ user: currentUser });
       } catch (e) {
         if (e instanceof QueryError) {
           return Fail({

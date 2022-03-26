@@ -44,7 +44,10 @@ const upload = multer({
 
 const uploadAvatar = async (req, res) => {
   upload(req, res, async (err) => {
-    const { user, fileStorage, t } = req;
+    const {
+      context: { fileStorage, currentUser },
+      t,
+    } = req;
 
     if (err instanceof multer.MulterError) {
       let { message } = err;
@@ -85,11 +88,11 @@ const uploadAvatar = async (req, res) => {
           size,
         };
 
-        if (user.avatar) {
-          fileStorage.remove(user.avatar);
+        if (currentUser.avatar) {
+          fileStorage.remove(currentUser.avatar);
         }
 
-        await user.update({ avatar });
+        await currentUser.update({ avatar });
 
         res.send({
           success: true,

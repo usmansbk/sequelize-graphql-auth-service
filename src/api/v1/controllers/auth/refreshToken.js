@@ -7,7 +7,10 @@ const refreshTokenController = async (req, res) => {
     refresh_token: rfToken,
     client_id: clientId,
   } = req.headers;
-  const { store, jwt, t } = req;
+  const {
+    context: { store, jwt },
+    t,
+  } = req;
 
   try {
     const expiredToken = jwt.decode(authorization);

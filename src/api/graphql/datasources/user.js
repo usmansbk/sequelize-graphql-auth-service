@@ -3,10 +3,6 @@ import { ROLES_ALIAS } from "~constants/models";
 import SequelizeDataSource from "./SequelizeDataSource";
 
 export default class UserDS extends SequelizeDataSource {
-  currentUser() {
-    return this.findByPk(this.context.tokenInfo?.sub);
-  }
-
   async findByEmailAndPassword({ email, password }) {
     const user = await this.findOne({
       where: {
