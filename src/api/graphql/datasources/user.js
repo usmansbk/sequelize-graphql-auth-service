@@ -83,7 +83,7 @@ export default class UserDS extends SequelizeDataSource {
   }
 
   updateCurrentUser(fields) {
-    return this.update(this.context.tokenInfo.sub, fields);
+    return this.update(this.context.currentUser.id, fields);
   }
 
   verifyEmail(id) {
