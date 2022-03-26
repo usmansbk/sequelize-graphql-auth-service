@@ -36,7 +36,7 @@ export default {
       const query = {};
 
       if (cursor) {
-        query.cursor = {
+        query[order] = {
           [Op.gt]: cursor,
         };
       }
