@@ -79,7 +79,7 @@ const uploadAvatar = async (req, res) => {
           key,
         } = req.file;
 
-        const file = {
+        const avatar = {
           key,
           bucket,
           name,
@@ -91,11 +91,11 @@ const uploadAvatar = async (req, res) => {
           files.remove(user.avatar);
         }
 
-        await user.update({ avatar: file });
+        await user.update({ avatar });
 
         res.send({
           success: true,
-          avatar: file,
+          avatar,
         });
       } catch (error) {
         if (req.file) {
