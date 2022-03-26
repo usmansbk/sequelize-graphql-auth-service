@@ -1,3 +1,7 @@
+type Query {
+  permissions(page: ListPage): PermissionList! @auth
+}
+
 type Permission {
   id: ID!
   name: String!

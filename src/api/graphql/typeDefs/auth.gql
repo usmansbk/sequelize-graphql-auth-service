@@ -8,6 +8,8 @@ type Mutation {
   resetPassword(input: PasswordResetInput!): AuthFormMutationResponse!
   deleteAccount(token: String!): AuthMutationResponse!
   logout(all: Boolean): AuthMutationResponse!
+
+  loginToAdmin(input: AdminLoginInput!): AuthMutationResponse!
 }
 
 enum SocialProvider {

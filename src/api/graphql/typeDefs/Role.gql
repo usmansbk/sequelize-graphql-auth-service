@@ -1,3 +1,7 @@
+type Query {
+  roles(page: ListPage): RoleList! @auth
+}
+
 type Role {
   id: ID!
   name: AuthRole!
