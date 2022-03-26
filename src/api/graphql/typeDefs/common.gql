@@ -102,11 +102,15 @@ interface Edge {
   cursor: ID!
 }
 
+input Order {
+  field: String!
+  direction: OrderDirection!
+}
+
 input ListPage {
   limit: Int = 100
   cursor: ID
-  order: String
-  direction: OrderDirection
+  order: [Order]
 }
 
 interface List {
