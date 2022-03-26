@@ -6,7 +6,7 @@ import {
 } from "sequelize";
 import { DataSource } from "apollo-datasource";
 import DataLoader from "dataloader";
-import formatErrors from "~utils/errors/formatErrors";
+import formatErrors from "~utils/formatErrors";
 import FieldErrors from "~utils/errors/FieldErrors";
 import QueryError from "~utils/errors/QueryError";
 import { FIELD_ERRORS, ITEM_NOT_FOUND } from "~helpers/constants/i18n";
