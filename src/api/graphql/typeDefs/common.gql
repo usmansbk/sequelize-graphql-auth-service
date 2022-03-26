@@ -2,6 +2,8 @@ scalar Date
 scalar DateTime
 scalar URL
 scalar EmailAddress
+scalar PhoneNumber
+scalar Locale
 
 enum ImageResizeMode {
   cover

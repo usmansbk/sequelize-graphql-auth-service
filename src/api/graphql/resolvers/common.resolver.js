@@ -1,12 +1,20 @@
-import { EmailAddressResolver, URLResolver } from "graphql-scalars";
-import { GraphQLDate, GraphQLDateTime } from "graphql-iso-date";
+import {
+  EmailAddressResolver,
+  URLResolver,
+  DateResolver,
+  DateTimeResolver,
+  PhoneNumberResolver,
+  LocaleResolver,
+} from "graphql-scalars";
 import { getImageUrl } from "~helpers/links";
 
 export default {
-  Date: GraphQLDate,
-  DateTime: GraphQLDateTime,
+  Date: DateResolver,
+  DateTime: DateTimeResolver,
   EmailAddress: EmailAddressResolver,
   URL: URLResolver,
+  PhoneNumber: PhoneNumberResolver,
+  Locale: LocaleResolver,
   Photo: {
     url(parent, { resize }) {
       return getImageUrl(parent, resize);

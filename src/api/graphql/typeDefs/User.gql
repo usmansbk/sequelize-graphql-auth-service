@@ -20,11 +20,11 @@ type User {
   fullName: String!
   username: String
   email: EmailAddress! @auth(rules: [{ allow: owner, identityClaim: "id" }])
-  phoneNumber: String @auth(rules: [{ allow: owner, identityClaim: "id" }])
+  phoneNumber: PhoneNumber @auth(rules: [{ allow: owner, identityClaim: "id" }])
   picture: Photo
   socialAvatarURL: URL
   isOwner: Boolean!
-  language: Language!
+  language: Locale!
   emailVerified: Boolean!
   phoneNumberVerified: Boolean!
   roles: [Role]!
@@ -55,16 +55,16 @@ input CreateUserInput {
   username: String
   email: EmailAddress!
   password: String!
-  phoneNumber: String
-  language: Language = en
+  phoneNumber: PhoneNumber
+  language: Locale
 }
 
 input UpdateProfileInput {
   firstName: String
   lastName: String
   username: String
-  phoneNumber: String
-  language: Language
+  phoneNumber: PhoneNumber
+  language: Locale
 }
 
 # Pagination
