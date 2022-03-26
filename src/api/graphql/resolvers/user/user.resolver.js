@@ -1,3 +1,4 @@
+import { Op } from "sequelize";
 import { Fail, Success } from "~helpers/response";
 import QueryError from "~utils/errors/QueryError";
 
@@ -24,9 +25,28 @@ export default {
         throw e;
       }
     },
-    async users(_parent, _args, { dataSources }) {
-      const items = await dataSources.users.findAll();
-      const totalCount = items.length;
+    async users(_parent, { page }, { dataSources, db }) {
+      const {
+        limit,
+        order = "createdAt",
+        direction = "ASC",
+        cursor,
+      } = page || {};
+
+      const query = {};
+
+      if (cursor) {
+        query.cursor = {
+          [Op.gt]: cursor,
+        };
+      }
+
+      const items = await dataSources.users.findAll({
+        limit,
+        order: [[order, direction]],
+        where: { ...query },
+      });
+      const totalCount = await db.User.count();
 
       return {
         items,
