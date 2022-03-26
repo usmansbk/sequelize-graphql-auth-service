@@ -1,13 +1,13 @@
 import { gql } from "apollo-server-express";
 import db from "~db/models";
 import store from "~utils/store";
-import files from "~utils/files";
+import fileStorage from "~utils/fileStorage";
 import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
 import auth from "tests/support/auth";
 import { DELETE_ACCOUNT_KEY_PREFIX } from "~constants/auth";
 
-files.remove = jest.fn();
+fileStorage.remove = jest.fn();
 
 const query = gql`
   mutation DeleteAccount($token: String!) {
@@ -70,7 +70,7 @@ describe("Mutation.deleteAccount", () => {
       },
     });
 
-    expect(files.remove).toBeCalledTimes(1);
+    expect(fileStorage.remove).toBeCalledTimes(1);
     expect(res.data?.deleteAccount).toEqual({
       code: "AccountDeleted",
       message: "AccountDeleted",

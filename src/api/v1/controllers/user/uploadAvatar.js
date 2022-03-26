@@ -19,7 +19,7 @@ import {
 const { S3_BUCKET } = process.env;
 
 const upload = multer({
-  storage: multerS3({
+  fileStorage: multerS3({
     s3,
     bucket: S3_BUCKET,
     contentType: multerS3.AUTO_CONTENT_TYPE,
@@ -44,7 +44,7 @@ const upload = multer({
 
 const uploadAvatar = async (req, res) => {
   upload(req, res, async (err) => {
-    const { user, files, t } = req;
+    const { user, fileStorage, t } = req;
 
     if (err instanceof multer.MulterError) {
       let { message } = err;
@@ -86,7 +86,7 @@ const uploadAvatar = async (req, res) => {
         };
 
         if (user.avatar) {
-          files.remove(user.avatar);
+          fileStorage.remove(user.avatar);
         }
 
         await user.update({ avatar });
@@ -97,7 +97,7 @@ const uploadAvatar = async (req, res) => {
         });
       } catch (error) {
         if (req.file) {
-          files.remove(req.file);
+          fileStorage.remove(req.file);
         }
 
         res.status(400).send({

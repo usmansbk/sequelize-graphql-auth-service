@@ -4,7 +4,7 @@ import db from "~db/models";
 import log from "~utils/logger";
 import store from "~utils/store";
 import mailer from "~utils/mailer";
-import files from "~utils/files";
+import fileStorage from "~utils/fileStorage";
 
 const contextMiddleware = async (req, _res, next) => {
   const { authorization, client_id: clientId } = req.headers;
@@ -28,9 +28,9 @@ const contextMiddleware = async (req, _res, next) => {
 
   req.db = db;
   req.otp = otp;
-  req.store = store;
   req.jwt = jwt;
-  req.files = files;
+  req.store = store;
+  req.fileStorage = fileStorage;
   req.tokenInfo = tokenInfo;
   req.sessionId = sessionId;
   req.clientId = clientId;

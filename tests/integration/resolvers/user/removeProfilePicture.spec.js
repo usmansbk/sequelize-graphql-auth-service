@@ -1,10 +1,10 @@
 import { gql } from "apollo-server-express";
 import db from "~db/models";
-import files from "~utils/files";
+import fileStorage from "~utils/fileStorage";
 import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
 
-files.remove = jest.fn();
+fileStorage.remove = jest.fn();
 
 const query = gql`
   mutation RemoveProfilePicture {
@@ -43,7 +43,7 @@ describe("Mutation.removeProfilePicture", () => {
       },
       { tokenInfo: { sub: user.id } }
     );
-    expect(files.remove).toBeCalled();
+    expect(fileStorage.remove).toBeCalled();
     expect(res.data.removeProfilePicture).toEqual({
       code: "Success",
       message: "Success",

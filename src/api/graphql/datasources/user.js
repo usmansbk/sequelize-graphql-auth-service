@@ -52,7 +52,7 @@ export default class UserDS extends SequelizeDataSource {
 
   onDestroy({ oldImage }) {
     if (oldImage.avatar) {
-      this.context.files.remove(oldImage.avatar);
+      this.context.fileStorage.remove(oldImage.avatar);
     }
   }
 
@@ -102,7 +102,7 @@ export default class UserDS extends SequelizeDataSource {
     const user = await this.findByPk(id);
 
     if (user?.avatar) {
-      this.context.files.remove(user.avatar);
+      this.context.fileStorage.remove(user.avatar);
     }
 
     return this.update(id, { avatar: null });
