@@ -20,7 +20,7 @@ const createApolloTestServer = () => {
         store,
         files,
         mailer,
-        clientId: process.env.TEST_CLIENT_ID,
+        clientId: process.env.CLIENT_ID,
         ...extraOptions,
       };
     },

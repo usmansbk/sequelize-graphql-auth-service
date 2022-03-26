@@ -27,7 +27,7 @@ describe("Mutation.resetPassword", () => {
     user = await db.User.create(attributes.user());
     const result = jwt.generateToken({
       sub: user.id,
-      aud: process.env.TEST_CLIENT_ID,
+      aud: process.env.CLIENT_ID,
     });
     token = result.token;
     await store.set({

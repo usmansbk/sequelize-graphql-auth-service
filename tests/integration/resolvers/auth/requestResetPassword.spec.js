@@ -1,8 +1,8 @@
 import { gql } from "apollo-server-express";
-import db from "~db/models";
 import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
 import mailer from "~utils/mailer";
+import db from "~db/models";
 
 jest.mock("~utils/mailer", () => {
   return {
@@ -11,7 +11,7 @@ jest.mock("~utils/mailer", () => {
 });
 
 const query = gql`
-  mutation RequestPasswordReset($email: String!) {
+  mutation RequestPasswordReset($email: EmailAddress!) {
     requestPasswordReset(email: $email) {
       success
       message
