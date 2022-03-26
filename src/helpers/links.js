@@ -10,7 +10,7 @@ export const getImageUrl = (file, resize) => {
     },
   };
 
-  return `${CLOUDFRONT_API_ENDPOINT}${btoa(JSON.stringify(imageRequest))}`;
+  return `${CLOUDFRONT_API_ENDPOINT}/${btoa(JSON.stringify(imageRequest))}`;
 };
 
 const links = {
