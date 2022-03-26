@@ -48,14 +48,16 @@ describe("Mutation.registerWithEmail", () => {
     const existingUser = await db.User.create(
       attributes.user({ emailVerified: true })
     );
-    const {
-      data: { registerWithEmail },
-    } = await server.executeOperation({
+
+    const res = await server.executeOperation({
       query,
       variables: {
         input: attributes.user({ email: existingUser.email }),
       },
     });
+    const {
+      data: { registerWithEmail },
+    } = res;
     expect(registerWithEmail.message).toMatch("SignUpFailed");
     expect(registerWithEmail.errors).toEqual([
       { field: "email", message: "UserEmailUnavailableError" },
@@ -64,14 +66,15 @@ describe("Mutation.registerWithEmail", () => {
 
   test("should register a new user if the email is taken but unverified", async () => {
     const existingUser = await db.User.create(attributes.user());
-    const {
-      data: { registerWithEmail },
-    } = await server.executeOperation({
+    const res = await server.executeOperation({
       query,
       variables: {
         input: attributes.user({ email: existingUser.email }),
       },
     });
+    const {
+      data: { registerWithEmail },
+    } = res;
     expect(registerWithEmail.message).toMatch("WelcomeNewUser");
     expect(registerWithEmail.accessToken).toBeDefined();
     expect(registerWithEmail.refreshToken).toBeDefined();
