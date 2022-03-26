@@ -19,7 +19,9 @@ const contextMiddleware = async (req, _res, next) => {
       tokenInfo = jwt.verify(accessToken);
       sessionId = await store.get(`${clientId}:${tokenInfo.sub}`);
       user = await db.User.findByPk(tokenInfo.sub);
-      await req.i18n.changeLanguage(user?.language);
+      if (user?.language) {
+        await req.i18n.changeLanguage(user?.language);
+      }
     } catch (e) {
       log.warn(e.message);
     }
