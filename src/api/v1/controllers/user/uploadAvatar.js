@@ -18,7 +18,7 @@ import {
 
 const { S3_BUCKET } = process.env;
 
-const uploadProfilePicture = multer({
+const upload = multer({
   storage: multerS3({
     s3,
     bucket: S3_BUCKET,
@@ -40,9 +40,7 @@ const uploadProfilePicture = multer({
       cb(null, true);
     }
   },
-});
-
-const upload = uploadProfilePicture.single("avatar");
+}).single("avatar");
 
 const uploadAvatar = async (req, res) => {
   upload(req, res, async (err) => {
