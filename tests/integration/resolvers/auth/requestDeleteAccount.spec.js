@@ -46,23 +46,15 @@ describe("Mutation.requestDeleteAccount", () => {
   });
 
   test("should send email only when previous link is used or expired", async () => {
-    const user = await db.User.create(attributes.user());
+    const currentUser = await db.User.create(attributes.user());
     const NUMBER_OF_REQUESTS = 2;
 
-    const requests = new Array(NUMBER_OF_REQUESTS).fill(user).map(
-      (currentUser) =>
-        new Promise((resolve) => {
-          server
-            .executeOperation(
-              { query },
-              { tokenInfo: { sub: currentUser.id }, currentUser }
-            )
-            .then(({ data: { requestDeleteAccount } }) => {
-              resolve(requestDeleteAccount.success);
-            });
-        })
-    );
-    await Promise.all(requests);
+    for (let i = 0; i < NUMBER_OF_REQUESTS; i++) {
+      await server.executeOperation(
+        { query },
+        { tokenInfo: { sub: currentUser.id }, currentUser }
+      );
+    }
     expect(mailer.sendEmail).toBeCalledTimes(1);
   });
 
