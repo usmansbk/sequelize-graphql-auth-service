@@ -36,8 +36,9 @@ export default {
       const query = {};
 
       if (cursor) {
+        const operation = direction === "ASC" ? Op.gt : Op.lt;
         query[order] = {
-          [Op.gt]: cursor,
+          [operation]: cursor,
         };
       }
 
