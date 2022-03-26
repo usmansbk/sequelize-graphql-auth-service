@@ -7,10 +7,11 @@ import mailer from "~utils/mailer";
 import files from "~utils/files";
 
 const contextMiddleware = async (req, _res, next) => {
-  const { authorization: accessToken, client_id: clientId } = req.headers;
+  const { authorization, client_id: clientId } = req.headers;
 
   let tokenInfo;
   let sessionId;
+  const accessToken = authorization?.split(" ")[1];
 
   if (accessToken) {
     try {
