@@ -1,5 +1,7 @@
 scalar Date
 scalar DateTime
+scalar URL
+scalar EmailAddress
 
 enum ImageResizeMode {
   cover
@@ -30,7 +32,6 @@ input ImageResizeInput {
   width: Int!
   height: Int!
   fit: ImageResizeMode
-  thumbnailSize: Int = 32
 }
 
 type RequestResponse implements Response {
@@ -52,8 +53,8 @@ type FieldError {
 }
 
 type Photo {
-  url: String!
-  thumbnail: String
+  url(resize: ImageResizeInput): URL!
+  thumbnail(resize: ImageResizeInput): URL
 }
 
 type File {

@@ -19,9 +19,10 @@ type User {
   lastName: String!
   fullName: String!
   username: String
-  email: String! @auth(rules: [{ allow: owner, identityClaim: "id" }])
+  email: EmailAddress! @auth(rules: [{ allow: owner, identityClaim: "id" }])
   phoneNumber: String @auth(rules: [{ allow: owner, identityClaim: "id" }])
-  picture(resize: ImageResizeInput): Photo
+  picture: Photo
+  socialAvatarURL: URL
   isOwner: Boolean!
   language: Language!
   emailVerified: Boolean!
@@ -52,7 +53,7 @@ input CreateUserInput {
   firstName: String!
   lastName: String!
   username: String
-  email: String!
+  email: EmailAddress!
   password: String!
   phoneNumber: String
   language: Language = en

@@ -21,7 +21,7 @@ input AdminLoginInput {
 }
 
 input EmailLoginInput {
-  email: String!
+  email: EmailAddress!
   password: String!
 }
 

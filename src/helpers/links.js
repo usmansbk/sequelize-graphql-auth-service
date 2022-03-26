@@ -1,17 +1,8 @@
 import btoa from "btoa";
-import { MIN_THUMBNAIL_SIZE } from "~constants/files";
 
 const { HOST, CLOUDFRONT_API_ENDPOINT } = process.env;
 
-const links = {
-  verifyEmail: (token) => `${HOST}/verify_email?token=${token}`,
-  resetPassword: (token) => `${HOST}/reset_password?token=${token}`,
-  deleteAccount: (token) => `${HOST}/delete_account?token=${token}`,
-  imageUrl: (imageRequest) =>
-    `${CLOUDFRONT_API_ENDPOINT}${btoa(JSON.stringify(imageRequest))}`,
-};
-
-export const getPhotoLinks = (file, resize) => {
+export const getImageUrl = (file, resize) => {
   const imageRequest = {
     ...file,
     edits: {
@@ -19,23 +10,14 @@ export const getPhotoLinks = (file, resize) => {
     },
   };
 
-  const size = resize
-    ? Math.max(MIN_THUMBNAIL_SIZE, resize.thumbnailSize)
-    : MIN_THUMBNAIL_SIZE;
-  const thumbnailRequest = {
-    ...imageRequest,
-    edits: {
-      resize: {
-        width: size,
-        height: size,
-      },
-    },
-  };
+  return `${CLOUDFRONT_API_ENDPOINT}${btoa(JSON.stringify(imageRequest))}`;
+};
 
-  return {
-    url: links.imageUrl(imageRequest),
-    thumbnail: links.imageUrl(thumbnailRequest),
-  };
+const links = {
+  verifyEmail: (token) => `${HOST}/verify_email?token=${token}`,
+  resetPassword: (token) => `${HOST}/reset_password?token=${token}`,
+  deleteAccount: (token) => `${HOST}/delete_account?token=${token}`,
+  getImageUrl,
 };
 
 export default links;
