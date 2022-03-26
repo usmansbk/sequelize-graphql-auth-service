@@ -16,6 +16,7 @@ app.use(rateLimiter);
 app.use("/v1", v1);
 
 if (app.get("env") === "production") {
+  // https://www.npmjs.com/package/express-rate-limit
   app.set("trust proxy", 1);
 }
 
