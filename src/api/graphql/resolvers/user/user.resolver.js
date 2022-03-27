@@ -37,23 +37,46 @@ export default {
       const paginationQuery = {};
 
       if (cursor) {
-        const { value } = JSON.parse(atob(cursor));
+        const { value, createdAt } = JSON.parse(atob(cursor));
         const operation = sort === "ASC" ? Op.gte : Op.lte;
-        paginationQuery[field] = {
-          [operation]: value,
-        };
+        paginationQuery[Op.and] = [
+          {
+            [field]: {
+              [operation]: value,
+            },
+          },
+          {
+            [Op.or]: [
+              {
+                [field]: {
+                  [operation]: value,
+                },
+              },
+              {
+                createdAt: {
+                  [operation]: createdAt,
+                },
+              },
+            ],
+          },
+        ];
       }
 
       const { rows, count } = await dataSources.users.findAndCountAll({
         limit: limit + 1,
-        order: [[field, sort]],
+        order: [
+          [field, sort],
+          ["createdAt", sort],
+        ],
         where: { ...paginationQuery },
       });
 
       let nextCursor;
       const next = rows[limit];
       if (next) {
-        nextCursor = btoa(JSON.stringify({ value: next[field] }));
+        nextCursor = btoa(
+          JSON.stringify({ value: next[field], createdAt: next.createdAt })
+        );
       }
 
       return {
