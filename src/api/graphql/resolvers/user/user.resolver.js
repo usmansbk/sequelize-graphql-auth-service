@@ -30,18 +30,22 @@ export default {
     async users(_parent, { page }, { dataSources }) {
       const {
         limit,
-        order: { field = "createdAt", sort = "ASC" } = {},
+        order: { field = "username", sort = "ASC" } = {},
         cursor,
       } = page || {};
 
       const paginationQuery = {};
 
       if (cursor) {
-        const [value] = atob(cursor).split(" ");
+        const { value } = JSON.parse(atob(cursor));
         const operation = sort === "ASC" ? Op.gt : Op.lt;
-        paginationQuery[field] = {
-          [operation]: value,
-        };
+        paginationQuery[Op.and] = [
+          {
+            [field]: {
+              [operation]: value,
+            },
+          },
+        ];
       }
 
       const { rows, count } = await dataSources.users.findAndCountAll({
@@ -56,7 +60,7 @@ export default {
 
       let nextCursor;
       if (last) {
-        nextCursor = btoa(`${last[field]} ${last.id}`);
+        nextCursor = btoa(JSON.stringify({ value: last[field], id: last.id }));
       }
 
       return {
