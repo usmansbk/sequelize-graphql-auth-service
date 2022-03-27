@@ -16,25 +16,19 @@ export const getPaginationQuery = (order, cursor) => {
 
   const operation = sort === "ASC" ? Op.gt : Op.lt;
   const paginationQuery = {
-    [Op.and]: [
+    [field]: {
+      [operation]: last[field],
+    },
+    [Op.or]: [
       {
         [field]: {
           [operation]: last[field],
         },
       },
       {
-        [Op.or]: [
-          {
-            [field]: {
-              [operation]: last[field],
-            },
-          },
-          {
-            createdAt: {
-              [operation]: last.createdAt,
-            },
-          },
-        ],
+        createdAt: {
+          [operation]: last.createdAt,
+        },
       },
     ],
   };
