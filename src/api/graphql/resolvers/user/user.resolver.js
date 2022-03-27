@@ -48,7 +48,7 @@ export default {
       });
 
       let nextCursor;
-      const next = rows[limit];
+      const next = rows[limit - 1];
       if (next) {
         nextCursor = getNextCursor({
           [field]: next[field],
@@ -61,7 +61,7 @@ export default {
         totalCount: count,
         pageInfo: {
           nextCursor,
-          hasNextPage: !!nextCursor,
+          hasNextPage: rows.length > limit,
         },
       };
     },
