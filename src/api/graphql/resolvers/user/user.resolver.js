@@ -26,7 +26,11 @@ export default {
       }
     },
     async users(_parent, { page }, { dataSources, db }) {
-      const { limit, order: { field, sort } = {}, cursor } = page || {};
+      const {
+        limit,
+        order: { field = "createdAt", sort = "ASC" } = {},
+        cursor,
+      } = page || {};
 
       const query = {};
 
