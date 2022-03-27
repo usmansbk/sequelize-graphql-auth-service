@@ -72,6 +72,6 @@ input UpdateProfileInput {
 
 type UserList implements List {
   items: [User]!
-  nextCursor: ID
   totalCount: Int!
+  pageInfo: PageInfo!
 }

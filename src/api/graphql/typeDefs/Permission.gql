@@ -14,8 +14,8 @@ type Permission {
 
 type PermissionList implements List {
   items: [Permission]!
-  nextCursor: ID
   totalCount: Int!
+  pageInfo: PageInfo!
 }
 
 enum PermissionResource {

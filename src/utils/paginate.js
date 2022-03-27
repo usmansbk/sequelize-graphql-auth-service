@@ -1,12 +1,43 @@
 import btoa from "btoa";
 import atob from "atob";
+import { Op } from "sequelize";
 
 export const getNextCursor = (data = {}) => btoa(JSON.stringify(data));
 
-export const parseCursor = (cursor) => JSON.parse(atob(cursor));
+const parseCursor = (cursor) => JSON.parse(atob(cursor));
 
 /**
- * Based on
- * [MySQL cursor based pagination with multiple columns](https://stackoverflow.com/questions/38017054/mysql-cursor-based-pagination-with-multiple-columns/38017813)
+ * Based on "MySQL cursor based pagination with multiple columns"
+ * https://stackoverflow.com/questions/38017054/mysql-cursor-based-pagination-with-multiple-columns/38017813
  */
-export const paginate = () => {};
+export const getPaginationQuery = (order, cursor) => {
+  const { field, sort } = order;
+  const last = parseCursor(cursor);
+
+  const operation = sort === "ASC" ? Op.gt : Op.lt;
+  const paginationQuery = {
+    [Op.and]: [
+      {
+        [field]: {
+          [operation]: last[field],
+        },
+      },
+      {
+        [Op.or]: [
+          {
+            [field]: {
+              [operation]: last[field],
+            },
+          },
+          {
+            createdAt: {
+              [operation]: last.createdAt,
+            },
+          },
+        ],
+      },
+    ],
+  };
+
+  return paginationQuery;
+};

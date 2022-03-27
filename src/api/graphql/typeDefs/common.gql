@@ -86,7 +86,12 @@ input ListPage {
   order: ListPageOrder
 }
 
-interface List {
+type PageInfo {
   nextCursor: ID
+  hasNextPage: Boolean!
+}
+
+interface List {
   totalCount: Int!
+  pageInfo: PageInfo!
 }

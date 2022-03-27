@@ -16,6 +16,6 @@ type Role {
 
 type RoleList implements List {
   items: [Role]!
-  nextCursor: ID
   totalCount: Int!
+  pageInfo: PageInfo!
 }
