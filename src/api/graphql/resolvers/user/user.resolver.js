@@ -30,7 +30,7 @@ export default {
     async users(_parent, { page }, { dataSources }) {
       const {
         limit,
-        order: { field = "username", sort = "ASC" } = {},
+        order: { field = "createdAt", sort = "ASC" } = {},
         cursor,
       } = page || {};
 
