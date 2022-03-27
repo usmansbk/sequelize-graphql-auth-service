@@ -1,4 +1,6 @@
 import { Op } from "sequelize";
+import btoa from "btoa";
+import atob from "atob";
 import { Fail, Success } from "~helpers/response";
 import QueryError from "~utils/errors/QueryError";
 
@@ -25,42 +27,41 @@ export default {
         throw e;
       }
     },
-    async users(_parent, { page }, { dataSources, db }) {
+    async users(_parent, { page }, { dataSources }) {
       const {
         limit,
         order: { field = "createdAt", sort = "ASC" } = {},
         cursor,
       } = page || {};
 
-      const query = {};
+      const paginationQuery = {};
 
       if (cursor) {
+        const [value] = atob(cursor).split(" ");
         const operation = sort === "ASC" ? Op.gt : Op.lt;
-        query[field] = {
-          [operation]: cursor,
+        paginationQuery[field] = {
+          [operation]: value,
         };
       }
 
-      const items = await dataSources.users.findAll({
+      const { rows, count } = await dataSources.users.findAndCountAll({
         limit,
         order: [
           [field, sort],
           ["id", sort],
         ],
+        where: { ...paginationQuery },
       });
-      const totalCount = await db.User.count();
-      let nextCursor;
+      const last = rows[limit - 1];
 
-      const last = items[items.length - 1];
+      let nextCursor;
       if (last) {
-        nextCursor = Buffer.from(`${last[field]}_${last.id}`).toString(
-          "base64"
-        );
+        nextCursor = btoa(`${last[field]} ${last.id}`);
       }
 
       return {
-        items,
-        totalCount,
+        items: rows,
+        totalCount: count,
         nextCursor,
       };
     },
