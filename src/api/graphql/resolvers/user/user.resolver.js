@@ -50,10 +50,7 @@ export default {
       let nextCursor;
       const next = rows[limit - 1];
       if (next) {
-        nextCursor = getNextCursor({
-          [field]: next[field],
-          createdAt: next.createdAt,
-        });
+        nextCursor = getNextCursor(order, next);
       }
 
       return {

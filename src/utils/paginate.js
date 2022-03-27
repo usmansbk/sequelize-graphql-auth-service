@@ -2,7 +2,14 @@ import btoa from "btoa";
 import atob from "atob";
 import { Op } from "sequelize";
 
-export const getNextCursor = (data = {}) => btoa(JSON.stringify(data));
+export const getNextCursor = (order, next) => {
+  const { field } = order;
+  const data = {
+    [field]: next[field],
+    createdAt: next.createdAt,
+  };
+  return btoa(JSON.stringify(data));
+};
 
 const parseCursor = (cursor) => JSON.parse(atob(cursor));
 
