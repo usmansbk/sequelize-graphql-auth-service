@@ -11,7 +11,7 @@ const contextMiddleware = async (req, _res, next) => {
 
   let tokenInfo;
   let sessionId;
-  const accessToken = authorization?.split(" ")[1];
+  const accessToken = authorization?.split(" ")?.[1];
   let currentUser;
 
   if (accessToken) {
