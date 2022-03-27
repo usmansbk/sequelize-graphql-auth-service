@@ -11,7 +11,17 @@ export const getNextCursor = (order, next) => {
   return btoa(JSON.stringify(data));
 };
 
-const parseCursor = (cursor) => JSON.parse(atob(cursor));
+export const parseCursor = (cursor) => JSON.parse(atob(cursor));
+
+export const ensureOrder = (order) => {
+  const defaultOrder = [["createdAt", "ASC"]];
+  if (!order) {
+    return defaultOrder;
+  }
+
+  const { field, sort } = order;
+  return [[field, sort], ...defaultOrder];
+};
 
 /**
  * Based on "MySQL cursor based pagination with multiple columns"
