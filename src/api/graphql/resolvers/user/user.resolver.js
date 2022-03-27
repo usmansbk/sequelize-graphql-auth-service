@@ -38,30 +38,26 @@ export default {
 
       if (cursor) {
         const { value } = JSON.parse(atob(cursor));
-        const operation = sort === "ASC" ? Op.gt : Op.lt;
-        paginationQuery[Op.and] = [
-          {
-            [field]: {
-              [operation]: value,
-            },
-          },
-        ];
+        const operation = sort === "ASC" ? Op.gte : Op.lte;
+        paginationQuery[field] = {
+          [operation]: value,
+        };
       }
 
       const { rows, count } = await dataSources.users.findAndCountAll({
-        limit,
+        limit: limit + 1,
         order: [[field, sort]],
         where: { ...paginationQuery },
       });
-      const last = rows[limit - 1];
 
       let nextCursor;
-      if (last) {
-        nextCursor = btoa(JSON.stringify({ value: last[field] }));
+      const next = rows[limit];
+      if (next) {
+        nextCursor = btoa(JSON.stringify({ value: next[field] }));
       }
 
       return {
-        items: rows,
+        items: rows.slice(0, limit),
         totalCount: count,
         nextCursor,
       };
