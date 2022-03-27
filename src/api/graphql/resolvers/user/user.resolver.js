@@ -43,13 +43,25 @@ export default {
 
       const items = await dataSources.users.findAll({
         limit,
-        order: [[field, sort]],
+        order: [
+          [field, sort],
+          ["id", sort],
+        ],
       });
       const totalCount = await db.User.count();
+      let nextCursor;
+
+      const last = items[items.length - 1];
+      if (last) {
+        nextCursor = Buffer.from(`${last[field]}_${last.id}`).toString(
+          "base64"
+        );
+      }
 
       return {
         items,
         totalCount,
+        nextCursor,
       };
     },
   },
