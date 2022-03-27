@@ -50,17 +50,14 @@ export default {
 
       const { rows, count } = await dataSources.users.findAndCountAll({
         limit,
-        order: [
-          [field, sort],
-          ["id", sort],
-        ],
+        order: [[field, sort]],
         where: { ...paginationQuery },
       });
       const last = rows[limit - 1];
 
       let nextCursor;
       if (last) {
-        nextCursor = btoa(JSON.stringify({ value: last[field], id: last.id }));
+        nextCursor = btoa(JSON.stringify({ value: last[field] }));
       }
 
       return {
