@@ -28,7 +28,7 @@ const authDirectiveTransformer = (schema, directiveName) => {
           const { tokenInfo, sessionId, currentUser } = context;
           const isLoggedIn = tokenInfo && tokenInfo.sid === sessionId;
 
-          if (!(isLoggedIn && currentUser)) {
+          if (!(currentUser && isLoggedIn)) {
             throw new AuthenticationError(UNAUTHENTICATED);
           }
 

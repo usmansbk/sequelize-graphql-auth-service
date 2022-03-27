@@ -6,7 +6,7 @@ const authMiddleware = async (req, _res, next) => {
     const { tokenInfo, sessionId, currentUser } = req.context;
     const isLoggedIn = tokenInfo && tokenInfo.sid === sessionId;
 
-    if (!(isLoggedIn && currentUser)) {
+    if (!(currentUser && isLoggedIn)) {
       throw new AuthenticationError(UNAUTHENTICATED);
     }
     next();
