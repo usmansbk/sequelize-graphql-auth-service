@@ -77,11 +77,6 @@ type PageInfo {
   endCursor: ID
 }
 
-enum OrderDirection {
-  ASC
-  DESC
-}
-
 """
 Including a value for both first and last is strongly discouraged,
 as it is likely to lead to confusing queries and results.
@@ -102,9 +97,14 @@ interface Edge {
   cursor: ID!
 }
 
+enum Sort {
+  ASC
+  DESC
+}
+
 input Order {
-  column: String!
-  direction: OrderDirection!
+  field: String!
+  sort: Sort!
 }
 
 input ListPage {

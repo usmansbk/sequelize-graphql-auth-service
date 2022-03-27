@@ -26,20 +26,20 @@ export default {
       }
     },
     async users(_parent, { page }, { dataSources, db }) {
-      const { limit, order: { column, direction } = {}, cursor } = page || {};
+      const { limit, order: { field, sort } = {}, cursor } = page || {};
 
       const query = {};
 
       if (cursor) {
-        const operation = direction === "ASC" ? Op.gt : Op.lt;
-        query[column] = {
+        const operation = sort === "ASC" ? Op.gt : Op.lt;
+        query[field] = {
           [operation]: cursor,
         };
       }
 
       const items = await dataSources.users.findAll({
         limit,
-        order: [[column, direction]],
+        order: [[field, sort]],
       });
       const totalCount = await db.User.count();
 
