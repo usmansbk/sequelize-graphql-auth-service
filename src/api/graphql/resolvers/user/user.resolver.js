@@ -1,8 +1,7 @@
 import { Op } from "sequelize";
-import btoa from "btoa";
-import atob from "atob";
 import { Fail, Success } from "~helpers/response";
 import QueryError from "~utils/errors/QueryError";
+import { getNextCursor, parseCursor } from "~utils/paginate";
 
 export default {
   User: {
@@ -37,24 +36,25 @@ export default {
       const paginationQuery = {};
 
       if (cursor) {
-        const { value, createdAt } = JSON.parse(atob(cursor));
+        const last = parseCursor(cursor);
         const operation = sort === "ASC" ? Op.gte : Op.lte;
+
         paginationQuery[Op.and] = [
           {
             [field]: {
-              [operation]: value,
+              [operation]: last[field],
             },
           },
           {
             [Op.or]: [
               {
                 [field]: {
-                  [operation]: value,
+                  [operation]: last[field],
                 },
               },
               {
                 createdAt: {
-                  [operation]: createdAt,
+                  [operation]: last.createdAt,
                 },
               },
             ],
@@ -74,9 +74,10 @@ export default {
       let nextCursor;
       const next = rows[limit];
       if (next) {
-        nextCursor = btoa(
-          JSON.stringify({ value: next[field], createdAt: next.createdAt })
-        );
+        nextCursor = getNextCursor({
+          [field]: next[field],
+          createdAt: next.createdAt,
+        });
       }
 
       return {
