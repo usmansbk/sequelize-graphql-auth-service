@@ -1,5 +1,6 @@
 import db from "~db/models";
 import log from "~utils/logger";
+import store from "~utils/store";
 import { PERMISSIONS_ALIAS } from "~constants/models";
 
 const permissions = [
@@ -47,6 +48,7 @@ const createSuperUser = async () => {
     });
     await admin.addRole(role);
     await sequelize.close();
+    store.close();
   } catch (e) {
     log.error(e);
   }
