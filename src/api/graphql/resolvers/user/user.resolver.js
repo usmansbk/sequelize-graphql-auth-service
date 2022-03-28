@@ -10,11 +10,15 @@ export default {
     isOwner(parent, _args, { tokenInfo }) {
       return parent.id === tokenInfo?.sub;
     },
+    roles(parent) {
+      return parent.getRoles();
+    },
   },
   Query: {
-    async me(_parent, _args, { t, currentUser }) {
+    async me(_parent, _args, { t, currentUser, dataSources }) {
       try {
-        return Success({ user: currentUser });
+        const user = await dataSources.users.findByPk(currentUser.id); // get updated user
+        return Success({ user });
       } catch (e) {
         if (e instanceof QueryError) {
           return Fail({

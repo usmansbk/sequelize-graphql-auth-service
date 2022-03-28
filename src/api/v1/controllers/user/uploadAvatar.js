@@ -92,7 +92,7 @@ const uploadAvatar = async (req, res) => {
           fileStorage.remove(currentUser.avatar);
         }
 
-        await currentUser.update({ avatar });
+        await currentUser.cache().update({ avatar });
 
         res.send({
           success: true,
