@@ -47,6 +47,7 @@ const uploadAvatar = async (req, res) => {
     const {
       context: { fileStorage, currentUser },
       t,
+      file,
     } = req;
 
     if (err instanceof multer.MulterError) {
@@ -68,7 +69,7 @@ const uploadAvatar = async (req, res) => {
       });
     } else {
       try {
-        if (!req.file) {
+        if (!file) {
           throw new UserInputError(NOTHING_TO_UPLOAD);
         }
 
@@ -78,7 +79,7 @@ const uploadAvatar = async (req, res) => {
           size,
           bucket,
           key,
-        } = req.file;
+        } = file;
 
         const avatar = {
           key,
@@ -99,8 +100,8 @@ const uploadAvatar = async (req, res) => {
           avatar,
         });
       } catch (error) {
-        if (req.file) {
-          fileStorage.remove(req.file);
+        if (file) {
+          fileStorage.remove(file);
         }
 
         res.status(400).send({
