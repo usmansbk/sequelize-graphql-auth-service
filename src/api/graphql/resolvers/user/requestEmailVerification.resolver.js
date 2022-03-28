@@ -40,7 +40,7 @@ export default {
             to: email,
           },
           locals: {
-            locale: currentUser.locale || locale,
+            locale,
             name: firstName,
             link: links.verifyEmail(token),
           },

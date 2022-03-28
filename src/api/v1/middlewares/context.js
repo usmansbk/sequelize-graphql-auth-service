@@ -18,9 +18,11 @@ const contextMiddleware = async (req, _res, next) => {
     try {
       tokenInfo = jwt.verify(accessToken);
       sessionId = await store.get(`${clientId}:${tokenInfo.sub}`);
-      currentUser = await db.User.scope("permissions").findByPk(tokenInfo.sub);
-      if (currentUser?.language) {
-        await req.i18n.changeLanguage(currentUser.language);
+      currentUser = await db.User.scope("permissions")
+        .cache()
+        .findByPk(tokenInfo.sub);
+      if (currentUser?.locale) {
+        await req.i18n.changeLanguage(currentUser.locale);
       }
     } catch (e) {
       log.warn(e.message);
@@ -39,6 +41,7 @@ const contextMiddleware = async (req, _res, next) => {
     mailer,
     accessToken,
     currentUser,
+    locale: currentUser?.locale || req.language,
   };
   next();
 };
