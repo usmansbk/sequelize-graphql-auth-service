@@ -14,7 +14,7 @@ export default {
       _args,
       { locale, store, t, jwt, clientId, mailer, currentUser }
     ) {
-      const { language, firstName, id, email, emailVerified } = currentUser;
+      const { firstName, id, email, emailVerified } = currentUser;
       const key = `${EMAIL_VERIFICATION_KEY_PREFIX}:${id}`;
 
       const sentToken = await store.get(key);
@@ -40,7 +40,7 @@ export default {
             to: email,
           },
           locals: {
-            locale: language || locale,
+            locale: currentUser.locale || locale,
             name: firstName,
             link: links.verifyEmail(token),
           },

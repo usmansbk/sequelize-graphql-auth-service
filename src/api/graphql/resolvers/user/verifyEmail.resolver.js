@@ -25,7 +25,7 @@ export default {
 
         await store.remove(key);
 
-        const { email, language, firstName } = user;
+        const { email, firstName } = user;
 
         mailer.sendEmail({
           template: emailTemplates.WELCOME,
@@ -33,7 +33,7 @@ export default {
             to: email,
           },
           locals: {
-            locale: language || locale,
+            locale: user.locale || locale,
             name: firstName,
           },
         });

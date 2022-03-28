@@ -12,7 +12,7 @@ export default {
       { locale, store, t, otp, mailer, currentUser }
     ) {
       try {
-        const { language, firstName, id, email, emailVerified } = currentUser;
+        const { firstName, id, email, emailVerified } = currentUser;
         const key = `${EMAIL_OTP_KEY_PREFIX}:${id}`;
         const sentToken = await store.get(key);
 
@@ -35,7 +35,7 @@ export default {
               to: email,
             },
             locals: {
-              locale: language || locale,
+              locale: currentUser.locale || locale,
               name: firstName,
               token,
             },

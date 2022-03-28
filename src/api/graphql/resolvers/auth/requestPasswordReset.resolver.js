@@ -21,7 +21,7 @@ export default {
       });
 
       if (user) {
-        const { language, firstName, id } = user;
+        const { firstName, id } = user;
         const key = `${PASSWORD_KEY_PREFIX}:${id}`;
         const sentToken = await store.get(key);
 
@@ -46,7 +46,7 @@ export default {
               to: email,
             },
             locals: {
-              locale: language || locale,
+              locale: user.locale || locale,
               name: firstName,
               link: links.resetPassword(token),
             },

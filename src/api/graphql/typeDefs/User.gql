@@ -25,7 +25,7 @@ type User {
   picture: Photo
   socialAvatarURL: URL
   isOwner: Boolean!
-  language: Locale!
+  locale: Locale!
   emailVerified: Boolean!
   phoneNumberVerified: Boolean!
   roles: [Role]!
@@ -57,7 +57,7 @@ input CreateUserInput {
   email: EmailAddress!
   password: String!
   phoneNumber: PhoneNumber
-  language: Locale
+  locale: Locale
 }
 
 input UpdateProfileInput {
@@ -65,7 +65,7 @@ input UpdateProfileInput {
   lastName: String
   username: String
   phoneNumber: PhoneNumber
-  language: Locale
+  locale: Locale
 }
 
 # Pagination

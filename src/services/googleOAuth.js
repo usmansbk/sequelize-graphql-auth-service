@@ -17,7 +17,7 @@ const verifyGoogleToken = async (idToken) => {
       email: payload.email,
       emailVerified: payload.email_verified,
       socialAvatarURL: payload.picture,
-      language: payload.locale,
+      locale: payload.locale,
     };
   } catch (e) {
     throw new TokenError(TOKEN_INVALID_ERROR, e);

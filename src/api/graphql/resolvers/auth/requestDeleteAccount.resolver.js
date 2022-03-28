@@ -14,7 +14,7 @@ export default {
       _args,
       { locale, store, t, jwt, clientId, mailer, currentUser }
     ) {
-      const { language, firstName, id, email } = currentUser;
+      const { firstName, id, email } = currentUser;
       const key = `${DELETE_ACCOUNT_KEY_PREFIX}:${id}`;
       const sentToken = await store.get(key);
 
@@ -39,7 +39,7 @@ export default {
             to: email,
           },
           locals: {
-            locale: language || locale,
+            locale: currentUser.locale || locale,
             name: firstName,
             link: links.deleteAccount(token),
           },

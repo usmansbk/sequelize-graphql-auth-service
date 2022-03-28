@@ -7,7 +7,7 @@ const user = (fields = {}) => ({
   password: faker.internet.password(6),
   phoneNumber: faker.phone.phoneNumber("+234##########"),
   username: faker.internet.userName(),
-  language: "en",
+  locale: "en",
   ...fields,
 });
 
