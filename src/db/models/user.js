@@ -1,5 +1,7 @@
 import { Model } from "sequelize";
 import bcrypt from "bcrypt";
+import sequelizeCache from "sequelize-transparent-cache";
+import RedisAdaptor from "sequelize-transparent-cache-ioredis";
 import {
   USER_FIRST_NAME_EMPTY_ERROR,
   USER_FIRST_NAME_REQUIRED_ERROR,
@@ -23,6 +25,15 @@ import {
   USER_ROLES_JOIN_TABLE,
 } from "~constants/models";
 import otp from "~utils/otp";
+import { client } from "~utils/store";
+
+const redisAdaptor = new RedisAdaptor({
+  client,
+  namespace: "model",
+  lifetime: 60 * 60,
+});
+
+const { withCache } = sequelizeCache(redisAdaptor);
 
 export default (sequelize, DataTypes) => {
   class User extends Model {
@@ -105,7 +116,7 @@ export default (sequelize, DataTypes) => {
           return [this.firstName, this.lastName].join(" ");
         },
         set() {
-          throw new Error("Do not try to set the `fullName` value!");
+          // throw new Error("Do not try to set the `fullName` value!");
         },
       },
       username: {
@@ -176,7 +187,7 @@ export default (sequelize, DataTypes) => {
           },
         },
       },
-      language: {
+      locale: {
         type: DataTypes.STRING,
         defaultValue: "en",
         validate: {
@@ -228,5 +239,6 @@ export default (sequelize, DataTypes) => {
       user.setDataValue("phoneNumberVerified", false);
     }
   });
-  return User;
+
+  return withCache(User);
 };
