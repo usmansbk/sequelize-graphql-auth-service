@@ -58,7 +58,7 @@ export default {
         totalCount: count,
         pageInfo: {
           nextCursor,
-          hasNextPage: rows.length > limit,
+          hasNextPage: count > limit,
         },
       };
     },
