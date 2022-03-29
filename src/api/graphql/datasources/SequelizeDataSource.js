@@ -9,7 +9,11 @@ import DataLoader from "dataloader";
 import formatErrors from "~utils/formatErrors";
 import FieldErrors from "~utils/errors/FieldErrors";
 import QueryError from "~utils/errors/QueryError";
-import { getNextCursor, getPaginationQuery } from "~utils/paginate";
+import {
+  ensureDeterministicOrder,
+  getNextCursor,
+  getPaginationQuery,
+} from "~utils/paginate";
 import { FIELD_ERRORS, ITEM_NOT_FOUND } from "~constants/i18n";
 
 /**
@@ -174,24 +178,25 @@ export default class SequelizeDataSource extends DataSource {
   }
 
   async paginate(page) {
-    const { limit, order = [], cursor } = page || {};
+    const { limit, order, cursor } = page || {};
 
+    const determisticOrder = ensureDeterministicOrder(order || []);
     let paginationQuery = {};
 
     if (cursor) {
-      paginationQuery = getPaginationQuery(order, cursor);
+      paginationQuery = getPaginationQuery(determisticOrder, cursor);
     }
 
     const { rows, count } = await this.findAndCountAll({
       limit: limit + 1,
-      order: order.map(({ field, sort }) => [field, sort]),
+      order: determisticOrder.map(({ field, sort }) => [field, sort]),
       where: { ...paginationQuery },
     });
 
     let nextCursor;
     const next = rows[limit - 1];
     if (next) {
-      nextCursor = getNextCursor(order, next);
+      nextCursor = getNextCursor(determisticOrder, next);
     }
 
     return {
