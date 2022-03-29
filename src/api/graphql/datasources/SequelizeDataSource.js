@@ -11,7 +11,7 @@ import FieldErrors from "~utils/errors/FieldErrors";
 import QueryError from "~utils/errors/QueryError";
 import {
   ensureDeterministicOrder,
-  getCursor,
+  createCursor,
   getPaginationQuery,
 } from "~utils/paginate";
 import { FIELD_ERRORS, ITEM_NOT_FOUND } from "~constants/i18n";
@@ -196,7 +196,7 @@ export default class SequelizeDataSource extends DataSource {
     let nextCursor;
     const next = rows[limit - 1];
     if (next) {
-      nextCursor = getCursor(determisticOrder, next);
+      nextCursor = createCursor(determisticOrder, next);
     }
 
     return {

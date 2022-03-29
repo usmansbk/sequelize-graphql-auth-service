@@ -7,7 +7,7 @@ import btoa from "btoa";
 import atob from "atob";
 import { Op } from "sequelize";
 
-export const getCursor = (order, next) =>
+export const createCursor = (order, next) =>
   btoa(JSON.stringify(order.map(({ field }) => next[field])));
 
 export const parseCursor = (cursor) => JSON.parse(atob(cursor));
@@ -37,21 +37,20 @@ const recursivelyBuildPaginationQuery = (order = [], values = []) => {
         [operation]: values[0],
       },
     };
-  } 
-    return {
-      [Op.or]: [
-        {
-          [field]: {
-            [operation]: value,
-          },
+  }
+  return {
+    [Op.or]: [
+      {
+        [field]: {
+          [operation]: value,
         },
-        {
-          [field]: values,
-          ...recursivelyBuildPaginationQuery(order.slice(1), values.slice(1)),
-        },
-      ],
-    };
-  
+      },
+      {
+        [field]: values,
+        ...recursivelyBuildPaginationQuery(order.slice(1), values.slice(1)),
+      },
+    ],
+  };
 };
 
 export const getPaginationQuery = (order, cursor) => {
