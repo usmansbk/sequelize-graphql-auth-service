@@ -13,8 +13,8 @@ export const createCursor = (order, next) =>
 export const parseCursor = (cursor) => JSON.parse(atob(cursor));
 
 const DEFAULT_DIRECTION = "ASC";
-const TIMESTAMP_FIELD = "createdAt";
-const UNIQUE_FIELDS = ["id", "email", "username", TIMESTAMP_FIELD];
+const PRIMARY_KEY_FIELD = "id";
+const UNIQUE_FIELDS = [PRIMARY_KEY_FIELD, "email", "username", "createdAt"];
 
 export const ensureDeterministicOrder = (order) => {
   const hasUniqueField = order.find(({ field }) =>
@@ -24,7 +24,7 @@ export const ensureDeterministicOrder = (order) => {
   if (hasUniqueField) {
     return order;
   }
-  return [...order, { field: TIMESTAMP_FIELD, sort: DEFAULT_DIRECTION }];
+  return [...order, { field: PRIMARY_KEY_FIELD, sort: DEFAULT_DIRECTION }];
 };
 
 const buildPaginationQuery = (order = [], last = []) => {
