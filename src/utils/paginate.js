@@ -1,6 +1,7 @@
 /**
- * Based on "MySQL cursor based pagination with multiple columns"
+ * Reference:
  * https://stackoverflow.com/questions/38017054/mysql-cursor-based-pagination-with-multiple-columns/38017813
+ * https://github.com/Kaltsoon/sequelize-cursor-pagination
  */
 
 import btoa from "btoa";
