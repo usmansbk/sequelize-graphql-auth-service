@@ -26,15 +26,15 @@ export const ensureDeterministicOrder = (order) => {
   return [...order, { field: TIMESTAMP_FIELD, sort: "ASC" }];
 };
 
-const buildPaginationQuery = (order = [], values = []) => {
-  const { field, sort } = order[0];
+const buildPaginationQuery = (order = [], last = []) => {
+  const [{ field, sort }] = order;
   const operation = sort === "ASC" ? Op.gt : Op.lt;
-  const value = values[0];
+  const [value] = last;
 
   if (order.length === 1) {
     return {
       [field]: {
-        [operation]: values[0],
+        [operation]: value,
       },
     };
   }
@@ -46,8 +46,8 @@ const buildPaginationQuery = (order = [], values = []) => {
         },
       },
       {
-        [field]: values,
-        ...buildPaginationQuery(order.slice(1), values.slice(1)),
+        [field]: value,
+        ...buildPaginationQuery(order.slice(1), last.slice(1)),
       },
     ],
   };
