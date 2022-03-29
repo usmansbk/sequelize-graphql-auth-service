@@ -83,7 +83,7 @@ input ListPageOrder {
 input ListPage {
   limit: Int = 100
   cursor: ID
-  order: ListPageOrder
+  order: [ListPageOrder]
 }
 
 type PageInfo {

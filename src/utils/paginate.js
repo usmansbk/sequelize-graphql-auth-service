@@ -2,26 +2,11 @@ import btoa from "btoa";
 import atob from "atob";
 import { Op } from "sequelize";
 
-export const getNextCursor = (order, next) => {
-  const { field } = order;
-  const data = {
-    [field]: next[field],
-    createdAt: next.createdAt,
-  };
-  return btoa(JSON.stringify(data));
-};
+export const getNextCursor = (order, next) => btoa(
+    JSON.stringify(order.map(({ field }) => ({ [field]: next[field] })))
+  );
 
 export const parseCursor = (cursor) => JSON.parse(atob(cursor));
-
-export const ensureOrder = (order) => {
-  const defaultOrder = [["createdAt", "ASC"]];
-  if (!order) {
-    return defaultOrder;
-  }
-
-  const { field, sort } = order;
-  return [[field, sort], ...defaultOrder];
-};
 
 /**
  * Based on "MySQL cursor based pagination with multiple columns"

@@ -30,24 +30,16 @@ export default {
       }
     },
     async users(_parent, { page }, { dataSources }) {
-      const {
-        limit,
-        order = { field: "createdAt", sort: "ASC" },
-        cursor,
-      } = page || {};
+      const { limit, order = [], cursor } = page || {};
 
       let paginationQuery = {};
 
       if (cursor) {
         paginationQuery = getPaginationQuery(order, cursor);
       }
-      const { field, sort } = order;
       const { rows, count } = await dataSources.users.findAndCountAll({
         limit: limit + 1,
-        order: [
-          [field, sort],
-          ["createdAt", sort],
-        ],
+        order: order.map(({ field, sort }) => [field, sort]),
         where: { ...paginationQuery },
       });
 
