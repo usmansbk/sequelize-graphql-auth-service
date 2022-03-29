@@ -82,13 +82,16 @@ input ListPageOrder {
 
 input ListPage {
   limit: Int = 100
-  cursor: ID
+  after: ID
+  before: ID
   order: [ListPageOrder]
 }
 
 type PageInfo {
   nextCursor: ID
+  prevCursor: ID
   hasNextPage: Boolean!
+  hasPrevPage: Boolean!
 }
 
 interface List {

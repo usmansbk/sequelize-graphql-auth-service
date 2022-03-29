@@ -178,13 +178,13 @@ export default class SequelizeDataSource extends DataSource {
   }
 
   async paginate(page) {
-    const { limit, order, cursor } = page || {};
+    const { limit, order, after } = page || {};
 
     const determisticOrder = ensureDeterministicOrder(order || []);
     let paginationQuery = {};
 
-    if (cursor) {
-      paginationQuery = getPaginationQuery(determisticOrder, cursor);
+    if (after) {
+      paginationQuery = getPaginationQuery(determisticOrder, after);
     }
 
     const { rows, count } = await this.findAndCountAll({
