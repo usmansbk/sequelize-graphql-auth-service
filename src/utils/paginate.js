@@ -27,10 +27,16 @@ export const ensureDeterministicOrder = (order) => {
   return [...order, { field: PRIMARY_KEY_FIELD, sort: DEFAULT_DIRECTION }];
 };
 
-const buildPaginationQuery = (order = [], last = []) => {
+export const reverseOrder = (order) =>
+  order.map(({ field, sort }) => ({
+    field,
+    sort: sort === "DESC" ? "ASC" : "DESC",
+  }));
+
+const buildPaginationQuery = (order = [], cursor = []) => {
   const [{ field, sort }] = order;
   const operation = sort === DEFAULT_DIRECTION ? Op.gt : Op.lt;
-  const [value] = last;
+  const [value] = cursor;
 
   if (order.length === 1) {
     return {
@@ -48,17 +54,16 @@ const buildPaginationQuery = (order = [], last = []) => {
       },
       {
         [field]: value,
-        ...buildPaginationQuery(order.slice(1), last.slice(1)),
+        ...buildPaginationQuery(order.slice(1), cursor.slice(1)),
       },
     ],
   };
 };
 
 export const getPaginationQuery = (order, cursor) => {
-  const last = parseCursor(cursor);
-
-  if (order?.length !== last?.length) {
+  if (order?.length !== cursor?.length) {
     return null;
   }
-  return buildPaginationQuery(order, last);
+
+  return buildPaginationQuery(order, cursor);
 };

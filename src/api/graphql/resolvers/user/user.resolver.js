@@ -29,7 +29,7 @@ export default {
       }
     },
     users(_parent, { page }, { dataSources }) {
-      return dataSources.users.paginate(page);
+      return dataSources.users.paginate({ page });
     },
   },
 };

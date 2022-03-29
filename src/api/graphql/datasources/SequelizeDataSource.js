@@ -1,6 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import {
   EmptyResultError,
+  Op,
   UniqueConstraintError,
   ValidationError,
 } from "sequelize";
@@ -12,6 +13,8 @@ import QueryError from "~utils/errors/QueryError";
 import {
   ensureDeterministicOrder,
   createCursor,
+  parseCursor,
+  reverseOrder,
   getPaginationQuery,
 } from "~utils/paginate";
 import { FIELD_ERRORS, ITEM_NOT_FOUND } from "~constants/i18n";
@@ -177,33 +180,50 @@ export default class SequelizeDataSource extends DataSource {
     }
   }
 
-  async paginate(page) {
-    const { limit, order, after } = page || {};
+  async paginate({ page, filter, ...queryArgs }) {
+    const { limit, order: orderArg, after, before } = page || {};
 
-    const determisticOrder = ensureDeterministicOrder(order || []);
-    let paginationQuery = {};
+    let order = ensureDeterministicOrder(orderArg || []);
+
+    order = before ? reverseOrder(order) : order;
+
+    let cursor = null;
 
     if (after) {
-      paginationQuery = getPaginationQuery(determisticOrder, after);
+      cursor = parseCursor(after);
+    } else if (before) {
+      cursor = parseCursor(before);
     }
+
+    const paginationQuery = cursor && getPaginationQuery(order, cursor);
+
+    const where = paginationQuery
+      ? { [Op.and]: [paginationQuery, filter] }
+      : filter;
 
     const { rows, count } = await this.findAndCountAll({
       limit: limit + 1,
-      order: determisticOrder.map(({ field, sort }) => [field, sort]),
-      where: { ...paginationQuery },
+      order: order.map(({ field, sort }) => [field, sort]),
+      where,
+      ...queryArgs,
     });
 
-    let nextCursor;
-    const next = rows[limit - 1];
-    if (next) {
-      nextCursor = createCursor(determisticOrder, next);
+    if (before) {
+      rows.reverse();
     }
+
+    const end = rows[limit - 1];
+    const endCursor = end && createCursor(order, end);
+
+    const start = rows[0];
+    const startCursor = start && createCursor(order, start);
 
     return {
       items: rows.slice(0, limit),
       totalCount: count,
       pageInfo: {
-        nextCursor,
+        endCursor,
+        startCursor,
         hasNextPage: count > limit,
       },
     };

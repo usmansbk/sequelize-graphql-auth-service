@@ -87,9 +87,14 @@ input ListPage {
   order: [ListPageOrder]
 }
 
+"""
+Including a value for both first and last is strongly discouraged, as it is likely to lead to confusing queries and results.
+The PageInfo section goes into more detail here.
+https://relay.dev/graphql/connections.htm#note-95f8a
+"""
 type PageInfo {
-  nextCursor: ID
-  prevCursor: ID
+  startCursor: ID
+  endCursor: ID
   hasNextPage: Boolean!
   hasPrevPage: Boolean!
 }
