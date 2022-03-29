@@ -7,7 +7,7 @@ import btoa from "btoa";
 import atob from "atob";
 import { Op } from "sequelize";
 
-export const getNextCursor = (order, next) =>
+export const getCursor = (order, next) =>
   btoa(JSON.stringify(order.map(({ field }) => next[field])));
 
 export const parseCursor = (cursor) => JSON.parse(atob(cursor));
@@ -26,28 +26,39 @@ export const ensureDeterministicOrder = (order) => {
   return [...order, { field: TIMESTAMP_FIELD, sort: "ASC" }];
 };
 
+const recursivelyBuildPaginationQuery = (order = [], values = []) => {
+  const { field, sort } = order[0];
+  const operation = sort === "ASC" ? Op.gt : Op.lt;
+  const value = values[0];
+
+  if (order.length === 1) {
+    return {
+      [field]: {
+        [operation]: values[0],
+      },
+    };
+  } 
+    return {
+      [Op.or]: [
+        {
+          [field]: {
+            [operation]: value,
+          },
+        },
+        {
+          [field]: values,
+          ...recursivelyBuildPaginationQuery(order.slice(1), values.slice(1)),
+        },
+      ],
+    };
+  
+};
+
 export const getPaginationQuery = (order, cursor) => {
-  const { field, sort } = order;
   const last = parseCursor(cursor);
 
-  const operation = sort === "ASC" ? Op.gt : Op.lt;
-  const paginationQuery = {
-    [field]: {
-      [operation]: last[field],
-    },
-    [Op.or]: [
-      {
-        [field]: {
-          [operation]: last[field],
-        },
-      },
-      {
-        createdAt: {
-          [operation]: last.createdAt,
-        },
-      },
-    ],
-  };
-
-  return paginationQuery;
+  if (order?.length !== last?.length) {
+    return null;
+  }
+  return recursivelyBuildPaginationQuery(order, last);
 };
