@@ -9,6 +9,7 @@ import DataLoader from "dataloader";
 import formatErrors from "~utils/formatErrors";
 import FieldErrors from "~utils/errors/FieldErrors";
 import QueryError from "~utils/errors/QueryError";
+import { getNextCursor, getPaginationQuery } from "~utils/paginate";
 import { FIELD_ERRORS, ITEM_NOT_FOUND } from "~constants/i18n";
 
 /**
@@ -170,5 +171,36 @@ export default class SequelizeDataSource extends DataSource {
       await item.destroy();
       this.onDestroy({ oldImage });
     }
+  }
+
+  async paginate(page) {
+    const { limit, order = [], cursor } = page || {};
+
+    let paginationQuery = {};
+
+    if (cursor) {
+      paginationQuery = getPaginationQuery(order, cursor);
+    }
+
+    const { rows, count } = await this.findAndCountAll({
+      limit: limit + 1,
+      order: order.map(({ field, sort }) => [field, sort]),
+      where: { ...paginationQuery },
+    });
+
+    let nextCursor;
+    const next = rows[limit - 1];
+    if (next) {
+      nextCursor = getNextCursor(order, next);
+    }
+
+    return {
+      items: rows.slice(0, limit),
+      totalCount: count,
+      pageInfo: {
+        nextCursor,
+        hasNextPage: count > limit,
+      },
+    };
   }
 }
