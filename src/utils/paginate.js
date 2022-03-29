@@ -26,7 +26,7 @@ export const ensureDeterministicOrder = (order) => {
   return [...order, { field: TIMESTAMP_FIELD, sort: "ASC" }];
 };
 
-const recursivelyBuildPaginationQuery = (order = [], values = []) => {
+const buildPaginationQuery = (order = [], values = []) => {
   const { field, sort } = order[0];
   const operation = sort === "ASC" ? Op.gt : Op.lt;
   const value = values[0];
@@ -47,7 +47,7 @@ const recursivelyBuildPaginationQuery = (order = [], values = []) => {
       },
       {
         [field]: values,
-        ...recursivelyBuildPaginationQuery(order.slice(1), values.slice(1)),
+        ...buildPaginationQuery(order.slice(1), values.slice(1)),
       },
     ],
   };
@@ -59,5 +59,5 @@ export const getPaginationQuery = (order, cursor) => {
   if (order?.length !== last?.length) {
     return null;
   }
-  return recursivelyBuildPaginationQuery(order, last);
+  return buildPaginationQuery(order, last);
 };
