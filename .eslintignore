@@ -1,0 +1,4 @@
+build
+coverage
+src/db/migrations
+tests

@@ -1,0 +1,21 @@
+type Query {
+  roles(page: ListPage): RoleList! @auth
+}
+
+type Role {
+  id: ID!
+  name: AuthRole!
+  description: String
+  permissions: [Permission]!
+  members: UserList!
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
+# Pagination
+
+type RoleList implements List {
+  items: [Role]!
+  totalCount: Int!
+  pageInfo: PageInfo!
+}

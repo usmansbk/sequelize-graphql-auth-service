@@ -1,0 +1,32 @@
+type Query {
+  permissions(page: ListPage): PermissionList! @auth
+}
+
+type Permission {
+  id: ID!
+  name: String!
+  action: PermissionAction!
+  resource: PermissionResource!
+  description: String
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
+type PermissionList implements List {
+  items: [Permission]!
+  totalCount: Int!
+  pageInfo: PageInfo!
+}
+
+enum PermissionResource {
+  users
+  roles
+  permissions
+}
+
+enum PermissionAction {
+  create
+  read
+  update
+  delete
+}

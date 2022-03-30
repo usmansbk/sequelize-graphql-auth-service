@@ -1,0 +1,91 @@
+type Mutation {
+  requestPasswordReset(email: EmailAddress!): RequestResponse!
+  requestDeleteAccount: RequestResponse! @auth
+  requestEmailOTP: RequestResponse! @auth
+  registerWithEmail(input: CreateUserInput!): AuthFormMutationResponse!
+  loginWithEmail(input: EmailLoginInput!): AuthMutationResponse!
+  loginWithSocialProvider(input: SocialLoginInput!): AuthMutationResponse!
+  resetPassword(input: PasswordResetInput!): AuthFormMutationResponse!
+  deleteAccount(token: String!): AuthMutationResponse!
+  logout(all: Boolean): AuthMutationResponse!
+
+  loginToAdmin(input: AdminLoginInput!): AuthMutationResponse!
+}
+
+enum SocialProvider {
+  GOOGLE
+  FACEBOOK
+}
+
+input AdminLoginInput {
+  username: String!
+  password: String!
+}
+
+input EmailLoginInput {
+  email: EmailAddress!
+  password: String!
+}
+
+input SocialLoginInput {
+  provider: SocialProvider!
+  token: String!
+}
+
+input PasswordResetInput {
+  password: String!
+  token: String!
+}
+
+type AuthFormMutationResponse implements Response & FormErrors {
+  code: ID!
+  success: Boolean!
+  message: String!
+  errors: [FieldError!]
+  accessToken: String
+  refreshToken: String
+}
+
+type AuthMutationResponse implements Response {
+  code: ID!
+  success: Boolean!
+  message: String!
+  accessToken: String
+  refreshToken: String
+}
+
+"""
+## Authentication and Authorization directive
+
+Any field with no @auth directive is public by default
+Calling the @auth directive without any rules means the user must be authenticated
+Calling the @auth(rules: [{ ... }]) with rules means the user must be authorized according to the set rules
+**Authorization rules operate on the deny-by-default principle**. Meaning that if an authorization rule is not specifically configured, it is denied.
+
+Reference:
+
+- [AWS AppSync](https://docs.amplify.aws/cli/graphql/authorization-rules/#public-data-access)
+- [graphql-tools](https://www.graphql-tools.com/docs/schema-directives#enforcing-access-permissions)
+"""
+directive @auth(rules: [AuthRule!]) on FIELD_DEFINITION | OBJECT
+
+enum AuthStrategy {
+  """
+  To restrict a record's access to a specific user, use the `owner` strategy.
+  When `owner` authorization is configured, only the record's `owner` is allowed the specified operations.
+  """
+  owner
+  role
+}
+
+enum AuthRole {
+  ADMIN
+  STAFF
+  USER
+}
+
+input AuthRule {
+  allow: AuthStrategy!
+  identityClaim: String = "ownerId"
+  roles: [AuthRole!]
+}

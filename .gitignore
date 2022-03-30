@@ -1,0 +1,16 @@
+# environment
+node_modules
+coverage
+.eslintcache
+uploads
+
+# project
+build
+.env
+.env.production
+yarn-error.log
+
+# Keys
+*.key
+*.key.pub
+google_client_secret.json

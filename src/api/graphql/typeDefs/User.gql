@@ -1,0 +1,77 @@
+type Query {
+  me: UserPayload! @auth
+  getUserById(id: ID!): UserPayload! @auth
+  users(page: ListPage): UserList! @auth
+}
+
+type Mutation {
+  requestEmailVerification: RequestResponse! @auth
+  requestPhoneNumberVerification(phoneNumber: String!): RequestFormResponse!
+    @auth
+  verifyEmail(token: String!): UserPayload!
+  verifyPhoneNumber(token: String!): UserPayload! @auth
+  updateProfile(input: UpdateProfileInput!): UserFormMutationResponse! @auth
+  removeProfilePicture: UserPayload! @auth
+}
+
+type User {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  fullName: String!
+  username: String
+  email: EmailAddress! @auth(rules: [{ allow: owner, identityClaim: "id" }])
+  phoneNumber: PhoneNumber @auth(rules: [{ allow: owner, identityClaim: "id" }])
+  picture: Photo
+  socialAvatarURL: URL
+  isOwner: Boolean!
+  locale: Locale!
+  emailVerified: Boolean!
+  phoneNumberVerified: Boolean!
+  roles: [Role]!
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
+type UserPayload implements Response {
+  code: ID!
+  success: Boolean!
+  message: String!
+  user: User
+}
+
+type UserFormMutationResponse implements Response & FormErrors {
+  code: ID!
+  success: Boolean!
+  message: String!
+  errors: [FieldError!]
+  user: User
+}
+
+# Inputs
+
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+  username: String
+  email: EmailAddress!
+  password: String!
+  phoneNumber: PhoneNumber
+  locale: Locale
+}
+
+input UpdateProfileInput {
+  firstName: String
+  lastName: String
+  username: String
+  phoneNumber: PhoneNumber
+  locale: Locale
+}
+
+# Pagination
+
+type UserList implements List {
+  items: [User]!
+  totalCount: Int!
+  pageInfo: PageInfo!
+}

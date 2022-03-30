@@ -1,0 +1,103 @@
+scalar Date
+scalar DateTime
+scalar URL
+scalar EmailAddress
+scalar PhoneNumber
+scalar Locale
+
+enum ImageResizeMode {
+  cover
+  contain
+  fill
+  inside
+  outside
+}
+
+"""
+All Queries and Mutations must implement this interface
+"""
+interface Response {
+  code: ID!
+  success: Boolean!
+  message: String!
+}
+
+"""
+All Form mutations, e.g Login, Register, etc must implement this interface to return validation errors
+"""
+type FieldError {
+  message: String!
+  field: String!
+}
+
+interface FormErrors {
+  errors: [FieldError!]
+}
+
+type RequestResponse implements Response {
+  code: ID!
+  success: Boolean!
+  message: String!
+}
+
+type RequestFormResponse implements Response & FormErrors {
+  code: ID!
+  success: Boolean!
+  message: String!
+  errors: [FieldError!]
+}
+
+"https://sharp.pixelplumbing.com/api-resize#resize"
+input ImageResizeInput {
+  width: Int!
+  height: Int!
+  fit: ImageResizeMode
+}
+
+type Photo {
+  url(resize: ImageResizeInput): URL!
+  thumbnail(resize: ImageResizeInput): URL
+}
+
+type File {
+  id: ID!
+  size: Int!
+  name: String!
+  mimeType: String!
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
+# Pagination
+
+enum Sort {
+  ASC
+  DESC
+}
+
+input ListPageOrder {
+  field: String!
+  sort: Sort!
+}
+
+"""
+'before' takes precedence over 'after'.
+"""
+input ListPage {
+  limit: Int = 100
+  before: ID
+  after: ID
+  order: [ListPageOrder]
+}
+
+type PageInfo {
+  startCursor: ID
+  endCursor: ID
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+}
+
+interface List {
+  totalCount: Int!
+  pageInfo: PageInfo!
+}
