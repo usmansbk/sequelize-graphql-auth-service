@@ -4,6 +4,7 @@ scalar URL
 scalar EmailAddress
 scalar PhoneNumber
 scalar Locale
+scalar Byte
 
 enum ImageResizeMode {
   cover
@@ -61,7 +62,7 @@ type Photo {
 
 type File {
   id: ID!
-  size: Int!
+  size: Byte!
   name: String!
   mimeType: String!
   createdAt: DateTime!
