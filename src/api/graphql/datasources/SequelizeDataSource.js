@@ -189,10 +189,10 @@ export default class SequelizeDataSource extends DataSource {
 
     let cursor = null;
 
-    if (after) {
-      cursor = parseCursor(after);
-    } else if (before) {
+    if (before) {
       cursor = parseCursor(before);
+    } else if (after) {
+      cursor = parseCursor(after);
     }
 
     const paginationQuery = cursor && getPaginationQuery(order, cursor);
