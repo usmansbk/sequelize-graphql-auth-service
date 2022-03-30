@@ -1,4 +1,4 @@
 build
 coverage
 src/db/migrations
-tests
+test
