@@ -121,9 +121,9 @@ export default class SequelizeDataSource extends DataSource {
     return { count, rows };
   }
 
-  async findOrCreate(queryOptions) {
+  async findOrCreate(options) {
     try {
-      const [newItem, created] = await this.model.findOrCreate(queryOptions);
+      const [newItem, created] = await this.model.findOrCreate(options);
 
       if (created) {
         this.onCreate({ newItem });
@@ -137,9 +137,9 @@ export default class SequelizeDataSource extends DataSource {
     }
   }
 
-  async create(fields) {
+  async create(values, options) {
     try {
-      const newItem = await this.model.create(fields);
+      const newItem = await this.model.create(values, options);
       this.onCreate({ newItem });
 
       return newItem;
@@ -148,7 +148,7 @@ export default class SequelizeDataSource extends DataSource {
     }
   }
 
-  async update(id, fields) {
+  async update(id, values) {
     try {
       const item = await this.findByPk(id);
 
@@ -158,7 +158,7 @@ export default class SequelizeDataSource extends DataSource {
 
       const oldImage = item.toJSON();
 
-      const newItem = await item.update(fields);
+      const newItem = await item.update(values);
 
       this.onUpdate({ newItem, oldImage });
 
@@ -172,7 +172,7 @@ export default class SequelizeDataSource extends DataSource {
    * Delete is idemponent and shouldn't throw an error if item does not exist
    */
   async destroy(id) {
-    const item = await this.findByPk(id);
+    const item = await this.model.findByPk(id);
     if (item) {
       const oldImage = item.toJSON();
       await item.destroy();
