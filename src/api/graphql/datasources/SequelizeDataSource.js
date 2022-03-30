@@ -16,6 +16,7 @@ import {
   parseCursor,
   reverseOrder,
   getPaginationQuery,
+  normalizeOrder,
 } from "~utils/paginate";
 import { FIELD_ERRORS, ITEM_NOT_FOUND } from "~constants/i18n";
 
@@ -138,7 +139,7 @@ export default class SequelizeDataSource extends DataSource {
       const item = await this.model.create(fields);
       const newImage = item.toJSON();
       this.prime(item);
-      this.onCreate(newImage);
+      this.onCreate({ newImage });
 
       return item;
     } catch (e) {
@@ -183,7 +184,7 @@ export default class SequelizeDataSource extends DataSource {
   async paginate({ page, filter, ...queryArgs }) {
     const { limit, order: orderArg, after, before } = page || {};
 
-    let order = ensureDeterministicOrder(orderArg || []);
+    let order = normalizeOrder(ensureDeterministicOrder(orderArg || []));
 
     order = before ? reverseOrder(order) : order;
 
@@ -201,12 +202,15 @@ export default class SequelizeDataSource extends DataSource {
       ? { [Op.and]: [paginationQuery, filter] }
       : filter;
 
-    const { rows, count } = await this.findAndCountAll({
-      limit: limit + 1,
-      order: order.map(({ field, sort }) => [field, sort]),
-      where,
-      ...queryArgs,
-    });
+    const [{ rows, count }, totalCount] = await Promise.all([
+      this.findAndCountAll({
+        limit: limit + 1,
+        order,
+        where,
+        ...queryArgs,
+      }),
+      this.model.count({ where: filter, ...queryArgs }),
+    ]);
 
     if (before) {
       rows.reverse();
@@ -220,7 +224,7 @@ export default class SequelizeDataSource extends DataSource {
 
     return {
       items: rows.slice(0, limit),
-      totalCount: count,
+      totalCount,
       pageInfo: {
         endCursor,
         startCursor,

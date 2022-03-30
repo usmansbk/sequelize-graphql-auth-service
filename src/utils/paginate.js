@@ -9,13 +9,16 @@ import atob from "atob";
 import { Op } from "sequelize";
 
 export const createCursor = (order, next) =>
-  btoa(JSON.stringify(order.map(({ field }) => next[field])));
+  btoa(JSON.stringify(order.map(([field]) => next[field])));
 
 export const parseCursor = (cursor) => JSON.parse(atob(cursor));
 
+export const normalizeOrder = (order) =>
+  order.map(({ field, sort }) => [field, sort]);
+
 const DEFAULT_DIRECTION = "ASC";
 const PRIMARY_KEY_FIELD = "id";
-const UNIQUE_FIELDS = [PRIMARY_KEY_FIELD, "email", "username", "createdAt"];
+const UNIQUE_FIELDS = [PRIMARY_KEY_FIELD, "email", "username"];
 
 export const ensureDeterministicOrder = (order) => {
   const hasUniqueField = order.find(({ field }) =>
@@ -29,13 +32,10 @@ export const ensureDeterministicOrder = (order) => {
 };
 
 export const reverseOrder = (order) =>
-  order.map(({ field, sort }) => ({
-    field,
-    sort: sort === "DESC" ? "ASC" : "DESC",
-  }));
+  order.map(([field, sort]) => [field, sort === "DESC" ? "ASC" : "DESC"]);
 
 const buildPaginationQuery = (order = [], cursor = []) => {
-  const [{ field, sort }] = order;
+  const [[field, sort]] = order;
   const operation = sort === DEFAULT_DIRECTION ? Op.gt : Op.lt;
   const [value] = cursor;
 

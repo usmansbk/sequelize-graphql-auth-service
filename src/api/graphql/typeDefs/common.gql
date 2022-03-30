@@ -80,6 +80,11 @@ input ListPageOrder {
   sort: Sort!
 }
 
+"""
+Including a value for both first and last is strongly discouraged, as it is likely to lead to confusing queries and results.
+The PageInfo section goes into more detail here.
+https://relay.dev/graphql/connections.htm#note-95f8a
+"""
 input ListPage {
   limit: Int = 100
   after: ID
@@ -87,11 +92,6 @@ input ListPage {
   order: [ListPageOrder]
 }
 
-"""
-Including a value for both first and last is strongly discouraged, as it is likely to lead to confusing queries and results.
-The PageInfo section goes into more detail here.
-https://relay.dev/graphql/connections.htm#note-95f8a
-"""
 type PageInfo {
   startCursor: ID
   endCursor: ID
