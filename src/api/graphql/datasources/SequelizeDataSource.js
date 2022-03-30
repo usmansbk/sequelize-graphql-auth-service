@@ -60,8 +60,11 @@ export default class SequelizeDataSource extends DataSource {
     this.prime(newItem);
   }
 
-  onDestroy({ oldImage }) {
+  onDestroy({ oldImage, oldImages }) {
     this.loader.clear(oldImage.id);
+    if (oldImages?.length) {
+      oldImages.forEach((img) => this.loader.clear(img.id));
+    }
   }
 
   onError(e) {
@@ -178,6 +181,25 @@ export default class SequelizeDataSource extends DataSource {
       await item.destroy();
       this.onDestroy({ oldImage });
     }
+    return id;
+  }
+
+  async destroyMany(ids) {
+    const rows = await this.model.findAll({
+      where: {
+        id: ids,
+      },
+    });
+
+    await this.model.destroy({
+      where: {
+        id: ids,
+      },
+    });
+
+    this.onDestroy({ oldImages: rows.map((row) => row.toJSON()) });
+
+    return ids;
   }
 
   async paginate({ page, filter, ...queryArgs }) {
