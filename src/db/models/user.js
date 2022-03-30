@@ -25,7 +25,7 @@ import {
   USER_ROLES_JOIN_TABLE,
 } from "~constants/models";
 import otp from "~utils/otp";
-import { client } from "~utils/store";
+import client from "~services/redis";
 
 const redisAdaptor = new RedisAdaptor({
   client,

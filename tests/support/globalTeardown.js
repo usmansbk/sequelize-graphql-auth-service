@@ -5,7 +5,6 @@ const { sequelize } = db;
 
 const globalTeardown = async () => {
   await sequelize.close();
-  await store.clearAll();
   store.close();
 };
 
