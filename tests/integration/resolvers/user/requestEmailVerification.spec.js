@@ -3,6 +3,7 @@ import db from "~db/models";
 import mailer from "~utils/mailer";
 import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
+import store from "~utils/store";
 
 jest.mock("~utils/mailer", () => {
   return {
@@ -27,6 +28,7 @@ describe("Mutation.requestEmailVerification", () => {
   });
 
   afterAll(async () => {
+    await store.clearAll();
     await server.stop();
     await db.sequelize.close();
   });

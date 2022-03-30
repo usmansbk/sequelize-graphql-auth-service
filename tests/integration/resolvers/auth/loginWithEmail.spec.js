@@ -3,6 +3,7 @@ import db from "~db/models";
 import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
 import mailer from "~utils/mailer";
+import store from "~utils/store";
 
 mailer.sendEmail = jest.fn();
 
@@ -25,6 +26,7 @@ describe("Mutation.loginWithEmail", () => {
   });
 
   afterAll(async () => {
+    await store.clearAll();
     await server.stop();
     await db.sequelize.close();
   });

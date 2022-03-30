@@ -3,6 +3,7 @@ import db from "~db/models";
 import fileStorage from "~utils/fileStorage";
 import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
+import store from "~utils/store";
 
 fileStorage.remove = jest.fn();
 
@@ -28,6 +29,7 @@ describe("Mutation.removeProfilePicture", () => {
   });
 
   afterAll(async () => {
+    await store.clearAll();
     await server.stop();
     await db.sequelize.close();
   });

@@ -38,6 +38,7 @@ describe("Mutation.resetPassword", () => {
   });
 
   afterAll(async () => {
+    await store.clearAll();
     await server.stop();
     await db.sequelize.close();
   });

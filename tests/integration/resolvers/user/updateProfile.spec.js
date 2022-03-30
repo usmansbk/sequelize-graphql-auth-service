@@ -2,6 +2,7 @@ import { gql } from "apollo-server-express";
 import db from "~db/models";
 import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
+import store from "~utils/store";
 
 const query = gql`
   mutation UpdateProfile($input: UpdateProfileInput!) {
@@ -25,6 +26,7 @@ describe("Mutation.updateProfile", () => {
   });
 
   afterAll(async () => {
+    await store.clearAll();
     await server.stop();
     await db.sequelize.close();
   });
