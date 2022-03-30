@@ -224,7 +224,7 @@ export default class SequelizeDataSource extends DataSource {
     const remaining = count - rows.length;
 
     return {
-      items: rows.slice(0, limit),
+      items: rows,
       totalCount,
       pageInfo: {
         endCursor,
