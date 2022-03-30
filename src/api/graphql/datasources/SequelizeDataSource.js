@@ -203,7 +203,7 @@ export default class SequelizeDataSource extends DataSource {
 
     const [{ rows, count }, totalCount] = await Promise.all([
       this.findAndCountAll({
-        limit: limit + 1,
+        limit,
         order,
         where,
         ...queryArgs,
@@ -221,13 +221,18 @@ export default class SequelizeDataSource extends DataSource {
     const start = rows[0];
     const startCursor = start && createCursor(order, start);
 
+    const remaining = count - rows.length;
+
     return {
       items: rows.slice(0, limit),
       totalCount,
       pageInfo: {
         endCursor,
         startCursor,
-        hasNextPage: count > limit,
+        hasNextPage:
+          (!before && remaining > 0) || (!!before && totalCount - count > 0),
+        hasPreviousPage:
+          (!!before && remaining > 0) || (!before && totalCount - count > 0),
       },
     };
   }
