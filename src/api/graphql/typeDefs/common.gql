@@ -85,8 +85,8 @@ input ListPageOrder {
 """
 input ListPage {
   limit: Int = 100
-  after: ID
   before: ID
+  after: ID
   order: [ListPageOrder]
 }
 
