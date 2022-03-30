@@ -1,16 +1,19 @@
 import { s3 } from "~services/aws";
 import log from "~utils/logger";
 
-const remove = ({ key: Key, bucket: Bucket }) => {
+const remove = async ({ key: Key, bucket: Bucket }) => {
   if (process.env.NODE_ENV === "test") {
     return;
   }
+  if (!(Key && Bucket)) {
+    return;
+  }
 
-  s3.deleteObject({ Key, Bucket }, (err) => {
-    if (err) {
-      log.info(err);
-    }
-  });
+  try {
+    await s3.deleteObject({ Key, Bucket }).promise();
+  } catch (e) {
+    log.error(e);
+  }
 };
 
 const fileStorage = {
