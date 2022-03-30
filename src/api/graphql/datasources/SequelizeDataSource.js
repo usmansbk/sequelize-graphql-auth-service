@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 import {
   EmptyResultError,
   Op,
@@ -61,7 +60,9 @@ export default class SequelizeDataSource extends DataSource {
     this.prime(newItem);
   }
 
-  onDestroy() {}
+  onDestroy({ oldImage }) {
+    this.loader.clear(oldImage.id);
+  }
 
   onError(e) {
     if (e instanceof ValidationError || e instanceof UniqueConstraintError) {
