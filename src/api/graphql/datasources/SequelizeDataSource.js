@@ -53,9 +53,13 @@ export default class SequelizeDataSource extends DataSource {
     this.context = context;
   }
 
-  onCreate() {}
+  onCreate({ newItem }) {
+    this.prime(newItem);
+  }
 
-  onUpdate() {}
+  onUpdate({ newItem }) {
+    this.prime(newItem);
+  }
 
   onDestroy() {}
 
@@ -118,17 +122,15 @@ export default class SequelizeDataSource extends DataSource {
 
   async findOrCreate(queryOptions) {
     try {
-      const [item, created] = await this.model.findOrCreate(queryOptions);
-      if (item) {
-        this.prime(item);
-      }
+      const [newItem, created] = await this.model.findOrCreate(queryOptions);
 
       if (created) {
-        const newImage = item.toJSON();
-        this.onCreate({ newImage });
+        this.onCreate({ newItem });
+      } else {
+        this.prime(newItem);
       }
 
-      return [item, created];
+      return [newItem, created];
     } catch (e) {
       return this.onError(e);
     }
@@ -136,12 +138,10 @@ export default class SequelizeDataSource extends DataSource {
 
   async create(fields) {
     try {
-      const item = await this.model.create(fields);
-      const newImage = item.toJSON();
-      this.prime(item);
-      this.onCreate({ newImage });
+      const newItem = await this.model.create(fields);
+      this.onCreate({ newItem });
 
-      return item;
+      return newItem;
     } catch (e) {
       return this.onError(e);
     }
@@ -158,10 +158,8 @@ export default class SequelizeDataSource extends DataSource {
       const oldImage = item.toJSON();
 
       const newItem = await item.update(fields);
-      const newImage = newItem.toJSON();
 
-      this.prime(newItem);
-      this.onUpdate({ oldImage, newImage });
+      this.onUpdate({ newItem, oldImage });
 
       return newItem;
     } catch (e) {
