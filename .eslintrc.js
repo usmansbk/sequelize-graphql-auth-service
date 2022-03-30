@@ -20,7 +20,7 @@ module.exports = {
           ["~db", "./src/db"],
           ["~helpers", "./src/helpers"],
           ["~constants", "./src/constants"],
-          ["tests", "./tests"],
+          ["test", "./test"],
         ],
         extensions: [".ts", ".js", ".json"],
       },
