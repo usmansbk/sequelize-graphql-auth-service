@@ -19,7 +19,7 @@ import {
 const { S3_BUCKET } = process.env;
 
 const upload = multer({
-  fileStorage: multerS3({
+  storage: multerS3({
     s3,
     bucket: S3_BUCKET,
     contentType: multerS3.AUTO_CONTENT_TYPE,
