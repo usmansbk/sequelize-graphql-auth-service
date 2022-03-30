@@ -6,14 +6,6 @@ scalar PhoneNumber
 scalar Locale
 scalar Byte
 
-enum ImageResizeMode {
-  cover
-  contain
-  fill
-  inside
-  outside
-}
-
 """
 All Queries and Mutations must implement this interface
 """
@@ -46,6 +38,14 @@ type RequestFormResponse implements Response & FormErrors {
   success: Boolean!
   message: String!
   errors: [FieldError!]
+}
+
+enum ImageResizeMode {
+  cover
+  contain
+  fill
+  inside
+  outside
 }
 
 "https://sharp.pixelplumbing.com/api-resize#resize"
