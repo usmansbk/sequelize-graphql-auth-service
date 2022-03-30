@@ -69,7 +69,7 @@ export default class UserDS extends SequelizeDataSource {
      * until verified
      */
     if (user && !user.emailVerified) {
-      await user.destroy();
+      await this.destroy(user.id);
     }
 
     user = await this.create(fields);
