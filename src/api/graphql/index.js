@@ -28,7 +28,7 @@ const createApolloServer = (app) => {
     ],
     logger,
     dataSources,
-    context: async ({ req }) => {
+    context: ({ req }) => {
       const { t, context } = req;
 
       return { t, ...context };
