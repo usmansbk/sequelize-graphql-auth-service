@@ -3,7 +3,7 @@ import { defaultProvider } from "@aws-sdk/credential-provider-node";
 
 const { AWS_REGION } = process.env;
 
-export const s3 = new aws.S3({ region: AWS_REGION });
+export const s3 = new aws.S3();
 
 export const ses = new aws.SES({
   apiVersion: "2010-12-01",
