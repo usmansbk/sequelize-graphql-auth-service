@@ -8,6 +8,7 @@ type Permission {
   action: PermissionAction!
   resource: PermissionResource!
   description: String
+  roles: [Role]!
   createdAt: DateTime!
   updatedAt: DateTime
 }
