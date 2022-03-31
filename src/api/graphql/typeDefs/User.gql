@@ -12,6 +12,13 @@ type Mutation {
   verifyPhoneNumber(token: String!): UserPayload! @auth
   updateProfile(input: UpdateProfileInput!): UserFormMutationResponse! @auth
   removeProfilePicture: UserPayload! @auth
+
+  # Admin
+  createUsers(input: [CreateUserInput!]!): [User]! @auth
+  updateUser(input: UpdateUserInput!): User! @auth
+  deleteUsers(ids: [ID!]!): [ID!]! @auth
+  attachRolesToUser(userId: ID!, roleIds: [ID!]!): User! @auth
+  detachRolesFromUser(userId: ID!, roleIds: [ID!]!): User! @auth
 }
 
 type User {
@@ -56,6 +63,15 @@ input CreateUserInput {
   username: String
   email: EmailAddress!
   password: String!
+  phoneNumber: PhoneNumber
+  locale: Locale
+}
+
+input UpdateUserInput {
+  firstName: String
+  lastName: String
+  username: String
+  email: EmailAddress
   phoneNumber: PhoneNumber
   locale: Locale
 }

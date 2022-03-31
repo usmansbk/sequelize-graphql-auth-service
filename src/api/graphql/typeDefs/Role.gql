@@ -2,14 +2,34 @@ type Query {
   roles(page: ListPage): RoleList! @auth
 }
 
+type Mutation {
+  createRole(input: CreateRoleInput!): Role! @auth
+  updateRole(input: UpdateRoleInput!): Role! @auth
+  deleteRoles(ids: [ID!]!): [ID!]! @auth
+  attachPermissionsToRole(roleId: ID!, permissionIds: [ID!]!): Role! @auth
+  detachPermissionsFromRole(roleId: ID!, permissionIds: [ID!]!): Role! @auth
+  detachRoleFromAllUsers(roleId: ID!): Role! @auth
+}
+
 type Role {
   id: ID!
-  name: AuthRole!
+  name: String!
   description: String
   permissions: [Permission]!
   members: UserList!
   createdAt: DateTime!
   updatedAt: DateTime
+}
+
+input CreateRoleInput {
+  name: String!
+  description: String
+  permissionIds: [ID!]!
+}
+
+input UpdateRoleInput {
+  name: String
+  description: String
 }
 
 # Pagination

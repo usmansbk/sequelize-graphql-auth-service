@@ -2,6 +2,13 @@ type Query {
   permissions(page: ListPage): PermissionList! @auth
 }
 
+type Mutation {
+  createPermissions(input: [CreatePermissionInput!]!): [Permission!]! @auth
+  updatePermission(input: UpdatePermissionInput!): Permission! @auth
+  deletePermissions(ids: [ID!]!): [ID!]! @auth
+  detachPermissionFromAllRoles(permissionId: ID!): Permission! @auth
+}
+
 type Permission {
   id: ID!
   name: String!
@@ -11,6 +18,20 @@ type Permission {
   roles: [Role]!
   createdAt: DateTime!
   updatedAt: DateTime
+}
+
+input CreatePermissionInput {
+  name: String!
+  action: PermissionAction!
+  resource: PermissionResource!
+  description: String
+}
+
+input UpdatePermissionInput {
+  name: String
+  action: PermissionAction
+  resource: PermissionResource
+  description: String
 }
 
 type PermissionList implements List {
