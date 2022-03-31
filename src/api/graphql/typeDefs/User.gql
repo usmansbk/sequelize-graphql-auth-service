@@ -68,6 +68,7 @@ input CreateUserInput {
 }
 
 input UpdateUserInput {
+  id: ID!
   firstName: String
   lastName: String
   username: String

@@ -28,6 +28,7 @@ input CreateRoleInput {
 }
 
 input UpdateRoleInput {
+  id: ID!
   name: String
   description: String
 }
