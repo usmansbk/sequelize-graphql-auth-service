@@ -60,11 +60,8 @@ export default class SequelizeDataSource extends DataSource {
     this.prime(newItem);
   }
 
-  onDestroy({ oldImage, oldImages }) {
+  onDestroy({ oldImage }) {
     this.loader.clear(oldImage.id);
-    if (oldImages?.length) {
-      oldImages.forEach((img) => this.loader.clear(img.id));
-    }
   }
 
   onError(e) {
@@ -197,7 +194,7 @@ export default class SequelizeDataSource extends DataSource {
       },
     });
 
-    this.onDestroy({ oldImages: rows.map((row) => row.toJSON()) });
+    rows.map((row) => this.onDestroy({ oldImage: row.toJSON() }));
 
     return ids;
   }
