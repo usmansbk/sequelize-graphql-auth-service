@@ -32,4 +32,7 @@ export default {
       return dataSources.users.paginate({ page });
     },
   },
+  Mutation: {
+    deleteUsers: (_, { ids }, { dataSources }) => dataSources.users.destroyMany(ids),
+  },
 };

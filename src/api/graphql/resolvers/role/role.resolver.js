@@ -4,4 +4,7 @@ export default {
       return dataSources.roles.paginate({ page });
     },
   },
+  Mutation: {
+    deleteRoles: (_, { ids }, { dataSources }) => dataSources.roles.destroyMany(ids),
+  },
 };

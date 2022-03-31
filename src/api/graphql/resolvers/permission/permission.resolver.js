@@ -4,4 +4,7 @@ export default {
       return dataSources.permissions.paginate({ page });
     },
   },
+  Mutation: {
+    deletePermissions: (_, { ids }, { dataSources }) => dataSources.permissions.destroyMany(ids),
+  },
 };
