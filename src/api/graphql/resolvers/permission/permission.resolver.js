@@ -5,7 +5,7 @@ export default {
     },
   },
   Mutation: {
-    deletePermissions(_, { ids }, { dataSources }) {
+    deletePermissions(_parent, { ids }, { dataSources }) {
       return dataSources.permissions.destroyMany(ids);
     },
   },

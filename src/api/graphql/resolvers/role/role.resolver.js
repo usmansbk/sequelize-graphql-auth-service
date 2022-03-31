@@ -5,7 +5,7 @@ export default {
     },
   },
   Mutation: {
-    deleteRoles(_, { ids }, { dataSources }) {
+    deleteRoles(_parent, { ids }, { dataSources }) {
       return dataSources.roles.destroyMany(ids);
     },
   },

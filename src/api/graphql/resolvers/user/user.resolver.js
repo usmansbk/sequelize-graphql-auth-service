@@ -33,7 +33,7 @@ export default {
     },
   },
   Mutation: {
-    deleteUsers(_, { ids }, { dataSources }) {
+    deleteUsers(_parent, { ids }, { dataSources }) {
       return dataSources.users.destroyMany(ids);
     },
   },
