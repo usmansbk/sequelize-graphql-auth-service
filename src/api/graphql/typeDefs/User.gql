@@ -14,8 +14,8 @@ type Mutation {
   removeProfilePicture: UserPayload! @auth
 
   # Admin
-  createUsers(input: [CreateUserInput!]!): [User]! @auth
-  updateUser(input: UpdateUserInput!): User! @auth
+  createUsers(input: [CreateUserInput!]!): [User!]! @auth
+  updateUsers(input: [UpdateUserInput!]!): [User!]! @auth
   deleteUsers(ids: [ID!]!): [ID!]! @auth
   attachRolesToUser(userId: ID!, roleIds: [ID!]!): User! @auth
   detachRolesFromUser(userId: ID!, roleIds: [ID!]!): User! @auth
