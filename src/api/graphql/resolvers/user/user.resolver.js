@@ -28,11 +28,13 @@ export default {
         throw e;
       }
     },
-    users: (_parent, { page }, { dataSources }) =>
-      dataSources.users.paginate({ page }),
+    users(_parent, { page }, { dataSources }) {
+      return dataSources.users.paginate({ page });
+    },
   },
   Mutation: {
-    deleteUsers: (_, { ids }, { dataSources }) =>
-      dataSources.users.destroyMany(ids),
+    deleteUsers(_, { ids }, { dataSources }) {
+      return dataSources.users.destroyMany(ids);
+    },
   },
 };
