@@ -17,7 +17,7 @@ export default {
           const updates = [currentUser.cache().update({ avatar: null })];
 
           if (avatar) {
-            updates.push(fileStorage.remove(user.avatar));
+            updates.push(fileStorage.remove(currentUser.avatar));
           }
 
           const [updatedUser] = await Promise.all(updates);

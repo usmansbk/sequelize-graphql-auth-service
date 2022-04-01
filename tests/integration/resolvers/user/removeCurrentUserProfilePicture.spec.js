@@ -5,7 +5,7 @@ import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
 import store from "~utils/store";
 
-fileStorage.remove = jest.fn();
+fileStorage.remove = jest.fn().mockReturnValueOnce(Promise.resolve());
 
 const query = gql`
   mutation RemoveProfilePicture {
