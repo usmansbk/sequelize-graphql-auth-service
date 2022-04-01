@@ -76,18 +76,4 @@ export default class UserDS extends SequelizeDataSource {
 
     return user;
   }
-
-  updateCurrentUser(values) {
-    return this.update(this.context.currentUser.id, values);
-  }
-
-  async deleteAvatar(id) {
-    const user = await this.findByPk(id);
-
-    if (user?.avatar) {
-      this.context.fileStorage.remove(user.avatar);
-    }
-
-    return this.update(id, { avatar: null });
-  }
 }

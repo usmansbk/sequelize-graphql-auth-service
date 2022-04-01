@@ -4,9 +4,9 @@ import { Fail, Success } from "~helpers/response";
 
 export default {
   Mutation: {
-    async updateCurrentUserFullname(_parent, { input }, { dataSources, t }) {
+    async updateCurrentUserFullname(_parent, { input }, { currentUser, t }) {
       try {
-        const user = await dataSources.users.updateCurrentUser(input);
+        const user = await currentUser.cache().update(input);
 
         return Success({
           code: PROFILE_UPDATED,
@@ -24,9 +24,9 @@ export default {
         throw e;
       }
     },
-    async updateCurrentUserName(_parent, { username }, { dataSources, t }) {
+    async updateCurrentUserName(_parent, { username }, { currentUser, t }) {
       try {
-        const user = await dataSources.users.updateCurrentUser({ username });
+        const user = await currentUser.cache().update({ username });
 
         return Success({
           code: PROFILE_UPDATED,
@@ -44,9 +44,9 @@ export default {
         throw e;
       }
     },
-    async updateCurrentUserLocale(_parent, { locale }, { dataSources, t }) {
+    async updateCurrentUserLocale(_parent, { locale }, { currentUser, t }) {
       try {
-        const user = await dataSources.users.updateCurrentUser({ locale });
+        const user = await currentUser.cache().update({ locale });
 
         return Success({
           code: PROFILE_UPDATED,

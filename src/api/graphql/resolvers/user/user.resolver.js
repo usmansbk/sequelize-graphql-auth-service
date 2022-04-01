@@ -14,10 +14,9 @@ export default {
     },
   },
   Query: {
-    async me(_parent, _args, { t, currentUser, dataSources }) {
+    async me(_parent, _args, { t, currentUser }) {
       try {
-        const user = await dataSources.users.findByPk(currentUser.id);
-        return Success({ user });
+        return Success({ user: currentUser });
       } catch (e) {
         if (e instanceof QueryError) {
           return Fail({

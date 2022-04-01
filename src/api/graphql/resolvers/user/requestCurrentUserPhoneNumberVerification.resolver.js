@@ -8,10 +8,10 @@ export default {
     async requestCurrentUserPhoneNumberVerification(
       _parent,
       { phoneNumber },
-      { dataSources, store, t, otp, mailer }
+      { currentUser, store, t, otp, mailer }
     ) {
       try {
-        const user = await dataSources.users.updateCurrentUser({ phoneNumber });
+        const user = await currentUser.cache().update({ phoneNumber });
 
         const { id, phoneNumberVerified } = user;
         const key = `${PHONE_NUMBER_KEY_PREFIX}:${id}`;
