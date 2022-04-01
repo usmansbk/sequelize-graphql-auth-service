@@ -12,6 +12,10 @@ const query = gql`
       code
       message
       success
+      user {
+        id
+        phoneNumberVerified
+      }
     }
   }
 `;
@@ -48,13 +52,15 @@ describe("Mutation.verifyPhoneNumber", () => {
       },
       { tokenInfo: { sub: currentUser.id }, currentUser }
     );
-    await currentUser.reload();
 
-    expect(currentUser.phoneNumberVerified).toBe(true);
     expect(res.data.verifyPhoneNumber).toEqual({
       code: "PhoneNumberVerified",
       message: "PhoneNumberVerified",
       success: true,
+      user: {
+        id: currentUser.id,
+        phoneNumberVerified: true,
+      },
     });
   });
 
@@ -71,12 +77,12 @@ describe("Mutation.verifyPhoneNumber", () => {
       },
       { tokenInfo: { sub: user.id }, currentUser: user }
     );
-    await user.reload();
 
     expect(res.data.verifyPhoneNumber).toEqual({
       code: "InvalidOtp",
       message: "InvalidOtp",
       success: false,
+      user: null,
     });
   });
 

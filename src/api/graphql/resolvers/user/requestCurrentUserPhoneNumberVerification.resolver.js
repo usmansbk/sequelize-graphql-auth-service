@@ -32,6 +32,7 @@ export default {
         return Success({
           message: t(SENT_SMS_OTP, { phoneNumber }),
           code: SENT_SMS_OTP,
+          user,
         });
       } catch (e) {
         if (e instanceof QueryError) {

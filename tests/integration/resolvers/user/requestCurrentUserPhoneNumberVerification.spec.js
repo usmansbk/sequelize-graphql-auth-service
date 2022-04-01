@@ -17,6 +17,10 @@ const query = gql`
       success
       message
       code
+      user {
+        id
+        phoneNumberVerified
+      }
     }
   }
 `;
@@ -44,7 +48,9 @@ describe("Mutation.requestCurrentUserPhoneNumberVerification", () => {
   });
 
   test("should send an sms to logged-in user", async () => {
-    const currentUser = await db.User.create(attributes.user());
+    const currentUser = await db.User.create(
+      attributes.user({ phoneNumberVerified: true })
+    );
     const res = await server.executeOperation(
       {
         query,
@@ -59,6 +65,10 @@ describe("Mutation.requestCurrentUserPhoneNumberVerification", () => {
       code: "SentSmsOtp",
       message: "SentSmsOtp",
       success: true,
+      user: {
+        id: currentUser.id,
+        phoneNumberVerified: false,
+      },
     });
   });
 
@@ -70,18 +80,20 @@ describe("Mutation.requestCurrentUserPhoneNumberVerification", () => {
       {
         query,
         variables: {
-          phoneNumber: attributes.faker.phone.phoneNumber(),
+          phoneNumber: attributes.user().phoneNumber,
         },
       },
       { tokenInfo: { sub: currentUser.id }, currentUser }
     );
-    await currentUser.reload();
 
-    expect(currentUser.phoneNumberVerified).toBe(false);
     expect(res.data.requestCurrentUserPhoneNumberVerification).toEqual({
       code: "SentSmsOtp",
       message: "SentSmsOtp",
       success: true,
+      user: {
+        id: currentUser.id,
+        phoneNumberVerified: false,
+      },
     });
   });
 });

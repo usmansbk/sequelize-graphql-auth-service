@@ -9,7 +9,7 @@ fileStorage.remove = jest.fn();
 
 const query = gql`
   mutation RemoveProfilePicture {
-    removeProfilePicture {
+    removeCurrentUserProfilePicture {
       code
       message
       success

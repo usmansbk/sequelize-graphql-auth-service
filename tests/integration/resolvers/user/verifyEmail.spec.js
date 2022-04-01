@@ -13,6 +13,10 @@ const query = gql`
       code
       message
       success
+      user {
+        id
+        emailVerified
+      }
     }
   }
 `;
@@ -52,14 +56,16 @@ describe("Mutation.verifyEmail", () => {
         token: authPayload.accessToken,
       },
     });
-    await user.reload();
 
-    expect(user.emailVerified).toBe(true);
     expect(mailer.sendEmail).toBeCalledTimes(1);
     expect(res.data.verifyEmail).toEqual({
       code: "EmailVerified",
       message: "EmailVerified",
       success: true,
+      user: {
+        id: user.id,
+        emailVerified: true,
+      },
     });
   });
 
