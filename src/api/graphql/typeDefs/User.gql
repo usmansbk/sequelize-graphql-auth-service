@@ -5,16 +5,19 @@ type Query {
 }
 
 type Mutation {
+  updateCurrentUserFullname(input: UpdateFullnameInput!): UserPayload! @auth
+  updateCurrentUserName(username: String!): UserPayload! @auth
+  updateCurrentUserLocale(locale: Locale!): UserPayload! @auth
+  removeCurrentUserProfilePicture: UserPayload! @auth
+  requestCurrentUserPhoneNumberVerification(
+    phoneNumber: PhoneNumber!
+  ): UserPayload! @auth
   requestEmailVerification: RequestResponse! @auth
-  requestPhoneNumberVerification(phoneNumber: String!): RequestFormResponse!
-    @auth
   verifyEmail(token: String!): UserPayload!
   verifyPhoneNumber(token: String!): UserPayload! @auth
-  updateProfile(input: UpdateProfileInput!): UserFormMutationResponse! @auth
-  removeProfilePicture: UserPayload! @auth
 
   # Admin
-  createUsers(input: [CreateUserInput!]!): [User!]! @auth
+  createUsers(input: CreateUsersInput!): [User!]! @auth
   updateUsers(input: [UpdateUserInput!]!): [User!]! @auth
   deleteUsers(ids: [ID!]!): [ID!]! @auth
   attachRolesToUser(userId: ID!, roleIds: [ID!]!): User! @auth
@@ -47,14 +50,6 @@ type UserPayload implements Response {
   user: User
 }
 
-type UserFormMutationResponse implements Response & FormErrors {
-  code: ID!
-  success: Boolean!
-  message: String!
-  errors: [FieldError!]
-  user: User
-}
-
 # Inputs
 
 input CreateUserInput {
@@ -67,6 +62,11 @@ input CreateUserInput {
   locale: Locale
 }
 
+input CreateUsersInput {
+  users: [CreateUserInput!]!
+  roleIds: [ID!]!
+}
+
 input UpdateUserInput {
   id: ID!
   firstName: String
@@ -77,12 +77,9 @@ input UpdateUserInput {
   locale: Locale
 }
 
-input UpdateProfileInput {
+input UpdateFullnameInput {
   firstName: String
   lastName: String
-  username: String
-  phoneNumber: PhoneNumber
-  locale: Locale
 }
 
 # Pagination
