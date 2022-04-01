@@ -5,7 +5,7 @@ import QueryError from "~utils/errors/QueryError";
 
 export default {
   Mutation: {
-    async requestPhoneNumberVerification(
+    async requestCurrentUserPhoneNumberVerification(
       _parent,
       { phoneNumber },
       { dataSources, store, t, otp, mailer }

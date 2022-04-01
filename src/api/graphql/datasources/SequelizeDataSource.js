@@ -199,7 +199,7 @@ export default class SequelizeDataSource extends DataSource {
     return ids;
   }
 
-  async paginate({ page, filter, ...queryArgs }) {
+  async paginate({ page, filter, ...options }) {
     const { limit, order: orderArg, after, before } = page || {};
 
     let order = normalizeOrder(ensureDeterministicOrder(orderArg || []));
@@ -225,9 +225,9 @@ export default class SequelizeDataSource extends DataSource {
         limit,
         order,
         where,
-        ...queryArgs,
+        ...options,
       }),
-      this.model.count({ where: filter, ...queryArgs }),
+      this.model.count({ where: filter, ...options }),
     ]);
 
     if (before) {

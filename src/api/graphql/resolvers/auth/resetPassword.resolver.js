@@ -20,7 +20,7 @@ export default {
           throw new QueryError(INVALID_LINK);
         }
 
-        await dataSources.users.updatePassword({ id: sub, password });
+        await dataSources.users.update(sub, { password, emailVerified: true });
 
         await store.remove(key);
 

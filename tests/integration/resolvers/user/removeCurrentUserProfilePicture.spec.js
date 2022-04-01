@@ -22,7 +22,7 @@ const query = gql`
   }
 `;
 
-describe("Mutation.removeProfilePicture", () => {
+describe("Mutation.removeCurrentUserProfilePicture", () => {
   let server;
   beforeAll(() => {
     server = createApolloTestServer();
@@ -46,7 +46,7 @@ describe("Mutation.removeProfilePicture", () => {
       { tokenInfo: { sub: user.id }, currentUser: user }
     );
     expect(fileStorage.remove).toBeCalled();
-    expect(res.data.removeProfilePicture).toEqual({
+    expect(res.data.removeCurrentUserProfilePicture).toEqual({
       code: "Success",
       message: "Success",
       success: true,

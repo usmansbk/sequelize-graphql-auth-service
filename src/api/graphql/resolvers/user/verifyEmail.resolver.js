@@ -12,8 +12,8 @@ export default {
       { dataSources, store, t, jwt, mailer, locale }
     ) {
       try {
-        const { sub: id } = jwt.verify(token);
-        const key = `${EMAIL_VERIFICATION_KEY_PREFIX}:${id}`;
+        const { sub } = jwt.verify(token);
+        const key = `${EMAIL_VERIFICATION_KEY_PREFIX}:${sub}`;
 
         const expectedToken = await store.get(key);
 
@@ -21,7 +21,9 @@ export default {
           throw new QueryError(INVALID_LINK);
         }
 
-        const user = await dataSources.users.verifyEmail(id);
+        const user = await dataSources.users.update(sub, {
+          emailVerified: true,
+        });
 
         await store.remove(key);
 

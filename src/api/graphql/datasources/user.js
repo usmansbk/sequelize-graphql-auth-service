@@ -77,21 +77,8 @@ export default class UserDS extends SequelizeDataSource {
     return user;
   }
 
-  updatePassword({ id, password }) {
-    // updating a password is proof user owns an email
-    return this.update(id, { password, emailVerified: true });
-  }
-
-  updateCurrentUser(fields) {
-    return this.update(this.context.currentUser.id, fields);
-  }
-
-  verifyEmail(id) {
-    return this.update(id, { emailVerified: true });
-  }
-
-  verifyPhoneNumber(id) {
-    return this.update(id, { phoneNumberVerified: true });
+  updateCurrentUser(values) {
+    return this.update(this.context.currentUser.id, values);
   }
 
   async deleteAvatar(id) {

@@ -12,8 +12,8 @@ jest.mock("~utils/mailer", () => {
 });
 
 const query = gql`
-  mutation RequestPhoneNumberVerification($phoneNumber: String!) {
-    requestPhoneNumberVerification(phoneNumber: $phoneNumber) {
+  mutation RequestPhoneNumberVerification($phoneNumber: PhoneNumber!) {
+    requestCurrentUserPhoneNumberVerification(phoneNumber: $phoneNumber) {
       success
       message
       code
@@ -21,7 +21,7 @@ const query = gql`
   }
 `;
 
-describe("Mutation.requestPhoneNumberVerification", () => {
+describe("Mutation.requestCurrentUserPhoneNumberVerification", () => {
   let server;
   beforeAll(() => {
     server = createApolloTestServer();
@@ -55,7 +55,7 @@ describe("Mutation.requestPhoneNumberVerification", () => {
       { tokenInfo: { sub: currentUser.id }, currentUser }
     );
     expect(mailer.sendSMS).toBeCalledTimes(1);
-    expect(res.data.requestPhoneNumberVerification).toEqual({
+    expect(res.data.requestCurrentUserPhoneNumberVerification).toEqual({
       code: "SentSmsOtp",
       message: "SentSmsOtp",
       success: true,
@@ -78,7 +78,7 @@ describe("Mutation.requestPhoneNumberVerification", () => {
     await currentUser.reload();
 
     expect(currentUser.phoneNumberVerified).toBe(false);
-    expect(res.data.requestPhoneNumberVerification).toEqual({
+    expect(res.data.requestCurrentUserPhoneNumberVerification).toEqual({
       code: "SentSmsOtp",
       message: "SentSmsOtp",
       success: true,

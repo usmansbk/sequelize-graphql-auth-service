@@ -3,7 +3,11 @@ import QueryError from "~utils/errors/QueryError";
 
 export default {
   Mutation: {
-    async removeProfilePicture(_parent, _args, { dataSources, t, tokenInfo }) {
+    async removeCurrentUserProfilePicture(
+      _parent,
+      _args,
+      { dataSources, t, tokenInfo }
+    ) {
       try {
         const user = await dataSources.users.deleteAvatar(tokenInfo.sub);
 

@@ -11,8 +11,8 @@ export default {
       { dataSources, store, tokenInfo, t }
     ) {
       try {
-        const { sub: id } = tokenInfo;
-        const key = `${PHONE_NUMBER_KEY_PREFIX}:${id}`;
+        const { sub } = tokenInfo;
+        const key = `${PHONE_NUMBER_KEY_PREFIX}:${sub}`;
 
         const expectedToken = await store.get(key);
 
@@ -20,7 +20,9 @@ export default {
           throw new QueryError(INVALID_OTP);
         }
 
-        const user = await dataSources.users.verifyPhoneNumber(id);
+        const user = await dataSources.users.update(sub, {
+          phoneNumberVerified: true,
+        });
 
         await store.remove(key);
 
