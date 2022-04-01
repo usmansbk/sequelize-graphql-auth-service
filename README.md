@@ -10,8 +10,9 @@
 - [x] RBAC
 - [x] Profile (Update and Delete)
 - [x] File Upload
-- [ ] Push Notification
 - [x] i18n
+- [ ] Push Notification
+- [ ] Analytics
 
 ## Prerequisites
 
