@@ -60,14 +60,28 @@ export default (sequelize, DataTypes) => {
 
       if (!userRoles) {
         throw new Error(
-          "Use `defaultScope` or eager loading to fetch user roles."
+          "Use `permissions` scope or eager loading to fetch user roles."
         );
       }
 
-      return userRoles.some((roleModel) => {
-        const { name } = roleModel.toJSON();
-        return roles.includes(name);
-      });
+      return userRoles.some((roleModel) => roles.includes(roleModel.name));
+    }
+
+    hasScope(permissions) {
+      const roles = this.get(ROLES_ALIAS);
+      if (!roles) {
+        throw new Error(
+          "Use `permissions` scope or eager loading to fetch user roles."
+        );
+      }
+      const userPermissions = roles.reduce(
+        (result, role) => result.concat(role.permissions),
+        []
+      );
+
+      return userPermissions.some(({ action, resource }) =>
+        permissions.includes(`${action}:${resource}`)
+      );
     }
   }
   User.init(
