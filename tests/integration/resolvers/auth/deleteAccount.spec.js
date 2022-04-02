@@ -1,13 +1,10 @@
 import { gql } from "apollo-server-express";
 import db from "~db/models";
 import store from "~utils/store";
-import fileStorage from "~utils/fileStorage";
 import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
 import auth from "tests/support/auth";
 import { DELETE_ACCOUNT_KEY_PREFIX } from "~constants/auth";
-
-fileStorage.remove = jest.fn();
 
 const query = gql`
   mutation DeleteAccount($token: String!) {
@@ -55,23 +52,6 @@ describe("Mutation.deleteAccount", () => {
     const found = await db.User.findByPk(user.id);
 
     expect(found).toBe(null);
-    expect(res.data?.deleteAccount).toEqual({
-      code: "AccountDeleted",
-      message: "AccountDeleted",
-      success: true,
-    });
-  });
-
-  test("should remove avatar from s3", async () => {
-    await user.update({ avatar: attributes.file() });
-    const res = await server.executeOperation({
-      query,
-      variables: {
-        token,
-      },
-    });
-
-    expect(fileStorage.remove).toBeCalledTimes(1);
     expect(res.data?.deleteAccount).toEqual({
       code: "AccountDeleted",
       message: "AccountDeleted",
