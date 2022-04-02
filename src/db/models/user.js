@@ -24,8 +24,9 @@ import {
   ROLES_ALIAS,
   USER_ROLES_JOIN_TABLE,
 } from "~constants/models";
-import otp from "~utils/otp";
 import client from "~services/redis";
+import otp from "~utils/otp";
+import fileStorage from "~utils/fileStorage";
 
 const redisAdaptor = new RedisAdaptor({
   client,
@@ -237,6 +238,12 @@ export default (sequelize, DataTypes) => {
   User.beforeUpdate("unverify new phone number", (user) => {
     if (user.changed("phoneNumber")) {
       user.setDataValue("phoneNumberVerified", false);
+    }
+  });
+  User.afterDestroy("delete avatar from s3", (userModel) => {
+    const user = userModel.toJSON();
+    if (user.avatar) {
+      fileStorage.remove(user.avatar);
     }
   });
 

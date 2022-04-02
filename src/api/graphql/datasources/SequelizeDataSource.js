@@ -180,6 +180,7 @@ export default class SequelizeDataSource extends DataSource {
               where: {
                 id,
               },
+              individualHooks: true,
               returning: true,
             })
           )
@@ -214,6 +215,7 @@ export default class SequelizeDataSource extends DataSource {
               where: {
                 id,
               },
+              individualHooks: true,
             })
           )
         );

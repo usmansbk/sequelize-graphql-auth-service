@@ -46,12 +46,6 @@ export default class UserDS extends SequelizeDataSource {
     });
   }
 
-  onDestroy({ oldImage }) {
-    if (oldImage.avatar) {
-      this.context.fileStorage.remove(oldImage.avatar);
-    }
-  }
-
   async createWithEmail(fields) {
     let user = await this.findOne({
       where: {
