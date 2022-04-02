@@ -6,6 +6,7 @@ import {
 } from "sequelize";
 import { DataSource } from "apollo-datasource";
 import DataLoader from "dataloader";
+import db from "~db/models";
 import formatErrors from "~utils/formatErrors";
 import FieldErrors from "~utils/errors/FieldErrors";
 import QueryError from "~utils/errors/QueryError";
@@ -18,6 +19,8 @@ import {
   normalizeOrder,
 } from "~utils/paginate";
 import { FIELD_ERRORS, ITEM_NOT_FOUND } from "~constants/i18n";
+
+const { sequelize } = db;
 
 /**
  * The SequelizeDataSource abstract class helps you query data from an SQL database. Your server
@@ -168,6 +171,25 @@ export default class SequelizeDataSource extends DataSource {
     }
   }
 
+  updateMany(records) {
+    try {
+      return sequelize.transaction(() =>
+        Promise.all(
+          records.map(({ id, ...values }) =>
+            this.model.update(values, {
+              where: {
+                id,
+              },
+              returning: true,
+            })
+          )
+        )
+      );
+    } catch (e) {
+      return this.onError(e);
+    }
+  }
+
   /**
    * Delete is idemponent and shouldn't throw an error if item does not exist
    */
@@ -181,22 +203,23 @@ export default class SequelizeDataSource extends DataSource {
     return id;
   }
 
-  async destroyMany(ids) {
-    const rows = await this.model.findAll({
-      where: {
-        id: ids,
-      },
-    });
-
-    await this.model.destroy({
-      where: {
-        id: ids,
-      },
-    });
-
-    rows.map((row) => this.onDestroy({ oldImage: row.toJSON() }));
-
-    return ids;
+  destroyMany(ids) {
+    try {
+      return sequelize.transaction(async () => {
+        await Promise.all(
+          ids.map((id) =>
+            this.model.destroy({
+              where: {
+                id,
+              },
+            })
+          )
+        );
+        return ids;
+      });
+    } catch (e) {
+      return this.onError(e);
+    }
   }
 
   async paginate({ page, filter, ...options }) {
