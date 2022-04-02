@@ -249,11 +249,13 @@ export default class SequelizeDataSource extends DataSource {
       ? { [Op.and]: [paginationQuery, filter] }
       : filter;
 
-    const include = buildIncludeQuery({
-      info,
-      modelName: this.model.name,
-      fieldName: "items",
-    });
+    const include =
+      info &&
+      buildIncludeQuery({
+        info,
+        modelName: this.model.name,
+        fieldName: "items",
+      });
 
     const [{ rows, count }, totalCount] = await Promise.all([
       this.findAndCountAll({
