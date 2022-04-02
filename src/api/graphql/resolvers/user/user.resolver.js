@@ -32,19 +32,26 @@ export default {
     },
   },
   Mutation: {
-    async createUserProfiles(
+    createUserAccounts(
       _parent,
-      { input: { profiles } },
-      { dataSources }
+      { input: { profiles, roleIds } },
+      { dataSources, db }
     ) {
-      const users = await dataSources.users.createMany(profiles);
-      // const roles = await dataSources.roles.findAll({
-      //   where: {
-      //     id: roleIds,
-      //   },
-      // });
-
-      return users;
+      return db.sequelize.transaction(async (transaction) => {
+        const users = await dataSources.users.createMany(profiles, {
+          transaction,
+        });
+        const roles = await dataSources.roles.findAll({
+          where: {
+            id: roleIds,
+          },
+          transaction,
+        });
+        await Promise.all(
+          roles.map((role) => role.addMembers(users, { transaction }))
+        );
+        return users;
+      });
     },
     updateUserProfile(_parent, { input: { id, ...values } }, { dataSources }) {
       return dataSources.users.update(id, values);
