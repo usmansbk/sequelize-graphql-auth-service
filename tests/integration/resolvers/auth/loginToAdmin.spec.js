@@ -34,7 +34,7 @@ describe("Mutation.loginToAdmin", () => {
   });
 
   test("should login a user with correct username & password combination", async () => {
-    const fields = attributes.user();
+    const fields = attributes.user({ emailVerified: true });
     const user = await db.User.create(fields);
     await user.addRole(role);
 
@@ -54,13 +54,11 @@ describe("Mutation.loginToAdmin", () => {
     expect(loginToAdmin.refreshToken).toBeDefined();
   });
 
-  test("should login a non-admin user with correct username & password combination", async () => {
+  test("should not login a non-admin user with correct username & password combination", async () => {
     const fields = attributes.user();
     await db.User.create(fields);
 
-    const {
-      data: { loginToAdmin },
-    } = await server.executeOperation({
+    const res = await server.executeOperation({
       query,
       variables: {
         input: {
@@ -69,13 +67,16 @@ describe("Mutation.loginToAdmin", () => {
         },
       },
     });
+    const {
+      data: { loginToAdmin },
+    } = res;
     expect(loginToAdmin.message).toMatch("IncorrectUsernameOrPassword");
     expect(loginToAdmin.accessToken).toBeDefined();
     expect(loginToAdmin.refreshToken).toBeDefined();
   });
 
-  test("should not login a user with wrong username & password combination", async () => {
-    const fields = attributes.user();
+  test("should not login admin with wrong username & password combination", async () => {
+    const fields = attributes.user({ emailVerified: true });
     const user = await db.User.create(fields);
     await user.addRole(role);
 
@@ -91,6 +92,27 @@ describe("Mutation.loginToAdmin", () => {
       },
     });
     expect(loginToAdmin.message).toMatch("IncorrectUsernameOrPassword");
+    expect(loginToAdmin.accessToken).toBeNull();
+    expect(loginToAdmin.refreshToken).toBeNull();
+  });
+
+  test("should not login admin with wrong unverified email", async () => {
+    const fields = attributes.user();
+    const user = await db.User.create(fields);
+    await user.addRole(role);
+
+    const {
+      data: { loginToAdmin },
+    } = await server.executeOperation({
+      query,
+      variables: {
+        input: {
+          username: fields.username,
+          password: fields.email,
+        },
+      },
+    });
+    expect(loginToAdmin.message).toMatch("EmailNotVerified");
     expect(loginToAdmin.accessToken).toBeNull();
     expect(loginToAdmin.refreshToken).toBeNull();
   });
