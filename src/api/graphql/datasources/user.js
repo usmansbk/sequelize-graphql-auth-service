@@ -22,7 +22,6 @@ export default class UserDS extends SequelizeDataSource {
       include: [
         {
           association: ROLES_ALIAS,
-          required: true,
           where: {
             name: ["root", "admin"],
           },

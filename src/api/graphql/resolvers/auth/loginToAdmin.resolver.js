@@ -1,6 +1,10 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
-import { INCORRECT_USERNAME_OR_PASSWORD, WELCOME_BACK } from "~constants/i18n";
+import {
+  EMAIL_NOT_VERIFIED,
+  INCORRECT_USERNAME_OR_PASSWORD,
+  WELCOME_BACK,
+} from "~constants/i18n";
 import emailTemplates from "~helpers/emailTemplates";
 import {
   FAILED_LOGIN_ATTEMPT_KEY_PREFIX,
@@ -17,6 +21,10 @@ export default {
       try {
         const [user, granted] =
           await dataSources.users.findAdminByUsernameAndPassword(input);
+
+        if (!user.emailVerified) {
+          throw new QueryError(EMAIL_NOT_VERIFIED);
+        }
 
         const attemptCountKey = `${FAILED_LOGIN_ATTEMPT_KEY_PREFIX}:${input.username}`;
         if (user && !granted) {
