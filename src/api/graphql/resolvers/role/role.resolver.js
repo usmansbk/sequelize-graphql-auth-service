@@ -1,6 +1,9 @@
 export default {
   Role: {
     permissions(role) {
+      if (role.permissions) {
+        return role.permissions;
+      }
       return role.getPermissions();
     },
   },
