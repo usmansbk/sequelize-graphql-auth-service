@@ -49,7 +49,7 @@ const createSuperUser = async () => {
     },
   ]);
   try {
-    await sequelize.sync({ force: true });
+    await sequelize.sync();
     const superUser = await Role.create(
       {
         name: "Root",
