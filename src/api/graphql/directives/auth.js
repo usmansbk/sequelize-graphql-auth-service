@@ -1,7 +1,11 @@
 import { mapSchema, getDirective, MapperKind } from "@graphql-tools/utils";
 import { AuthenticationError, ForbiddenError } from "apollo-server-core";
 import { defaultFieldResolver } from "graphql";
-import { AUTH_OWNER_STRATEGY, AUTH_ROLE_STRATEGY } from "~constants/auth";
+import {
+  AUTH_OWNER_STRATEGY,
+  AUTH_ROLE_STRATEGY,
+  AUTH_SCOPE_STRATEGY,
+} from "~constants/auth";
 import { UNAUTHENTICATED, UNAUTHORIZED } from "~constants/i18n";
 
 const authDirectiveTransformer = (schema, directiveName) => {
@@ -36,7 +40,7 @@ const authDirectiveTransformer = (schema, directiveName) => {
           const { rules } = authDirective;
           if (rules) {
             const checks = rules.map((rule) => {
-              const { allow, identityClaim, roles } = rule;
+              const { allow, identityClaim, roles, scope } = rule;
               switch (allow) {
                 case AUTH_OWNER_STRATEGY:
                   return new Promise((permit, reject) => {
@@ -49,6 +53,14 @@ const authDirectiveTransformer = (schema, directiveName) => {
                 case AUTH_ROLE_STRATEGY:
                   return new Promise((permit, reject) => {
                     const granted = currentUser.hasRole(roles);
+                    if (!granted) {
+                      reject();
+                    }
+                    permit();
+                  });
+                case AUTH_SCOPE_STRATEGY:
+                  return new Promise((permit, reject) => {
+                    const granted = currentUser.hasScope(scope);
                     if (!granted) {
                       reject();
                     }

@@ -67,20 +67,20 @@ export default (sequelize, DataTypes) => {
       return userRoles.some((roleModel) => roles.includes(roleModel.name));
     }
 
-    hasScope(permissions) {
+    hasScope(scope) {
       const roles = this.get(ROLES_ALIAS);
       if (!roles) {
         throw new Error(
           "Use `permissions` scope or eager loading to fetch user roles."
         );
       }
-      const userPermissions = roles.reduce(
+      const permissions = roles.reduce(
         (result, role) => result.concat(role.permissions),
         []
       );
 
-      return userPermissions.some(({ action, resource }) =>
-        permissions.includes(`${action}:${resource}`)
+      return permissions.some(({ action, resource }) =>
+        scope.includes(`${action}:${resource}`)
       );
     }
   }
