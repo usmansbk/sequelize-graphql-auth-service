@@ -173,8 +173,8 @@ export default class SequelizeDataSource extends DataSource {
 
   updateMany(records) {
     try {
-      return sequelize.transaction(() =>
-        Promise.all(
+      return sequelize.transaction(async () => {
+        const result = await Promise.all(
           records.map(({ id, ...values }) =>
             this.model.update(values, {
               where: {
@@ -183,8 +183,10 @@ export default class SequelizeDataSource extends DataSource {
               returning: true,
             })
           )
-        )
-      );
+        );
+
+        return result.map(([, [user]]) => user);
+      });
     } catch (e) {
       return this.onError(e);
     }
