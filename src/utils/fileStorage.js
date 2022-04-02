@@ -15,10 +15,10 @@ const remove = (options) => {
     retries: 3,
   });
 
-  operation.attempt(() => {
+  operation.attempt((attempt) => {
     s3.deleteObject({ Key, Bucket }, (err) => {
       if (operation.retry(err)) {
-        log.error(err);
+        log.error(`Retry #${attempt}: ${err.message}`);
       }
     });
   });

@@ -10,7 +10,7 @@ export default {
     ) {
       try {
         if (currentUser.avatar) {
-          await fileStorage.remove(currentUser.avatar);
+          fileStorage.remove(currentUser.avatar);
           await currentUser.cache().update({ avatar: null });
         }
 
