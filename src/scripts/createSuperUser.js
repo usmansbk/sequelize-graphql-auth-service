@@ -52,7 +52,7 @@ const createSuperUser = async () => {
     await sequelize.sync();
     const superUser = await Role.create(
       {
-        name: "Root",
+        name: "root",
         description: "For administrative purposes",
         permissions,
       },
