@@ -5,6 +5,9 @@ export default {
     },
   },
   Mutation: {
+    updatePermissions(_parent, { inputs }, { dataSources }) {
+      return dataSources.permissions.updateMany(inputs);
+    },
     deletePermissions(_parent, { ids }, { dataSources }) {
       return dataSources.permissions.destroyMany(ids);
     },

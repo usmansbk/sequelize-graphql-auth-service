@@ -32,6 +32,9 @@ export default {
     },
   },
   Mutation: {
+    updateUsers(_parent, { inputs }, { dataSources }) {
+      return dataSources.users.updateMany(inputs);
+    },
     deleteUsers(_parent, { ids }, { dataSources }) {
       return dataSources.users.destroyMany(ids);
     },

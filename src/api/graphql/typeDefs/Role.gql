@@ -4,7 +4,7 @@ type Query {
 
 type Mutation {
   createRole(input: CreateRoleInput!): Role! @auth
-  updateRole(input: UpdateRoleInput!): Role! @auth
+  updateRoles(inputs: [UpdateRoleInput!]!): [Role!]! @auth
   deleteRoles(ids: [ID!]!): [ID!]! @auth
   attachPermissionsToRole(roleId: ID!, permissionIds: [ID!]!): Role! @auth
   detachPermissionsFromRole(roleId: ID!, permissionIds: [ID!]!): Role! @auth

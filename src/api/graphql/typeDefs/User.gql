@@ -18,7 +18,7 @@ type Mutation {
 
   # Admin
   createUsers(input: CreateUsersInput!): [User!]! @auth
-  updateUsers(input: [UpdateUserInput!]!): [User!]! @auth
+  updateUsers(inputs: [UpdateUserInput!]!): [User!]! @auth
   deleteUsers(ids: [ID!]!): [ID!]! @auth
   attachRolesToUser(userId: ID!, roleIds: [ID!]!): User! @auth
   detachRolesFromUser(userId: ID!, roleIds: [ID!]!): User! @auth
