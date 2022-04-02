@@ -1,12 +1,28 @@
+import { ROLES_ALIAS } from "~constants/models";
+
 export default {
   Role: {
     permissions(role) {
       return role.permissions || role.getPermissions();
     },
+    members(role, { page }, { dataSources }, info) {
+      return dataSources.users.paginate({
+        page,
+        info,
+        include: [
+          {
+            association: ROLES_ALIAS,
+            where: {
+              id: role.id,
+            },
+          },
+        ],
+      });
+    },
   },
   Query: {
     roles(_parent, { page }, { dataSources }, info) {
-      return dataSources.roles.paginate({ page }, info);
+      return dataSources.roles.paginate({ page, info });
     },
   },
   Mutation: {

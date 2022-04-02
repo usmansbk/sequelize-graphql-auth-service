@@ -16,7 +16,7 @@ type Role {
   name: String!
   description: String
   permissions: [Permission]!
-  members: UserList!
+  members(page: ListPage): UserList!
   createdAt: DateTime!
   updatedAt: DateTime
 }

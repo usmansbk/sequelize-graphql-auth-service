@@ -228,7 +228,7 @@ export default class SequelizeDataSource extends DataSource {
     }
   }
 
-  async paginate({ page, filter, ...options }, info) {
+  async paginate({ page, filter, info, ...options }) {
     const { limit, order: orderArg, after, before } = page || {};
 
     let order = normalizeOrder(ensureDeterministicOrder(orderArg || []));

@@ -1,7 +1,12 @@
 export default {
+  Permission: {
+    roles(permission) {
+      return permission.roles || permission.getRoles();
+    },
+  },
   Query: {
     permissions(_parent, { page }, { dataSources }, info) {
-      return dataSources.permissions.paginate({ page }, info);
+      return dataSources.permissions.paginate({ page, info });
     },
   },
   Mutation: {
