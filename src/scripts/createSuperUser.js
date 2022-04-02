@@ -9,7 +9,7 @@ const permissions = [
     action: "all",
     resource: "all",
     description:
-      "It is a user account for administrative purposes, and has the highest access rights in the organisation.",
+      "For administrative purposes, and has the highest access rights in the organisation.",
   },
 ];
 
