@@ -1,3 +1,5 @@
+import graphqlFields from "graphql-fields";
+import { ROLES_ALIAS } from "~constants/models";
 import { Fail, Success } from "~helpers/response";
 import QueryError from "~utils/errors/QueryError";
 
@@ -30,8 +32,16 @@ export default {
         throw e;
       }
     },
-    users(_parent, { page }, { dataSources }) {
-      return dataSources.users.paginate({ page });
+    users(_parent, { page }, { dataSources }, info) {
+      const { items } = graphqlFields(info);
+      let include;
+      if (items?.roles) {
+        include = [{ association: ROLES_ALIAS }];
+      }
+      return dataSources.users.paginate({
+        page,
+        include,
+      });
     },
   },
   Mutation: {
