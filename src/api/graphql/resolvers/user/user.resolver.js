@@ -32,7 +32,17 @@ export default {
     },
   },
   Mutation: {
-    updateUser(_parent, { input: { id, ...values } }, { dataSources }) {
+    async createProfiles(_parent, { input: { profiles } }, { dataSources }) {
+      const users = await dataSources.users.createMany(profiles);
+      // const roles = await dataSources.roles.findAll({
+      //   where: {
+      //     id: roleIds,
+      //   },
+      // });
+
+      return users;
+    },
+    updateProfile(_parent, { input: { id, ...values } }, { dataSources }) {
       return dataSources.users.update(id, values);
     },
     deleteUsers(_parent, { ids }, { dataSources }) {
