@@ -1,3 +1,4 @@
+import inquirer from "inquirer";
 import db from "~db/models";
 import log from "~utils/logger";
 import store from "~utils/store";
@@ -14,13 +15,45 @@ const permissions = [
 ];
 
 const { sequelize, User, Role } = db;
+
 const createSuperUser = async () => {
+  console.log(
+    "WARNING: The root account has virtually unlimited access to all resources."
+  );
+
+  const answers = await inquirer.prompt([
+    {
+      type: "input",
+      name: "firstName",
+      message: "First name",
+    },
+    {
+      type: "input",
+      name: "lastName",
+      message: "Last name",
+    },
+    {
+      type: "input",
+      name: "username",
+      message: "Username",
+    },
+    {
+      type: "input",
+      name: "email",
+      message: "Email address",
+    },
+    {
+      type: "password",
+      name: "password",
+      message: "Password (6 - 32 characters long)",
+    },
+  ]);
   try {
-    await sequelize.sync({ force: true });
-    const role = await Role.create(
+    await sequelize.sync();
+    const admin = await Role.create(
       {
         name: "ADMIN",
-        description: "Admin group",
+        description: "For administrative purposes",
         permissions,
       },
       {
@@ -31,14 +64,8 @@ const createSuperUser = async () => {
         ],
       }
     );
-    const admin = await User.create({
-      email: "usmansbk.dev@gmail.com",
-      firstName: "Usman",
-      lastName: "Suleiman",
-      username: "usman",
-      password: "qwertyadmin48",
-    });
-    await admin.addRole(role);
+    const root = await User.create(answers);
+    await root.addRole(admin);
     await sequelize.close();
     store.close();
   } catch (e) {
