@@ -17,6 +17,7 @@ import {
   getPaginationQuery,
   normalizeOrder,
 } from "~utils/paginate";
+import buildIncludeQuery from "~utils/include";
 import { FIELD_ERRORS, ITEM_NOT_FOUND } from "~constants/i18n";
 
 /**
@@ -227,7 +228,7 @@ export default class SequelizeDataSource extends DataSource {
     }
   }
 
-  async paginate({ page, filter, ...options }) {
+  async paginate({ page, filter, ...options }, info) {
     const { limit, order: orderArg, after, before } = page || {};
 
     let order = normalizeOrder(ensureDeterministicOrder(orderArg || []));
@@ -248,11 +249,18 @@ export default class SequelizeDataSource extends DataSource {
       ? { [Op.and]: [paginationQuery, filter] }
       : filter;
 
+    const include = buildIncludeQuery({
+      info,
+      modelName: this.model.name,
+      fieldName: "items",
+    });
+
     const [{ rows, count }, totalCount] = await Promise.all([
       this.findAndCountAll({
         limit,
         order,
         where,
+        include,
         ...options,
       }),
       this.model.count({ where: filter, ...options }),

@@ -1,7 +1,7 @@
 export default {
   Query: {
-    permissions(_parent, { page }, { dataSources }) {
-      return dataSources.permissions.paginate({ page });
+    permissions(_parent, { page }, { dataSources }, info) {
+      return dataSources.permissions.paginate({ page }, info);
     },
   },
   Mutation: {
