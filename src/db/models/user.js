@@ -240,7 +240,14 @@ export default (sequelize, DataTypes) => {
       user.setDataValue("phoneNumberVerified", false);
     }
   });
-  User.afterDestroy("delete avatar from s3", (userModel) => {
+
+  User.afterUpdate("delete avatar file", (userModel) => {
+    if (userModel.changed("avatar")) {
+      fileStorage.remove(userModel.previous().avatar);
+    }
+  });
+
+  User.afterDestroy("delete avatar file", (userModel) => {
     const user = userModel.toJSON();
     if (user.avatar) {
       fileStorage.remove(user.avatar);

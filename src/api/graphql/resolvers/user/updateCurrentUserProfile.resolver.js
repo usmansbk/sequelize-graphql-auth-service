@@ -64,5 +64,22 @@ export default {
         throw e;
       }
     },
+    async removeCurrentUserProfilePicture(_parent, _args, { currentUser, t }) {
+      try {
+        if (currentUser.avatar) {
+          await currentUser.cache().update({ avatar: null });
+        }
+
+        return Success({ user: currentUser });
+      } catch (e) {
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            code: e.code,
+          });
+        }
+        throw e;
+      }
+    },
   },
 };

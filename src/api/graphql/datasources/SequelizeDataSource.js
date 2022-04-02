@@ -6,7 +6,6 @@ import {
 } from "sequelize";
 import { DataSource } from "apollo-datasource";
 import DataLoader from "dataloader";
-import db from "~db/models";
 import formatErrors from "~utils/formatErrors";
 import FieldErrors from "~utils/errors/FieldErrors";
 import QueryError from "~utils/errors/QueryError";
@@ -19,8 +18,6 @@ import {
   normalizeOrder,
 } from "~utils/paginate";
 import { FIELD_ERRORS, ITEM_NOT_FOUND } from "~constants/i18n";
-
-const { sequelize } = db;
 
 /**
  * The SequelizeDataSource abstract class helps you query data from an SQL database. Your server
@@ -171,23 +168,16 @@ export default class SequelizeDataSource extends DataSource {
     }
   }
 
-  updateMany(records) {
+  async updateMany(values, options) {
     try {
-      return sequelize.transaction(async () => {
-        const result = await Promise.all(
-          records.map(({ id, ...values }) =>
-            this.model.update(values, {
-              where: {
-                id,
-              },
-              individualHooks: true,
-              returning: true,
-            })
-          )
-        );
-
-        return result.map(([, [user]]) => user);
+      const [, models] = await this.model.update(values, {
+        individualHooks: true,
+        returning: true,
+        ...options,
       });
+
+      this.primeMany(models);
+      return models;
     } catch (e) {
       return this.onError(e);
     }
@@ -206,21 +196,15 @@ export default class SequelizeDataSource extends DataSource {
     return id;
   }
 
-  destroyMany(ids) {
+  async destroyMany(ids) {
     try {
-      return sequelize.transaction(async () => {
-        await Promise.all(
-          ids.map((id) =>
-            this.model.destroy({
-              where: {
-                id,
-              },
-              individualHooks: true,
-            })
-          )
-        );
-        return ids;
+      await this.model.destroy({
+        where: {
+          id: ids,
+        },
+        individualHooks: true,
       });
+      return ids;
     } catch (e) {
       return this.onError(e);
     }

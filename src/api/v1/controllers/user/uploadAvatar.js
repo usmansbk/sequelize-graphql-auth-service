@@ -56,6 +56,9 @@ const uploadAvatar = async (req, res) => {
       if (message === "File too large") {
         message = IMAGE_TOO_LARGE;
       }
+      if (file) {
+        fileStorage.remove(file);
+      }
       res.status(400).send({
         success: false,
         message: t(message, {
@@ -89,9 +92,6 @@ const uploadAvatar = async (req, res) => {
           size,
         };
 
-        if (currentUser.avatar) {
-          await fileStorage.remove(currentUser.avatar);
-        }
         await currentUser.cache().update({ avatar });
 
         res.send({
@@ -99,10 +99,6 @@ const uploadAvatar = async (req, res) => {
           avatar,
         });
       } catch (error) {
-        if (file) {
-          fileStorage.remove(file);
-        }
-
         res.status(400).send({
           success: false,
           message: t(error.message),
