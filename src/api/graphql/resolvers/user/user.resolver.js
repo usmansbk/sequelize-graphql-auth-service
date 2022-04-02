@@ -10,6 +10,9 @@ export default {
       return user.id === currentUser?.id;
     },
     roles(user) {
+      if (user.roles) {
+        return user.roles;
+      }
       return user.getRoles();
     },
   },
