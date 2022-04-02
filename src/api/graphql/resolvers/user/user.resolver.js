@@ -6,8 +6,8 @@ export default {
     picture(parent) {
       return parent.avatar;
     },
-    isOwner(parent, _args, { tokenInfo }) {
-      return parent.id === tokenInfo?.sub;
+    isOwner(parent, _args, { currentUser }) {
+      return parent.id === currentUser?.id;
     },
     roles(parent) {
       return parent.getRoles();
