@@ -10,11 +10,11 @@ export default {
 
         // delete session
         if (all) {
-          jwt.audience.forEach((aud) => {
-            store.remove(`${aud}:${sub}`);
-          });
+          await Promise.all(
+            jwt.audience.map((aud) => store.remove(`${aud}:${sub}`))
+          );
         } else {
-          store.remove(`${clientId}:${sub}`);
+          await store.remove(`${clientId}:${sub}`);
         }
       }
 

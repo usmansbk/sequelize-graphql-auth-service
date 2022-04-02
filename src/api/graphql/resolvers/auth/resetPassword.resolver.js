@@ -25,9 +25,9 @@ export default {
         await store.remove(key);
 
         // invalidate all refresh tokens
-        jwt.audience.forEach(async (aud) => {
-          await store.remove(`${aud}:${sub}`);
-        });
+        await Promise.all(
+          jwt.audience.map((aud) => store.remove(`${aud}:${sub}`))
+        );
 
         // we can send an email here to inform user of the change...
 
