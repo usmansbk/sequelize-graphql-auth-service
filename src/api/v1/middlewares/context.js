@@ -13,6 +13,7 @@ const contextMiddleware = async (req, _res, next) => {
   let sessionId;
   const accessToken = authorization?.split(" ")?.[1];
   let currentUser;
+  let isAdmin = false;
 
   if (accessToken) {
     try {
@@ -21,6 +22,9 @@ const contextMiddleware = async (req, _res, next) => {
       currentUser = await db.User.scope("permissions")
         .cache()
         .findByPk(tokenInfo.sub);
+      isAdmin = !!currentUser.roles.find(
+        ({ name }) => name === "root" || name === "admin"
+      );
       if (currentUser?.locale) {
         await req.i18n.changeLanguage(currentUser.locale);
       }
@@ -34,6 +38,7 @@ const contextMiddleware = async (req, _res, next) => {
     otp,
     jwt,
     store,
+    isAdmin,
     fileStorage,
     tokenInfo,
     sessionId,

@@ -29,54 +29,56 @@ const authDirectiveTransformer = (schema, directiveName) => {
         const newFieldConfig = { ...fieldConfig };
         newFieldConfig.resolve = async (source, args, context, info) => {
           // check authentication
-          const { tokenInfo, sessionId, currentUser } = context;
+          const { tokenInfo, sessionId, currentUser, isAdmin } = context;
           const isLoggedIn = tokenInfo && tokenInfo.sid === sessionId;
 
           if (!(currentUser && isLoggedIn)) {
             throw new AuthenticationError(UNAUTHENTICATED);
           }
 
-          // check authorization
-          const { rules } = authDirective;
-          if (rules) {
-            const checks = rules.map((rule) => {
-              const { allow, identityClaim, roles, scopes } = rule;
-              switch (allow) {
-                case AUTH_OWNER_STRATEGY:
-                  return new Promise((permit, reject) => {
-                    const granted = source[identityClaim] === currentUser.id;
-                    if (!granted) {
+          // check authorization for non-admin
+          if (!isAdmin) {
+            const { rules } = authDirective;
+            if (rules) {
+              const checks = rules.map((rule) => {
+                const { allow, identityClaim, roles, scopes } = rule;
+                switch (allow) {
+                  case AUTH_OWNER_STRATEGY:
+                    return new Promise((permit, reject) => {
+                      const granted = source[identityClaim] === currentUser.id;
+                      if (!granted) {
+                        reject();
+                      }
+                      permit();
+                    });
+                  case AUTH_ROLE_STRATEGY:
+                    return new Promise((permit, reject) => {
+                      const granted = currentUser.hasRole(roles);
+                      if (!granted) {
+                        reject();
+                      }
+                      permit();
+                    });
+                  case AUTH_SCOPE_STRATEGY:
+                    return new Promise((permit, reject) => {
+                      const granted = currentUser.hasScope(scopes);
+                      if (!granted) {
+                        reject();
+                      }
+                      permit();
+                    });
+                  default:
+                    return new Promise((_, reject) => {
                       reject();
-                    }
-                    permit();
-                  });
-                case AUTH_ROLE_STRATEGY:
-                  return new Promise((permit, reject) => {
-                    const granted = currentUser.hasRole(roles);
-                    if (!granted) {
-                      reject();
-                    }
-                    permit();
-                  });
-                case AUTH_SCOPE_STRATEGY:
-                  return new Promise((permit, reject) => {
-                    const granted = currentUser.hasScope(scopes);
-                    if (!granted) {
-                      reject();
-                    }
-                    permit();
-                  });
-                default:
-                  return new Promise((_, reject) => {
-                    reject();
-                  });
-              }
-            });
+                    });
+                }
+              });
 
-            try {
-              await Promise.any(checks);
-            } catch (e) {
-              throw new ForbiddenError(UNAUTHORIZED);
+              try {
+                await Promise.any(checks);
+              } catch (e) {
+                throw new ForbiddenError(UNAUTHORIZED);
+              }
             }
           }
 
