@@ -45,11 +45,14 @@ enum PermissionResource {
   users
   roles
   permissions
+  all
 }
 
 enum PermissionAction {
+  all
   create
   read
   update
   delete
+  list
 }

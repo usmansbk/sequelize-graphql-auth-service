@@ -5,19 +5,11 @@ import { PERMISSIONS_ALIAS } from "~constants/models";
 
 const permissions = [
   {
-    name: "CreateRoles",
-    action: "create",
-    resource: "roles",
-  },
-  {
-    name: "CreatePermissions",
-    action: "create",
-    resource: "permissions",
-  },
-  {
-    name: "CreateUsers",
-    action: "create",
-    resource: "users",
+    name: "Root",
+    action: "all",
+    resource: "all",
+    description:
+      "It is a user account for administrative purposes, and has the highest access rights in the organisation.",
   },
 ];
 

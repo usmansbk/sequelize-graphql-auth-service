@@ -12,6 +12,11 @@ type Mutation {
   loginToAdmin(input: AdminLoginInput!): AuthMutationResponse!
 }
 
+type Query {
+  actions: [PermissionAction]! @auth
+  resources: [PermissionResource]! @auth
+}
+
 enum SocialProvider {
   GOOGLE
   FACEBOOK
@@ -76,6 +81,7 @@ enum AuthStrategy {
   """
   owner
   role
+  scope
 }
 
 enum AuthRole {
