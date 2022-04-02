@@ -24,7 +24,7 @@ describe("Mutation.loginToAdmin", () => {
   let role;
   beforeAll(async () => {
     server = createApolloTestServer();
-    role = await db.Role.create({ name: "ADMIN" });
+    role = await db.Role.create({ name: "admin" });
   });
 
   afterAll(async () => {

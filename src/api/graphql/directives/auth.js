@@ -40,7 +40,7 @@ const authDirectiveTransformer = (schema, directiveName) => {
           const { rules } = authDirective;
           if (rules) {
             const checks = rules.map((rule) => {
-              const { allow, identityClaim, roles, scope } = rule;
+              const { allow, identityClaim, roles, scopes } = rule;
               switch (allow) {
                 case AUTH_OWNER_STRATEGY:
                   return new Promise((permit, reject) => {
@@ -60,7 +60,7 @@ const authDirectiveTransformer = (schema, directiveName) => {
                   });
                 case AUTH_SCOPE_STRATEGY:
                   return new Promise((permit, reject) => {
-                    const granted = currentUser.hasScope(scope);
+                    const granted = currentUser.hasScope(scopes);
                     if (!granted) {
                       reject();
                     }
