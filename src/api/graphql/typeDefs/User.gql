@@ -17,9 +17,9 @@ type Mutation {
   verifyPhoneNumber(token: String!): UserPayload! @auth
 
   # Admin
-  createProfiles(input: CreateProfilesInput!): [User!]! @auth
-  updateProfile(input: UpdateProfileInput!): User! @auth
-  deleteUsers(ids: [ID!]!): [ID!]! @auth
+  createUserProfiles(input: CreateUserProfilesInput!): [User!]! @auth
+  updateUserProfile(input: UpdateUserProfileInput!): User! @auth
+  deleteUserAccounts(ids: [ID!]!): [ID!]! @auth
   attachRolesToUser(userId: ID!, roleIds: [ID!]!): User! @auth
   detachRolesFromUser(userId: ID!, roleIds: [ID!]!): User! @auth
 }
@@ -61,7 +61,7 @@ input CreateAccountInput {
   locale: Locale
 }
 
-input CreateProfileInput {
+input CreateUserProfileInput {
   firstName: String!
   lastName: String!
   email: EmailAddress!
@@ -69,12 +69,12 @@ input CreateProfileInput {
   locale: Locale
 }
 
-input CreateProfilesInput {
-  profiles: [CreateProfileInput!]!
+input CreateUserProfilesInput {
+  profiles: [CreateUserProfileInput!]!
   roleIds: [ID!]!
 }
 
-input UpdateProfileInput {
+input UpdateUserProfileInput {
   id: ID!
   firstName: String
   lastName: String

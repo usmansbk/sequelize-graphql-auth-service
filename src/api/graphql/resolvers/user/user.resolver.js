@@ -32,7 +32,11 @@ export default {
     },
   },
   Mutation: {
-    async createProfiles(_parent, { input: { profiles } }, { dataSources }) {
+    async createUserProfiles(
+      _parent,
+      { input: { profiles } },
+      { dataSources }
+    ) {
       const users = await dataSources.users.createMany(profiles);
       // const roles = await dataSources.roles.findAll({
       //   where: {
@@ -42,10 +46,10 @@ export default {
 
       return users;
     },
-    updateProfile(_parent, { input: { id, ...values } }, { dataSources }) {
+    updateUserProfile(_parent, { input: { id, ...values } }, { dataSources }) {
       return dataSources.users.update(id, values);
     },
-    deleteUsers(_parent, { ids }, { dataSources }) {
+    deleteUserAccounts(_parent, { ids }, { dataSources }) {
       return dataSources.users.destroyMany(ids);
     },
   },
