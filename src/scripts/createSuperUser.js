@@ -49,10 +49,10 @@ const createSuperUser = async () => {
     },
   ]);
   try {
-    await sequelize.sync();
-    const admin = await Role.create(
+    await sequelize.sync({ force: true });
+    const superUser = await Role.create(
       {
-        name: "ADMIN",
+        name: "Root",
         description: "For administrative purposes",
         permissions,
       },
@@ -65,7 +65,7 @@ const createSuperUser = async () => {
       }
     );
     const root = await User.create(answers);
-    await root.addRole(admin);
+    await root.addRole(superUser);
     await sequelize.close();
     store.close();
   } catch (e) {
