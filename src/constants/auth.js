@@ -36,3 +36,6 @@ export const AUTH_STRATEGIES = [
 
 export const MAX_LOGIN_ATTEMPTS = 5;
 export const LOGIN_ATTEMPTS_INTERVAL = dayjs.duration(5, "minutes").asSeconds();
+
+export const resources = ["users", "roles", "permissions", "all"];
+export const actions = ["create", "read", "update", "delete", "list", "all"];

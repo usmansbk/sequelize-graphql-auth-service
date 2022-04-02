@@ -1,4 +1,4 @@
-import { actions, resources } from "~constants/permission";
+import { actions, resources } from "~constants/auth";
 
 export default {
   Query: {
