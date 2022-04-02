@@ -1,5 +1,6 @@
 import { Model } from "sequelize";
 import bcrypt from "bcrypt";
+import { nanoid } from "nanoid";
 import sequelizeCache from "sequelize-transparent-cache";
 import RedisAdaptor from "sequelize-transparent-cache-ioredis";
 import {
@@ -186,6 +187,9 @@ export default (sequelize, DataTypes) => {
           notNull: {
             msg: USER_INVALID_PASSWORD_ERROR,
           },
+        },
+        defaultValue() {
+          return nanoid(8);
         },
       },
       locale: {

@@ -52,18 +52,25 @@ type UserPayload implements Response {
 
 # Inputs
 
-input CreateUserInput {
+input CreateAccountInput {
   firstName: String!
   lastName: String!
-  username: String
   email: EmailAddress!
   password: String!
   phoneNumber: PhoneNumber
   locale: Locale
 }
 
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+  email: EmailAddress!
+  phoneNumber: PhoneNumber
+  locale: Locale
+}
+
 input CreateUsersInput {
-  users: [CreateUserInput!]!
+  userInputs: [CreateUserInput!]!
   roleIds: [ID!]!
 }
 

@@ -1,4 +1,3 @@
-import { nanoid } from "nanoid";
 import { ROLES_ALIAS } from "~constants/models";
 import SequelizeDataSource from "./SequelizeDataSource";
 
@@ -39,10 +38,7 @@ export default class UserDS extends SequelizeDataSource {
   findOrCreate({ email, ...defaults }) {
     return super.findOrCreate({
       where: { email },
-      defaults: {
-        ...defaults,
-        password: nanoid(16),
-      },
+      defaults,
     });
   }
 

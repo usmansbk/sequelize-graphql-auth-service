@@ -148,6 +148,22 @@ export default class SequelizeDataSource extends DataSource {
     }
   }
 
+  async createMany(records, options = {}) {
+    try {
+      const models = await this.model.bulkCreate(records, {
+        ...options,
+        validate: true,
+        returning: true,
+      });
+
+      this.primeMany(models);
+
+      return models;
+    } catch (e) {
+      return this.onError(e);
+    }
+  }
+
   async update(id, values) {
     try {
       const item = await this.findByPk(id);
@@ -168,9 +184,10 @@ export default class SequelizeDataSource extends DataSource {
     }
   }
 
-  async updateMany(values, options) {
+  async updateMany(values, options = {}) {
     try {
       const [, models] = await this.model.update(values, {
+        validate: true,
         individualHooks: true,
         returning: true,
         ...options,

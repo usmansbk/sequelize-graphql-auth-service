@@ -2,7 +2,7 @@ type Mutation {
   requestPasswordReset(email: EmailAddress!): RequestResponse!
   requestDeleteAccount: RequestResponse! @auth
   requestEmailOTP: RequestResponse! @auth
-  registerWithEmail(input: CreateUserInput!): AuthFormMutationResponse!
+  registerWithEmail(input: CreateAccountInput!): AuthFormMutationResponse!
   loginWithEmail(input: EmailLoginInput!): AuthMutationResponse!
   loginWithSocialProvider(input: SocialLoginInput!): AuthMutationResponse!
   resetPassword(input: PasswordResetInput!): AuthFormMutationResponse!
