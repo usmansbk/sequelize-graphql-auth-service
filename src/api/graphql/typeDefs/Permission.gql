@@ -3,7 +3,7 @@ type Query {
 }
 
 type Mutation {
-  createPermissions(input: [CreatePermissionInput!]!): [Permission!]! @auth
+  createPermissions(inputs: [CreatePermissionInput!]!): [Permission!]! @auth
   updatePermission(input: UpdatePermissionInput!): Permission! @auth
   deletePermissions(ids: [ID!]!): [ID!]! @auth
   detachPermissionFromAllRoles(permissionId: ID!): Permission! @auth
