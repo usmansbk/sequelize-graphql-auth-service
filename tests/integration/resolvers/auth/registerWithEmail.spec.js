@@ -5,7 +5,7 @@ import attributes from "tests/attributes";
 import store from "~utils/store";
 
 const query = gql`
-  mutation RegisterWithEmail($input: CreateUserInput!) {
+  mutation RegisterWithEmail($input: CreateAccountInput!) {
     registerWithEmail(input: $input) {
       success
       code

@@ -55,6 +55,7 @@ type UserPayload implements Response {
 input CreateAccountInput {
   firstName: String!
   lastName: String!
+  username: String
   email: EmailAddress!
   password: String!
   phoneNumber: PhoneNumber
