@@ -80,6 +80,7 @@
     "pg-hstore": "^2.3.4",
     "pug": "^3.0.2",
     "rate-limit-redis": "^3.0.1",
+    "retry": "^0.13.1",
     "sequelize": "^6.17.0",
     "sequelize-transparent-cache": "^2.3.0",
     "sequelize-transparent-cache-ioredis": "^2.3.0",

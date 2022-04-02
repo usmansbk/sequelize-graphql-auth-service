@@ -1,8 +1,6 @@
 import { Fail, Success } from "~helpers/response";
 import QueryError from "~utils/errors/QueryError";
-import db from "~db/models";
 
-const { sequelize } = db;
 export default {
   Mutation: {
     async removeCurrentUserProfilePicture(
@@ -11,21 +9,12 @@ export default {
       { currentUser, t, fileStorage }
     ) {
       try {
-        const user = await sequelize.transaction(async () => {
-          const avatar = currentUser?.avatar;
+        if (currentUser.avatar) {
+          await fileStorage.remove(currentUser.avatar);
+          await currentUser.cache().update({ avatar: null });
+        }
 
-          const updates = [currentUser.cache().update({ avatar: null })];
-
-          if (avatar) {
-            updates.push(fileStorage.remove(currentUser.avatar));
-          }
-
-          const [updatedUser] = await Promise.all(updates);
-
-          return updatedUser;
-        });
-
-        return Success({ user });
+        return Success({ user: currentUser });
       } catch (e) {
         if (e instanceof QueryError) {
           return Fail({
