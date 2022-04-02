@@ -3,14 +3,14 @@ import QueryError from "~utils/errors/QueryError";
 
 export default {
   User: {
-    picture(parent) {
-      return parent.avatar;
+    picture(user) {
+      return user.avatar;
     },
-    isOwner(parent, _args, { currentUser }) {
-      return parent.id === currentUser?.id;
+    isOwner(user, _args, { currentUser }) {
+      return user.id === currentUser?.id;
     },
-    roles(parent) {
-      return parent.getRoles();
+    roles(user) {
+      return user.getRoles();
     },
   },
   Query: {
