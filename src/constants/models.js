@@ -1,6 +1,6 @@
 // aliases
 export const ROLES_ALIAS = "roles";
-export const ROLE_MEMBERS_ALAIS = "members";
+export const ROLE_MEMBERS_ALIAS = "members";
 export const PERMISSIONS_ALIAS = "permissions";
 
 // foreign keys
