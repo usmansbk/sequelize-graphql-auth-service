@@ -12,8 +12,8 @@ jest.mock("~utils/mailer", () => {
 });
 
 const query = gql`
-  mutation RequestEmailVerification {
-    requestEmailVerification {
+  mutation RequestEmailVerification($email: EmailAddress!) {
+    requestEmailVerification(email: $email) {
       success
       message
       code

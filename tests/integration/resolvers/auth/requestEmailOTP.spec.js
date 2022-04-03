@@ -12,8 +12,8 @@ jest.mock("~utils/mailer", () => {
 });
 
 const query = gql`
-  mutation RequestEmailOTP {
-    requestEmailOTP {
+  mutation RequestEmailOTP($email: EmailAddress!) {
+    requestEmailOTP(email: $email) {
       success
       message
       code
