@@ -17,11 +17,12 @@ type Mutation {
   verifyPhoneNumber(token: String!): UserPayload! @auth
 
   # Admin
-  createUserAccounts(input: CreateUserAccountsInput!): [User!]! @auth
-  updateUserProfile(input: UpdateUserProfileInput!): User! @auth
-  deleteUserAccounts(ids: [ID!]!): [ID!]! @auth
-  attachRolesToUser(userId: ID!, roleIds: [ID!]!): User! @auth
-  detachRolesFromUser(userId: ID!, roleIds: [ID!]!): User! @auth
+  createUserAccounts(input: CreateUserAccountsInput!): UserListPayload! @auth
+  updateUserProfile(input: UpdateUserProfileInput!): UserPayload! @auth
+  changeAccountStatus(input: ChangeAccountStatusInput!): UserPayload! @auth
+  deleteUserAccounts(ids: [ID!]!, reason: String): DeleteResponse! @auth
+  attachRolesToUser(userId: ID!, roleIds: [ID!]!): UserPayload! @auth
+  detachRolesFromUser(userId: ID!, roleIds: [ID!]!): UserPayload! @auth
 }
 
 type User {
@@ -57,6 +58,13 @@ type UserPayload implements Response {
   success: Boolean!
   message: String!
   user: User
+}
+
+type UserListPayload implements Response {
+  code: ID!
+  success: Boolean!
+  message: String!
+  user: [User]
 }
 
 # Inputs
@@ -97,6 +105,12 @@ input UpdateUserProfileInput {
 input UpdateFullnameInput {
   firstName: String
   lastName: String
+}
+
+input ChangeAccountStatusInput {
+  id: ID!
+  status: AccountStatus!
+  reason: String
 }
 
 # Pagination
