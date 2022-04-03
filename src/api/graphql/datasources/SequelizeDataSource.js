@@ -256,14 +256,15 @@ export default class SequelizeDataSource extends DataSource {
         fieldName: "items",
       });
 
-    const [{ rows, count }, totalCount] = await Promise.all([
-      this.findAndCountAll({
+    const [rows, count, totalCount] = await Promise.all([
+      this.findAll({
         limit,
         order,
         where,
         include,
         ...options,
       }),
+      this.model.count({ where, ...options }),
       this.model.count({ where: filter, ...options }),
     ]);
 
