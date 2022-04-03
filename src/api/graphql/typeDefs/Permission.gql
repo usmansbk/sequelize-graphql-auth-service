@@ -3,10 +3,11 @@ type Query {
 }
 
 type Mutation {
-  createPermissions(inputs: [CreatePermissionInput!]!): [Permission!]! @auth
-  updatePermission(input: UpdatePermissionInput!): Permission! @auth
+  createPermissions(inputs: [CreatePermissionInput!]!): PermissionListPayload!
+    @auth
+  updatePermission(input: UpdatePermissionInput!): PermissionPayload! @auth
   deletePermissions(ids: [ID!]!, reason: String): DeleteResponse! @auth
-  detachPermissionFromAllRoles(permissionId: ID!): Permission! @auth
+  detachPermissionFromAllRoles(permissionId: ID!): PermissionPayload! @auth
 }
 
 type Permission {
@@ -18,6 +19,20 @@ type Permission {
   roles(page: ListPage, filter: RoleFilter): RoleList!
   createdAt: DateTime!
   updatedAt: DateTime
+}
+
+type PermissionPayload implements Response {
+  code: ID!
+  success: Boolean!
+  message: String!
+  permission: Permission
+}
+
+type PermissionListPayload implements Response {
+  code: ID!
+  success: Boolean!
+  message: String!
+  permissions: [Permission]
 }
 
 input CreatePermissionInput {

@@ -3,12 +3,14 @@ type Query {
 }
 
 type Mutation {
-  createRole(input: CreateRoleInput!): Role! @auth
-  updateRole(input: UpdateRoleInput!): Role! @auth
+  createRole(input: CreateRoleInput!): RolePayload! @auth
+  updateRole(input: UpdateRoleInput!): RolePayload! @auth
   deleteRoles(ids: [ID!]!, reason: String): DeleteResponse! @auth
-  attachPermissionsToRole(roleId: ID!, permissionIds: [ID!]!): Role! @auth
-  detachPermissionsFromRole(roleId: ID!, permissionIds: [ID!]!): Role! @auth
-  detachRoleFromAllUsers(roleId: ID!): Role! @auth
+  attachPermissionsToRole(roleId: ID!, permissionIds: [ID!]!): RolePayload!
+    @auth
+  detachPermissionsFromRole(roleId: ID!, permissionIds: [ID!]!): RolePayload!
+    @auth
+  detachRoleFromAllUsers(roleId: ID!): RolePayload! @auth
 }
 
 type Role {
@@ -19,6 +21,13 @@ type Role {
   members(page: ListPage, filter: UserFilter): UserList!
   createdAt: DateTime!
   updatedAt: DateTime
+}
+
+type RolePayload implements Response {
+  code: ID!
+  success: Boolean!
+  message: String!
+  role: Role
 }
 
 input CreateRoleInput {

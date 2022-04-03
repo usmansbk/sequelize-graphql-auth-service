@@ -64,7 +64,7 @@ type UserListPayload implements Response {
   code: ID!
   success: Boolean!
   message: String!
-  user: [User]
+  users: [User]
 }
 
 # Inputs
