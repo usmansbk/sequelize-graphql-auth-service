@@ -1,8 +1,8 @@
 import inquirer from "inquirer";
 import db from "~db/models";
 import log from "~utils/logger";
-import store from "~utils/store";
 import { PERMISSIONS_ALIAS } from "~constants/models";
+import store from "~utils/store";
 
 const permissions = [
   {
@@ -50,22 +50,25 @@ const createSuperUser = async () => {
   ]);
   try {
     await sequelize.sync();
-    const superUser = await Role.create(
-      {
-        name: "root",
-        description: "For administrative purposes",
-        permissions,
-      },
-      {
-        include: [
-          {
-            association: PERMISSIONS_ALIAS,
-          },
-        ],
-      }
-    );
-    const root = await User.create(answers);
-    await root.addRole(superUser);
+    await sequelize.transaction(async (t) => {
+      const superUser = await Role.create(
+        {
+          name: "root",
+          description: "For administrative purposes",
+          permissions,
+        },
+        {
+          include: [
+            {
+              association: PERMISSIONS_ALIAS,
+            },
+          ],
+          transaction: t,
+        }
+      );
+      const root = await User.create(answers, { transaction: t });
+      await root.addRole(superUser, { transaction: t });
+    });
     await sequelize.close();
     store.close();
   } catch (e) {
