@@ -11,7 +11,6 @@ export default {
           where: { id },
           include: buildIncludeQuery({
             info,
-            modelName: dataSources.users.model.name,
             fieldName: "user",
           }),
         });

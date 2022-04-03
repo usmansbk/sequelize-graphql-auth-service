@@ -253,7 +253,6 @@ export default class SequelizeDataSource extends DataSource {
       info &&
       buildIncludeQuery({
         info,
-        modelName: this.model.name,
         fieldName: "items",
       });
 
