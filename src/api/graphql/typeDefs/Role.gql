@@ -1,5 +1,5 @@
 type Query {
-  roles(page: ListPage): RoleList! @auth
+  roles(page: ListPage, filter: RoleFilter): RoleList! @auth
 }
 
 type Mutation {
@@ -39,4 +39,13 @@ type RoleList implements List {
   items: [Role]!
   totalCount: Int!
   pageInfo: PageInfo!
+}
+
+# Filter
+
+input RoleFilter {
+  id: IDFieldFilter
+  name: StringFieldFilter
+  createdAt: DateTimeFieldFilter
+  updatedAt: DateTimeFieldFilter
 }

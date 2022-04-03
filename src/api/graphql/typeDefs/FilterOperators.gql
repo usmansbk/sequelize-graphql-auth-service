@@ -2,33 +2,33 @@
 Based on Sequelize operators
 https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#operators
 """
-type IDFieldFilter {
-	eq: ID
-	ne: ID
-	or: [IDFieldFilter!]
-	and: [IDFieldFilter!]
+input IDFieldFilter {
+  eq: ID
+  ne: ID
+  or: [IDFieldFilter!]
+  and: [IDFieldFilter!]
 
-	in: [ID!]
-	notIn: [ID!]
+  in: [ID!]
+  notIn: [ID!]
 }
 
-type NumberFieldFilter {
-	eq: Int 
-	ne: Int
-	or: [NumberFieldFilter!]
-	and: [NumberFieldFilter!]
+input NumberFieldFilter {
+  eq: Int
+  ne: Int
+  or: [NumberFieldFilter!]
+  and: [NumberFieldFilter!]
 
-	gt: Int
-	gte: Int
-	lt: Int
-	lte: Int
-	between: [Int!, Int!]
-	notBetween: [Int!, Int!]
-	in: [Int!]
-	notIn: [Int!]
+  gt: Int
+  gte: Int
+  lt: Int
+  lte: Int
+  between: [Int!]
+  notBetween: [Int!]
+  in: [Int!]
+  notIn: [Int!]
 }
 
-type StringFieldFilter {
+input StringFieldFilter {
   eq: String
   ne: String
   and: [StringFieldFilter!]
@@ -50,7 +50,7 @@ type StringFieldFilter {
   match: String
 }
 
-type DateTimeFieldFilter {
+input DateTimeFieldFilter {
   eq: DateTime
   ne: DateTime
   and: [DateTimeFieldFilter!]
@@ -60,11 +60,11 @@ type DateTimeFieldFilter {
   gte: DateTime
   lt: DateTime
   lte: DateTime
-	between: [DateTime!, DateTime!]
-	notBetween: [DateTime!, DateTime!]
+  between: [DateTime!]
+  notBetween: [DateTime!]
 }
 
-type BooleanFieldFilter {
-	is: Boolean
-	not: Boolean
+input BooleanFieldFilter {
+  is: Boolean
+  not: Boolean
 }

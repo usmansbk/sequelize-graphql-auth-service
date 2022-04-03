@@ -97,3 +97,18 @@ type UserList implements List {
   totalCount: Int!
   pageInfo: PageInfo!
 }
+
+# Filter
+
+input UserFilter {
+  id: IDFieldFilter
+  firstName: StringFieldFilter
+  lastName: StringFieldFilter
+  username: StringFieldFilter
+  email: StringFieldFilter
+  phoneNumber: StringFieldFilter
+  locale: StringFieldFilter
+  createdAt: DateTimeFieldFilter
+  updatedAt: DateTimeFieldFilter
+  roles: RoleFilter
+}
