@@ -33,34 +33,27 @@ describe("Mutation.requestEmailOTP", () => {
     await db.sequelize.close();
   });
 
-  test("should not be accessed by unauthenticated users", async () => {
-    const { errors } = await server.executeOperation({
-      query,
-    });
-    expect(errors[0].message).toMatch("Unauthenticated");
-  });
-
   test("should send an email to a verified user", async () => {
     const currentUser = await db.User.create(
       attributes.user({ emailVerified: true })
     );
-    await server.executeOperation(
-      {
-        query,
+    await server.executeOperation({
+      query,
+      variables: {
+        email: currentUser.email,
       },
-      { tokenInfo: { sub: currentUser.id }, currentUser }
-    );
+    });
     expect(mailer.sendEmail).toBeCalledTimes(1);
   });
 
   test("should not send an email to unverified user", async () => {
     const currentUser = await db.User.create(attributes.user());
-    await server.executeOperation(
-      {
-        query,
+    await server.executeOperation({
+      query,
+      variables: {
+        email: currentUser.email,
       },
-      { tokenInfo: { sub: currentUser.id }, currentUser }
-    );
+    });
     expect(mailer.sendEmail).toBeCalledTimes(0);
   });
 });

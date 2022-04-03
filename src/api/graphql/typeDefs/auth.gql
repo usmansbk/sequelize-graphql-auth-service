@@ -1,8 +1,9 @@
 type Mutation {
   requestPasswordReset(email: EmailAddress!): RequestResponse!
+  requestSMSOTP(phoneNumber: PhoneNumber!): RequestResponse!
+  requestEmailOTP(email: EmailAddress!): RequestResponse!
+  requestEmailVerification(email: EmailAddress!): RequestResponse!
   requestDeleteAccount: RequestResponse! @auth
-  requestEmailOTP: RequestResponse! @auth
-  requestEmailVerification: RequestResponse! @auth
   verifyEmail(token: String!): RequestFormResponse!
   registerWithEmail(input: CreateAccountInput!): AuthFormMutationResponse!
   loginWithEmail(input: EmailLoginInput!): AuthMutationResponse!

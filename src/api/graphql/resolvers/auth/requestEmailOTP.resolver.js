@@ -8,11 +8,13 @@ export default {
   Mutation: {
     async requestEmailOTP(
       _parent,
-      _args,
-      { locale, store, t, otp, mailer, currentUser }
+      { email },
+      { locale, store, t, otp, mailer, dataSources }
     ) {
       try {
-        const { firstName, id, email, emailVerified } = currentUser;
+        const { firstName, id, emailVerified } =
+          await dataSources.users.findOne({ where: { email } });
+
         const key = `${EMAIL_OTP_KEY_PREFIX}:${id}`;
         const sentToken = await store.get(key);
 

@@ -11,10 +11,13 @@ export default {
   Mutation: {
     async requestEmailVerification(
       _parent,
-      _args,
-      { locale, store, t, jwt, clientId, mailer, currentUser }
+      { email },
+      { locale, store, t, jwt, clientId, mailer, dataSources }
     ) {
-      const { firstName, id, email, emailVerified } = currentUser;
+      const { firstName, id, emailVerified } = await dataSources.users.findOne({
+        where: { email },
+      });
+
       const key = `${EMAIL_VERIFICATION_KEY_PREFIX}:${id}`;
 
       const sentToken = await store.get(key);
