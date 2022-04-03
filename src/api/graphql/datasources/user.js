@@ -1,4 +1,5 @@
-import { ROLES_ALIAS } from "~constants/models";
+import { Op } from "sequelize";
+import { ACCOUNT_STATUS, ROLES_ALIAS } from "~constants/models";
 import SequelizeDataSource from "./SequelizeDataSource";
 
 export default class UserDS extends SequelizeDataSource {
@@ -6,6 +7,9 @@ export default class UserDS extends SequelizeDataSource {
     const user = await this.findOne({
       where: {
         email,
+        status: {
+          [Op.ne]: ACCOUNT_STATUS.BANNED,
+        },
       },
     });
 
@@ -18,6 +22,9 @@ export default class UserDS extends SequelizeDataSource {
     const user = await this.findOne({
       where: {
         username,
+        status: {
+          [Op.ne]: ACCOUNT_STATUS.BANNED,
+        },
       },
       include: [
         {

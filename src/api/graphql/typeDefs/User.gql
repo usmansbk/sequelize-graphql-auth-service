@@ -47,8 +47,6 @@ type User {
 enum AccountStatus {
   SUSPENDED
   BANNED
-  DEACTIVATED
-  RECOVERY
   LOCKED
   PROVISIONED
 }

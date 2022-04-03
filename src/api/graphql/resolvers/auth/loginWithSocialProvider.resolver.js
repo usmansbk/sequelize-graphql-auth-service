@@ -1,6 +1,7 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
 import { WELCOME_BACK, WELCOME_NEW_USER } from "~constants/i18n";
+import { ACCOUNT_STATUS } from "~constants/models";
 
 export default {
   Mutation: {
@@ -11,7 +12,10 @@ export default {
     ) {
       try {
         const userInfo = await jwt.verifySocialToken(input);
-        const [user, created] = await dataSources.users.findOrCreate(userInfo);
+        const [user, created] = await dataSources.users.findOrCreate({
+          ...userInfo,
+          status: ACCOUNT_STATUS.ACTIVE,
+        });
         const { id, firstName } = user;
 
         const { accessToken, refreshToken, sid, exp } = jwt.generateAuthTokens({

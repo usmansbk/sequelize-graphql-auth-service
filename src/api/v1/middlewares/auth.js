@@ -1,5 +1,6 @@
-import { AuthenticationError } from "apollo-server-core";
+import { AuthenticationError, ForbiddenError } from "apollo-server-core";
 import { UNAUTHENTICATED } from "~constants/i18n";
+import { ACCOUNT_STATUS } from "~constants/models";
 
 const authMiddleware = async (req, _res, next) => {
   try {
@@ -9,6 +10,17 @@ const authMiddleware = async (req, _res, next) => {
     if (!(currentUser && isLoggedIn)) {
       throw new AuthenticationError(UNAUTHENTICATED);
     }
+
+    if (
+      [
+        ACCOUNT_STATUS.BANNED,
+        ACCOUNT_STATUS.SUSPENDED,
+        ACCOUNT_STATUS.LOCKED,
+      ].includes(currentUser.status)
+    ) {
+      throw new ForbiddenError(currentUser.status);
+    }
+
     next();
   } catch (e) {
     next(e);

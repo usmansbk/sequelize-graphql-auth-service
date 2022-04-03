@@ -6,6 +6,7 @@ import {
   FAILED_LOGIN_ATTEMPT_KEY_PREFIX,
   MAX_LOGIN_ATTEMPTS,
 } from "~constants/auth";
+import { ACCOUNT_STATUS } from "~constants/models";
 
 export default {
   Mutation: {
@@ -23,6 +24,9 @@ export default {
         if (user && !granted) {
           const attempts = await store.increment(attemptCountKey);
           if (attempts === MAX_LOGIN_ATTEMPTS) {
+            await dataSources.users.update(user.id, {
+              status: ACCOUNT_STATUS.LOCKED,
+            });
             mailer.sendEmail({
               template: emailTemplates.FAILED_LOGIN,
               message: {

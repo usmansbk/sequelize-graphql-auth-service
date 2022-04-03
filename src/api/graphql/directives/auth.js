@@ -7,6 +7,7 @@ import {
   AUTH_SCOPE_STRATEGY,
 } from "~constants/auth";
 import { UNAUTHENTICATED, UNAUTHORIZED } from "~constants/i18n";
+import { ACCOUNT_STATUS } from "~constants/models";
 
 const authDirectiveTransformer = (schema, directiveName) => {
   const typeDirectiveArgumentMaps = {};
@@ -34,6 +35,16 @@ const authDirectiveTransformer = (schema, directiveName) => {
 
           if (!(currentUser && isLoggedIn)) {
             throw new AuthenticationError(UNAUTHENTICATED);
+          }
+
+          if (
+            [
+              ACCOUNT_STATUS.BANNED,
+              ACCOUNT_STATUS.SUSPENDED,
+              ACCOUNT_STATUS.LOCKED,
+            ].includes(currentUser.status)
+          ) {
+            throw new ForbiddenError(currentUser.status);
           }
 
           // check authorization for non-admin

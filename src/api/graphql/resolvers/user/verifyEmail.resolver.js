@@ -3,6 +3,7 @@ import { EMAIL_VERIFIED, INVALID_LINK } from "~constants/i18n";
 import QueryError from "~utils/errors/QueryError";
 import { EMAIL_VERIFICATION_KEY_PREFIX } from "~constants/auth";
 import emailTemplates from "~helpers/emailTemplates";
+import { ACCOUNT_STATUS } from "~constants/models";
 
 export default {
   Mutation: {
@@ -23,6 +24,7 @@ export default {
 
         const user = await dataSources.users.update(sub, {
           emailVerified: true,
+          status: ACCOUNT_STATUS.ACTIVE,
         });
 
         await store.remove(key);
