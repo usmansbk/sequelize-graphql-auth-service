@@ -1,4 +1,6 @@
 import { ROLES_ALIAS } from "~constants/models";
+import QueryError from "~utils/errors/QueryError";
+import { Fail, Success } from "~helpers/response";
 
 export default {
   Role: {
@@ -26,26 +28,71 @@ export default {
     },
   },
   Mutation: {
-    createRole(
+    async createRole(
       _parent,
       { input: { permissionIds, ...values } },
-      { dataSources, db }
+      { dataSources, db, t }
     ) {
-      return db.sequelize.transaction(async (transaction) => {
-        const role = await dataSources.roles.create(values, { transaction });
-        const permissions = await dataSources.permissions.findAll({
-          where: { id: permissionIds },
-          transaction,
+      try {
+        const role = await db.sequelize.transaction(async (transaction) => {
+          const newRole = await dataSources.roles.create(values, {
+            transaction,
+          });
+          const permissions = await dataSources.permissions.findAll({
+            where: { id: permissionIds },
+            transaction,
+          });
+          await newRole.addPermissions(permissions, { transaction });
+          return newRole;
         });
-        await role.addPermissions(permissions, { transaction });
-        return role;
-      });
+        return Success({ role });
+      } catch (e) {
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            errors: e.errors,
+            code: e.code,
+          });
+        }
+
+        throw e;
+      }
     },
-    updateRole(_parent, { input: { id, ...values } }, { dataSources }) {
-      return dataSources.roles.update(id, values);
+    async updateRole(
+      _parent,
+      { input: { id, ...values } },
+      { dataSources, t }
+    ) {
+      try {
+        const role = await dataSources.roles.update(id, values);
+        return Success({ role });
+      } catch (e) {
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            errors: e.errors,
+            code: e.code,
+          });
+        }
+
+        throw e;
+      }
     },
-    deleteRoles(_parent, { ids }, { dataSources }) {
-      return dataSources.roles.destroyMany(ids);
+    async deleteRoles(_parent, { ids }, { dataSources, t }) {
+      try {
+        await dataSources.roles.destroyMany(ids);
+        return Success({ ids });
+      } catch (e) {
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            errors: e.errors,
+            code: e.code,
+          });
+        }
+
+        throw e;
+      }
     },
   },
 };

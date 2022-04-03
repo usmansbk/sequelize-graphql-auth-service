@@ -27,7 +27,7 @@ interface FormErrors {
   errors: [FieldError!]
 }
 
-type DeleteResponse implement Response {
+type DeleteResponse implements Response {
   code: ID!
   success: Boolean!
   message: String!

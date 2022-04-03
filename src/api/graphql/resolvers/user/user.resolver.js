@@ -1,5 +1,5 @@
-import { Fail, Success } from "~helpers/response";
 import QueryError from "~utils/errors/QueryError";
+import { Fail, Success } from "~helpers/response";
 
 export default {
   User: {
@@ -32,32 +32,75 @@ export default {
     },
   },
   Mutation: {
-    createUserAccounts(
+    async createUserAccounts(
       _parent,
       { input: { profiles, roleIds } },
-      { dataSources, db }
+      { dataSources, db, t }
     ) {
-      return db.sequelize.transaction(async (transaction) => {
-        const users = await dataSources.users.createMany(profiles, {
-          transaction,
+      try {
+        const users = await db.sequelize.transaction(async (transaction) => {
+          const newUsers = await dataSources.users.createMany(profiles, {
+            transaction,
+          });
+          const roles = await dataSources.roles.findAll({
+            where: {
+              id: roleIds,
+            },
+            transaction,
+          });
+          await Promise.all(
+            roles.map((role) => role.addMembers(newUsers, { transaction }))
+          );
+          return newUsers;
         });
-        const roles = await dataSources.roles.findAll({
-          where: {
-            id: roleIds,
-          },
-          transaction,
-        });
-        await Promise.all(
-          roles.map((role) => role.addMembers(users, { transaction }))
-        );
-        return users;
-      });
+        return Success({ users });
+      } catch (e) {
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            errors: e.errors,
+            code: e.code,
+          });
+        }
+
+        throw e;
+      }
     },
-    updateUserProfile(_parent, { input: { id, ...values } }, { dataSources }) {
-      return dataSources.users.update(id, values);
+    async updateUserProfile(
+      _parent,
+      { input: { id, ...values } },
+      { dataSources, t }
+    ) {
+      try {
+        const user = await dataSources.users.update(id, values);
+        return Success({ user });
+      } catch (e) {
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            errors: e.errors,
+            code: e.code,
+          });
+        }
+
+        throw e;
+      }
     },
-    deleteUserAccounts(_parent, { ids }, { dataSources }) {
-      return dataSources.users.destroyMany(ids);
+    async deleteUserAccounts(_parent, { ids }, { dataSources, t }) {
+      try {
+        await dataSources.users.destroyMany(ids);
+        return Success({ ids });
+      } catch (e) {
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            errors: e.errors,
+            code: e.code,
+          });
+        }
+
+        throw e;
+      }
     },
   },
 };
