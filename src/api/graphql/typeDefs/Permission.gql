@@ -6,7 +6,7 @@ type Mutation {
   createPermissions(inputs: [CreatePermissionInput!]!): PermissionFormResponse!
     @auth
   updatePermission(input: UpdatePermissionInput!): PermissionFormResponse! @auth
-  deletePermissions(ids: [ID!]!, reason: String): DeleteResponse! @auth
+  deletePermissions(ids: [ID!]!, reason: String): DeleteMutationResponse! @auth
   detachPermissionFromAllRoles(permissionId: ID!): PermissionPayload! @auth
 }
 

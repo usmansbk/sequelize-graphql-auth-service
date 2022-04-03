@@ -20,7 +20,7 @@ type Mutation {
   createUserAccounts(input: CreateUserAccountsInput!): UserFormResponse! @auth
   updateUserProfile(input: UpdateUserProfileInput!): UserFormResponse! @auth
   changeAccountStatus(input: ChangeAccountStatusInput!): UserPayload! @auth
-  deleteUserAccounts(ids: [ID!]!, reason: String): DeleteResponse! @auth
+  deleteUserAccounts(ids: [ID!]!, reason: String): DeleteMutationResponse! @auth
   attachRolesToUser(userId: ID!, roleIds: [ID!]!): UserPayload! @auth
   detachRolesFromUser(userId: ID!, roleIds: [ID!]!): UserPayload! @auth
 }

@@ -27,7 +27,7 @@ interface FormErrors {
   errors: [FieldError!]
 }
 
-type DeleteResponse implements Response {
+type DeleteMutationResponse implements Response {
   code: ID!
   success: Boolean!
   message: String!
