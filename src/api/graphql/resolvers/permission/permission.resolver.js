@@ -48,7 +48,7 @@ export default {
     ) {
       try {
         const permission = await dataSources.permissions.update(id, values);
-        return Success({ permission });
+        return Success({ permissions: [permission] });
       } catch (e) {
         if (e instanceof QueryError) {
           return Fail({

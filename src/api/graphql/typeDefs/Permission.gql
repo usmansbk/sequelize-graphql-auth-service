@@ -3,9 +3,9 @@ type Query {
 }
 
 type Mutation {
-  createPermissions(inputs: [CreatePermissionInput!]!): PermissionListPayload!
+  createPermissions(inputs: [CreatePermissionInput!]!): PermissionFormResponse!
     @auth
-  updatePermission(input: UpdatePermissionInput!): PermissionPayload! @auth
+  updatePermission(input: UpdatePermissionInput!): PermissionFormResponse! @auth
   deletePermissions(ids: [ID!]!, reason: String): DeleteResponse! @auth
   detachPermissionFromAllRoles(permissionId: ID!): PermissionPayload! @auth
 }
@@ -33,6 +33,14 @@ type PermissionListPayload implements Response {
   success: Boolean!
   message: String!
   permissions: [Permission]
+}
+
+type PermissionFormResponse implements Response & FormErrors {
+  code: ID!
+  success: Boolean!
+  message: String!
+  permissions: [Permission]
+  errors: [FieldError!]
 }
 
 input CreatePermissionInput {
