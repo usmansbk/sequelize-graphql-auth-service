@@ -5,7 +5,7 @@ import {
   PERMISSION_DESCRIPTION_EMPTY_ERROR,
   PERMISSION_INVALID_NAME_ERROR,
 } from "~constants/i18n";
-import { ROLE_PERMISSIONS_JOIN_TABLE } from "~constants/models";
+import { ROLES_ALIAS, ROLE_PERMISSIONS_JOIN_TABLE } from "~constants/models";
 import { actions, resources } from "~constants/auth";
 
 export default (sequelize, DataTypes) => {
@@ -19,6 +19,7 @@ export default (sequelize, DataTypes) => {
       // define association here
       Permission.belongsToMany(models.Role, {
         through: ROLE_PERMISSIONS_JOIN_TABLE,
+        as: ROLES_ALIAS,
       });
     }
   }
