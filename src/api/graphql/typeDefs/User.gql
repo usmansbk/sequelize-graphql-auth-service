@@ -5,24 +5,25 @@ type Query {
 }
 
 type Mutation {
-  updateCurrentUserFullname(input: UpdateFullnameInput!): UserPayload! @auth
-  updateCurrentUserName(username: String!): UserPayload! @auth
-  updateCurrentUserLocale(locale: Locale!): UserPayload! @auth
-  removeCurrentUserProfilePicture: UserPayload! @auth
+  updateCurrentUserFullname(input: UpdateFullnameInput!): UserMutationResponse!
+    @auth
+  updateCurrentUserName(username: String!): UserMutationResponse! @auth
+  updateCurrentUserLocale(locale: Locale!): UserMutationResponse! @auth
+  removeCurrentUserProfilePicture: UserMutationResponse! @auth
   requestCurrentUserPhoneNumberVerification(
     phoneNumber: PhoneNumber!
-  ): UserPayload! @auth
-  verifyPhoneNumber(token: String!): UserPayload! @auth
+  ): UserMutationResponse! @auth
+  verifyPhoneNumber(token: String!): UserMutationResponse! @auth
 
   # Admin
   createUserAccounts(input: CreateUserAccountsInput!): CreateUsersResponse!
     @auth
-  updateUserProfile(input: UpdateUserProfileInput!): UpdateUserResponse! @auth
-  changeAccountStatus(input: ChangeAccountStatusInput!): UpdateUserResponse!
+  updateUserProfile(input: UpdateUserProfileInput!): UserMutationResponse! @auth
+  changeAccountStatus(input: ChangeAccountStatusInput!): UserMutationResponse!
     @auth
   deleteUserAccounts(ids: [ID!]!, reason: String): DeleteMutationResponse! @auth
-  attachRolesToUser(userId: ID!, roleIds: [ID!]!): UpdateUserResponse! @auth
-  detachRolesFromUser(userId: ID!, roleIds: [ID!]!): UpdateUserResponse! @auth
+  attachRolesToUser(userId: ID!, roleIds: [ID!]!): UserMutationResponse! @auth
+  detachRolesFromUser(userId: ID!, roleIds: [ID!]!): UserMutationResponse! @auth
 }
 
 type User {
@@ -67,7 +68,8 @@ type CreateUsersResponse implements Response & FormErrors {
   errors: [FieldError!]
   users: [User]
 }
-type UpdateUserResponse implements Response & FormErrors {
+
+type UserMutationResponse implements Response & FormErrors {
   code: ID!
   success: Boolean!
   message: String!
