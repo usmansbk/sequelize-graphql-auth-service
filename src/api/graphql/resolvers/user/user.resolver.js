@@ -73,7 +73,7 @@ export default {
     ) {
       try {
         const user = await dataSources.users.update(id, values);
-        return Success({ users: [user] });
+        return Success({ user });
       } catch (e) {
         if (e instanceof QueryError) {
           return Fail({

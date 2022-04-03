@@ -15,12 +15,14 @@ type Mutation {
   verifyPhoneNumber(token: String!): UserPayload! @auth
 
   # Admin
-  createUserAccounts(input: CreateUserAccountsInput!): UserFormResponse! @auth
-  updateUserProfile(input: UpdateUserProfileInput!): UserFormResponse! @auth
-  changeAccountStatus(input: ChangeAccountStatusInput!): UserPayload! @auth
+  createUserAccounts(input: CreateUserAccountsInput!): CreateUsersResponse!
+    @auth
+  updateUserProfile(input: UpdateUserProfileInput!): UpdateUserResponse! @auth
+  changeAccountStatus(input: ChangeAccountStatusInput!): UpdateUserResponse!
+    @auth
   deleteUserAccounts(ids: [ID!]!, reason: String): DeleteMutationResponse! @auth
-  attachRolesToUser(userId: ID!, roleIds: [ID!]!): UserPayload! @auth
-  detachRolesFromUser(userId: ID!, roleIds: [ID!]!): UserPayload! @auth
+  attachRolesToUser(userId: ID!, roleIds: [ID!]!): UpdateUserResponse! @auth
+  detachRolesFromUser(userId: ID!, roleIds: [ID!]!): UpdateUserResponse! @auth
 }
 
 type User {
@@ -58,12 +60,19 @@ type UserPayload implements Response {
   user: User
 }
 
-type UserFormResponse implements Response & FormErrors {
+type CreateUsersResponse implements Response & FormErrors {
   code: ID!
   success: Boolean!
   message: String!
   errors: [FieldError!]
   users: [User]
+}
+type UpdateUserResponse implements Response & FormErrors {
+  code: ID!
+  success: Boolean!
+  message: String!
+  errors: [FieldError!]
+  user: User
 }
 
 # Inputs
