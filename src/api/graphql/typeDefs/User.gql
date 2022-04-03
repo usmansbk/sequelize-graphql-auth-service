@@ -12,8 +12,6 @@ type Mutation {
   requestCurrentUserPhoneNumberVerification(
     phoneNumber: PhoneNumber!
   ): UserPayload! @auth
-  requestEmailVerification: RequestResponse! @auth
-  verifyEmail(token: String!): UserPayload!
   verifyPhoneNumber(token: String!): UserPayload! @auth
 
   # Admin
