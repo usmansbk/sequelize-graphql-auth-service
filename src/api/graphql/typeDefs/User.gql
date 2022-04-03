@@ -49,6 +49,7 @@ enum AccountStatus {
   BANNED
   LOCKED
   PROVISIONED
+  ACTIVE
 }
 
 type UserPayload implements Response {
