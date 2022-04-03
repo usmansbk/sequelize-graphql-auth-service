@@ -21,6 +21,7 @@ import {
   USER_USERNAME_UNAVAILABLE_ERROR,
 } from "~constants/i18n";
 import {
+  ACCOUNT_STATUS,
   PERMISSIONS_ALIAS,
   ROLES_ALIAS,
   USER_ROLES_JOIN_TABLE,
@@ -225,6 +226,9 @@ export default (sequelize, DataTypes) => {
             msg: USER_INVALID_PICTURE_URL_ERROR,
           },
         },
+      },
+      status: {
+        type: DataTypes.ENUM(Object.values(ACCOUNT_STATUS)),
       },
     },
     {
