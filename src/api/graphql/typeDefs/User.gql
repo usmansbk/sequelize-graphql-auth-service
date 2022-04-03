@@ -16,8 +16,9 @@ type Mutation {
   verifyPhoneNumber(token: String!): UserMutationResponse! @auth
 
   # Admin
-  createUserAccounts(input: CreateUserAccountsInput!): CreateUsersResponse!
-    @auth
+  createUserAccounts(
+    input: CreateUserAccountsInput!
+  ): BulkUserMutationResponse! @auth
   updateUserProfile(input: UpdateUserProfileInput!): UserMutationResponse! @auth
   changeAccountStatus(input: ChangeAccountStatusInput!): UserMutationResponse!
     @auth
@@ -61,12 +62,12 @@ type UserPayload implements Response {
   user: User
 }
 
-type CreateUsersResponse implements Response & FormErrors {
+type BulkUserMutationResponse implements Response & FormErrors {
   code: ID!
   success: Boolean!
   message: String!
   errors: [FieldError!]
-  users: [User]
+  users: [User!]
 }
 
 type UserMutationResponse implements Response & FormErrors {
