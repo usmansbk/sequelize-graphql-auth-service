@@ -13,10 +13,6 @@ const query = gql`
       code
       message
       success
-      user {
-        id
-        emailVerified
-      }
     }
   }
 `;
@@ -62,10 +58,6 @@ describe("Mutation.verifyEmail", () => {
       code: "EmailVerified",
       message: "EmailVerified",
       success: true,
-      user: {
-        id: user.id,
-        emailVerified: true,
-      },
     });
   });
 
