@@ -229,6 +229,7 @@ export default (sequelize, DataTypes) => {
       },
       status: {
         type: DataTypes.ENUM(Object.values(ACCOUNT_STATUS)),
+        defaultValue: ACCOUNT_STATUS.PROVISIONED,
       },
     },
     {

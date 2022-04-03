@@ -41,6 +41,16 @@ type User {
   roles: [Role]!
   createdAt: DateTime!
   updatedAt: DateTime
+  status: AccountStatus! @auth(rules: [{ allow: owner, identityClaim: "id" }])
+}
+
+enum AccountStatus {
+  SUSPENDED
+  BANNED
+  DEACTIVATED
+  RECOVERY
+  LOCKED
+  PROVISIONED
 }
 
 type UserPayload implements Response {

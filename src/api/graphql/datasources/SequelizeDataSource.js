@@ -16,8 +16,8 @@ import {
   reverseOrder,
   getPaginationQuery,
   normalizeOrder,
-} from "~utils/paginate";
-import buildIncludeQuery from "~utils/include";
+} from "~utils/transformers/paginate";
+import buildIncludeQuery from "~utils/transformers/include";
 import { FIELD_ERRORS, ITEM_NOT_FOUND } from "~constants/i18n";
 
 /**

@@ -1,7 +1,7 @@
 import { Fail, Success } from "~helpers/response";
 import QueryError from "~utils/errors/QueryError";
 import { USER_DOES_NOT_EXIST } from "~constants/i18n";
-import buildIncludeQuery from "~utils/include";
+import buildIncludeQuery from "~utils/transformers/include";
 
 export default {
   Query: {
