@@ -1,7 +1,20 @@
+import { PERMISSIONS_ALIAS } from "~constants/models";
+
 export default {
   Permission: {
-    roles(permission) {
-      return permission.roles || permission.getRoles();
+    roles(permission, { page }, { dataSources }, info) {
+      return dataSources.roles.paginate({
+        page,
+        info,
+        include: [
+          {
+            association: PERMISSIONS_ALIAS,
+            where: {
+              id: permission.id,
+            },
+          },
+        ],
+      });
     },
   },
   Query: {

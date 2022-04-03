@@ -1,5 +1,5 @@
 type Query {
-  permissions(page: ListPage): PermissionList! @auth
+  permissions(page: ListPage, filter: PermissionFilter): PermissionList! @auth
 }
 
 type Mutation {
@@ -15,7 +15,7 @@ type Permission {
   action: PermissionAction!
   resource: PermissionResource!
   description: String
-  roles: [Role]!
+  roles(page: ListPage, filter: RoleFilter): RoleList!
   createdAt: DateTime!
   updatedAt: DateTime
 }
@@ -35,12 +35,6 @@ input UpdatePermissionInput {
   description: String
 }
 
-type PermissionList implements List {
-  items: [Permission]!
-  totalCount: Int!
-  pageInfo: PageInfo!
-}
-
 enum PermissionResource {
   users
   roles
@@ -55,4 +49,23 @@ enum PermissionAction {
   update
   delete
   list
+}
+
+# Pagination
+
+type PermissionList implements List {
+  items: [Permission]!
+  totalCount: Int!
+  pageInfo: PageInfo!
+}
+
+# Filter
+
+input PermissionFilter {
+  id: IDFieldFilter
+  name: StringFieldFilter
+  action: StringFieldFilter
+  resource: StringFieldFilter
+  createdAt: DateTimeFieldFilter
+  updatedAt: DateTimeFieldFilter
 }

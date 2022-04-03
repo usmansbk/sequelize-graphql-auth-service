@@ -1,7 +1,7 @@
 type Query {
   me: UserPayload! @auth
   getUserById(id: ID!): UserPayload! @auth
-  users(page: ListPage): UserList! @auth
+  users(page: ListPage, filter: UserFilter): UserList! @auth
 }
 
 type Mutation {

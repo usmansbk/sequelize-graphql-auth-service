@@ -1,6 +1,6 @@
 import graphqlFields from "graphql-fields";
 
-const excludeFields = ["avatar", "members"];
+const excludeFields = ["avatar", "members", "roles"];
 
 /**
  * This function takes the info: GraphQLResolveInfo object in general graphql arguments (parent, args, context, info) to eager-load sequelize relations.
