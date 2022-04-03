@@ -69,4 +69,6 @@ input RoleFilter {
   name: StringFieldFilter
   createdAt: DateTimeFieldFilter
   updatedAt: DateTimeFieldFilter
+  permissions: PermissionFilter
+  members: UserFilter
 }

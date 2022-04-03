@@ -3,7 +3,6 @@ type Mutation {
   requestSMSOTP(phoneNumber: PhoneNumber!): RequestResponse!
   requestEmailOTP(email: EmailAddress!): RequestResponse!
   requestEmailVerification(email: EmailAddress!): RequestResponse!
-  requestDeleteAccount: RequestResponse! @auth
   verifyEmail(token: String!): RequestFormResponse!
   registerWithEmail(input: CreateAccountInput!): AuthFormMutationResponse!
   loginWithEmail(input: EmailLoginInput!): AuthMutationResponse!
@@ -11,6 +10,7 @@ type Mutation {
   resetPassword(input: PasswordResetInput!): AuthFormMutationResponse!
   deleteAccount(token: String!): AuthMutationResponse!
   logout(all: Boolean): AuthMutationResponse!
+  requestDeleteAccount: RequestResponse! @auth
 
   loginToAdmin(input: AdminLoginInput!): AuthMutationResponse!
 }

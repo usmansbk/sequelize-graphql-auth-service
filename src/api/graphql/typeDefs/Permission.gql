@@ -97,4 +97,5 @@ input PermissionFilter {
   resource: StringFieldFilter
   createdAt: DateTimeFieldFilter
   updatedAt: DateTimeFieldFilter
+  roles: RoleFilter
 }

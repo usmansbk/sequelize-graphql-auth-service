@@ -1,7 +1,7 @@
 import { Fail, Success } from "~helpers/response";
 import emailTemplates from "~helpers/emailTemplates";
 import { EMAIL_NOT_VERIFIED, SENT_EMAIL_OTP } from "~constants/i18n";
-import { EMAIL_OTP_EXPIRES_IN, EMAIL_OTP_KEY_PREFIX } from "~constants/auth";
+import { EMAIL_OTP_EXPIRES_IN, OTP_KEY_PREFIX } from "~constants/auth";
 import QueryError from "~utils/errors/QueryError";
 
 export default {
@@ -15,7 +15,7 @@ export default {
         const { firstName, id, emailVerified } =
           await dataSources.users.findOne({ where: { email } });
 
-        const key = `${EMAIL_OTP_KEY_PREFIX}:${id}`;
+        const key = `${OTP_KEY_PREFIX}:${id}`;
         const sentToken = await store.get(key);
 
         if (!emailVerified) {
