@@ -5,10 +5,10 @@ const CONDITIONALS = {
   or: "or",
 };
 
-const buildComparison = (operator) => {
+const buildComparison = (operation) => {
   const query = {};
-  Object.keys(operator).forEach((op) => {
-    query[Op[op]] = operator[op];
+  Object.keys(operation).forEach((operator) => {
+    query[Op[operator]] = operation[operator];
   });
   return query;
 };
