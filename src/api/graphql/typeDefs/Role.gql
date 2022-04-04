@@ -65,14 +65,18 @@ type RoleList implements List {
 # Filter
 
 input RoleFilter {
+  where: RoleAttributesFilter
+  include: RoleAssociationFilter
+}
+
+input RoleAttributesFilter {
   id: IDFieldFilter
   name: StringFieldFilter
   createdAt: DateTimeFieldFilter
   updatedAt: DateTimeFieldFilter
-  include: IncludeRoleAssociationFilter
 }
 
-input IncludeRoleAssociationFilter {
+input RoleAssociationFilter {
   permissions: PermissionFilter
   members: UserFilter
 }

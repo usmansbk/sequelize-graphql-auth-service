@@ -135,6 +135,11 @@ type UserList implements List {
 # Filter
 
 input UserFilter {
+  where: UserAttributesFilter
+  include: UserAssociationFilter
+}
+
+input UserAttributesFilter {
   id: IDFieldFilter
   firstName: StringFieldFilter
   lastName: StringFieldFilter
@@ -144,9 +149,8 @@ input UserFilter {
   locale: StringFieldFilter
   createdAt: DateTimeFieldFilter
   updatedAt: DateTimeFieldFilter
-  include: IncludeUserAssociationFilter
 }
 
-input IncludeUserAssociationFilter {
+input UserAssociationFilter {
   roles: RoleFilter
 }

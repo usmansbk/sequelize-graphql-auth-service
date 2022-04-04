@@ -91,15 +91,19 @@ type PermissionList implements List {
 # Filter
 
 input PermissionFilter {
+  where: PermissionAttributesFilter
+  include: PermissionAssociationFilter
+}
+
+input PermissionAttributesFilter {
   id: IDFieldFilter
   name: StringFieldFilter
   action: StringFieldFilter
   resource: StringFieldFilter
   createdAt: DateTimeFieldFilter
   updatedAt: DateTimeFieldFilter
-  include: IncludePermissionAssociationFilter
 }
 
-input IncludePermissionAssociationFilter {
+input PermissionAssociationFilter {
   roles: RoleFilter
 }
