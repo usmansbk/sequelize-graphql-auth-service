@@ -1,21 +1,24 @@
-import { PERMISSIONS_ALIAS } from "~constants/models";
+import deepmerge from "deepmerge";
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
 
 export default {
   Permission: {
-    roles(permission, { page }, { dataSources }, info) {
+    roles(permission, { page, filter }, { dataSources }, info) {
       return dataSources.roles.paginate({
         page,
         info,
-        include: [
-          {
-            association: PERMISSIONS_ALIAS,
-            where: {
-              id: permission.id,
+        filter: deepmerge(filter, {
+          include: {
+            permissions: {
+              where: {
+                id: {
+                  eq: permission.id,
+                },
+              },
             },
           },
-        ],
+        }),
       });
     },
   },

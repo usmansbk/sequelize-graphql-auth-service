@@ -1,4 +1,4 @@
-import merge from "deepmerge";
+import deepmerge from "deepmerge";
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
 
@@ -11,7 +11,7 @@ export default {
       return dataSources.users.paginate({
         page,
         info,
-        filter: merge(filter, {
+        filter: deepmerge(filter, {
           include: {
             roles: {
               where: {
