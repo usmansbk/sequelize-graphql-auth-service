@@ -90,10 +90,6 @@ type PermissionList implements List {
 
 # Filter
 
-input IncludePermissionAssociationFilter {
-  roles: RoleFilter
-}
-
 input PermissionFilter {
   id: IDFieldFilter
   name: StringFieldFilter
@@ -102,4 +98,8 @@ input PermissionFilter {
   createdAt: DateTimeFieldFilter
   updatedAt: DateTimeFieldFilter
   include: IncludePermissionAssociationFilter
+}
+
+input IncludePermissionAssociationFilter {
+  roles: RoleFilter
 }

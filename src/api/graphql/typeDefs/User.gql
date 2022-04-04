@@ -134,10 +134,6 @@ type UserList implements List {
 
 # Filter
 
-input IncludeUserAssociationFilter {
-  roles: RoleFilter
-}
-
 input UserFilter {
   id: IDFieldFilter
   firstName: StringFieldFilter
@@ -149,4 +145,8 @@ input UserFilter {
   createdAt: DateTimeFieldFilter
   updatedAt: DateTimeFieldFilter
   include: IncludeUserAssociationFilter
+}
+
+input IncludeUserAssociationFilter {
+  roles: RoleFilter
 }
