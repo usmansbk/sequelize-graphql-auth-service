@@ -143,6 +143,43 @@ To set up your `S3` for file storage:
 
 Follow these [instructions](https://aws.amazon.com/solutions/implementations/serverless-image-handler/) to get your `CLOUDFRONT_API_ENDPOINT`. We use [Amazon CloudFront](https://aws.amazon.com/cloudfront/) to provide a caching layer to reduce the cost of image process and the latency of subsequent image delivery. The CloudFront domain name provides cached access to the image handler API.
 
+## Pagination & Filtering
+
+In order to filter by associations, we assume all associations are aliased (using the `as` option). This alias must have corresponding field in your graphql type. Example:
+
+If you define a User `has-many` Task relationship like so,
+
+```js
+User.hasMany(Task, { as: "tasks" });
+```
+
+you must define a `tasks` field in your graphql schema
+
+```gql
+type User {
+  tasks: [Task]!
+  ## or tasks: TaskList! for pagination
+}
+```
+
+This will allow us to perform sequelize nested include queries like this:
+
+```json
+{
+  "include": {
+    "tasks": {
+      "where": {
+        "name": {
+          "eq": "Laundry"
+        }
+      }
+    }
+  }
+}
+```
+
+Refer to the sequelize docs for more info on [Operators](https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#operators)
+
 ## Coding standard
 
 We use Eslint AirBnB coding guidelines and import alias. All aliases are prefixed with a `~`. To add a new alias, update the `jsconfig.json`, `.eslintrc.js`, and `babel.config.json` files. We also make use of Husky precommit hook to enforce standard.
@@ -160,3 +197,7 @@ Model specific logic should be moved to their associated data sources, and resol
 - [GraphQL Cursors Connections Specification](https://relay.dev/graphql/connections.htm)
 
 - [TDD, Where Did It All Go Wrong - Ian Cooper](https://www.youtube.com/watch?v=EZ05e7EMOLM&list=TLPQMjIwMTIwMjJnzh0h4NGjEg&index=2)
+
+```
+
+```
