@@ -6,26 +6,15 @@ scalar PhoneNumber
 scalar Locale
 scalar Byte
 
-"""
-All Queries and Mutations must implement this interface
-"""
+# Query
+
 interface Response {
   code: ID!
   success: Boolean!
   message: String!
 }
 
-"""
-All Form mutations, e.g Login, Register, etc must implement this interface to return validation errors
-"""
-type FieldError {
-  message: String!
-  field: String!
-}
-
-interface FormErrors {
-  errors: [FieldError!]
-}
+# Mutation
 
 type DeleteMutationResponse implements Response {
   code: ID!
@@ -40,6 +29,17 @@ type RequestResponse implements Response {
   message: String!
 }
 
+# Form
+
+type FieldError {
+  message: String!
+  field: String!
+}
+
+interface FormErrors {
+  errors: [FieldError!]
+}
+
 type RequestFormResponse implements Response & FormErrors {
   code: ID!
   success: Boolean!
@@ -47,6 +47,9 @@ type RequestFormResponse implements Response & FormErrors {
   errors: [FieldError!]
 }
 
+# Image
+
+"https://sharp.pixelplumbing.com/api-resize#resize"
 enum ImageResizeMode {
   cover
   contain
@@ -55,7 +58,6 @@ enum ImageResizeMode {
   outside
 }
 
-"https://sharp.pixelplumbing.com/api-resize#resize"
 input ImageResizeInput {
   width: Int!
   height: Int!
@@ -66,6 +68,8 @@ type Photo {
   url(resize: ImageResizeInput): URL!
   thumbnail(resize: ImageResizeInput): URL
 }
+
+# File
 
 type File {
   id: ID!
@@ -88,9 +92,7 @@ input ListPageOrder {
   sort: Sort!
 }
 
-"""
-'before' takes precedence over 'after'.
-"""
+"'before' takes precedence over 'after'"
 input ListPage {
   limit: Int = 100
   before: ID
