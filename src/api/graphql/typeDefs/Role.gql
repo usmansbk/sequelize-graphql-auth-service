@@ -74,6 +74,8 @@ input RoleAttributesFilter {
   name: StringFieldFilter
   createdAt: DateTimeFieldFilter
   updatedAt: DateTimeFieldFilter
+  and: [RoleAttributesFilter!]
+  or: [RoleAttributesFilter!]
 }
 
 input RoleAssociationFilter {

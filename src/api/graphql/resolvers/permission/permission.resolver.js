@@ -20,8 +20,8 @@ export default {
     },
   },
   Query: {
-    permissions(_parent, { page }, { dataSources }, info) {
-      return dataSources.permissions.paginate({ page, info });
+    permissions(_parent, { page, filter }, { dataSources }, info) {
+      return dataSources.permissions.paginate({ page, filter, info });
     },
   },
   Mutation: {

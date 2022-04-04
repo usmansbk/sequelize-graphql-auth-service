@@ -23,8 +23,8 @@ export default {
     },
   },
   Query: {
-    roles(_parent, { page }, { dataSources }, info) {
-      return dataSources.roles.paginate({ page, info });
+    roles(_parent, { page, filter }, { dataSources }, info) {
+      return dataSources.roles.paginate({ page, filter, info });
     },
   },
   Mutation: {

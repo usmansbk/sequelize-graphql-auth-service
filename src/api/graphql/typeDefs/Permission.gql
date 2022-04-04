@@ -102,6 +102,8 @@ input PermissionAttributesFilter {
   resource: StringFieldFilter
   createdAt: DateTimeFieldFilter
   updatedAt: DateTimeFieldFilter
+  and: [PermissionAttributesFilter!]
+  or: [PermissionAttributesFilter!]
 }
 
 input PermissionAssociationFilter {

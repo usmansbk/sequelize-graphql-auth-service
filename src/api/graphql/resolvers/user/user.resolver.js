@@ -27,8 +27,8 @@ export default {
         throw e;
       }
     },
-    users(_parent, { page }, { dataSources }, info) {
-      return dataSources.users.paginate({ page, info });
+    users(_parent, { page, filter }, { dataSources }, info) {
+      return dataSources.users.paginate({ page, filter, info });
     },
   },
   Mutation: {

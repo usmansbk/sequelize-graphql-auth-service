@@ -149,6 +149,8 @@ input UserAttributesFilter {
   locale: StringFieldFilter
   createdAt: DateTimeFieldFilter
   updatedAt: DateTimeFieldFilter
+  and: [UserAttributesFilter!]
+  or: [UserAttributesFilter!]
 }
 
 input UserAssociationFilter {

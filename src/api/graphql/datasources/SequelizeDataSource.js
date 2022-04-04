@@ -18,6 +18,7 @@ import {
   normalizeOrder,
 } from "~utils/transformers/paginate";
 import buildIncludeQuery from "~utils/transformers/include";
+import { buildWhereQuery } from "~utils/transformers/filter";
 import { FIELD_ERRORS, ITEM_NOT_FOUND } from "~constants/i18n";
 
 /**
@@ -244,10 +245,11 @@ export default class SequelizeDataSource extends DataSource {
     }
 
     const paginationQuery = cursor && getPaginationQuery(order, cursor);
+    const where = filter && buildWhereQuery(filter.where);
 
-    const where = paginationQuery
-      ? { [Op.and]: [paginationQuery, filter] }
-      : filter;
+    const paginationWhere = paginationQuery
+      ? { [Op.and]: [paginationQuery, where] }
+      : where;
 
     const include =
       info &&
@@ -260,12 +262,12 @@ export default class SequelizeDataSource extends DataSource {
       this.findAll({
         limit,
         order,
-        where,
+        where: paginationWhere,
         include,
         ...options,
       }),
+      this.model.count({ where: paginationWhere, ...options }),
       this.model.count({ where, ...options }),
-      this.model.count({ where: filter, ...options }),
     ]);
 
     if (before) {

@@ -47,7 +47,6 @@ input StringFieldFilter {
   notRegexp: String
   iRegexp: String
   notIRegexp: String
-  match: String
 }
 
 input DateTimeFieldFilter {
