@@ -153,7 +153,7 @@ If you define a User `has-many` Task relationship like so,
 User.hasMany(Task, { as: "tasks" });
 ```
 
-you must define a `tasks` field in your graphql schema
+you must define a `tasks` field in your graphql `User` type schema
 
 ```gql
 type User {
