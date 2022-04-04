@@ -3,6 +3,7 @@ import {
   ROLE_DESCRIPTION_EMPTY_ERROR,
   ROLE_DESCRIPTION_LEN_ERROR,
   ROLE_NAME_LEN_ERROR,
+  ROLE_NAME_UNIQUE_ERROR,
 } from "~constants/i18n";
 import {
   PERMISSIONS_ALIAS,
@@ -42,7 +43,9 @@ export default (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
+        unique: {
+          msg: ROLE_NAME_UNIQUE_ERROR,
+        },
         validate: {
           len: {
             args: [1, 64],

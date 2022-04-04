@@ -2,6 +2,7 @@ import { Model } from "sequelize";
 import {
   PERMISSION_NAME_LEN_ERROR,
   PERMISSION_NAME_EMPTY_ERROR,
+  PERMISSION_NAME_UNIQUE_ERROR,
   PERMISSION_DESCRIPTION_EMPTY_ERROR,
   PERMISSION_INVALID_NAME_ERROR,
 } from "~constants/i18n";
@@ -36,7 +37,9 @@ export default (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
+        unique: {
+          msg: PERMISSION_NAME_UNIQUE_ERROR,
+        },
         validate: {
           len: {
             args: [1, 64],

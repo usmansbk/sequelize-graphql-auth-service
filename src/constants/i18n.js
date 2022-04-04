@@ -20,12 +20,14 @@ export const USER_INVALID_PICTURE_URL_ERROR = "UserInvalidPictureUrlError";
 
 // Role
 export const ROLE_NAME_LEN_ERROR = "RoleNameLengthError";
+export const ROLE_NAME_UNIQUE_ERROR = "RoleNameUniqueError";
 export const ROLE_DESCRIPTION_LEN_ERROR = "RoleDescriptionLengthError";
 export const ROLE_DESCRIPTION_EMPTY_ERROR = "RoleDescriptionEmptyError";
 
 // Permission
 export const PERMISSION_NAME_LEN_ERROR = "PermissionNameLengthError";
 export const PERMISSION_NAME_EMPTY_ERROR = "PermissionNameEmptyError";
+export const PERMISSION_NAME_UNIQUE_ERROR = "PermissionNameUniqueError";
 export const PERMISSION_DESCRIPTION_LEN_ERROR =
   "PermissionDescriptionLengthError";
 export const PERMISSION_DESCRIPTION_EMPTY_ERROR =
