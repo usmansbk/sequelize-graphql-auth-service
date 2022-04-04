@@ -1,18 +1,13 @@
 import { Fail, Success } from "~helpers/response";
 import QueryError from "~utils/errors/QueryError";
 import { USER_DOES_NOT_EXIST } from "~constants/i18n";
-import buildIncludeQuery from "~utils/transformers/include";
 
 export default {
   Query: {
-    async getUserById(_parent, { id }, { dataSources, t }, info) {
+    async getUserById(_parent, { id }, { dataSources, t }) {
       try {
         const user = await dataSources.users.findOne({
           where: { id },
-          include: buildIncludeQuery({
-            info,
-            fieldName: "user",
-          }),
         });
 
         if (!user) {
