@@ -1,4 +1,4 @@
-import { ROLES_ALIAS } from "~constants/models";
+import merge from "deepmerge";
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
 
@@ -7,18 +7,21 @@ export default {
     permissions(role) {
       return role.permissions || role.getPermissions();
     },
-    members(role, { page }, { dataSources }, info) {
+    members(role, { page, filter }, { dataSources }, info) {
       return dataSources.users.paginate({
         page,
         info,
-        include: [
-          {
-            association: ROLES_ALIAS,
-            where: {
-              id: role.id,
+        filter: merge(filter, {
+          include: {
+            roles: {
+              where: {
+                id: {
+                  eq: role.id,
+                },
+              },
             },
           },
-        ],
+        }),
       });
     },
   },
