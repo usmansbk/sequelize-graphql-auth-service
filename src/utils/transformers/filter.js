@@ -32,8 +32,18 @@ export const buildWhereQuery = (where) => {
   return query;
 };
 
-const buildFilterQuery = ({ where }) => ({
-  where: buildWhereQuery(where),
-});
+export const buildIncludeQuery = (include) => {
+  if (!include) {
+    return undefined;
+  }
 
-export default buildFilterQuery;
+  return Object.keys(include).map((association) => {
+    const value = include[association];
+
+    return {
+      association,
+      where: buildWhereQuery(value.where),
+      include: buildIncludeQuery(value.include),
+    };
+  });
+};
