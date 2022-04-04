@@ -64,6 +64,20 @@ input DateTimeFieldFilter {
   notBetween: [DateTime!]
 }
 
+input DateFieldFilter {
+  eq: Date
+  ne: Date
+  and: [DateFieldFilter!]
+  or: [DateFieldFilter!]
+
+  gt: Date
+  gte: Date
+  lt: Date
+  lte: Date
+  between: [Date!]
+  notBetween: [Date!]
+}
+
 input BooleanFieldFilter {
   is: Boolean
   not: Boolean
