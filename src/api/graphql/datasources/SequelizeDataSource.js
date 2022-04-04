@@ -251,7 +251,7 @@ export default class SequelizeDataSource extends DataSource {
       ? { [Op.and]: [paginationQuery, where] }
       : where;
 
-    const include =
+    const paginationInclude =
       info &&
       buildIncludeQuery({
         info,
@@ -263,7 +263,7 @@ export default class SequelizeDataSource extends DataSource {
         limit,
         order,
         where: paginationWhere,
-        include,
+        include: paginationInclude,
         ...options,
       }),
       this.model.count({ where: paginationWhere, ...options }),

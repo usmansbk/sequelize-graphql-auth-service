@@ -14,6 +14,10 @@ const buildComparison = (operator) => {
 };
 
 export const buildWhereQuery = (where) => {
+  if (!where) {
+    return undefined;
+  }
+
   const query = {};
   Object.keys(where).forEach((attribute) => {
     const value = where[attribute];
@@ -29,7 +33,7 @@ export const buildWhereQuery = (where) => {
 };
 
 const buildFilterQuery = ({ where }) => ({
-    where: buildWhereQuery(where),
-  });
+  where: buildWhereQuery(where),
+});
 
 export default buildFilterQuery;
