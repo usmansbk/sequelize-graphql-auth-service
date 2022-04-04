@@ -100,7 +100,7 @@ input CreateUserProfileInput {
 
 input CreateUserAccountsInput {
   profiles: [CreateUserProfileInput!]!
-  roleIds: [ID!]!
+  roleIds: [ID!]
 }
 
 input UpdateUserProfileInput {

@@ -42,15 +42,17 @@ export default {
           const newUsers = await dataSources.users.createMany(profiles, {
             transaction,
           });
-          const roles = await dataSources.roles.findAll({
-            where: {
-              id: roleIds,
-            },
-            transaction,
-          });
-          await Promise.all(
-            roles.map((role) => role.addMembers(newUsers, { transaction }))
-          );
+          if (roleIds?.length) {
+            const roles = await dataSources.roles.findAll({
+              where: {
+                id: roleIds,
+              },
+              transaction,
+            });
+            await Promise.all(
+              roles.map((role) => role.addMembers(newUsers, { transaction }))
+            );
+          }
           return newUsers;
         });
         return Success({ users });

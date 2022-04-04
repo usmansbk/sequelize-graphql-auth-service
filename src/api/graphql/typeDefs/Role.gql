@@ -45,7 +45,7 @@ type RolePayload implements Response {
 input CreateRoleInput {
   name: String!
   description: String
-  permissionIds: [ID!]!
+  permissionIds: [ID!]
 }
 
 input UpdateRoleInput {

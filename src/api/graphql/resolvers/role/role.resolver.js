@@ -38,11 +38,14 @@ export default {
           const newRole = await dataSources.roles.create(values, {
             transaction,
           });
-          const permissions = await dataSources.permissions.findAll({
-            where: { id: permissionIds },
-            transaction,
-          });
-          await newRole.addPermissions(permissions, { transaction });
+
+          if (permissionIds?.length) {
+            const permissions = await dataSources.permissions.findAll({
+              where: { id: permissionIds },
+              transaction,
+            });
+            await newRole.addPermissions(permissions, { transaction });
+          }
           return newRole;
         });
         return Success({ role });
