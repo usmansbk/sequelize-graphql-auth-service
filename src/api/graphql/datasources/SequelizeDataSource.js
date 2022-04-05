@@ -251,14 +251,12 @@ export default class SequelizeDataSource extends DataSource {
       ? { [Op.and]: [paginationQuery, where] }
       : where;
 
-    const paginationInclude = include;
-
     const [rows, count, totalCount] = await Promise.all([
       this.findAll({
         limit,
         order,
+        include,
         where: paginationWhere,
-        include: paginationInclude,
         ...options,
       }),
       this.model.count({ where: paginationWhere, ...options }),
