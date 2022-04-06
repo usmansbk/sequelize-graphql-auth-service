@@ -1,6 +1,7 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
 import { PERMISSION_NOT_FOUND } from "~constants/i18n";
+import { buildEagerLoadingQuery } from "~utils/transformers/eagerLoader";
 
 export default {
   Permission: {
@@ -27,10 +28,15 @@ export default {
     permissions(_parent, { page, filter }, { dataSources }, info) {
       return dataSources.permissions.paginate({ page, filter, info });
     },
-    async getPermissionById(_parent, { id }, { dataSources, t }) {
+    async getPermissionById(_parent, { id }, { dataSources, t }, info) {
       try {
         const permission = await dataSources.permissions.findOne({
           where: { id },
+          include: buildEagerLoadingQuery({
+            info,
+            model: dataSources.permissions.model,
+            path: "permission",
+          }),
         });
 
         if (!permission) {

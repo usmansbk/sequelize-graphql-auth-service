@@ -18,6 +18,7 @@ import {
   normalizeOrder,
 } from "~utils/transformers/paginate";
 import { buildWhereQuery, buildIncludeQuery } from "~utils/transformers/filter";
+import { buildEagerLoadingQuery } from "~utils/transformers/eagerLoader";
 import { FIELD_ERRORS, ITEM_NOT_FOUND } from "~constants/i18n";
 
 /**
@@ -228,7 +229,7 @@ export default class SequelizeDataSource extends DataSource {
     }
   }
 
-  async paginate({ page, filter, ...options }) {
+  async paginate({ page, filter, info, ...options }) {
     const { limit, order: orderArg, after, before } = page || {};
 
     let order = normalizeOrder(ensureDeterministicOrder(orderArg || []));
@@ -242,6 +243,13 @@ export default class SequelizeDataSource extends DataSource {
     } else if (after) {
       cursor = parseCursor(after);
     }
+
+    const includeAssociation = buildEagerLoadingQuery({
+      info,
+      model: this.model,
+      path: "items",
+    });
+    console.log(JSON.stringify(includeAssociation));
 
     const paginationQuery = cursor && getPaginationQuery(order, cursor);
     const where = filter && buildWhereQuery(filter.where);
