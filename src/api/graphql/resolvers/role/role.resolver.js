@@ -1,7 +1,6 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
 import { ROLE_NOT_FOUND } from "~constants/i18n";
-import { buildEagerLoadingQuery } from "~utils/transformers/eagerLoader";
 
 export default {
   Role: {
@@ -35,11 +34,8 @@ export default {
       try {
         const role = await dataSources.roles.findOne({
           where: { id },
-          include: buildEagerLoadingQuery({
-            info,
-            model: dataSources.roles.model,
-            path: "role",
-          }),
+          info,
+          path: "role",
         });
 
         if (!role) {

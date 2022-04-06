@@ -1,7 +1,6 @@
 import { Fail, Success } from "~helpers/response";
 import QueryError from "~utils/errors/QueryError";
 import { USER_NOT_FOUND } from "~constants/i18n";
-import { buildEagerLoadingQuery } from "~utils/transformers/eagerLoader";
 
 export default {
   Query: {
@@ -9,11 +8,8 @@ export default {
       try {
         const user = await dataSources.users.findOne({
           where: { id },
-          include: buildEagerLoadingQuery({
-            info,
-            model: dataSources.users.model,
-            path: "user",
-          }),
+          info,
+          path: "user",
         });
 
         if (!user) {

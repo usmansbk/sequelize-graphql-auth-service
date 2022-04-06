@@ -101,8 +101,15 @@ export default class SequelizeDataSource extends DataSource {
     return this.loader.loadMany(ids);
   }
 
-  async findOne(query) {
-    const item = await this.model.findOne(query);
+  async findOne({ path, info, ...query}) {
+    const item = await this.model.findOne({
+      ...query,
+      include: info ? buildEagerLoadingQuery({
+        info,
+        path,
+        model: this.model,
+      }): undefined
+    });
     if (item) {
       this.prime(item);
     }
