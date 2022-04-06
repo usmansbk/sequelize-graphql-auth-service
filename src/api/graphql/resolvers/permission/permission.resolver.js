@@ -1,5 +1,6 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
+import { PERMISSION_NOT_FOUND } from "~constants/i18n";
 
 export default {
   Permission: {
@@ -25,6 +26,27 @@ export default {
   Query: {
     permissions(_parent, { page, filter }, { dataSources }, info) {
       return dataSources.permissions.paginate({ page, filter, info });
+    },
+    async getPermissionById(_parent, { id }, { dataSources, t }) {
+      try {
+        const permission = await dataSources.permissions.findOne({
+          where: { id },
+        });
+
+        if (!permission) {
+          throw new QueryError(PERMISSION_NOT_FOUND);
+        }
+
+        return Success({ permission });
+      } catch (e) {
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            code: e.code,
+          });
+        }
+        throw e;
+      }
     },
   },
   Mutation: {

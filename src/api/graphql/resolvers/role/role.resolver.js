@@ -1,5 +1,6 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
+import { ROLE_NOT_FOUND } from "~constants/i18n";
 
 export default {
   Role: {
@@ -28,6 +29,27 @@ export default {
   Query: {
     roles(_parent, { page, filter }, { dataSources }, info) {
       return dataSources.roles.paginate({ page, filter, info });
+    },
+    async getRoleById(_parent, { id }, { dataSources, t }) {
+      try {
+        const role = await dataSources.roles.findOne({
+          where: { id },
+        });
+
+        if (!role) {
+          throw new QueryError(ROLE_NOT_FOUND);
+        }
+
+        return Success({ role });
+      } catch (e) {
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            code: e.code,
+          });
+        }
+        throw e;
+      }
     },
   },
   Mutation: {

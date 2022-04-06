@@ -65,8 +65,8 @@ describe("Query.getUserById", () => {
       { tokenInfo: { sub: user.id }, currentUser: user }
     );
     expect(res.data.getUserById).toEqual({
-      code: "UserDoesNotExist",
-      message: "UserDoesNotExist",
+      code: "UserNotFound",
+      message: "UserNotFound",
       success: false,
       user: null,
     });

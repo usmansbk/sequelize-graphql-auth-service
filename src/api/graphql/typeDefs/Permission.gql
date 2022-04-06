@@ -1,4 +1,5 @@
 type Query {
+  getPermissionById(id: ID!): PermissionPayload! @auth
   permissions(page: ListPage, filter: PermissionFilter): PermissionList! @auth
 }
 

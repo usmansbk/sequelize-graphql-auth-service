@@ -1,4 +1,5 @@
 type Query {
+  getRoleById(id: ID!): RolePayload! @auth
   roles(page: ListPage, filter: RoleFilter): RoleList! @auth
 }
 
