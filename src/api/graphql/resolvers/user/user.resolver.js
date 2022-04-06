@@ -9,9 +9,6 @@ export default {
     isOwner(user, _args, { currentUser }) {
       return user.id === currentUser?.id;
     },
-    roles(user) {
-      return user.roles || user.getRoles();
-    },
   },
   Query: {
     async me(_parent, _args, { t, currentUser }) {
