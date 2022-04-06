@@ -9,6 +9,10 @@ export default {
     isOwner(user, _args, { currentUser }) {
       return user.id === currentUser?.id;
     },
+    /**
+     * Fields aren't eager-loaded when we run mutations like `update`
+     * In that case we fallback to lazy-load the associations
+    */
     roles(user) {
       return user.roles || user.getRoles();
     },

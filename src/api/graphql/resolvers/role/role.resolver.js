@@ -4,6 +4,10 @@ import { ROLE_NOT_FOUND } from "~constants/i18n";
 
 export default {
   Role: {
+    /**
+     * Fields aren't eager-loaded when we run mutations like `update`
+     * In that case we fallback to lazy-load the associations
+    */
     permissions(role) {
       return role.permissions || role.getPermissions();
     },
