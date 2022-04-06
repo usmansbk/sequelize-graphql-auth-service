@@ -246,7 +246,7 @@ export default class SequelizeDataSource extends DataSource {
     }
 
     const paginationQuery = cursor && getPaginationQuery(order, cursor);
-    const where = filter && buildWhereQuery(filter.where);
+    const where = filter?.where && buildWhereQuery(filter.where);
     const includeFilter = filter?.include
       ? buildIncludeQuery(filter.include)
       : [];
