@@ -205,6 +205,8 @@ query {
 # check the codebase for examples
 ```
 
+The order in which we define our associations is relevant because the `EagerLoader` assumes the nested `avatar` field is a `target` model in the User model association. Read [Defining the Sequelize associations](https://sequelize.org/docs/v6/core-concepts/assocs/#defining-the-sequelize-associations) for more details.
+
 ## Coding standard
 
 We use Eslint AirBnB coding guidelines and import alias. All aliases are prefixed with a `~`. To add a new alias, update the `jsconfig.json`, `.eslintrc.js`, and `babel.config.json` files. We also make use of Husky precommit hook to enforce standard.
