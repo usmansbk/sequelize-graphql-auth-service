@@ -1,4 +1,6 @@
-# Apollo Express GraphQL Server Template
+# Sequelize GraphQL Server Template
+
+GraphQL server optimized for Sequelize ORM
 
 > This project assumes an Ubuntu 20 environment
 
@@ -13,6 +15,7 @@
 - [x] i18n
 - [ ] Push Notification
 - [ ] Analytics
+- [ ] Dockerize
 
 ## Prerequisites
 
@@ -26,12 +29,12 @@ Export the followng enviroment variables or create a `.env` file
 
 ```sh
 NODE_ENV=development
-APP_NAME=apollo-server-express
+APP_NAME=sequelize-graphql-server
 
-DB_USERNAME=apollo-server-express
-DB_PASSWORD=apollo-server-express
-DB_NAME_DEV=apollo-server-express_development
-DB_NAME_TEST=apollo-server-express_test
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+DB_NAME_DEV=your_dev_database_name
+DB_NAME_TEST=your_test_database_name
 DB_HOST=127.0.0.1
 DB_DIALECT=postgres
 ```
@@ -45,16 +48,16 @@ This template uses PostgreSQL as the default database.
 sudo apt install postgresql-12 libpq-dev
 ```
 
-The postgres installation doesn't setup a user for you, so you'll need to follow these steps to create a user with permission to create databases. Feel free to replace `apollo-server-express` with your username and remember to update your `.env` file `DB_USERNAME` key.
+The postgres installation doesn't setup a user for you, so you'll need to follow these steps to create a user with permission to create databases.
 
 ```sh
 
-sudo -u postgres createuser apollo-server-express -s
+sudo -u postgres createuser your_username -s
 
 # Set a password for the user by doing the following
 
 sudo -u postgres psql
-postgres=# \password apollo-server-express
+postgres=# \password your_password 
 
 # Create the database
 npx cross-env NODE_ENV=development sequelize db:create # development db
@@ -79,7 +82,7 @@ ssh-keygen -t rsa -P "" -b 4096 -m PEM -f jwtRS256.key
 ssh-keygen -e -m PEM -f jwtRS256.key > jwtRS256.key.pub
 ```
 
-Set up a local [redis server](https://redis.io/download#from-the-official-ubuntu-ppa) to manage tokens in development
+Set up a local [redis server](https://redis.io/download#from-the-official-ubuntu-ppa) to cache tokens in development
 
 ```sh
 sudo apt install redis-server
@@ -89,7 +92,7 @@ While in production, a Redis server `REDIS_URL` environment variable is required
 
 ## Clients (Mobile, Web, etc)
 
-Each supported client must pass a `client_id` in their request headers. Client IDs are strings assigned by the server. To support a new client, add the ID to the list of supported clients. This will allow users to login from multiple clients.
+Each supported client must pass a `client_id` in their request headers. Client IDs are strings assigned by the server. To support a new client, add the ID to the list of audience. This will allow users to login from multiple clients.
 
 ```sh
 ## src/utils/jwt
@@ -108,7 +111,7 @@ AWS_SECRET_ACCESS_KEY=
 AWS_REGION=us-east-1
 ```
 
-Check the [email-templates](https://github.com/forwardemail/email-templates) package for more details on creating emails.
+Check the [email-templates](https://github.com/forwardemail/email-templates) docs on how to build email templates.
 
 ## [SMS](https://www.twilio.com/docs/sms/quickstart/node)
 
@@ -143,9 +146,11 @@ To set up your `S3` for file storage:
 
 Follow these [instructions](https://aws.amazon.com/solutions/implementations/serverless-image-handler/) to get your `CLOUDFRONT_API_ENDPOINT`. We use [Amazon CloudFront](https://aws.amazon.com/cloudfront/) to provide a caching layer to reduce the cost of image process and the latency of subsequent image delivery. The CloudFront domain name provides cached access to the image handler API.
 
-## Pagination & Filtering
+## Filtering & Pagination
 
-In order to filter by associations, we assume all associations are aliased (using the `as` option). This alias must have corresponding field in your graphql type. Example:
+### Filtering 
+
+For a more complex filtering, we mimic the sequelize filter query. In order to filter by associations, we assume all associations are aliased (using the `as` option). This alias must have corresponding field in your graphql type. Example:
 
 If you define a User `has-many` Task relationship like so,
 
@@ -157,28 +162,48 @@ you must define a `tasks` field in your graphql `User` type schema
 
 ```gql
 type User {
-  tasks: [Task]!
-  ## or tasks: TaskList! for pagination
-}
-```
-
-This will allow us to perform sequelize nested include queries like this:
-
-```json
-{
-  "include": {
-    "tasks": {
-      "where": {
-        "name": {
-          "eq": "Laundry"
-        }
-      }
-    }
-  }
+  tasks(filter: TaskFilter): TaskList!
 }
 ```
 
 Refer to the sequelize docs for more info on [Operators](https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#operators)
+
+### Pagination
+
+Our cursor-based pagination must adhere to a `List` interface. This is similar to the relay-connection pagination. But unlike relay we return our `items` as a flat list.
+
+```gql
+# Example
+type TaskList implements List {
+  items: [Task]!
+  totalCount: Int!
+  pageInfo: PageInfo!
+}
+```
+
+### N+1 Problem
+
+In order to prevent this, we eager-load fields that have a matching association `alias` in the graphql type corresponding model. Example:
+
+If we have a User `has-one` Picture as `avatar` relationship defined in our model.
+
+```js
+User.hasOne(Picture, { as: "avatar" });
+```
+
+Then our `buildEagerLoadingQuery` util is smart enough to eager-load the `avatar` when we make a request like this:
+
+```gql
+query {
+  users {
+    id
+    avatar {
+      url
+    }
+  }
+}
+# check the codebase for examples
+```
 
 ## Coding standard
 
@@ -197,7 +222,3 @@ Model specific logic should be moved to their associated data sources, and resol
 - [GraphQL Cursors Connections Specification](https://relay.dev/graphql/connections.htm)
 
 - [TDD, Where Did It All Go Wrong - Ian Cooper](https://www.youtube.com/watch?v=EZ05e7EMOLM&list=TLPQMjIwMTIwMjJnzh0h4NGjEg&index=2)
-
-```
-
-```
