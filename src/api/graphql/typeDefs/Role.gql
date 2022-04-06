@@ -22,7 +22,7 @@ type Role {
   name: String!
   description: String
   permissions: [Permission]!
-  members(page: ListPage, filter: UserFilter): UserList!
+  members(page: ListPage, where: UserAttributesWhere): UserList!
   createdAt: DateTime!
   updatedAt: DateTime
 }
@@ -65,20 +65,20 @@ type RoleList implements List {
 # Filter
 
 input RoleFilter {
-  where: RoleAttributesFilter
-  include: RoleAssociationFilter
+  where: RoleAttributesWhere
+  include: RoleAssociationInclude
 }
 
-input RoleAttributesFilter {
+input RoleAttributesWhere {
   id: IDFieldFilter
   name: StringFieldFilter
   createdAt: DateTimeFieldFilter
   updatedAt: DateTimeFieldFilter
-  and: [RoleAttributesFilter!]
-  or: [RoleAttributesFilter!]
+  and: [RoleAttributesWhere!]
+  or: [RoleAttributesWhere!]
 }
 
-input RoleAssociationFilter {
+input RoleAssociationInclude {
   permissions: PermissionFilter
   members: UserFilter
 }

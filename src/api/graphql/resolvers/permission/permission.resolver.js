@@ -1,14 +1,14 @@
-import deepmerge from "deepmerge";
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
 
 export default {
   Permission: {
-    roles(permission, { page, filter }, { dataSources }, info) {
+    roles(permission, { page, where }, { dataSources }, info) {
       return dataSources.roles.paginate({
         page,
         info,
-        filter: deepmerge(filter, {
+        filter: {
+          where,
           include: {
             permissions: {
               where: {
@@ -18,7 +18,7 @@ export default {
               },
             },
           },
-        }),
+        },
       });
     },
   },

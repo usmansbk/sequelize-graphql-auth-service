@@ -19,7 +19,7 @@ type Permission {
   action: PermissionAction!
   resource: PermissionResource!
   description: String
-  roles(page: ListPage, filter: RoleFilter): RoleList!
+  roles(page: ListPage, where: RoleAttributesWhere): RoleList!
   createdAt: DateTime!
   updatedAt: DateTime
 }
@@ -91,21 +91,21 @@ type PermissionList implements List {
 # Filter
 
 input PermissionFilter {
-  where: PermissionAttributesFilter
-  include: PermissionAssociationFilter
+  where: PermissionAttributesWhere
+  include: PermissionAssociationInclude
 }
 
-input PermissionAttributesFilter {
+input PermissionAttributesWhere {
   id: IDFieldFilter
   name: StringFieldFilter
   action: StringFieldFilter
   resource: StringFieldFilter
   createdAt: DateTimeFieldFilter
   updatedAt: DateTimeFieldFilter
-  and: [PermissionAttributesFilter!]
-  or: [PermissionAttributesFilter!]
+  and: [PermissionAttributesWhere!]
+  or: [PermissionAttributesWhere!]
 }
 
-input PermissionAssociationFilter {
+input PermissionAssociationInclude {
   roles: RoleFilter
 }
