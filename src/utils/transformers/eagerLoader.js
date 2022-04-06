@@ -11,9 +11,9 @@ const recursivelyBuildInclude = (fields, model) => {
     if (association) {
       include.push({
         association: field,
-        include:
-          fields?.[field] &&
-          recursivelyBuildInclude(fields[field], association.target),
+        include: fields?.[field]
+          ? recursivelyBuildInclude(fields[field], association.target)
+          : undefined,
       });
     }
   });
