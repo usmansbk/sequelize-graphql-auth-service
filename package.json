@@ -1,5 +1,5 @@
 {
-  "name": "apollo-server-template",
+  "name": "sequelize-graphql-server-template",
   "version": "1.0.0",
   "scripts": {
     "build": "babel src -d build --copy-files",
@@ -9,7 +9,7 @@
     "test": "cross-env NODE_ENV=test jest -i --testTimeout=60000",
     "prepare": "husky install"
   },
-  "description": "Apollo GraphQL server template",
+  "description": "Sequelize GraphQL server template",
   "main": "index.js",
   "repository": "git@github.com:usmansbk/apollo-express-server-template.git",
   "author": "Usman Suleiman <usmansbk@gmail.com>",
