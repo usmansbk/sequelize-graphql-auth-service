@@ -247,15 +247,17 @@ export default class SequelizeDataSource extends DataSource {
 
     const paginationQuery = cursor && getPaginationQuery(order, cursor);
     const where = filter && buildWhereQuery(filter.where);
-    const includeFilter = filter && buildIncludeQuery(filter.include);
-    const includeAssociation =
-      info &&
-      buildEagerLoadingQuery({
-        info,
-        model: this.model,
-        path: "items",
-      });
-    const include = deepmerge(includeAssociation || [], includeFilter || []);
+    const includeFilter = filter?.include
+      ? buildIncludeQuery(filter.include)
+      : [];
+    const includeAssociation = info
+      ? buildEagerLoadingQuery({
+          info,
+          model: this.model,
+          path: "items",
+        })
+      : [];
+    const include = deepmerge(includeAssociation, includeFilter);
 
     const paginationWhere = paginationQuery
       ? { [Op.and]: [paginationQuery, where] }
