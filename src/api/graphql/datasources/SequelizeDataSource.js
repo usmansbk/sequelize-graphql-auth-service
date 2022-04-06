@@ -6,6 +6,7 @@ import {
 } from "sequelize";
 import { DataSource } from "apollo-datasource";
 import DataLoader from "dataloader";
+import deepmerge from "deepmerge";
 import formatErrors from "~utils/formatErrors";
 import FieldErrors from "~utils/errors/FieldErrors";
 import QueryError from "~utils/errors/QueryError";
@@ -244,16 +245,17 @@ export default class SequelizeDataSource extends DataSource {
       cursor = parseCursor(after);
     }
 
-    const includeAssociation = buildEagerLoadingQuery({
-      info,
-      model: this.model,
-      path: "items",
-    });
-    console.log(JSON.stringify(includeAssociation));
-
     const paginationQuery = cursor && getPaginationQuery(order, cursor);
     const where = filter && buildWhereQuery(filter.where);
-    const include = filter && buildIncludeQuery(filter.include);
+    const includeFilter = filter && buildIncludeQuery(filter.include);
+    const includeAssociation =
+      info &&
+      buildEagerLoadingQuery({
+        info,
+        model: this.model,
+        path: "items",
+      });
+    const include = deepmerge(includeAssociation || [], includeFilter || []);
 
     const paginationWhere = paginationQuery
       ? { [Op.and]: [paginationQuery, where] }
