@@ -21,13 +21,14 @@ const recursivelyBuildInclude = (fields, model) => {
   return include;
 };
 
-export const buildEagerLoadingQuery = ({ info, path, model }) => {
+export const buildEagerLoadingQuery = ({ info, path, model, skip }) => {
   if (!info) {
     return undefined;
   }
 
   const fields = fieldsMap(info, {
     path,
+    skip,
   });
 
   return recursivelyBuildInclude(fields, model);

@@ -32,7 +32,7 @@ export default {
   },
   Query: {
     roles(_parent, { page, filter }, { dataSources }, info) {
-      return dataSources.roles.paginate({ page, filter, info });
+      return dataSources.roles.paginate({ page, filter, info, skip: ['members'] });
     },
     async getRoleById(_parent, { id }, { dataSources, t }, info) {
       try {
@@ -40,6 +40,7 @@ export default {
           where: { id },
           info,
           path: "role",
+          skip: ['members'] // we shouldn't eager-load paginated fields
         });
 
         if (!role) {

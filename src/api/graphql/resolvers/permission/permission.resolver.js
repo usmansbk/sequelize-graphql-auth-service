@@ -25,7 +25,7 @@ export default {
   },
   Query: {
     permissions(_parent, { page, filter }, { dataSources }, info) {
-      return dataSources.permissions.paginate({ page, filter, info });
+      return dataSources.permissions.paginate({ page, filter, info, skip: ['roles'] });
     },
     async getPermissionById(_parent, { id }, { dataSources, t }, info) {
       try {
@@ -33,6 +33,7 @@ export default {
           where: { id },
           info,
           path: "permission",
+          skip: ["roles"] // we shouldn't eager-load paginated fields
         });
 
         if (!permission) {

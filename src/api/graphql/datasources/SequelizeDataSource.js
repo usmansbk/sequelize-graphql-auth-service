@@ -101,12 +101,13 @@ export default class SequelizeDataSource extends DataSource {
     return this.loader.loadMany(ids);
   }
 
-  async findOne({ path, info, ...query}) {
+  async findOne({ path, info, skip, ...query}) {
     const item = await this.model.findOne({
       ...query,
       include: info ? buildEagerLoadingQuery({
         info,
         path,
+        skip: skip?.map(field => path ? `${path}.${field}` : field),
         model: this.model,
       }): undefined
     });
@@ -237,7 +238,7 @@ export default class SequelizeDataSource extends DataSource {
     }
   }
 
-  async paginate({ page, filter, info, ...options }) {
+  async paginate({ page, filter, info, skip, ...options }) {
     const { limit, order: orderArg, after, before } = page || {};
 
     let order = normalizeOrder(ensureDeterministicOrder(orderArg || []));
@@ -257,11 +258,13 @@ export default class SequelizeDataSource extends DataSource {
     const includeFilter = filter?.include
       ? buildIncludeQuery(filter.include)
       : [];
+    const path = 'items';
     const includeAssociation = info
       ? buildEagerLoadingQuery({
           info,
+          path,
+          skip: skip?.map(field =>  `${path}.${field}`),
           model: this.model,
-          path: "items",
         })
       : [];
     const include = deepmerge(includeAssociation, includeFilter);
