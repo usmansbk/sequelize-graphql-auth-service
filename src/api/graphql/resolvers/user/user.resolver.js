@@ -1,5 +1,6 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
+import { USER_NOT_FOUND } from "~constants/i18n";
 
 export default {
   User: {
@@ -12,7 +13,7 @@ export default {
     /**
      * Fields aren't eager-loaded when we run Sequelize `Model.update`
      * In such case, we want to fallback to lazy-loading
-    */
+     */
     roles(user) {
       return user.roles || user.getRoles();
     },
