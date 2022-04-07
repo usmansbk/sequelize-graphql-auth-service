@@ -80,5 +80,53 @@ export default {
         throw e;
       }
     },
+    async attachRolesToUser(_parent, { roleIds, userId }, { dataSources, db, t}) {
+      try {
+        const user = await db.sequelize.transaction(async (transaction) => {
+          const _user = await dataSources.users.findOne({
+            where: {
+              id: userId
+            },
+            transaction
+          });
+          return _user.addRoles(roleIds, { transaction });
+        })
+        return Success({ user });
+      } catch (e) {
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            errors: e.errors,
+            code: e.code,
+          });
+        }
+
+        throw e;
+      }
+    },
+    async attachRolesToUser(_parent, { roleIds, userId }, { dataSources, db, t}) {
+      try {
+        const user = await db.sequelize.transaction(async (transaction) => {
+          const _user = await dataSources.users.findOne({
+            where: {
+              id: userId,
+            },
+            transaction
+          });
+          return _user.removeRoles(roleIds, { transaction });
+        })
+        return Success({ user });
+      } catch (e) {
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            errors: e.errors,
+            code: e.code,
+          });
+        }
+
+        throw e;
+      }
+    }
   },
 };
