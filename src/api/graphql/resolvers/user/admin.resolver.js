@@ -19,14 +19,8 @@ export default {
             transaction,
           });
           if (roleIds?.length) {
-            const roles = await dataSources.roles.findAll({
-              where: {
-                id: roleIds,
-              },
-              transaction,
-            });
             await Promise.all(
-              roles.map((role) => role.addMembers(newUsers, { transaction }))
+              newUsers.map((user) => user.addRoles(roleIds, { transaction }))
             );
           }
           return newUsers;
