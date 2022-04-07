@@ -5,8 +5,8 @@ import { ROLE_NOT_FOUND } from "~constants/i18n";
 export default {
   Role: {
     /**
-     * Fields aren't eager-loaded when we run mutations like `update`
-     * In such case, we fallback to lazy-load the associations
+     * Fields aren't eager-loaded when we run Sequelize `Model.update`
+     * In such case, we want to fallback to lazy-loading 
      */
     permissions(role) {
       return role.permissions || role.getPermissions();
@@ -31,14 +31,6 @@ export default {
     },
   },
   Query: {
-    roles(_parent, { page, filter }, { dataSources }, info) {
-      return dataSources.roles.paginate({
-        page,
-        filter,
-        info,
-        skip: ["members"],
-      });
-    },
     async getRoleById(_parent, { id }, { dataSources, t }, info) {
       try {
         const role = await dataSources.roles.findOne({
@@ -60,77 +52,6 @@ export default {
             code: e.code,
           });
         }
-        throw e;
-      }
-    },
-  },
-  Mutation: {
-    async createRole(
-      _parent,
-      { input: { permissionIds, ...values } },
-      { dataSources, db, t }
-    ) {
-      try {
-        const role = await db.sequelize.transaction(async (transaction) => {
-          const newRole = await dataSources.roles.create(values, {
-            transaction,
-          });
-
-          if (permissionIds?.length) {
-            const permissions = await dataSources.permissions.findAll({
-              where: { id: permissionIds },
-              transaction,
-            });
-            await newRole.addPermissions(permissions, { transaction });
-          }
-          return newRole;
-        });
-        return Success({ role });
-      } catch (e) {
-        if (e instanceof QueryError) {
-          return Fail({
-            message: t(e.message),
-            errors: e.errors,
-            code: e.code,
-          });
-        }
-
-        throw e;
-      }
-    },
-    async updateRole(
-      _parent,
-      { input: { id, ...values } },
-      { dataSources, t }
-    ) {
-      try {
-        const role = await dataSources.roles.update(id, values);
-        return Success({ role });
-      } catch (e) {
-        if (e instanceof QueryError) {
-          return Fail({
-            message: t(e.message),
-            errors: e.errors,
-            code: e.code,
-          });
-        }
-
-        throw e;
-      }
-    },
-    async deleteRoles(_parent, { ids }, { dataSources, t }) {
-      try {
-        await dataSources.roles.destroyMany(ids);
-        return Success({ ids });
-      } catch (e) {
-        if (e instanceof QueryError) {
-          return Fail({
-            message: t(e.message),
-            errors: e.errors,
-            code: e.code,
-          });
-        }
-
         throw e;
       }
     },

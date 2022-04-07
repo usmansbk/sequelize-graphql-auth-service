@@ -10,8 +10,8 @@ export default {
       return user.id === currentUser?.id;
     },
     /**
-     * Fields aren't eager-loaded when we run mutations like `update`
-     * In such case, we fallback to lazy-load the associations
+     * Fields aren't eager-loaded when we run Sequelize `Model.update`
+     * In such case, we want to fallback to lazy-loading
     */
     roles(user) {
       return user.roles || user.getRoles();
@@ -31,80 +31,26 @@ export default {
         throw e;
       }
     },
-    users(_parent, { page, filter }, { dataSources }, info) {
-      return dataSources.users.paginate({ page, filter, info });
-    },
-  },
-  Mutation: {
-    async createUserAccounts(
-      _parent,
-      { input: { profiles, roleIds } },
-      { dataSources, db, t }
-    ) {
+    async getUserById(_parent, { id }, { dataSources, t }, info) {
       try {
-        const users = await db.sequelize.transaction(async (transaction) => {
-          const newUsers = await dataSources.users.createMany(profiles, {
-            transaction,
-          });
-          if (roleIds?.length) {
-            const roles = await dataSources.roles.findAll({
-              where: {
-                id: roleIds,
-              },
-              transaction,
-            });
-            await Promise.all(
-              roles.map((role) => role.addMembers(newUsers, { transaction }))
-            );
-          }
-          return newUsers;
+        const user = await dataSources.users.findOne({
+          where: { id },
+          info,
+          path: "user",
         });
-        return Success({ users });
-      } catch (e) {
-        if (e instanceof QueryError) {
-          return Fail({
-            message: t(e.message),
-            errors: e.errors,
-            code: e.code,
-          });
+
+        if (!user) {
+          throw new QueryError(USER_NOT_FOUND);
         }
 
-        throw e;
-      }
-    },
-    async updateUserProfile(
-      _parent,
-      { input: { id, ...values } },
-      { dataSources, t }
-    ) {
-      try {
-        const user = await dataSources.users.update(id, values);
         return Success({ user });
       } catch (e) {
         if (e instanceof QueryError) {
           return Fail({
             message: t(e.message),
-            errors: e.errors,
             code: e.code,
           });
         }
-
-        throw e;
-      }
-    },
-    async deleteUserAccounts(_parent, { ids }, { dataSources, t }) {
-      try {
-        await dataSources.users.destroyMany(ids);
-        return Success({ ids });
-      } catch (e) {
-        if (e instanceof QueryError) {
-          return Fail({
-            message: t(e.message),
-            errors: e.errors,
-            code: e.code,
-          });
-        }
-
         throw e;
       }
     },
