@@ -96,27 +96,6 @@ describe("Mutation.loginToAdmin", () => {
     expect(loginToAdmin.refreshToken).toBeNull();
   });
 
-  test("should not login admin with wrong unverified email", async () => {
-    const fields = attributes.user();
-    const user = await db.User.create(fields);
-    await user.addRole(role);
-
-    const {
-      data: { loginToAdmin },
-    } = await server.executeOperation({
-      query,
-      variables: {
-        input: {
-          username: fields.username,
-          password: fields.email,
-        },
-      },
-    });
-    expect(loginToAdmin.message).toMatch("EmailNotVerified");
-    expect(loginToAdmin.accessToken).toBeNull();
-    expect(loginToAdmin.refreshToken).toBeNull();
-  });
-
   test("should report on 5 failed attempts if account with verified email exist", async () => {
     const fields = attributes.user({ emailVerified: true });
     const user = await db.User.create(fields);

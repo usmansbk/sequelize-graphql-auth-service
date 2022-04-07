@@ -22,7 +22,7 @@ export default {
         const [user, granted] =
           await dataSources.users.findAdminByUsernameAndPassword(input);
 
-        if (user && !user.emailVerified) {
+        if (user && granted && !user.emailVerified) {
           throw new QueryError(EMAIL_NOT_VERIFIED);
         }
 

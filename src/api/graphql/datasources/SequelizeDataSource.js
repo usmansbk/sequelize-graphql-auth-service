@@ -101,15 +101,17 @@ export default class SequelizeDataSource extends DataSource {
     return this.loader.loadMany(ids);
   }
 
-  async findOne({ path, info, skip, ...query}) {
+  async findOne({ path, info, skip, ...query }) {
     const item = await this.model.findOne({
+      include: info
+        ? buildEagerLoadingQuery({
+            info,
+            path,
+            skip: skip?.map((field) => (path ? `${path}.${field}` : field)),
+            model: this.model,
+          })
+        : undefined,
       ...query,
-      include: info ? buildEagerLoadingQuery({
-        info,
-        path,
-        skip: skip?.map(field => path ? `${path}.${field}` : field),
-        model: this.model,
-      }): undefined
     });
     if (item) {
       this.prime(item);
@@ -258,12 +260,12 @@ export default class SequelizeDataSource extends DataSource {
     const includeFilter = filter?.include
       ? buildIncludeQuery(filter.include)
       : [];
-    const path = 'items';
+    const path = "items";
     const includeAssociation = info
       ? buildEagerLoadingQuery({
           info,
           path,
-          skip: skip?.map(field =>  `${path}.${field}`),
+          skip: skip?.map((field) => `${path}.${field}`),
           model: this.model,
         })
       : [];
