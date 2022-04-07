@@ -107,7 +107,7 @@ export default class SequelizeDataSource extends DataSource {
         ? buildEagerLoadingQuery({
             info,
             path,
-            skip: skip?.map((field) => (path ? `${path}.${field}` : field)),
+            skip,
             model: this.model,
           })
         : undefined,
@@ -260,12 +260,11 @@ export default class SequelizeDataSource extends DataSource {
     const includeFilter = filter?.include
       ? buildIncludeQuery(filter.include)
       : [];
-    const path = "items";
     const includeAssociation = info
       ? buildEagerLoadingQuery({
           info,
-          path,
-          skip: skip?.map((field) => `${path}.${field}`),
+          skip,
+          path: "items",
           model: this.model,
         })
       : [];

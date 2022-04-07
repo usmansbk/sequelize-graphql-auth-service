@@ -28,7 +28,7 @@ export const buildEagerLoadingQuery = ({ info, path, model, skip }) => {
 
   const fields = fieldsMap(info, {
     path,
-    skip,
+    skip: skip?.map((field) => (path ? `${path}.${field}` : field)),
   });
 
   return recursivelyBuildInclude(fields, model);
