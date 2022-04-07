@@ -30,7 +30,7 @@ const authDirectiveTransformer = (schema, directiveName) => {
         const newFieldConfig = { ...fieldConfig };
         newFieldConfig.resolve = async (source, args, context, info) => {
           // check authentication
-          const { tokenInfo, sessionId, currentUser, isAdmin } = context;
+          const { tokenInfo, sessionId, currentUser, isRootUser } = context;
           const isLoggedIn = tokenInfo && tokenInfo.sid === sessionId;
 
           if (!(currentUser && isLoggedIn)) {
@@ -48,7 +48,7 @@ const authDirectiveTransformer = (schema, directiveName) => {
           }
 
           // check authorization for non-admin
-          if (!isAdmin) {
+          if (!isRootUser) {
             const { rules } = authDirective;
             if (rules) {
               const checks = rules.map((rule) => {
