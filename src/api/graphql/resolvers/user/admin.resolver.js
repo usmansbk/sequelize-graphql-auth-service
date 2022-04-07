@@ -58,6 +58,26 @@ export default {
         throw e;
       }
     },
+    async changeAccountStatus(
+      _parent,
+      { input: { id, status } },
+      { dataSources, t }
+    ) {
+      try {
+        const user = await dataSources.users.update(id, { status });
+        return Success({ user });
+      } catch (e) {
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            errors: e.errors,
+            code: e.code,
+          });
+        }
+
+        throw e;
+      }
+    },
     async deleteUserAccounts(_parent, { ids }, { dataSources, t }) {
       try {
         await dataSources.users.destroyMany(ids);
