@@ -57,7 +57,7 @@ sudo -u postgres createuser your_username -s
 # Set a password for the user by doing the following
 
 sudo -u postgres psql
-postgres=# \password your_password 
+postgres=# \password your_password
 
 # Create the database
 npx cross-env NODE_ENV=development sequelize db:create # development db
@@ -148,7 +148,7 @@ Follow these [instructions](https://aws.amazon.com/solutions/implementations/ser
 
 ## Filtering & Pagination
 
-### Filtering 
+### Filtering
 
 For a more complex filtering, we mimic the sequelize filter query. In order to filter by associations, we assume all associations are aliased (using the `as` option). This alias must have corresponding field in your graphql type. Example:
 
@@ -170,7 +170,7 @@ Refer to the sequelize docs for more info on [Operators](https://sequelize.org/d
 
 ### Pagination
 
-Our cursor-based pagination must adhere to a `List` interface. This is similar to the relay-connection pagination. But unlike relay we return our `items` as a flat list.
+Our cursor-based pagination must adhere to a `List` interface. This is similar to the relay-connection pagination. But unlike relay, we return our `items` as a flat list.
 
 ```gql
 # Example
@@ -183,26 +183,31 @@ type TaskList implements List {
 
 ### N+1 Problem
 
-In order to prevent this, we eager-load fields that have a matching association `alias` in the graphql type corresponding model. Example:
-
-If we have a User `has-one` Picture as `avatar` relationship defined in our model.
+We eager-load requested fields that have a matching association `alias` in their corresponding model. Example: If we have a User `has-one` Picture relationship:
 
 ```js
 User.hasOne(Picture, { as: "avatar" });
 ```
 
-Then our `buildEagerLoadingQuery` util is smart enough to eager-load the `avatar` when we make a request like this:
-
 ```gql
+# This will eager-load the `avatar` association
 query {
-  users {
+  user {
     id
+    name
     avatar {
       url
     }
   }
 }
-# check the codebase for examples
+
+# while this will make a normal query
+query {
+  user {
+    id
+    name
+  }
+}
 ```
 
 ## Coding standard
