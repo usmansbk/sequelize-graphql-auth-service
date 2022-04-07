@@ -132,5 +132,31 @@ export default {
         throw e;
       }
     },
+    async detachAllRolesFromUser(_parent, { userId }, { dataSources, db, t }) {
+      try {
+        const user = await db.sequelize.transaction(async (transaction) => {
+          const account = await dataSources.users.findOne({
+            where: {
+              id: userId,
+            },
+            transaction,
+          });
+          const roles = await account.getRoles({ transaction });
+          await account.removeRoles(roles, { transaction });
+          return account;
+        });
+        return Success({ user });
+      } catch (e) {
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            errors: e.errors,
+            code: e.code,
+          });
+        }
+
+        throw e;
+      }
+    },
   },
 };

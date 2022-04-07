@@ -22,9 +22,11 @@ type Mutation {
   updateUserProfile(input: UpdateUserProfileInput!): UserMutationResponse! @auth
   changeAccountStatus(input: ChangeAccountStatusInput!): UserMutationResponse!
     @auth
-  deleteUserAccounts(ids: [ID!]!, reason: String): BulkDeleteMutationResponse! @auth
+  deleteUserAccounts(ids: [ID!]!, reason: String): BulkDeleteMutationResponse!
+    @auth
   attachRolesToUser(userId: ID!, roleIds: [ID!]!): UserMutationResponse! @auth
   detachRolesFromUser(userId: ID!, roleIds: [ID!]!): UserMutationResponse! @auth
+  detachAllRolesFromUser(userId: ID!): UserMutationResponse! @auth
 }
 
 type User {
