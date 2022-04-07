@@ -190,7 +190,7 @@ User.hasOne(Picture, { as: "avatar" });
 ```
 
 ```gql
-# This will eager-load the `avatar` association
+# This will eager-load the `avatar` association. Both user and avatar will be fetched in a single SQL query
 query {
   user {
     id
@@ -200,12 +200,35 @@ query {
     }
   }
 }
+```
 
-# while this will make a normal query
+Edge-case: paginated fields are not eager-loaded
+
+```gql
 query {
   user {
     id
-    name
+    ## this will be eager-loaded
+    avatar {
+      url
+    }
+
+    ## ...while this will run an extra query
+    tasks {
+      items {
+        id
+        name
+      }
+      pageInfo {
+        ...
+      }
+    }
+
+    ## this is not paginated. So it'll be eager-loaded
+    savedTasks {
+      id
+      name
+    }
   }
 }
 ```
