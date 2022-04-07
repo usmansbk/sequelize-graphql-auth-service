@@ -9,7 +9,7 @@ type Mutation {
   ): BulkPermissionMutationResponse! @auth
   updatePermission(input: UpdatePermissionInput!): PermissionMutationResponse!
     @auth
-  deletePermissions(ids: [ID!]!, reason: String): DeleteMutationResponse! @auth
+  deletePermissions(ids: [ID!]!, reason: String): BulkDeleteMutationResponse! @auth
   detachPermissionFromAllRoles(permissionId: ID!): PermissionMutationResponse!
     @auth
 }
