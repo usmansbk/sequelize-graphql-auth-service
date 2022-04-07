@@ -7,7 +7,7 @@ export default {
     /**
      * Fields aren't eager-loaded when we run mutations like `update`
      * In such case, we fallback to lazy-load the associations
-    */
+     */
     permissions(role) {
       return role.permissions || role.getPermissions();
     },
@@ -32,7 +32,12 @@ export default {
   },
   Query: {
     roles(_parent, { page, filter }, { dataSources }, info) {
-      return dataSources.roles.paginate({ page, filter, info, skip: ['members'] });
+      return dataSources.roles.paginate({
+        page,
+        filter,
+        info,
+        skip: ["members"],
+      });
     },
     async getRoleById(_parent, { id }, { dataSources, t }, info) {
       try {
@@ -40,7 +45,7 @@ export default {
           where: { id },
           info,
           path: "role",
-          skip: ['members'] // we shouldn't eager-load paginated fields
+          skip: ["members"], // we shouldn't eager-load paginated fields
         });
 
         if (!role) {
