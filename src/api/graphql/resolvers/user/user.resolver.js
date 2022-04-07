@@ -4,8 +4,9 @@ import { USER_NOT_FOUND } from "~constants/i18n";
 
 export default {
   User: {
-    picture(user) {
-      return user.avatar;
+    async avatar(user) {
+      const file = user.avatar || (await user.getAvatar());
+      return file?.toJSON();
     },
     isOwner(user, _args, { currentUser }) {
       return user.id === currentUser?.id;
@@ -19,9 +20,18 @@ export default {
     },
   },
   Query: {
-    async me(_parent, _args, { t, currentUser }) {
+    async me(_parent, _args, { t, currentUser, dataSources }, info) {
       try {
-        return Success({ user: currentUser });
+        const user = await dataSources.users.findOne({
+          where: { id: currentUser.id },
+          info,
+          path: "user",
+        });
+
+        if (!user) {
+          throw new QueryError(USER_NOT_FOUND);
+        }
+        return Success({ user });
       } catch (e) {
         if (e instanceof QueryError) {
           return Fail({

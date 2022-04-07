@@ -64,10 +64,15 @@ export default {
         throw e;
       }
     },
-    async removeCurrentUserProfilePicture(_parent, _args, { currentUser, t }) {
+    async removeCurrentUserProfilePicture(
+      _parent,
+      _args,
+      { currentUser, t, dataSources }
+    ) {
       try {
-        if (currentUser.avatar) {
-          await currentUser.cache().update({ avatar: null });
+        const avatar = await currentUser.getAvatar();
+        if (avatar) {
+          await dataSources.files.destroy(avatar.id);
         }
 
         return Success({ user: currentUser });

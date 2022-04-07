@@ -45,7 +45,7 @@ const upload = multer({
 const uploadAvatar = async (req, res) => {
   upload(req, res, async (err) => {
     const {
-      context: { fileStorage, currentUser },
+      context: { fileStorage, currentUser, db },
       t,
       file,
     } = req;
@@ -84,7 +84,7 @@ const uploadAvatar = async (req, res) => {
           key,
         } = file;
 
-        const avatar = {
+        const input = {
           key,
           bucket,
           name,
@@ -92,7 +92,13 @@ const uploadAvatar = async (req, res) => {
           size,
         };
 
-        await currentUser.cache().update({ avatar });
+        const avatar = await db.sequelize.transaction(async (transaction) => {
+          const currentAvatar = await currentUser.getAvatar({ transaction });
+          if (currentAvatar) {
+            await currentAvatar.destroy({ transaction });
+          }
+          return currentUser.createAvatar(input, { transaction });
+        });
 
         res.send({
           success: true,

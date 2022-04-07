@@ -13,7 +13,7 @@ const query = gql`
       user {
         id
         isOwner
-        picture {
+        avatar {
           url
         }
       }
@@ -49,7 +49,7 @@ describe("Query.me", () => {
       user: {
         id: user.id,
         isOwner: true,
-        picture: null,
+        avatar: null,
       },
     });
   });

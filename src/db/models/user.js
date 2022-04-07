@@ -24,11 +24,11 @@ import {
   ACCOUNT_STATUS,
   PERMISSIONS_ALIAS,
   ROLES_ALIAS,
+  USER_AVATAR_ALIAS,
   USER_ROLES_JOIN_TABLE,
 } from "~constants/models";
 import client from "~services/redis";
 import otp from "~utils/otp";
-import fileStorage from "~utils/fileStorage";
 
 const redisAdaptor = new RedisAdaptor({
   client,
@@ -49,6 +49,11 @@ export default (sequelize, DataTypes) => {
       User.belongsToMany(models.Role, {
         as: ROLES_ALIAS,
         through: USER_ROLES_JOIN_TABLE,
+      });
+      User.hasOne(models.File, {
+        as: USER_AVATAR_ALIAS,
+        onDelete: "CASCADE",
+        hooks: true,
       });
     }
 
@@ -216,9 +221,6 @@ export default (sequelize, DataTypes) => {
           },
         },
       },
-      avatar: {
-        type: DataTypes.JSON,
-      },
       socialAvatarURL: {
         type: DataTypes.TEXT,
         validate: {
@@ -261,19 +263,6 @@ export default (sequelize, DataTypes) => {
   User.beforeUpdate("unverify new phone number", (user) => {
     if (user.changed("phoneNumber")) {
       user.setDataValue("phoneNumberVerified", false);
-    }
-  });
-
-  User.afterUpdate("delete avatar file", (userModel) => {
-    if (userModel.changed("avatar")) {
-      fileStorage.remove(userModel.previous().avatar);
-    }
-  });
-
-  User.afterDestroy("delete avatar file", (userModel) => {
-    const user = userModel.toJSON();
-    if (user.avatar) {
-      fileStorage.remove(user.avatar);
     }
   });
 

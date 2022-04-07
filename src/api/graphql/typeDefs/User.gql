@@ -37,7 +37,7 @@ type User {
   username: String
   email: EmailAddress! @auth(rules: [{ allow: owner, identityClaim: "id" }])
   phoneNumber: PhoneNumber @auth(rules: [{ allow: owner, identityClaim: "id" }])
-  picture: Photo
+  avatar: Photo
   socialAvatarURL: URL
   isOwner: Boolean!
   locale: Locale!

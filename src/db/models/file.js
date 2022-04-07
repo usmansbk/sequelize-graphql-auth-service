@@ -1,4 +1,5 @@
 import { Model } from "sequelize";
+import { USER_AVATAR_ALIAS } from "~constants/models";
 import fileStorage from "~utils/fileStorage";
 
 export default (sequelize, DataTypes) => {
@@ -8,8 +9,11 @@ export default (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    // static associate(models) {
-    // }
+    static associate(models) {
+      File.belongsTo(models.User, {
+        as: USER_AVATAR_ALIAS,
+      });
+    }
   }
   File.init(
     {

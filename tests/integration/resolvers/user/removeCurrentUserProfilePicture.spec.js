@@ -14,7 +14,7 @@ const query = gql`
       message
       success
       user {
-        picture {
+        avatar {
           url
         }
       }
@@ -35,9 +35,8 @@ describe("Mutation.removeCurrentUserProfilePicture", () => {
   });
 
   test("should remove user avatar", async () => {
-    const user = await db.User.create(
-      attributes.user({ avatar: { key: "aws-s3-key" } })
-    );
+    const user = await db.User.create(attributes.user());
+    await user.createAvatar(attributes.file());
 
     const res = await server.executeOperation(
       {
@@ -51,7 +50,7 @@ describe("Mutation.removeCurrentUserProfilePicture", () => {
       message: "Success",
       success: true,
       user: {
-        picture: null,
+        avatar: null,
       },
     });
   });
