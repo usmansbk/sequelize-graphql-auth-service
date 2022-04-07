@@ -94,7 +94,6 @@
     "*.{js,css,md}": "prettier --write"
   },
   "nodemonConfig": {
-    "ext": "js,graphql,env",
-    "watch": ".env"
+    "ext": "js,gql,env"
   }
 }

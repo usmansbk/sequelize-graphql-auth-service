@@ -1,4 +1,3 @@
-
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
 
@@ -12,7 +11,7 @@ export default {
         skip: ["members"],
       });
     },
-	},
+  },
   Mutation: {
     async createRole(
       _parent,
@@ -26,11 +25,7 @@ export default {
           });
 
           if (permissionIds?.length) {
-            const permissions = await dataSources.permissions.findAll({
-              where: { id: permissionIds },
-              transaction,
-            });
-            await newRole.addPermissions(permissions, { transaction });
+            await newRole.addPermissions(permissionIds, { transaction });
           }
           return newRole;
         });

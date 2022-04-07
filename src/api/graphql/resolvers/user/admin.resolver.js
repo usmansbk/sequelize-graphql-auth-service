@@ -80,17 +80,22 @@ export default {
         throw e;
       }
     },
-    async attachRolesToUser(_parent, { roleIds, userId }, { dataSources, db, t}) {
+    async attachRolesToUser(
+      _parent,
+      { roleIds, userId },
+      { dataSources, db, t }
+    ) {
       try {
         const user = await db.sequelize.transaction(async (transaction) => {
-          const _user = await dataSources.users.findOne({
+          const account = await dataSources.users.findOne({
             where: {
-              id: userId
+              id: userId,
             },
-            transaction
+            transaction,
           });
-          return _user.addRoles(roleIds, { transaction });
-        })
+          await account.addRoles(roleIds, { transaction });
+          return account;
+        });
         return Success({ user });
       } catch (e) {
         if (e instanceof QueryError) {
@@ -104,17 +109,22 @@ export default {
         throw e;
       }
     },
-    async attachRolesToUser(_parent, { roleIds, userId }, { dataSources, db, t}) {
+    async detachRolesFromUser(
+      _parent,
+      { roleIds, userId },
+      { dataSources, db, t }
+    ) {
       try {
         const user = await db.sequelize.transaction(async (transaction) => {
-          const _user = await dataSources.users.findOne({
+          const account = await dataSources.users.findOne({
             where: {
               id: userId,
             },
-            transaction
+            transaction,
           });
-          return _user.removeRoles(roleIds, { transaction });
-        })
+          await account.removeRoles(roleIds, { transaction });
+          return account;
+        });
         return Success({ user });
       } catch (e) {
         if (e instanceof QueryError) {
@@ -127,6 +137,6 @@ export default {
 
         throw e;
       }
-    }
+    },
   },
 };
