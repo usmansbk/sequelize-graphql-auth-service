@@ -78,5 +78,89 @@ export default {
         throw e;
       }
     },
+    async attachPermissionsToRole(
+      _parent,
+      { roleId, permissionIds },
+      { dataSources, db, t }
+    ) {
+      try {
+        const role = await db.sequelize.transaction(async (transaction) => {
+          const foundRole = await dataSources.roles.findOne({
+            where: {
+              id: roleId,
+            },
+            transaction,
+          });
+          await foundRole.addPermissions(permissionIds, { transaction });
+          return foundRole;
+        });
+        return Success({ role });
+      } catch (e) {
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            errors: e.errors,
+            code: e.code,
+          });
+        }
+
+        throw e;
+      }
+    },
+    async detachPermissionsFromRole(
+      _parent,
+      { roleId, permissionIds },
+      { dataSources, db, t }
+    ) {
+      try {
+        const role = await db.sequelize.transaction(async (transaction) => {
+          const foundRole = await dataSources.roles.findOne({
+            where: {
+              id: roleId,
+            },
+            transaction,
+          });
+          await foundRole.removePermissions(permissionIds, { transaction });
+          return foundRole;
+        });
+        return Success({ role });
+      } catch (e) {
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            errors: e.errors,
+            code: e.code,
+          });
+        }
+
+        throw e;
+      }
+    },
+    async detachRoleFromMembers(_parent, { roleId }, { dataSources, db, t }) {
+      try {
+        const role = await db.sequelize.transaction(async (transaction) => {
+          const foundRole = await dataSources.roles.findOne({
+            where: {
+              id: roleId,
+            },
+            transaction,
+          });
+          const members = await foundRole.getMembers({ transaction });
+          await foundRole.removeMembers(members, { transaction });
+          return foundRole;
+        });
+        return Success({ role });
+      } catch (e) {
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            errors: e.errors,
+            code: e.code,
+          });
+        }
+
+        throw e;
+      }
+    },
   },
 };

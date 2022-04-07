@@ -15,7 +15,7 @@ type Mutation {
     roleId: ID!
     permissionIds: [ID!]!
   ): RoleMutationResponse! @auth
-  detachRoleFromAllUsers(roleId: ID!): RoleMutationResponse! @auth
+  detachRoleFromMembers(roleId: ID!): RoleMutationResponse! @auth
 }
 
 type Role {
