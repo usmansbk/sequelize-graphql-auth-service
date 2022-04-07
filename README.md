@@ -202,7 +202,7 @@ query {
 }
 ```
 
-Edge-case: paginated fields are not eager-loaded
+Edge-case: Nested paginated fields are not eager-loaded
 
 ```gql
 query {
