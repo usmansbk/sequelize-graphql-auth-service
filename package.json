@@ -49,7 +49,7 @@
     "apollo-server-core": "^3.6.7",
     "apollo-server-express": "^3.6.7",
     "atob": "^2.1.2",
-    "aws-sdk": "^2.1108.0",
+    "aws-sdk": "^2.1109.0",
     "bcrypt": "^5.0.1",
     "btoa": "^1.2.1",
     "bunyan": "^1.8.15",
@@ -87,7 +87,7 @@
     "sequelize": "^6.18.0",
     "sequelize-transparent-cache": "^2.3.0",
     "sequelize-transparent-cache-ioredis": "^2.3.0",
-    "twilio": "^3.76.0"
+    "twilio": "^3.76.1"
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix",
