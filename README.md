@@ -233,6 +233,10 @@ query {
 }
 ```
 
+## Error handling
+
+We use ["wrapping exceptions"](https://javascript.info/custom-errors#wrapping-exceptions) technique to handle errors. This allows us to take full control of the kind of errors we return, and easily translate them before sending to the end-users.
+
 ## Coding standard
 
 We use Eslint AirBnB coding guidelines and import alias. All aliases are prefixed with a `~`. To add a new alias, update the `jsconfig.json`, `.eslintrc.js`, and `babel.config.json` files. We also make use of Husky precommit hook to enforce standard.
