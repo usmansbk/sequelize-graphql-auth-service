@@ -136,7 +136,11 @@ export default {
         throw e;
       }
     },
-    async detachRoleFromMembers(_parent, { roleId }, { dataSources, db, t }) {
+    async detachRoleFromAllMembers(
+      _parent,
+      { roleId },
+      { dataSources, db, t }
+    ) {
       try {
         const role = await db.sequelize.transaction(async (transaction) => {
           const foundRole = await dataSources.roles.findOne({
