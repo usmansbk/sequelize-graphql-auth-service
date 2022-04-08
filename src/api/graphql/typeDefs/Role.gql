@@ -6,7 +6,7 @@ type Query {
 type Mutation {
   createRole(input: CreateRoleInput!): RoleMutationResponse! @auth
   updateRole(input: UpdateRoleInput!): RoleMutationResponse! @auth
-  deleteRoles(ids: [ID!]!, reason: String): BulkDeleteMutationResponse! @auth
+  deleteRole(id: ID!, reason: String): DeleteMutationResponse! @auth
   attachPermissionsToRole(
     roleId: ID!
     permissionIds: [ID!]!

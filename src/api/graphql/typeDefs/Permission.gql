@@ -4,12 +4,11 @@ type Query {
 }
 
 type Mutation {
-  createPermissions(
-    inputs: [CreatePermissionInput!]!
-  ): BulkPermissionMutationResponse! @auth
+  createPermission(input: CreatePermissionInput!): PermissionMutationResponse!
+    @auth
   updatePermission(input: UpdatePermissionInput!): PermissionMutationResponse!
     @auth
-  deletePermissions(ids: [ID!]!, reason: String): BulkDeleteMutationResponse! @auth
+  deletePermission(id: ID!, reason: String): DeleteMutationResponse! @auth
   detachPermissionFromAllRoles(permissionId: ID!): PermissionMutationResponse!
     @auth
 }
@@ -30,14 +29,6 @@ type PermissionPayload implements Response {
   success: Boolean!
   message: String!
   permission: Permission
-}
-
-type BulkPermissionMutationResponse implements Response & FormErrors {
-  code: ID!
-  success: Boolean!
-  message: String!
-  permissions: [Permission!]
-  errors: [FieldError!]
 }
 
 type PermissionMutationResponse implements Response & FormErrors {

@@ -9,24 +9,30 @@ type Mutation {
     @auth
   updateCurrentUserName(username: String!): UserMutationResponse! @auth
   updateCurrentUserLocale(locale: Locale!): UserMutationResponse! @auth
-  removeCurrentUserProfilePicture: UserMutationResponse! @auth
+  removeCurrentUserAvatar: UserMutationResponse! @auth
   requestCurrentUserPhoneNumberVerification(
     phoneNumber: PhoneNumber!
   ): UserMutationResponse! @auth
   verifyPhoneNumber(token: String!): UserMutationResponse! @auth
 
   # Admin
-  createUserAccounts(
-    input: CreateUserAccountsInput!
-  ): BulkUserMutationResponse! @auth
-  updateUserProfile(input: UpdateUserProfileInput!): UserMutationResponse! @auth
-  changeAccountStatus(input: ChangeAccountStatusInput!): UserMutationResponse!
+  createUser(input: CreateUserInput!): UserMutationResponse! @auth
+  changeUserFullname(input: ChangeUserFullnameInput!): UserMutationResponse!
     @auth
-  deleteUserAccounts(ids: [ID!]!, reason: String): BulkDeleteMutationResponse!
+  changeUserName(input: ChangeUsernameInput!): UserMutationResponse! @auth
+  changeUserLocale(input: ChangeUserLocaleInput!): UserMutationResponse! @auth
+  changeUserEmail(input: ChangeUserEmailInput!): UserMutationResponse! @auth
+  changeUserPhoneNumber(
+    input: ChangeUserPhoneNumberInput!
+  ): UserMutationResponse! @auth
+  changeUserPassword(input: ChangeUserPasswordInput!): UserMutationResponse!
     @auth
+  changeUserStatus(input: ChangeUserStatusInput!): UserMutationResponse! @auth
+  removeUserAvatar(id: ID!): UserMutationResponse! @auth
+  deleteUser(id: ID!, reason: String!): DeleteMutationResponse! @auth
   attachRolesToUser(userId: ID!, roleIds: [ID!]!): UserMutationResponse! @auth
-  detachRolesFromUser(userId: ID!, roleIds: [ID!]!): UserMutationResponse! @auth
-  detachAllRolesFromUser(userId: ID!): UserMutationResponse! @auth
+  removeRolesFromUser(userId: ID!, roleIds: [ID!]!): UserMutationResponse! @auth
+  removeAllRolesFromUser(userId: ID!): UserMutationResponse! @auth
 }
 
 type User {
@@ -64,14 +70,6 @@ type UserPayload implements Response {
   user: User
 }
 
-type BulkUserMutationResponse implements Response & FormErrors {
-  code: ID!
-  success: Boolean!
-  message: String!
-  errors: [FieldError!]
-  users: [User!]
-}
-
 type UserMutationResponse implements Response & FormErrors {
   code: ID!
   success: Boolean!
@@ -82,7 +80,7 @@ type UserMutationResponse implements Response & FormErrors {
 
 # Inputs
 
-input CreateAccountInput {
+input CreateUserInput {
   firstName: String!
   lastName: String!
   username: String
@@ -92,38 +90,46 @@ input CreateAccountInput {
   locale: Locale
 }
 
-input CreateUserProfileInput {
-  firstName: String!
-  lastName: String!
-  email: EmailAddress!
-  phoneNumber: PhoneNumber
-  locale: Locale
-}
-
-input CreateUserAccountsInput {
-  profiles: [CreateUserProfileInput!]!
-  roleIds: [ID!]
-}
-
-input UpdateUserProfileInput {
-  id: ID!
-  firstName: String
-  lastName: String
-  username: String
-  email: EmailAddress
-  phoneNumber: PhoneNumber
-  locale: Locale
-}
-
 input UpdateFullnameInput {
   firstName: String
   lastName: String
 }
 
-input ChangeAccountStatusInput {
+input ChangeUserFullnameInput {
+  id: ID!
+  firstName: String
+  lastName: String
+}
+
+input ChangeUsernameInput {
+  id: ID!
+  username: String!
+}
+
+input ChangeUserEmailInput {
+  id: ID!
+  email: EmailAddress!
+}
+
+input ChangeUserPasswordInput {
+  id: ID!
+  password: String!
+}
+
+input ChangeUserStatusInput {
   id: ID!
   status: AccountStatus!
   reason: String
+}
+
+input ChangeUserLocaleInput {
+  id: ID!
+  locale: Locale!
+}
+
+input ChangeUserPhoneNumberInput {
+  id: ID!
+  phoneNumber: PhoneNumber!
 }
 
 # Pagination
