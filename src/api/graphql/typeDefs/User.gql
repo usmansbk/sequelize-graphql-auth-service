@@ -1,6 +1,8 @@
 type Query {
   me: UserPayload! @auth
   getUserById(id: ID!): UserPayload! @auth
+
+  # admin
   users(page: ListPage, filter: UserFilter): UserList! @auth
 }
 
