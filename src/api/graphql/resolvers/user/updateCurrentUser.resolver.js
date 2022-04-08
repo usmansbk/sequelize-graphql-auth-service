@@ -64,7 +64,7 @@ export default {
         throw e;
       }
     },
-    async removeCurrentUserProfilePicture(
+    async removeCurrentUserAvatar(
       _parent,
       _args,
       { currentUser, t, dataSources }
