@@ -9,7 +9,7 @@ fileStorage.remove = jest.fn().mockReturnValueOnce(Promise.resolve());
 
 const query = gql`
   mutation RemoveProfilePicture {
-    removeCurrentUserProfilePicture {
+    removeCurrentUserAvatar {
       code
       message
       success
@@ -22,7 +22,7 @@ const query = gql`
   }
 `;
 
-describe("Mutation.removeCurrentUserProfilePicture", () => {
+describe("Mutation.removeCurrentUserAvatar", () => {
   let server;
   beforeAll(() => {
     server = createApolloTestServer();
@@ -45,7 +45,7 @@ describe("Mutation.removeCurrentUserProfilePicture", () => {
       { tokenInfo: { sub: user.id }, currentUser: user }
     );
     expect(fileStorage.remove).toBeCalled();
-    expect(res.data.removeCurrentUserProfilePicture).toEqual({
+    expect(res.data.removeCurrentUserAvatar).toEqual({
       code: "Success",
       message: "Success",
       success: true,
