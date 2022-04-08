@@ -28,6 +28,12 @@ type Role {
   updatedAt: DateTime
 }
 
+type RoleList implements List {
+  items: [Role]!
+  totalCount: Int!
+  pageInfo: PageInfo!
+}
+
 type RoleMutationResponse implements Response & FormErrors {
   code: ID!
   success: Boolean!
@@ -43,6 +49,8 @@ type RolePayload implements Response {
   role: Role
 }
 
+# Inputs
+
 input CreateRoleInput {
   name: String!
   description: String
@@ -54,16 +62,6 @@ input UpdateRoleInput {
   name: String
   description: String
 }
-
-# Pagination
-
-type RoleList implements List {
-  items: [Role]!
-  totalCount: Int!
-  pageInfo: PageInfo!
-}
-
-# Filter
 
 input RoleFilter {
   where: RoleAttributesWhere

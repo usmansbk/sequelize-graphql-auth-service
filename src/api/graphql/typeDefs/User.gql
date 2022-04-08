@@ -57,6 +57,12 @@ type User {
   status: AccountStatus! @auth(rules: [{ allow: owner, identityClaim: "id" }])
 }
 
+type UserList implements List {
+  items: [User]!
+  totalCount: Int!
+  pageInfo: PageInfo!
+}
+
 enum AccountStatus {
   SUSPENDED
   BANNED
@@ -133,16 +139,6 @@ input ChangeUserPhoneNumberInput {
   id: ID!
   phoneNumber: PhoneNumber!
 }
-
-# Pagination
-
-type UserList implements List {
-  items: [User]!
-  totalCount: Int!
-  pageInfo: PageInfo!
-}
-
-# Filter
 
 input UserFilter {
   where: UserAttributesWhere

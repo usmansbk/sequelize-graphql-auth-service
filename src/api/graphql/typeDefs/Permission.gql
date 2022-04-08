@@ -24,6 +24,12 @@ type Permission {
   updatedAt: DateTime
 }
 
+type PermissionList implements List {
+  items: [Permission]!
+  totalCount: Int!
+  pageInfo: PageInfo!
+}
+
 type PermissionPayload implements Response {
   code: ID!
   success: Boolean!
@@ -56,32 +62,6 @@ input UpdatePermissionInput {
   description: String
 }
 
-enum PermissionResource {
-  users
-  roles
-  permissions
-  all
-}
-
-enum PermissionAction {
-  all
-  create
-  read
-  update
-  delete
-  list
-}
-
-# Pagination
-
-type PermissionList implements List {
-  items: [Permission]!
-  totalCount: Int!
-  pageInfo: PageInfo!
-}
-
-# Filter
-
 input PermissionFilter {
   where: PermissionAttributesWhere
   include: PermissionAssociationInclude
@@ -100,4 +80,20 @@ input PermissionAttributesWhere {
 
 input PermissionAssociationInclude {
   roles: RoleFilter
+}
+
+enum PermissionResource {
+  users
+  roles
+  permissions
+  all
+}
+
+enum PermissionAction {
+  all
+  create
+  read
+  update
+  delete
+  list
 }
