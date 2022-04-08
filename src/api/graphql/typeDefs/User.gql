@@ -7,7 +7,7 @@ type Query {
 type Mutation {
   updateCurrentUserFullname(input: UpdateFullnameInput!): UserMutationResponse!
     @auth
-  updateCurrentUserName(username: String!): UserMutationResponse! @auth
+  updateCurrentUserUsername(username: String!): UserMutationResponse! @auth
   updateCurrentUserLocale(locale: Locale!): UserMutationResponse! @auth
   removeCurrentUserAvatar: UserMutationResponse! @auth
   requestCurrentUserPhoneNumberVerification(
@@ -19,7 +19,7 @@ type Mutation {
   createUser(input: CreateUserInput!): UserMutationResponse! @auth
   changeUserFullname(input: ChangeUserFullnameInput!): UserMutationResponse!
     @auth
-  changeUserName(input: ChangeUsernameInput!): UserMutationResponse! @auth
+  changeUserUsername(input: ChangeUsernameInput!): UserMutationResponse! @auth
   changeUserLocale(input: ChangeUserLocaleInput!): UserMutationResponse! @auth
   changeUserEmail(input: ChangeUserEmailInput!): UserMutationResponse! @auth
   changeUserPhoneNumber(
@@ -91,14 +91,14 @@ input CreateUserInput {
 }
 
 input UpdateFullnameInput {
-  firstName: String
-  lastName: String
+  firstName: String!
+  lastName: String!
 }
 
 input ChangeUserFullnameInput {
   id: ID!
-  firstName: String
-  lastName: String
+  firstName: String!
+  lastName: String!
 }
 
 input ChangeUsernameInput {

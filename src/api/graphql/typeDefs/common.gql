@@ -23,13 +23,6 @@ type DeleteMutationResponse implements Response {
   id: ID
 }
 
-type BulkDeleteMutationResponse implements Response {
-  code: ID!
-  success: Boolean!
-  message: String!
-  ids: [ID!]
-}
-
 type RequestResponse implements Response {
   code: ID!
   success: Boolean!
