@@ -202,7 +202,25 @@ query {
 }
 ```
 
-Edge-case: Nested paginated fields are not eager-loaded
+#### Edge-cases:
+
+- Eager-loading only works with `Query`. `Mutation` isn't supported
+
+- Nested cursor-paginated fields aren't eager-loaded
+
+Example: Assuming we have a User type defined,
+
+```gql
+type User {
+  id
+  avatar: Photo
+  tasks: TaskList!
+  savedTasks: [Task]
+}
+```
+
+The following query will run two seperate SQL queries
+One to fetch `user`, `avatar`, and `savedTasks`, and the other to fetch `tasks`
 
 ```gql
 query {
