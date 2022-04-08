@@ -5,7 +5,7 @@ type Mutation {
   requestEmailVerification(email: EmailAddress!): RequestResponse!
   requestDeleteAccount: RequestResponse! @auth
   verifyEmail(token: String!): RequestFormResponse!
-  registerWithEmail(input: CreateAccountInput!): AuthFormMutationResponse!
+  registerWithEmail(input: CreateUserInput!): AuthFormMutationResponse!
   loginWithEmail(input: EmailLoginInput!): AuthMutationResponse!
   loginWithSocialProvider(input: SocialLoginInput!): AuthMutationResponse!
   resetPassword(input: PasswordResetInput!): AuthFormMutationResponse!

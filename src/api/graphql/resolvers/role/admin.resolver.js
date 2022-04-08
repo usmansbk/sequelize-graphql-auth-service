@@ -62,10 +62,10 @@ export default {
         throw e;
       }
     },
-    async deleteRoles(_parent, { ids }, { dataSources, t }) {
+    async deleteRole(_parent, { id }, { dataSources, t }) {
       try {
-        await dataSources.roles.destroyMany(ids);
-        return Success({ ids });
+        await dataSources.roles.destroy(id);
+        return Success({ id });
       } catch (e) {
         if (e instanceof QueryError) {
           return Fail({

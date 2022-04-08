@@ -13,10 +13,10 @@ export default {
     },
   },
   Mutation: {
-    async createPermissions(_parent, { inputs }, { dataSources, t }) {
+    async createPermission(_parent, { input }, { dataSources, t }) {
       try {
-        const permissions = await dataSources.permissions.createMany(inputs);
-        return Success({ permissions });
+        const permission = await dataSources.permissions.create(input);
+        return Success({ permission });
       } catch (e) {
         if (e instanceof QueryError) {
           return Fail({
@@ -25,7 +25,6 @@ export default {
             code: e.code,
           });
         }
-
         throw e;
       }
     },
@@ -45,14 +44,13 @@ export default {
             code: e.code,
           });
         }
-
         throw e;
       }
     },
-    async deletePermissions(_parent, { ids }, { dataSources, t }) {
+    async deletePermission(_parent, { id }, { dataSources, t }) {
       try {
-        await dataSources.permissions.destroyMany(ids);
-        return Success({ ids });
+        await dataSources.permissions.destroy(id);
+        return Success({ id });
       } catch (e) {
         if (e instanceof QueryError) {
           return Fail({
@@ -61,7 +59,6 @@ export default {
             code: e.code,
           });
         }
-
         throw e;
       }
     },

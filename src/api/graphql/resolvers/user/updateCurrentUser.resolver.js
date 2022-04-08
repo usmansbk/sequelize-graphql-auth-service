@@ -24,7 +24,7 @@ export default {
         throw e;
       }
     },
-    async updateCurrentUserName(_parent, { username }, { currentUser, t }) {
+    async updateCurrentUserUsername(_parent, { username }, { currentUser, t }) {
       try {
         const user = await currentUser.cache().update({ username });
 
