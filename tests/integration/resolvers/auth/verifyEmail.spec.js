@@ -2,10 +2,10 @@ import { gql } from "apollo-server-express";
 import db from "~db/models";
 import store from "~utils/store";
 import mailer from "~utils/mailer";
+import jwt from "~utils/jwt";
 import { EMAIL_VERIFICATION_KEY_PREFIX } from "~constants/auth";
 import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
-import auth from "tests/support/auth";
 
 const query = gql`
   mutation VerifyEmail($token: String!) {
@@ -37,19 +37,22 @@ describe("Mutation.verifyEmail", () => {
 
   test("should verify email and send welcome email", async () => {
     const user = await db.User.create(attributes.user());
-    const authPayload = await auth.login(user);
+    const { token, exp } = jwt.generateToken({
+      aud: process.env.WEB_CLIENT_ID,
+      sub: user.id,
+    });
 
     const key = `${EMAIL_VERIFICATION_KEY_PREFIX}:${user.id}`;
     await store.set({
       key,
-      value: authPayload.accessToken,
-      expiresIn: authPayload.exp,
+      value: token,
+      expiresIn: exp,
     });
 
     const res = await server.executeOperation({
       query,
       variables: {
-        token: authPayload.accessToken,
+        token,
       },
     });
 

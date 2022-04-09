@@ -4,7 +4,6 @@ import store from "~utils/store";
 import { PHONE_NUMBER_KEY_PREFIX } from "~constants/auth";
 import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
-import auth from "tests/support/auth";
 
 const query = gql`
   mutation VerifyPhoneNumber($token: String!) {
@@ -34,20 +33,20 @@ describe("Mutation.verifyPhoneNumber", () => {
 
   test("should verify phone number", async () => {
     const currentUser = await db.User.create(attributes.user());
-    const authPayload = await auth.login(currentUser);
 
+    const token = "mockToken";
     const key = `${PHONE_NUMBER_KEY_PREFIX}:${currentUser.id}`;
     await store.set({
       key,
-      value: authPayload.accessToken,
-      expiresIn: authPayload.exp,
+      value: token,
+      expiresIn: 10000,
     });
 
     const res = await server.executeOperation(
       {
         query,
         variables: {
-          token: authPayload.accessToken,
+          token,
         },
       },
       { currentUser }
@@ -66,13 +65,12 @@ describe("Mutation.verifyPhoneNumber", () => {
 
   test("should not use invalid otp", async () => {
     const user = await db.User.create(attributes.user());
-    const authPayload = await auth.login(user);
 
     const res = await server.executeOperation(
       {
         query,
         variables: {
-          token: authPayload.accessToken,
+          token: "mockToken",
         },
       },
       { currentUser: user }
