@@ -110,10 +110,14 @@ Each supported client must pass a `client_id` in their request headers. Client I
 ```sh
 ## Get new ID
 docker-compose run --rm api yarn clientId
-
-## src/utils/jwt
-const audience = [process.env.CLIENT_ID, 'your-new-client-id'];
 ```
+
+```sh
+## src/utils/jwt
+const audience = [process.env.CLIENT_ID, 'your-new-clientId'];
+```
+
+Your new client will need to add this `clientId` as part of it's request headers.
 
 ## [Mailer](https://nodemailer.com/transports/ses/)
 
