@@ -63,16 +63,6 @@ docker-compose build
 docker-compose run --rm api npx cross-env NODE_ENV=development npx sequelize db:create
 ```
 
-```sh
-# test database
-docker-compose run --rm api npx cross-env NODE_ENV=test npx sequelize db:create
-```
-
-```sh
-# Migrations (optional)
-docker-compose run --rm api npx cross-env NODE_ENV=development npx sequelize db:migrate
-```
-
 ### Create root user
 
 ```sh
@@ -86,6 +76,11 @@ docker-compose up
 ```
 
 ### Test
+
+```sh
+# create a test database if you haven't
+docker-compose run --rm api npx cross-env NODE_ENV=test npx sequelize db:create
+```
 
 ```sh
 docker-compose run --rm api yarn test
