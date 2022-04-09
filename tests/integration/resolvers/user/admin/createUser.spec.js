@@ -31,8 +31,9 @@ describe("Mutation.createUser", () => {
     await db.sequelize.close();
   });
 
-  test("should allow admin to create a new user", async () => {
-    const currentUser = await db.User.create(attributes.user());
+  test("should allow admin to create user", async () => {
+    const user = await db.User.create(attributes.user());
+    const currentUser = await db.User.scope("permissions").findByPk(user.id);
 
     const input = attributes.user();
     const res = await server.executeOperation(
@@ -42,8 +43,26 @@ describe("Mutation.createUser", () => {
           input,
         },
       },
-      { currentUser, isRootUser: true }
+      { currentUser }
     );
     expect(res.data.createUser.user.email).toBe(input.email);
+  });
+
+  test("should not allow non-admin to create user", async () => {
+    const user = await db.User.create(attributes.user());
+    const currentUser = await db.User.scope("permissions").findByPk(user.id);
+
+    const input = attributes.user();
+    const res = await server.executeOperation(
+      {
+        query,
+        variables: {
+          input,
+        },
+      },
+      { currentUser }
+    );
+
+    expect(res.errors[0].message).toBe("Unauthorized");
   });
 });

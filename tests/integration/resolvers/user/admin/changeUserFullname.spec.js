@@ -31,8 +31,9 @@ describe("Mutation.changeUserFullname", () => {
     await db.sequelize.close();
   });
 
-  test("should allow admin to change user fullname", async () => {
-    const currentUser = await db.User.create(attributes.user());
+  test("should allow admin to change users fullname", async () => {
+    const user = await db.User.create(attributes.user());
+    const currentUser = await db.User.scope("permissions").findByPk(user.id);
     const otherUser = await db.User.create(attributes.user());
 
     const { firstName, lastName } = attributes.user();
@@ -47,9 +48,32 @@ describe("Mutation.changeUserFullname", () => {
           },
         },
       },
-      { currentUser, isRootUser: true }
+      { currentUser }
     );
 
     expect(res.data.changeUserFullname.user).toEqual({ firstName, lastName });
+  });
+
+  test("should not allow non-admin to change users fullname", async () => {
+    const user = await db.User.create(attributes.user());
+    const currentUser = await db.User.scope("permissions").findByPk(user.id);
+    const otherUser = await db.User.create(attributes.user());
+
+    const { firstName, lastName } = attributes.user();
+    const res = await server.executeOperation(
+      {
+        query,
+        variables: {
+          input: {
+            id: otherUser.id,
+            firstName,
+            lastName,
+          },
+        },
+      },
+      { currentUser }
+    );
+
+    expect(res.errors[0].message).toBe("Unauthorized");
   });
 });
