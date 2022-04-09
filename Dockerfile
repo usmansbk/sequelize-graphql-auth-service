@@ -1,13 +1,16 @@
 # syntax=docker/dockerfile:1
 
 FROM node:14-alpine
+ENV NODE_ENV=production
 
-ENV NODE_ENV=development
+RUN apk add --no-cache python2 g++ make
 
 WORKDIR /app
 
-RUN apk add --no-cache python2 g++ make
-COPY . .
+COPY ["package.json", "yarn.lock*", "./"]
+
 RUN yarn install --production
-CMD ['yarn', 'start']
-EXPOSE 3000
+
+COPY . .
+
+CMD ["yarn", "start"]

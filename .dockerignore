@@ -1,0 +1,11 @@
+node_modules
+uploads
+Dockerfile
+.gitignore
+.eslintcache
+.eslintignore
+.eslintrc.js
+.prettierignore
+.prettierrc.json
+.env.example
+.husky
