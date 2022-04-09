@@ -2,6 +2,11 @@ node_modules
 uploads
 coverage
 Dockerfile*
+docker-compose.*
+LICENSE
+README.md
+.git
+.vscode
 .gitignore
 .eslintcache
 .eslintignore
@@ -9,6 +14,5 @@ Dockerfile*
 .prettierignore
 .prettierrc.json
 .env.example
+.env
 .husky
-LICENSE
-README.md

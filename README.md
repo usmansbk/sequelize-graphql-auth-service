@@ -41,7 +41,13 @@ ssh-keygen -e -m PEM -f jwtRS256.key > jwtRS256.key.pub
 
 ```sh
 # Rename `.env.example` file to .env
-mv .env.example .env
+copy .env.example .env
+```
+
+### Install dependencies
+
+```sh
+yarn
 ```
 
 ### Build image
@@ -78,6 +84,10 @@ docker-compose up
 ```sh
 docker-compose run api yarn test
 ```
+
+### Troubleshoot
+
+For M1 chips, log into the `api` container shell and `rm -rf node_modules`, then `yarn install` again.
 
 ## Clients (Mobile, Web, etc)
 

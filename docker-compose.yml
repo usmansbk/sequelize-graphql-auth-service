@@ -5,17 +5,15 @@ services:
     container_name: simple-server
     image: simple-server
     restart: always
-    build:
-      context: .
-    env_file:
-      - .env
+    build: ./
+    env_file: .env
     depends_on:
       - db
       - cache
     ports:
       - 4000:4000
     volumes:
-      - ./:/app
+      - ./:/usr/src/app
 
   db:
     container_name: postgresql_db
