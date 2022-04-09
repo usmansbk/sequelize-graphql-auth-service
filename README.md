@@ -281,6 +281,16 @@ We use Eslint AirBnB coding guidelines and import alias. All aliases are prefixe
 
 Model specific logic should be moved to their associated data sources, and resolver errors should be handled using [Wrapping Exception](https://javascript.info/custom-errors) technique.
 
+## Build
+
+```sh
+docker build -t [namespace]/[image_name]:[tag] .
+```
+
+```sh
+docker push [namespace]/[image_name]:[tag]
+```
+
 ## Readings
 
 - [GraphQL Schema Design: Building Evolvable Schemas](https://www.apollographql.com/blog/backend/schema-design/graphql-building-evolvable-schemas/)
