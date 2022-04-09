@@ -73,6 +73,12 @@ docker-compose run --rm api npx cross-env NODE_ENV=test npx sequelize db:create
 docker-compose run --rm api npx cross-env NODE_ENV=development npx sequelize db:migrate
 ```
 
+### Create root user
+
+```sh
+docker-compose run --rm api yarn createsu
+```
+
 ### Start container
 
 ```sh
