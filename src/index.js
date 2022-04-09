@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import v1 from "~api/v1/routes";
 import db from "~db/models";
 import startApolloServer from "~api/graphql";
@@ -6,14 +7,17 @@ import log from "~utils/logger";
 import { useLanguageMiddleware } from "~config/i18n";
 import contextMiddleware from "~api/v1/middlewares/context";
 import rateLimiter from "~api/v1/middlewares/rateLimiter";
+import errorHandler from "~api/v1/middlewares/errorHandler";
 
 const app = express();
 
 useLanguageMiddleware(app);
 
+app.use(cors());
 app.use(contextMiddleware);
 app.use(rateLimiter);
 app.use("/v1", v1);
+app.use(errorHandler);
 
 if (app.get("env") === "production") {
   // https://www.npmjs.com/package/express-rate-limit

@@ -76,6 +76,7 @@ export const NOTHING_TO_UPLOAD = "NothingToUpload";
 export const UNAUTHORIZED = "Unauthorized";
 export const UNAUTHENTICATED = "Unauthenticated";
 export const SOMETHING_WENT_WRONG = "SomethingWentWrong";
+export const INVALID_CLIENT_ID = "InvalidClientId";
 
 // errors
 export const FIELD_ERRORS = "FieldErrors";
