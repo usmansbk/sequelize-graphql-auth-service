@@ -1,6 +1,6 @@
 node_modules
 uploads
-Dockerfile
+docker
 .gitignore
 .eslintcache
 .eslintignore

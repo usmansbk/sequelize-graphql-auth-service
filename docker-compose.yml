@@ -1,0 +1,47 @@
+version: "3.8"
+
+services:
+  api:
+    container_name: simple-server
+    image: simple-server
+    restart: always
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.development
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - cache
+    ports:
+      - 4000:4000
+    volumes:
+      - ./:/app
+
+  db:
+    container_name: postgresql_db
+    image: postgres:12-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: simple-server-dev
+    ports:
+      - 5432:5432
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  cache:
+    container_name: redis-server
+    image: redis:6-alpine
+    restart: always
+    command: redis-server
+    ports:
+      - 6379:6379
+    volumes:
+      - cache:/data
+volumes:
+  db:
+    driver: local
+  cache:
+    driver: local
