@@ -1,8 +1,12 @@
 import { ApolloServer } from "apollo-server-express";
-import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
+import {
+  ApolloServerPluginDrainHttpServer,
+  AuthenticationError,
+} from "apollo-server-core";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import http from "http";
 import logger from "~utils/logger";
+import { INVALID_CLIENT_ID } from "~constants/i18n";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 import dataSources from "./datasources";
@@ -30,6 +34,10 @@ const createApolloServer = (app) => {
     dataSources,
     context: ({ req }) => {
       const { t, context } = req;
+
+      if (!context.jwt.audience.includes(context.clientId)) {
+        throw new AuthenticationError(INVALID_CLIENT_ID);
+      }
 
       return { t, ...context };
     },
