@@ -6,6 +6,7 @@
     "start": "node -r dotenv/config build",
     "dev": "nodemon --exec babel-node -r dotenv/config src",
     "createsu": "babel-node -r dotenv/config src/scripts/createSuperUser",
+    "clientId": "babel-node src/scripts/generateClientId",
     "test": "cross-env NODE_ENV=test jest -i --testTimeout=60000",
     "prepare": "husky install"
   },
