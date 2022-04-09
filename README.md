@@ -117,7 +117,7 @@ const audience = [process.env.CLIENT_ID, 'your-new-client-id'];
 
 ## [Mailer](https://nodemailer.com/transports/ses/)
 
-The server makes use of AWS SES to send emails in production. Set the following environment variables and ensure you have the right [AWS IAM Policy](https://nodemailer.com/transports/ses/#example-3) set for SES.
+The server makes use of AWS SES to send emails. Setup your SES account and add the following environment variables. Ensure you have this [AWS IAM Policy](https://nodemailer.com/transports/ses/#example-3).
 
 ```sh
 MAIL_FROM=sender@example.com
@@ -127,7 +127,7 @@ AWS_SECRET_ACCESS_KEY=
 AWS_REGION=us-east-1
 ```
 
-Check the [email-templates](https://github.com/forwardemail/email-templates) docs on how to build email templates.
+Check the [email-templates](https://github.com/forwardemail/email-templates) docs on how to design email templates.
 
 ## [SMS](https://www.twilio.com/docs/sms/quickstart/node)
 
