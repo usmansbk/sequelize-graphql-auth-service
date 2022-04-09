@@ -1,11 +1,11 @@
 import { gql } from "apollo-server-express";
-import db from "~db/models";
+import attributes from "tests/attributes";
 import createApolloTestServer from "tests/integration/apolloServer";
+import db from "~db/models";
 import jwt from "~utils/jwt";
 import TokenError from "~utils/errors/TokenError";
-import { TOKEN_INVALID_ERROR } from "~constants/i18n";
-import attributes from "tests/attributes";
 import store from "~utils/store";
+import { TOKEN_INVALID_ERROR } from "~constants/i18n";
 
 jwt.verifySocialToken = jest.fn();
 

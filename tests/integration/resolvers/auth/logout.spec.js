@@ -3,7 +3,6 @@ import db from "~db/models";
 import store from "~utils/store";
 import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
-import auth from "tests/support/auth";
 
 const query = gql`
   mutation Logout($all: Boolean) {
@@ -17,6 +16,7 @@ const query = gql`
 
 describe("Mutation.logout", () => {
   let server;
+  let currentUser;
   beforeAll(() => {
     server = createApolloTestServer();
   });
@@ -27,22 +27,15 @@ describe("Mutation.logout", () => {
     await db.sequelize.close();
   });
 
-  let user;
-  let accessToken;
-  let clientId;
   beforeEach(async () => {
-    user = await db.User.create(attributes.user());
-    const response = await auth.login(user);
-    accessToken = response.accessToken;
-    clientId = response.clientId;
+    currentUser = await db.User.create(attributes.user());
   });
 
   test("should clear current user session", async () => {
-    const res = await server.executeOperation(
-      { query },
-      { accessToken, clientId }
+    const res = await server.executeOperation({ query }, { currentUser });
+    const sessionId = await store.get(
+      `${process.env.WEB_CLIENT_ID}:${currentUser.id}`
     );
-    const sessionId = await store.get(`${clientId}:${user.id}`);
     expect(res.data.logout).toEqual({
       code: "LoggedOut",
       success: true,
@@ -60,11 +53,12 @@ describe("Mutation.logout", () => {
         },
       },
       {
-        accessToken,
-        clientId,
+        currentUser,
       }
     );
-    const sessionId = await store.get(`${clientId}:${user.id}`);
+    const sessionId = await store.get(
+      `${process.env.WEB_CLIENT_ID}:${currentUser.id}`
+    );
 
     expect(res.data.logout).toEqual({
       code: "LoggedOut",

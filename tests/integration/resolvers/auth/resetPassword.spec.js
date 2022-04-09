@@ -1,12 +1,11 @@
 import { gql } from "apollo-server-express";
+import dayjs from "dayjs";
 import db from "~db/models";
 import createApolloTestServer from "tests/integration/apolloServer";
 import attributes from "tests/attributes";
 import store from "~utils/store";
 import jwt from "~utils/jwt";
 import { PASSWORD_KEY_PREFIX } from "~constants/auth";
-import dayjs from "dayjs";
-import auth from "tests/support/auth";
 
 const query = gql`
   mutation ResetPassword($input: PasswordResetInput!) {
@@ -44,20 +43,23 @@ describe("Mutation.resetPassword", () => {
   });
 
   test("should update password and logout", async () => {
-    const authPayload = await auth.login(user);
     const password = "password1";
-    const res = await server.executeOperation({
-      query,
-      variables: {
-        input: {
-          token,
-          password,
+    const res = await server.executeOperation(
+      {
+        query,
+        variables: {
+          input: {
+            token,
+            password,
+          },
         },
       },
-    });
+      { currentUser: user }
+    );
+
     await user.reload();
     const changed = await user.checkPassword(password);
-    const sid = await store.get(`${authPayload.clientId}:${user.id}`);
+    const sid = await store.get(`${process.env.WEB_CLIENT_ID}:${user.id}`);
 
     expect(res.data.resetPassword).toEqual({
       code: "PasswordChanged",
