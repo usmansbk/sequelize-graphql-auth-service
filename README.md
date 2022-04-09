@@ -2,8 +2,6 @@
 
 GraphQL server optimized for Sequelize ORM
 
-> This project assumes an Ubuntu 20 environment
-
 ## Features
 
 - [x] Email authentication
@@ -13,82 +11,56 @@ GraphQL server optimized for Sequelize ORM
 - [x] Profile (Update and Delete)
 - [x] File Upload
 - [x] i18n
+- [x] Dockerize
 - [ ] Push Notification
 - [ ] Analytics
-- [ ] Dockerize
 
-## Prerequisites
+## Built with
 
 - [Apollo Server](https://www.apollographql.com/docs/apollo-server/)
 - [SequelizeORM](https://sequelize.org/master/manual/migrations.html)
 - [ExpressJS](https://expressjs.com/)
 
-## Environment
+## Prerequisite
 
-Export the followng enviroment variables or create a `.env` file
+- [Docker](https://docs.docker.com/)
 
-```sh
-NODE_ENV=development
-APP_NAME=sequelize-graphql-server
-
-DB_USERNAME=your_username
-DB_PASSWORD=your_password
-DB_NAME_DEV=your_dev_database_name
-DB_NAME_TEST=your_test_database_name
-DB_HOST=127.0.0.1
-DB_DIALECT=postgres
-```
-
-## Setting Up a Database
-
-This template uses PostgreSQL as the default database.
-
-```sh
-# Install PostgreSQL
-sudo apt install postgresql-12 libpq-dev
-```
-
-The postgres installation doesn't setup a user for you, so you'll need to follow these steps to create a user with permission to create databases.
-
-```sh
-
-sudo -u postgres createuser your_username -s
-
-# Set a password for the user by doing the following
-
-sudo -u postgres psql
-postgres=# \password your_password
-
-# Create the database
-npx cross-env NODE_ENV=development sequelize db:create # development db
-
-npx cross-env NODE_ENV=test npx sequelize db:create # test db
-
-# Run migrations
-npx sequelize db:migrate
-```
-
-## [JSON Web Token](https://github.com/auth0/node-jsonwebtoken#readme)
-
-We make use of JWT for authentication and authorization. [Read about the 3 main types of tokens](https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/).
+## Run with Docker
 
 ### Generate token verification and signing keys
 
 ```sh
-## Private key
+# Private key
 ssh-keygen -t rsa -P "" -b 4096 -m PEM -f jwtRS256.key
 
-## Public key
+# Public key
 ssh-keygen -e -m PEM -f jwtRS256.key > jwtRS256.key.pub
 ```
 
-Set up a local [redis server](https://redis.io/download#from-the-official-ubuntu-ppa) to cache tokens in development
+### Add **.env** file
 
 ```sh
-sudo apt install redis-server
+# Rename `.env.example` file to .env
+mv .env.example .env
 ```
 
-While in production, a Redis server `REDIS_URL` environment variable is required.
+### Build container
+
+```sh
+docker-compose build
+```
+
+### Create database
+
+```sh
+# development database
+docker-compose run api npx cross-env NODE_ENV=development npx sequelize db:create
+
+# test database
+docker-compose run api npx cross-env NODE_ENV=test npx sequelize db:create
+
+# docker-compose run api npx cross-env NODE_ENV=development npx sequelize db:migrate
+```
 
 ## Clients (Mobile, Web, etc)
 
