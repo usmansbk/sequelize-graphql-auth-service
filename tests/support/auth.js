@@ -9,7 +9,14 @@ const login = async (user) => {
   });
   await store.set({ key: `${clientId}:${user.id}`, value: sid });
 
-  return { accessToken, clientId, exp };
+  return {
+    exp,
+    sid,
+    clientId,
+    accessToken,
+    sessionId: sid,
+    tokenInfo: { sid, sub: user.id },
+  };
 };
 
 export default { login };

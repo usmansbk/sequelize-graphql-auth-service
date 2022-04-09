@@ -35,10 +35,7 @@ describe("Mutation.requestDeleteAccount", () => {
 
   test("should send a delete account email to a logged in user", async () => {
     const currentUser = await db.User.create(attributes.user());
-    const res = await server.executeOperation(
-      { query },
-      { tokenInfo: { sub: currentUser.id }, currentUser }
-    );
+    const res = await server.executeOperation({ query }, { currentUser });
     expect(mailer.sendEmail).toBeCalledTimes(1);
     expect(res.data.requestDeleteAccount).toEqual({
       code: "SentDeleteConfirmationEmail",
@@ -52,10 +49,7 @@ describe("Mutation.requestDeleteAccount", () => {
     const NUMBER_OF_REQUESTS = 2;
 
     for (let i = 0; i < NUMBER_OF_REQUESTS; i++) {
-      await server.executeOperation(
-        { query },
-        { tokenInfo: { sub: currentUser.id }, currentUser }
-      );
+      await server.executeOperation({ query }, { currentUser });
     }
     expect(mailer.sendEmail).toBeCalledTimes(1);
   });

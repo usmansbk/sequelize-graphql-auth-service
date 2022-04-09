@@ -6,13 +6,21 @@ import jwt from "~utils/jwt";
 import mailer from "~utils/mailer";
 import store from "~utils/store";
 import fileStorage from "~utils/fileStorage";
+import auth from "tests/support/auth";
 
 const createApolloTestServer = () => {
   const schema = createSchema();
   const server = new ApolloServer({
     schema,
     dataSources,
-    context: (extraOptions = {}) => {
+    context: async (extraOptions = {}) => {
+      const { currentUser, ...options } = extraOptions;
+      let payload;
+
+      if (currentUser) {
+        payload = await auth.login(currentUser);
+      }
+
       return {
         t: (msg) => msg,
         otp,
@@ -21,7 +29,9 @@ const createApolloTestServer = () => {
         fileStorage,
         mailer,
         clientId: process.env.WEB_CLIENT_ID,
-        ...extraOptions,
+        currentUser,
+        ...(options || {}),
+        ...(payload || {}),
       };
     },
   });

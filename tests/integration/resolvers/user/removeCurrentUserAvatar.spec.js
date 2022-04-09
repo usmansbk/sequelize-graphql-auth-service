@@ -42,7 +42,7 @@ describe("Mutation.removeCurrentUserAvatar", () => {
       {
         query,
       },
-      { tokenInfo: { sub: user.id }, currentUser: user }
+      { currentUser: user }
     );
     expect(fileStorage.remove).toBeCalled();
     expect(res.data.removeCurrentUserAvatar).toEqual({

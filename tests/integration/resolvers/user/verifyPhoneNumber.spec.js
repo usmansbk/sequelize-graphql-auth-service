@@ -50,7 +50,7 @@ describe("Mutation.verifyPhoneNumber", () => {
           token: authPayload.accessToken,
         },
       },
-      { tokenInfo: { sub: currentUser.id }, currentUser }
+      { currentUser }
     );
 
     expect(res.data.verifyPhoneNumber).toEqual({
@@ -75,7 +75,7 @@ describe("Mutation.verifyPhoneNumber", () => {
           token: authPayload.accessToken,
         },
       },
-      { tokenInfo: { sub: user.id }, currentUser: user }
+      { currentUser: user }
     );
 
     expect(res.data.verifyPhoneNumber).toEqual({

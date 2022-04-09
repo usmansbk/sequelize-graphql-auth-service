@@ -58,7 +58,7 @@ describe("Mutation.requestCurrentUserPhoneNumberVerification", () => {
           phoneNumber: "+2348037863727",
         },
       },
-      { tokenInfo: { sub: currentUser.id }, currentUser }
+      { currentUser }
     );
     expect(mailer.sendSMS).toBeCalledTimes(1);
     expect(res.data.requestCurrentUserPhoneNumberVerification).toEqual({
@@ -83,7 +83,7 @@ describe("Mutation.requestCurrentUserPhoneNumberVerification", () => {
           phoneNumber: attributes.user().phoneNumber,
         },
       },
-      { tokenInfo: { sub: currentUser.id }, currentUser }
+      { currentUser }
     );
 
     expect(res.data.requestCurrentUserPhoneNumberVerification).toEqual({
