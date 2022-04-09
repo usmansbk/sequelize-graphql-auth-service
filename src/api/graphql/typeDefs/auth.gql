@@ -86,15 +86,9 @@ enum AuthStrategy {
   scope
 }
 
-enum AuthRole {
-  root
-  admin
-  staff
-}
-
 input AuthRule {
   allow: AuthStrategy!
   identityClaim: String = "ownerId"
-  roles: [AuthRole!]
+  roles: [String!]
   scopes: [String!]
 }

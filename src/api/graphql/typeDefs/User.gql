@@ -18,23 +18,33 @@ type Mutation {
   verifyPhoneNumber(token: String!): UserMutationResponse! @auth
 
   # Admin
-  createUser(input: CreateUserInput!): UserMutationResponse! @auth
+  createUser(input: CreateUserInput!): UserMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
   changeUserFullname(input: ChangeUserFullnameInput!): UserMutationResponse!
-    @auth
-  changeUserUsername(input: ChangeUsernameInput!): UserMutationResponse! @auth
-  changeUserLocale(input: ChangeUserLocaleInput!): UserMutationResponse! @auth
-  changeUserEmail(input: ChangeUserEmailInput!): UserMutationResponse! @auth
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+  changeUserUsername(input: ChangeUsernameInput!): UserMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+  changeUserLocale(input: ChangeUserLocaleInput!): UserMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+  changeUserEmail(input: ChangeUserEmailInput!): UserMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
   changeUserPhoneNumber(
     input: ChangeUserPhoneNumberInput!
-  ): UserMutationResponse! @auth
+  ): UserMutationResponse! @auth(rules: [{ allow: role, roles: ["admin"] }])
   changeUserPassword(input: ChangeUserPasswordInput!): UserMutationResponse!
-    @auth
-  changeUserStatus(input: ChangeUserStatusInput!): UserMutationResponse! @auth
-  removeUserAvatar(id: ID!): UserMutationResponse! @auth
-  deleteUser(id: ID!, reason: String!): DeleteMutationResponse! @auth
-  attachRolesToUser(userId: ID!, roleIds: [ID!]!): UserMutationResponse! @auth
-  detachRolesFromUser(userId: ID!, roleIds: [ID!]!): UserMutationResponse! @auth
-  detachAllRolesFromUser(userId: ID!): UserMutationResponse! @auth
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+  changeUserStatus(input: ChangeUserStatusInput!): UserMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+  removeUserAvatar(id: ID!): UserMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+  deleteUser(id: ID!, reason: String!): DeleteMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+  attachRolesToUser(userId: ID!, roleIds: [ID!]!): UserMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+  detachRolesFromUser(userId: ID!, roleIds: [ID!]!): UserMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+  detachAllRolesFromUser(userId: ID!): UserMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
 }
 
 type User {

@@ -1,21 +1,27 @@
 type Query {
-  getRoleById(id: ID!): RolePayload! @auth
-  roles(page: ListPage, filter: RoleFilter): RoleList! @auth
+  getRoleById(id: ID!): RolePayload!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+  roles(page: ListPage, filter: RoleFilter): RoleList!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
 }
 
 type Mutation {
-  createRole(input: CreateRoleInput!): RoleMutationResponse! @auth
-  updateRole(input: UpdateRoleInput!): RoleMutationResponse! @auth
-  deleteRole(id: ID!, reason: String): DeleteMutationResponse! @auth
+  createRole(input: CreateRoleInput!): RoleMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+  updateRole(input: UpdateRoleInput!): RoleMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+  deleteRole(id: ID!, reason: String): DeleteMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
   attachPermissionsToRole(
     roleId: ID!
     permissionIds: [ID!]!
-  ): RoleMutationResponse! @auth
+  ): RoleMutationResponse! @auth(rules: [{ allow: role, roles: ["admin"] }])
   detachPermissionsFromRole(
     roleId: ID!
     permissionIds: [ID!]!
-  ): RoleMutationResponse! @auth
-  detachRoleFromAllMembers(roleId: ID!): RoleMutationResponse! @auth
+  ): RoleMutationResponse! @auth(rules: [{ allow: role, roles: ["admin"] }])
+  detachRoleFromAllMembers(roleId: ID!): RoleMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
 }
 
 type Role {

@@ -31,7 +31,7 @@ describe("Mutation.changeUserFullname", () => {
     await db.sequelize.close();
   });
 
-  test("should allow root to change user fullname", async () => {
+  test("should allow admin to change user fullname", async () => {
     const currentUser = await db.User.create(attributes.user());
     const otherUser = await db.User.create(attributes.user());
 

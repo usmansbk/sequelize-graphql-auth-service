@@ -31,7 +31,7 @@ describe("Mutation.createUser", () => {
     await db.sequelize.close();
   });
 
-  test("should allow root to create a new user", async () => {
+  test("should allow admin to create a new user", async () => {
     const currentUser = await db.User.create(attributes.user());
 
     const input = attributes.user();

@@ -1,16 +1,19 @@
 type Query {
-  getPermissionById(id: ID!): PermissionPayload! @auth
-  permissions(page: ListPage, filter: PermissionFilter): PermissionList! @auth
+  getPermissionById(id: ID!): PermissionPayload!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+  permissions(page: ListPage, filter: PermissionFilter): PermissionList!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
 }
 
 type Mutation {
   createPermission(input: CreatePermissionInput!): PermissionMutationResponse!
-    @auth
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
   updatePermission(input: UpdatePermissionInput!): PermissionMutationResponse!
-    @auth
-  deletePermission(id: ID!, reason: String): DeleteMutationResponse! @auth
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+  deletePermission(id: ID!, reason: String): DeleteMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
   detachPermissionFromAllRoles(permissionId: ID!): PermissionMutationResponse!
-    @auth
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
 }
 
 type Permission {
