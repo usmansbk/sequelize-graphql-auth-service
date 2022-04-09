@@ -29,18 +29,23 @@ GraphQL server optimized for Sequelize ORM
 
 ### Generate token verification and signing keys
 
-```sh
-# Private key
-ssh-keygen -t rsa -P "" -b 4096 -m PEM -f jwtRS256.key
+Private key
 
-# Public key
+```sh
+ssh-keygen -t rsa -P "" -b 4096 -m PEM -f jwtRS256.key
+```
+
+Public key
+
+```sh
 ssh-keygen -e -m PEM -f jwtRS256.key > jwtRS256.key.pub
 ```
 
 ### Add **.env** file
 
+Rename `.env.example` file to `.env`
+
 ```sh
-# Rename `.env.example` file to .env
 cp .env.example .env
 ```
 
@@ -59,7 +64,6 @@ docker-compose build
 ### Create database
 
 ```sh
-# development database
 docker-compose run --rm api npx cross-env NODE_ENV=development npx sequelize db:create
 ```
 
@@ -77,8 +81,9 @@ docker-compose up
 
 ### Test
 
+create a test database if you haven't
+
 ```sh
-# create a test database if you haven't
 docker-compose run --rm api npx cross-env NODE_ENV=test npx sequelize db:create
 ```
 
