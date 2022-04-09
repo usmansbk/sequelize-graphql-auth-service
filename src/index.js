@@ -17,12 +17,12 @@ app.use(cors());
 app.use(contextMiddleware);
 app.use(rateLimiter);
 app.use("/v1", v1);
-app.use(errorHandler);
 
 if (app.get("env") === "production") {
   // https://www.npmjs.com/package/express-rate-limit
   app.set("trust proxy", 1);
 }
+app.use(errorHandler);
 
 const main = async () => {
   try {
