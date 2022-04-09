@@ -73,6 +73,12 @@ docker-compose run api npx cross-env NODE_ENV=development npx sequelize db:migra
 docker-compose up
 ```
 
+### Test
+
+```sh
+docker-compose run api yarn test
+```
+
 ## Clients (Mobile, Web, etc)
 
 Each supported client must pass a `client_id` in their request headers. Client IDs are strings assigned by the server. To support a new client, add the ID to the list of audience. This will allow users to login from multiple clients.
