@@ -1,7 +1,7 @@
 import { gql } from "apollo-server-express";
 import db from "~db/models";
 import store from "~utils/store";
-import createApolloTestServer from "tests/support/apolloServer";
+import createApolloTestServer from "tests/mocks/apolloServer";
 import jwt from "~utils/jwt";
 import attributes from "tests/attributes";
 import { DELETE_ACCOUNT_KEY_PREFIX } from "~constants/auth";

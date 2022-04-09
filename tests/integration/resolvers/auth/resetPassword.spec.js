@@ -1,7 +1,7 @@
 import { gql } from "apollo-server-express";
 import dayjs from "dayjs";
 import db from "~db/models";
-import createApolloTestServer from "tests/support/apolloServer";
+import createApolloTestServer from "tests/mocks/apolloServer";
 import attributes from "tests/attributes";
 import store from "~utils/store";
 import jwt from "~utils/jwt";

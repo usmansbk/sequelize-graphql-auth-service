@@ -48,6 +48,7 @@ const createApolloTestServer = () => {
         clientId,
         isRootUser,
         fileStorage,
+        currentUser,
         ...payload,
       };
     },

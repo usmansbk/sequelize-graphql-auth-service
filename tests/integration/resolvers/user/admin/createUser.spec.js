@@ -1,6 +1,6 @@
 import { gql } from "apollo-server-express";
 import db from "~db/models";
-import createApolloTestServer from "tests/support/apolloServer";
+import createApolloTestServer from "tests/mocks/apolloServer";
 import attributes from "tests/attributes";
 
 const query = gql`
