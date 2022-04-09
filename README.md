@@ -41,7 +41,7 @@ ssh-keygen -e -m PEM -f jwtRS256.key > jwtRS256.key.pub
 
 ```sh
 # Rename `.env.example` file to .env
-copy .env.example .env
+cp .env.example .env
 ```
 
 ### Install dependencies
