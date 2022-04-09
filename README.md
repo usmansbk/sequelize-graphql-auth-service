@@ -108,6 +108,9 @@ yarn install
 Each supported client must pass a `client_id` in their request headers. Client IDs are strings assigned by the server. To support a new client, add the ID to the list of audience. This will allow users to login from multiple clients.
 
 ```sh
+## Get new ID
+docker-compose run --rm api yarn clientId
+
 ## src/utils/jwt
 const audience = [process.env.CLIENT_ID, 'your-new-client-id'];
 ```
