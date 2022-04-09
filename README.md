@@ -114,7 +114,7 @@ docker-compose run --rm api yarn clientId
 
 ```sh
 ## src/utils/jwt
-const audience = [process.env.CLIENT_ID, 'your-new-clientId'];
+const audience = [process.env.WEB_CLIENT_ID, 'your-new-clientId'];
 ```
 
 Your new client will need to add this `clientId` as part of it's request headers.

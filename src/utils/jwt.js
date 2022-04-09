@@ -24,7 +24,7 @@ import TokenError from "./errors/TokenError";
 const privateKey = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
 const publicKey = fs.readFileSync(process.env.JWT_PUBLIC_KEY);
 
-const audience = [process.env.CLIENT_ID, process.env.ADMIN_CLIENT_ID];
+const audience = [process.env.WEB_CLIENT_ID, process.env.ADMIN_CLIENT_ID];
 
 /**
  * exp or any other claim is only set if the payload is an object literal.
