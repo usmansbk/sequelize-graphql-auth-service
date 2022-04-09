@@ -7,30 +7,19 @@ const { NODE_ENV, MAIL_FROM } = process.env;
 
 const env = NODE_ENV || "development";
 
-let transport;
-const isProduction = env === "production";
-
-if (isProduction) {
-  transport = nodemailer.createTransport({
-    SES: { ses, aws },
-  });
-} else {
-  transport = {
-    jsonTransport: true,
-  };
-}
-
 const email = new Email({
   message: {
     from: MAIL_FROM,
   },
-  transport,
-  subjectPrefix: isProduction ? false : `[${env.toUpperCase()}] `,
+  transport: nodemailer.createTransport({
+    SES: { ses, aws },
+  }),
+  subjectPrefix: env === "development" && `[${env.toUpperCase()}] `,
   i18n: {
     locales: ["en"],
     directory: "./locales/emails",
   },
-  // send: isProduction,
+  send: true,
 });
 
 const sendEmail = async ({ template, message, locals }) => {
