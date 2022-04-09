@@ -60,17 +60,17 @@ docker-compose build
 
 ```sh
 # development database
-docker-compose run api npx cross-env NODE_ENV=development npx sequelize db:create
+docker-compose run --rm api npx cross-env NODE_ENV=development npx sequelize db:create
 ```
 
 ```sh
 # test database
-docker-compose run api npx cross-env NODE_ENV=test npx sequelize db:create
+docker-compose run --rm api npx cross-env NODE_ENV=test npx sequelize db:create
 ```
 
 ```sh
 # Migrations (optional)
-docker-compose run api npx cross-env NODE_ENV=development npx sequelize db:migrate
+docker-compose run --rm api npx cross-env NODE_ENV=development npx sequelize db:migrate
 ```
 
 ### Start container
@@ -82,7 +82,7 @@ docker-compose up
 ### Test
 
 ```sh
-docker-compose run api yarn test
+docker-compose run --rm api yarn test
 ```
 
 ### Troubleshoot
