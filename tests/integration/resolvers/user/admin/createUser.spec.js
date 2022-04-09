@@ -2,6 +2,7 @@ import { gql } from "apollo-server-express";
 import db from "~db/models";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import attributes from "tests/attributes";
+import store from "~utils/store";
 
 const query = gql`
   mutation CreateUser($input: CreateUserInput!) {
@@ -27,6 +28,7 @@ describe("Mutation.createUser", () => {
   });
 
   afterAll(async () => {
+    await store.clearAll();
     await server.stop();
     await db.sequelize.close();
   });
@@ -62,7 +64,6 @@ describe("Mutation.createUser", () => {
       },
       { currentUser }
     );
-
-    expect(res.errors[0].message).toBe("Unauthorized");
+    expect(res.errors[0].message).toMatch("Unauthorized");
   });
 });

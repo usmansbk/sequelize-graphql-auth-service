@@ -3,7 +3,8 @@ type Query {
   getUserById(id: ID!): UserPayload! @auth
 
   # admin
-  users(page: ListPage, filter: UserFilter): UserList! @auth
+  users(page: ListPage, filter: UserFilter): UserList!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
 }
 
 type Mutation {
@@ -53,8 +54,20 @@ type User {
   lastName: String!
   fullName: String!
   username: String
-  email: EmailAddress! @auth(rules: [{ allow: owner, identityClaim: "id" }])
-  phoneNumber: PhoneNumber @auth(rules: [{ allow: owner, identityClaim: "id" }])
+  email: EmailAddress!
+    @auth(
+      rules: [
+        { allow: owner, identityClaim: "id" }
+        { allow: role, roles: ["admin"] }
+      ]
+    )
+  phoneNumber: PhoneNumber
+    @auth(
+      rules: [
+        { allow: owner, identityClaim: "id" }
+        { allow: role, roles: ["admin"] }
+      ]
+    )
   avatar: Photo
   socialAvatarURL: URL
   isOwner: Boolean!
@@ -62,9 +75,21 @@ type User {
   emailVerified: Boolean!
   phoneNumberVerified: Boolean!
   roles: [Role]!
+    @auth(
+      rules: [
+        { allow: owner, identityClaim: "id" }
+        { allow: role, roles: ["admin"] }
+      ]
+    )
   createdAt: DateTime!
   updatedAt: DateTime
-  status: AccountStatus! @auth(rules: [{ allow: owner, identityClaim: "id" }])
+  status: AccountStatus!
+    @auth(
+      rules: [
+        { allow: owner, identityClaim: "id" }
+        { allow: role, roles: ["admin"] }
+      ]
+    )
 }
 
 type UserList implements List {

@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM node:14-alpine 
+FROM node:16-alpine 
 
 ARG NODE_ENV=development
 
