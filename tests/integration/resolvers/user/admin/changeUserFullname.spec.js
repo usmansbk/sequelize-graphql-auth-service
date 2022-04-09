@@ -4,8 +4,8 @@ import createApolloTestServer from "tests/mocks/apolloServer";
 import attributes from "tests/attributes";
 
 const query = gql`
-  mutation CreateUser($input: CreateUserInput!) {
-    createUser(input: $input) {
+  mutation ChangeUserFullname($input: ChangeUserFullnameInput!) {
+    changeUserFullname(input: $input) {
       code
       message
       errors {
@@ -13,14 +13,14 @@ const query = gql`
         message
       }
       user {
-        id
-        email
+        firstName
+        lastName
       }
     }
   }
 `;
 
-describe("Mutation.createUser", () => {
+describe("Mutation.changeUserFullname", () => {
   let server;
   beforeAll(() => {
     server = createApolloTestServer();
@@ -31,19 +31,25 @@ describe("Mutation.createUser", () => {
     await db.sequelize.close();
   });
 
-  test("should allow root to create a new user", async () => {
+  test("should allow root to change user fullname", async () => {
     const currentUser = await db.User.create(attributes.user());
+    const otherUser = await db.User.create(attributes.user());
 
-    const input = attributes.user();
+    const { firstName, lastName } = attributes.user();
     const res = await server.executeOperation(
       {
         query,
         variables: {
-          input,
+          input: {
+            id: otherUser.id,
+            firstName,
+            lastName,
+          },
         },
       },
       { currentUser, isRootUser: true }
     );
-    expect(res.data.createUser.user.email).toBe(input.email);
+
+    expect(res.data.changeUserFullname.user).toEqual({ firstName, lastName });
   });
 });
