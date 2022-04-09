@@ -87,7 +87,15 @@ docker-compose run api yarn test
 
 ### Troubleshoot
 
-For M1 chips, log into the `api` container shell and `rm -rf node_modules`, then `yarn install` again.
+For M1 chip MacBooks
+
+```sh
+docker exec -it simple-server sh
+
+rm -rf node_modules
+
+yarn install
+```
 
 ## Clients (Mobile, Web, etc)
 
