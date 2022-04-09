@@ -55,11 +55,16 @@ docker-compose build
 ```sh
 # development database
 docker-compose run api npx cross-env NODE_ENV=development npx sequelize db:create
+```
 
+```sh
 # test database
 docker-compose run api npx cross-env NODE_ENV=test npx sequelize db:create
+```
 
-# docker-compose run api npx cross-env NODE_ENV=development npx sequelize db:migrate
+```sh
+# Migrations (optional)
+docker-compose run api npx cross-env NODE_ENV=development npx sequelize db:migrate
 ```
 
 ### Start server
