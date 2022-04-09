@@ -6,7 +6,7 @@ import jwt from "~utils/jwt";
 import mailer from "~utils/mailer";
 import store from "~utils/store";
 import fileStorage from "~utils/fileStorage";
-import auth from "tests/support/auth";
+import auth from "./auth";
 
 const createApolloTestServer = () => {
   const schema = createSchema();

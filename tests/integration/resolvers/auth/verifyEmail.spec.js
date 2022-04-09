@@ -4,7 +4,7 @@ import store from "~utils/store";
 import mailer from "~utils/mailer";
 import jwt from "~utils/jwt";
 import { EMAIL_VERIFICATION_KEY_PREFIX } from "~constants/auth";
-import createApolloTestServer from "tests/integration/apolloServer";
+import createApolloTestServer from "tests/support/apolloServer";
 import attributes from "tests/attributes";
 
 const query = gql`

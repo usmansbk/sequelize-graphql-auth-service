@@ -1,6 +1,6 @@
 import { gql } from "apollo-server-express";
 import attributes from "tests/attributes";
-import createApolloTestServer from "tests/integration/apolloServer";
+import createApolloTestServer from "tests/support/apolloServer";
 import db from "~db/models";
 import jwt from "~utils/jwt";
 import TokenError from "~utils/errors/TokenError";

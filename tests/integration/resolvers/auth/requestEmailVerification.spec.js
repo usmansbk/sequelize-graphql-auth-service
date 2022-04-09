@@ -1,7 +1,7 @@
 import { gql } from "apollo-server-express";
 import db from "~db/models";
 import mailer from "~utils/mailer";
-import createApolloTestServer from "tests/integration/apolloServer";
+import createApolloTestServer from "tests/support/apolloServer";
 import attributes from "tests/attributes";
 import store from "~utils/store";
 
