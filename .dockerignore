@@ -1,6 +1,7 @@
 node_modules
 uploads
-docker
+coverage
+Dockerfile*
 .gitignore
 .eslintcache
 .eslintignore
@@ -9,3 +10,5 @@ docker
 .prettierrc.json
 .env.example
 .husky
+LICENSE
+README.md

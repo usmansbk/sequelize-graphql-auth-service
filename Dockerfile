@@ -3,13 +3,13 @@
 FROM node:14-alpine
 ENV NODE_ENV=development
 
-RUN apk add --no-cache python2 g++ make
+RUN apk add python2 g++ make
 
 WORKDIR /app
 
 COPY package.json yarn.lock ./
 
-RUN yarn install 
+RUN yarn
 
 COPY . .
 

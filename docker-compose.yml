@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.9"
 
 services:
   api:
@@ -7,7 +7,6 @@ services:
     restart: always
     build:
       context: .
-      dockerfile: docker/Dockerfile.development
     env_file:
       - .env
     depends_on:
