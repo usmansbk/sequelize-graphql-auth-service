@@ -44,7 +44,7 @@ ssh-keygen -e -m PEM -f jwtRS256.key > jwtRS256.key.pub
 mv .env.example .env
 ```
 
-### Build container
+### Build image
 
 ```sh
 docker-compose build
@@ -67,7 +67,7 @@ docker-compose run api npx cross-env NODE_ENV=test npx sequelize db:create
 docker-compose run api npx cross-env NODE_ENV=development npx sequelize db:migrate
 ```
 
-### Start server
+### Start container
 
 ```sh
 docker-compose up
