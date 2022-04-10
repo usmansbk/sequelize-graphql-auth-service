@@ -87,7 +87,9 @@ describe("FactoryBot", () => {
             include: {
               members: {},
               permissions: {
-                roles: {},
+                include: {
+                  roles: {},
+                },
               },
             },
           },
