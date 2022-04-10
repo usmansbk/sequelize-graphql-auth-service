@@ -3,12 +3,15 @@ import faker from "@faker-js/faker";
 const define = {
   modelName: "File",
   attributes: () => ({
-    key: faker.internet.domainName(),
-    name: "fixture",
-    bucket: faker.word.adverb(),
+    key: faker.datatype.uuid(),
+    name: faker.system.commonFileName(),
+    bucket: faker.system.directoryPath(),
     size: 10000,
-    mimeType: "png",
+    mimeType: faker.system.mimeType(),
   }),
+  associations: {
+    avatar: "user",
+  },
 };
 
 export default define;
