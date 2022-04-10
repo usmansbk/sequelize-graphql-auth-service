@@ -13,9 +13,9 @@ definitions.forEach(({ modelName, attributes }) => {
   const model = db[modelName];
 
   factories[modelName.toLowerCase()] = {
-    attributes,
-    create: (values) => model.create(attributes(values)),
-    build: (values) => model.build(attributes(values)),
+    attributes: (values) => Object.assign(attributes(), values),
+    create: (values) => model.create(Object.assign(attributes(), values)),
+    build: (values) => model.build(Object.assign(attributes(), values)),
     truncate: () => model.destroy({ truncate: true }),
     model,
   };
