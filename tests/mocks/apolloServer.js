@@ -5,7 +5,7 @@ import otp from "~utils/otp";
 import jwt from "~utils/jwt";
 import mailer from "~utils/mailer";
 import cache from "~utils/cache";
-import fileStorage from "~utils/fileStorage";
+import storage from "~utils/storage";
 
 const clientId = process.env.WEB_CLIENT_ID;
 
@@ -47,7 +47,7 @@ const createApolloTestServer = () => {
         mailer,
         clientId,
         isRootUser,
-        fileStorage,
+        storage,
         currentUser,
         ...payload,
       };

@@ -24,8 +24,8 @@ const remove = (options) => {
   });
 };
 
-const fileStorage = {
+const storage = {
   remove,
 };
 
-export default fileStorage;
+export default storage;

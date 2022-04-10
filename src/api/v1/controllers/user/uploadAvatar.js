@@ -45,7 +45,7 @@ const upload = multer({
 const uploadAvatar = async (req, res) => {
   upload(req, res, async (err) => {
     const {
-      context: { fileStorage, currentUser, db },
+      context: { storage, currentUser, db },
       t,
       file,
     } = req;
@@ -57,7 +57,7 @@ const uploadAvatar = async (req, res) => {
         message = IMAGE_TOO_LARGE;
       }
       if (file) {
-        fileStorage.remove(file);
+        storage.remove(file);
       }
       res.status(400).send({
         success: false,

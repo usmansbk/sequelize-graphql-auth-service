@@ -4,7 +4,7 @@ import otp from "~utils/otp";
 import log from "~utils/logger";
 import cache from "~utils/cache";
 import mailer from "~utils/mailer";
-import fileStorage from "~utils/fileStorage";
+import storage from "~utils/storage";
 
 const contextMiddleware = async (req, _res, next) => {
   const { authorization, client_id: clientId } = req.headers;
@@ -37,7 +37,7 @@ const contextMiddleware = async (req, _res, next) => {
     jwt,
     cache,
     isRootUser,
-    fileStorage,
+    storage,
     tokenInfo,
     sessionId,
     clientId,

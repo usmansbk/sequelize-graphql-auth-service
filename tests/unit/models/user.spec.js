@@ -1,7 +1,7 @@
-import fileStorage from "~utils/fileStorage";
+import storage from "~utils/storage";
 import FactoryBot from "tests/factories";
 
-fileStorage.remove = jest.fn().mockReturnValueOnce(Promise.resolve());
+storage.remove = jest.fn().mockReturnValueOnce(Promise.resolve());
 
 describe("User", () => {
   describe("association", () => {
@@ -21,7 +21,7 @@ describe("User", () => {
       const deletedFile = await FactoryBot.db("file").findByPk(file.id);
 
       expect(deletedFile).toBe(null);
-      expect(fileStorage.remove).toBeCalled();
+      expect(storage.remove).toBeCalled();
     });
 
     test("should not cascade role on destroy", async () => {

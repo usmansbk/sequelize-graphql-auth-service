@@ -1,7 +1,7 @@
-import fileStorage from "~utils/fileStorage";
+import storage from "~utils/storage";
 import FactoryBot from "tests/factories";
 
-fileStorage.remove = jest.fn().mockReturnValueOnce(Promise.resolve());
+storage.remove = jest.fn().mockReturnValueOnce(Promise.resolve());
 
 describe("File", () => {
   describe("association", () => {

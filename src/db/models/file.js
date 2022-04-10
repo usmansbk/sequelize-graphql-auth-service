@@ -1,6 +1,6 @@
 import { Model } from "sequelize";
 import { USER_AVATAR_ALIAS } from "~constants/models";
-import fileStorage from "~utils/fileStorage";
+import storage from "~utils/storage";
 
 export default (sequelize, DataTypes) => {
   class File extends Model {
@@ -54,7 +54,7 @@ export default (sequelize, DataTypes) => {
   );
 
   File.afterDestroy("delete s3 file", (fileModel) => {
-    fileStorage.remove(fileModel.toJSON());
+    storage.remove(fileModel.toJSON());
   });
   return File;
 };

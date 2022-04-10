@@ -1,9 +1,9 @@
 import { gql } from "apollo-server-express";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
-import fileStorage from "~utils/fileStorage";
+import storage from "~utils/storage";
 
-fileStorage.remove = jest.fn().mockReturnValueOnce(Promise.resolve());
+storage.remove = jest.fn().mockReturnValueOnce(Promise.resolve());
 
 const query = gql`
   mutation RemoveProfilePicture {
@@ -44,7 +44,7 @@ describe("Mutation.removeCurrentUserAvatar", () => {
       },
       { currentUser: user }
     );
-    expect(fileStorage.remove).toBeCalled();
+    expect(storage.remove).toBeCalled();
     expect(res.data.removeCurrentUserAvatar).toEqual({
       code: "Success",
       message: "Success",
