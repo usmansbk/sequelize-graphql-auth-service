@@ -69,15 +69,43 @@ describe("FactoryBot", () => {
     test("should delete all created rows", async () => {
       await FactoryBot.create("user");
       await FactoryBot.create("role");
-      await FactoryBot.create("permission");
+
+      await FactoryBot.truncate();
+
+      const users = await FactoryBot.db("user").findAll();
+      const roles = await FactoryBot.db("role").findAll();
+
+      expect(users).toHaveLength(0);
+      expect(roles).toHaveLength(0);
+    });
+
+    test("should cascade delete", async () => {
+      await FactoryBot.create("user", {
+        include: {
+          avatar: {},
+          roles: {
+            include: {
+              permissions: {
+                include: {
+                  members: {},
+                },
+              },
+            },
+          },
+        },
+      });
+
+      await FactoryBot.truncate();
 
       const users = await FactoryBot.db("user").findAll();
       const roles = await FactoryBot.db("role").findAll();
       const permissions = await FactoryBot.db("permission").findAll();
+      const files = await FactoryBot.db("file").findAll();
 
       expect(users).toHaveLength(0);
       expect(roles).toHaveLength(0);
       expect(permissions).toHaveLength(0);
+      expect(files).toHaveLength(0);
     });
   });
 });

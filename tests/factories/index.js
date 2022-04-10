@@ -16,7 +16,7 @@ definitions.forEach(({ modelName, attributes, associations }) => {
     attributes: (values) => Object.assign(attributes(), values),
     create: (values) => model.create(Object.assign(attributes(), values)),
     build: (values) => model.build(Object.assign(attributes(), values)),
-    truncate: () => model.destroy({ truncate: true }),
+    truncate: () => model.destroy({ truncate: true, cascade: true }),
     model,
     associations,
   };
