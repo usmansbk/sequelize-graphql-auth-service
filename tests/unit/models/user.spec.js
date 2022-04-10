@@ -5,17 +5,21 @@ fileStorage.remove = jest.fn().mockReturnValueOnce(Promise.resolve());
 
 describe("User", () => {
   describe("association", () => {
-    test("should remove avatar on delete", async () => {
-      const user = await FactoryBot.create("user");
-      const file = await FactoryBot.create("file");
-      await user.setAvatar(file);
+    test("should remove avatar on destroy", async () => {
+      const user = await FactoryBot.create("user", {
+        include: {
+          avatar: {},
+        },
+      });
+      const file = await user.getAvatar();
 
       await user.destroy();
+      const deletedFile = await FactoryBot.db("file").findByPk(file.id);
 
-      const deleted = await FactoryBot.db("file").findByPk(file.id);
-
-      expect(deleted).toBe(null);
+      expect(deletedFile).toBe(null);
       expect(fileStorage.remove).toBeCalled();
     });
+
+    test("should not delete role on destroy", async () => {});
   });
 });
