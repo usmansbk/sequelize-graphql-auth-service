@@ -72,11 +72,11 @@ describe("FactoryBot", () => {
 
       await FactoryBot.truncate();
 
-      const users = await FactoryBot.db("user").findAll();
-      const roles = await FactoryBot.db("role").findAll();
+      const users = await FactoryBot.db("user").count();
+      const roles = await FactoryBot.db("role").count();
 
-      expect(users).toHaveLength(0);
-      expect(roles).toHaveLength(0);
+      expect(users).toBe(0);
+      expect(roles).toBe(0);
     });
 
     test("should cascade delete", async () => {
@@ -98,15 +98,15 @@ describe("FactoryBot", () => {
 
       await FactoryBot.truncate();
 
-      const users = await FactoryBot.db("user").findAll();
-      const roles = await FactoryBot.db("role").findAll();
-      const permissions = await FactoryBot.db("permission").findAll();
-      const files = await FactoryBot.db("file").findAll();
+      const users = await FactoryBot.db("user").count();
+      const roles = await FactoryBot.db("role").count();
+      const permissions = await FactoryBot.db("permission").count();
+      const files = await FactoryBot.db("file").count();
 
-      expect(users).toHaveLength(0);
-      expect(roles).toHaveLength(0);
-      expect(permissions).toHaveLength(0);
-      expect(files).toHaveLength(0);
+      expect(users).toBe(0);
+      expect(roles).toBe(0);
+      expect(permissions).toBe(0);
+      expect(files).toBe(0);
     });
   });
 });

@@ -23,5 +23,20 @@ describe("User", () => {
       expect(deletedFile).toBe(null);
       expect(fileStorage.remove).toBeCalled();
     });
+
+    test("should not cascade role on destroy", async () => {
+      const user = await FactoryBot.create("user", {
+        include: {
+          roles: {
+            _count: 4,
+          },
+        },
+      });
+
+      await user.destroy();
+      const count = await FactoryBot.db("role").count();
+
+      expect(count).toBe(4);
+    });
   });
 });
