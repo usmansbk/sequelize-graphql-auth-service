@@ -35,10 +35,6 @@ describe("Mutation.resetPassword", () => {
     });
   });
 
-  afterAll(async () => {
-    await server.stop();
-  });
-
   afterEach(async () => {
     await FactoryBot.truncate();
   });
@@ -71,7 +67,7 @@ describe("Mutation.resetPassword", () => {
     expect(sid).toBe(null);
   });
 
-  test("should use reset token once", async () => {
+  test("should not allow used token", async () => {
     const newPassword = "password";
     const res = await server.executeOperation({
       query,
@@ -82,13 +78,10 @@ describe("Mutation.resetPassword", () => {
         },
       },
     });
-    await user.reload();
-    const changed = await user.checkPassword(newPassword);
     expect(res.data.resetPassword).toEqual({
       code: "InvalidLink",
       message: "InvalidLink",
       success: false,
     });
-    expect(changed).toBe(false);
   });
 });
