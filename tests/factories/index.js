@@ -22,10 +22,11 @@ definitions.forEach(({ modelName, attributes }) => {
 });
 
 const FactoryBot = {
-  attributesFor: (name, values) => factories[name].attributes(values),
-  create: (name, values) => factories[name].create(values),
-  build: (name, values) => factories[name].build(values),
-  db: (name) => factories[name].model,
+  attributesFor: (name, values) =>
+    factories[name.toLowerCase()].attributes(values),
+  create: (name, values) => factories[name.toLowerCase()].create(values),
+  build: (name, values) => factories[name.toLowerCase()].build(values),
+  db: (name) => factories[name.toLowerCase()].model,
   truncate: () =>
     Object.values(factories).forEach((factory) => factory.truncate()),
 };

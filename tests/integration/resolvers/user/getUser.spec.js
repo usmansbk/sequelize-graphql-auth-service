@@ -1,6 +1,6 @@
 import { gql } from "apollo-server-express";
 import createApolloTestServer from "tests/mocks/apolloServer";
-import UserFactory from "tests/factories/user";
+import FactoryBot from "tests/factories";
 
 const query = gql`
   query getUserById($id: ID!) {
@@ -26,7 +26,7 @@ describe("Query.getUserById", () => {
   });
 
   test("should return user by id", async () => {
-    const user = await UserFactory.create();
+    const user = await FactoryBot.create("user");
 
     const res = await server.executeOperation(
       {
@@ -48,8 +48,8 @@ describe("Query.getUserById", () => {
   });
 
   test("should return null user if not found", async () => {
-    const user = await UserFactory.create();
-    const unregisteredUser = UserFactory.build();
+    const user = await FactoryBot.create("user");
+    const unregisteredUser = FactoryBot.build("user");
 
     const res = await server.executeOperation(
       {

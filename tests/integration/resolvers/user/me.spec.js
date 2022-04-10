@@ -1,6 +1,6 @@
 import { gql } from "apollo-server-express";
 import createApolloTestServer from "tests/mocks/apolloServer";
-import UserFactory from "tests/factories/user";
+import FactoryBot from "tests/factories";
 
 const query = gql`
   query Me {
@@ -30,7 +30,7 @@ describe("Query.me", () => {
   });
 
   test("should return current user", async () => {
-    const user = await UserFactory.create();
+    const user = await FactoryBot.create("user");
 
     const res = await server.executeOperation(
       {
