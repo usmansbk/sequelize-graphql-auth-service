@@ -19,10 +19,8 @@ const query = gql`
 
 describe("Mutation.loginToAdmin", () => {
   let server;
-  let role;
   beforeAll(async () => {
     server = createApolloTestServer();
-    role = await FactoryBot.create("role", { name: "admin" });
   });
 
   afterAll(async () => {
@@ -31,8 +29,16 @@ describe("Mutation.loginToAdmin", () => {
 
   test("should login a user with correct username & password combination", async () => {
     const fields = FactoryBot.attributesFor("user", { emailVerified: true });
-    const user = await FactoryBot.create("user", fields);
-    await user.addRole(role);
+    await FactoryBot.create("user", {
+      ...fields,
+      include: {
+        roles: {
+          attributes: {
+            name: "admin",
+          },
+        },
+      },
+    });
 
     const {
       data: { loginToAdmin },
@@ -72,8 +78,16 @@ describe("Mutation.loginToAdmin", () => {
   });
 
   test("should not login admin with wrong username & password combination", async () => {
-    const user = await FactoryBot.create("user", { emailVerified: true });
-    await user.addRole(role);
+    const user = await FactoryBot.create("user", {
+      emailVerified: true,
+      include: {
+        roles: {
+          attributes: {
+            name: "admin",
+          },
+        },
+      },
+    });
 
     const {
       data: { loginToAdmin },
@@ -92,8 +106,16 @@ describe("Mutation.loginToAdmin", () => {
   });
 
   test("should report on 5 failed attempts if account with verified email exist", async () => {
-    const user = await FactoryBot.create("user", { emailVerified: true });
-    await user.addRole(role);
+    const user = await FactoryBot.create("user", {
+      emailVerified: true,
+      include: {
+        roles: {
+          attributes: {
+            name: "admin",
+          },
+        },
+      },
+    });
 
     const attempts = new Array(5).fill(user.toJSON()).map(
       ({ username }) =>

@@ -21,10 +21,15 @@ definitions.forEach(({ modelName, attributes }) => {
   };
 });
 
+const create = async (name, { associations, ...values } = {}) => {
+  const model = await factories[name.toLowerCase()].create(values);
+  return model;
+};
+
 const FactoryBot = {
+  create,
   attributesFor: (name, values) =>
     factories[name.toLowerCase()].attributes(values),
-  create: (name, values) => factories[name.toLowerCase()].create(values),
   build: (name, values) => factories[name.toLowerCase()].build(values),
   db: (name) => factories[name.toLowerCase()].model,
   truncate: () =>
