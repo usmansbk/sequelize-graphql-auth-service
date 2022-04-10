@@ -49,18 +49,21 @@ const create = async (name, { include, ...values } = {}) => {
       }
 
       const { accessors, isMultiAssociation } = association;
-      const { _count, ...fields } = include[alias];
+      const input = include[alias];
       let relationship;
-      if (isMultiAssociation && Array.isArray(fields)) {
+      if (isMultiAssociation && Array.isArray(input)) {
         relationship = await Promise.all(
-          fields.map((i) => create(factoryName, i))
-        );
-      } else if (isMultiAssociation && _count) {
-        relationship = await Promise.all(
-          new Array(_count).fill(fields).map((i) => create(factoryName, i))
+          input.map((i) => create(factoryName, i))
         );
       } else {
-        relationship = await create(factoryName, fields);
+        const { _count, ...fields } = input;
+        if (isMultiAssociation && _count) {
+          relationship = await Promise.all(
+            new Array(_count).fill(fields).map((i) => create(factoryName, i))
+          );
+        } else {
+          relationship = await create(factoryName, fields);
+        }
       }
       await newInstance[accessors.set](relationship);
     }
