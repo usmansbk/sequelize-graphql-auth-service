@@ -5,6 +5,10 @@ fileStorage.remove = jest.fn().mockReturnValueOnce(Promise.resolve());
 
 describe("File", () => {
   describe("association", () => {
+    afterEach(async () => {
+      await FactoryBot.truncate();
+    });
+
     test("should not delete user on delete", async () => {
       const user = await FactoryBot.create("user");
       const file = await FactoryBot.create("file");

@@ -5,6 +5,10 @@ fileStorage.remove = jest.fn().mockReturnValueOnce(Promise.resolve());
 
 describe("User", () => {
   describe("association", () => {
+    afterEach(async () => {
+      await FactoryBot.truncate();
+    });
+
     test("should remove avatar on destroy", async () => {
       const user = await FactoryBot.create("user", {
         include: {
