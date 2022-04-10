@@ -9,6 +9,9 @@ const define = {
     size: 10000,
     mimeType: faker.system.mimeType(),
   }),
+  associations: {
+    avatar: "user",
+  },
 };
 
 export default define;
