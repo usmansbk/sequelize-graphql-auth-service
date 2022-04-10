@@ -5,7 +5,7 @@ fileStorage.remove = jest.fn().mockReturnValueOnce(Promise.resolve());
 
 describe("User", () => {
   describe("association", () => {
-    afterEach(async () => {
+    beforeEach(async () => {
       await FactoryBot.truncate();
     });
 

@@ -27,7 +27,7 @@ describe("Mutation.loginWithEmail", () => {
     await server.stop();
   });
 
-  afterEach(async () => {
+  beforeEach(async () => {
     await FactoryBot.truncate();
   });
 

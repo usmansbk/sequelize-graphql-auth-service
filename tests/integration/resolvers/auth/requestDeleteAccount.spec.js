@@ -29,7 +29,7 @@ describe("Mutation.requestDeleteAccount", () => {
     await server.stop();
   });
 
-  afterEach(async () => {
+  beforeEach(async () => {
     await FactoryBot.truncate();
   });
 

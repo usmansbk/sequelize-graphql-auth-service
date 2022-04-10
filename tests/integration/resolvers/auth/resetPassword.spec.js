@@ -21,6 +21,7 @@ describe("Mutation.resetPassword", () => {
   let user;
   let token;
   beforeAll(async () => {
+    await FactoryBot.truncate();
     server = createApolloTestServer();
     user = await FactoryBot.create("user");
     const result = jwt.generateToken({
@@ -33,10 +34,6 @@ describe("Mutation.resetPassword", () => {
       value: result.token,
       expiresIn: dayjs.duration(1, "minutes").asMilliseconds(),
     });
-  });
-
-  afterEach(async () => {
-    await FactoryBot.truncate();
   });
 
   test("should update password and logout", async () => {

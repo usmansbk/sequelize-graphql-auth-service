@@ -28,7 +28,7 @@ describe("Mutation.logout", () => {
     currentUser = await FactoryBot.create("user");
   });
 
-  afterEach(async () => {
+  beforeEach(async () => {
     await FactoryBot.truncate();
   });
 
