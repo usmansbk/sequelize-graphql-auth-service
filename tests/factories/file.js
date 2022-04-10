@@ -18,6 +18,7 @@ const FileFactory = {
   attributes,
   create,
   build,
+  model: db.File,
 };
 
 export default FileFactory;
