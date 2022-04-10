@@ -1,7 +1,7 @@
 import { gql } from "apollo-server-express";
 import createApolloTestServer from "tests/mocks/apolloServer";
+import FactoryBot from "tests/factories";
 import mailer from "~utils/mailer";
-import UserFactory from "tests/factories/user";
 
 mailer.sendEmail = jest.fn();
 
@@ -28,8 +28,8 @@ describe("Mutation.loginWithEmail", () => {
   });
 
   test("should login a user with correct email & password combination", async () => {
-    const fields = UserFactory.attributes();
-    await UserFactory.create(fields);
+    const fields = FactoryBot.attributesFor("user");
+    await FactoryBot.create("user", fields);
 
     const {
       data: { loginWithEmail },
@@ -48,8 +48,7 @@ describe("Mutation.loginWithEmail", () => {
   });
 
   test("should not login a user with wrong email & password combination", async () => {
-    const fields = UserFactory.attributes();
-    await UserFactory.create(fields);
+    const user = await FactoryBot.create("user");
 
     const {
       data: { loginWithEmail },
@@ -57,8 +56,8 @@ describe("Mutation.loginWithEmail", () => {
       query,
       variables: {
         input: {
-          email: fields.email,
-          password: fields.email,
+          email: user.email,
+          password: "wrong-password",
         },
       },
     });
@@ -68,10 +67,11 @@ describe("Mutation.loginWithEmail", () => {
   });
 
   test("should report on 5 failed attempts if account with verified email exist", async () => {
-    const fields = UserFactory.attributes({ emailVerified: true });
-    await UserFactory.create(fields);
+    const user = await FactoryBot.create("user", fields, {
+      emailVerified: true,
+    });
 
-    const attempts = new Array(5).fill(fields).map(
+    const attempts = new Array(5).fill(user.toJSON()).map(
       ({ email }) =>
         new Promise((resolve) =>
           server
@@ -80,7 +80,7 @@ describe("Mutation.loginWithEmail", () => {
               variables: {
                 input: {
                   email,
-                  password: email,
+                  password: "wrong-password",
                 },
               },
             })

@@ -1,7 +1,7 @@
 import { gql } from "apollo-server-express";
-import mailer from "~utils/mailer";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
+import mailer from "~utils/mailer";
 
 jest.mock("~utils/mailer", () => {
   return {

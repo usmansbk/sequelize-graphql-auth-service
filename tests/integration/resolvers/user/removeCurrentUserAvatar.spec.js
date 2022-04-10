@@ -1,7 +1,7 @@
 import { gql } from "apollo-server-express";
-import fileStorage from "~utils/fileStorage";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
+import fileStorage from "~utils/fileStorage";
 
 fileStorage.remove = jest.fn().mockReturnValueOnce(Promise.resolve());
 

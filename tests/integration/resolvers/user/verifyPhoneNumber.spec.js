@@ -1,8 +1,8 @@
 import { gql } from "apollo-server-express";
-import store from "~utils/store";
-import { PHONE_NUMBER_KEY_PREFIX } from "~constants/auth";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
+import store from "~utils/store";
+import { PHONE_NUMBER_KEY_PREFIX } from "~constants/auth";
 
 const query = gql`
   mutation VerifyPhoneNumber($token: String!) {
