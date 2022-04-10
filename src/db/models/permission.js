@@ -7,7 +7,6 @@ import {
   PERMISSION_INVALID_NAME_ERROR,
 } from "~constants/i18n";
 import { ROLES_ALIAS, ROLE_PERMISSIONS_JOIN_TABLE } from "~constants/models";
-import { actions, resources } from "~constants/auth";
 
 export default (sequelize, DataTypes) => {
   class Permission extends Model {
@@ -54,11 +53,11 @@ export default (sequelize, DataTypes) => {
         },
       },
       action: {
-        type: DataTypes.ENUM(actions),
+        type: DataTypes.STRING,
         allowNull: false,
       },
       resource: {
-        type: DataTypes.ENUM(resources),
+        type: DataTypes.STRING,
         allowNull: false,
       },
       description: {
