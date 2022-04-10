@@ -16,9 +16,7 @@ describe("FactoryBot", () => {
         },
       });
 
-      const count = await user.countRoles();
-
-      expect(count).toBe(1);
+      expect(user.roles).toHaveLength(1);
     });
 
     test("should create new model instance with nested association", async () => {
@@ -32,10 +30,7 @@ describe("FactoryBot", () => {
         },
       });
 
-      const [role] = await user.getRoles();
-      const count = await role.countPermissions();
-
-      expect(count).toBe(1);
+      expect(user.roles[0].permissions).toHaveLength(1);
     });
 
     test("should create new model instance with multiple associations using _count option", async () => {
@@ -47,9 +42,7 @@ describe("FactoryBot", () => {
         },
       });
 
-      const count = await user.countRoles();
-
-      expect(count).toBe(3);
+      expect(user.roles).toHaveLength(3);
     });
 
     test("should create new model instance with multiple associations using array values", async () => {
@@ -59,9 +52,7 @@ describe("FactoryBot", () => {
         },
       });
 
-      const count = await user.countRoles();
-
-      expect(count).toBe(2);
+      expect(user.roles).toHaveLength(2);
     });
   });
 

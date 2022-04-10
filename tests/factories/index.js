@@ -1,6 +1,7 @@
 import path from "path";
 import { loadFilesSync } from "@graphql-tools/load-files";
 import db from "~db/models";
+import { buildIncludeQuery } from "~utils/transformers/filter";
 
 const definitions = loadFilesSync(path.join(__dirname, "."), {
   ignoreIndex: true,
@@ -23,7 +24,7 @@ definitions.forEach(({ modelName, attributes, associations }) => {
 });
 
 const create = async (name, { include, ...values } = {}) => {
-  const newInstance = await factories[name.toLowerCase()].create(values);
+  let newInstance = await factories[name.toLowerCase()].create(values);
   if (include) {
     const { associations, model } = factories[name];
     if (!associations) {
@@ -66,6 +67,10 @@ const create = async (name, { include, ...values } = {}) => {
         }
       }
       await newInstance[accessors.set](relationship);
+
+      newInstance = await model.findByPk(newInstance.id, {
+        include: [{ association: alias }],
+      });
     }
   }
   return newInstance;

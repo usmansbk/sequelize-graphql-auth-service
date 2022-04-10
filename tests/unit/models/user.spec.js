@@ -15,7 +15,7 @@ describe("User", () => {
           avatar: {},
         },
       });
-      const file = await user.getAvatar();
+      const file = user.avatar;
 
       await user.destroy();
       const deletedFile = await FactoryBot.db("file").findByPk(file.id);

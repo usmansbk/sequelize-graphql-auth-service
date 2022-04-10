@@ -10,9 +10,12 @@ describe("File", () => {
     });
 
     test("should not delete user on delete", async () => {
-      const user = await FactoryBot.create("user");
-      const file = await FactoryBot.create("file");
-      await user.setAvatar(file);
+      const user = await FactoryBot.create("user", {
+        include: {
+          avatar: {},
+        },
+      });
+      const file = user.avatar;
 
       await file.destroy();
 
