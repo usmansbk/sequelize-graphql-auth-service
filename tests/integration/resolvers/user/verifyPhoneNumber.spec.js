@@ -1,7 +1,7 @@
 import { gql } from "apollo-server-express";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
-import store from "~utils/store";
+import cache from "~utils/cache";
 import { PHONE_NUMBER_KEY_PREFIX } from "~constants/auth";
 
 const query = gql`
@@ -37,7 +37,7 @@ describe("Mutation.verifyPhoneNumber", () => {
 
     const token = "mockToken";
     const key = `${PHONE_NUMBER_KEY_PREFIX}:${currentUser.id}`;
-    await store.set({
+    await cache.set({
       key,
       value: token,
       expiresIn: 10000,

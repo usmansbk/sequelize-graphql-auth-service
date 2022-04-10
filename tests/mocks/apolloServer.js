@@ -4,7 +4,7 @@ import dataSources from "~api/graphql/datasources";
 import otp from "~utils/otp";
 import jwt from "~utils/jwt";
 import mailer from "~utils/mailer";
-import store from "~utils/store";
+import cache from "~utils/cache";
 import fileStorage from "~utils/fileStorage";
 
 const clientId = process.env.WEB_CLIENT_ID;
@@ -14,7 +14,7 @@ const login = async (user) => {
     aud: clientId,
     sub: user.id,
   });
-  await store.set({
+  await cache.set({
     key: `${clientId}:${user.id}`,
     value: sid,
     expiresIn: exp,
@@ -43,7 +43,7 @@ const createApolloTestServer = () => {
         t: (msg) => msg,
         otp,
         jwt,
-        store,
+        cache,
         mailer,
         clientId,
         isRootUser,

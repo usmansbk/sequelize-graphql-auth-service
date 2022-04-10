@@ -9,14 +9,14 @@ export default {
     async requestEmailOTP(
       _parent,
       { email },
-      { locale, store, t, otp, mailer, dataSources }
+      { locale, cache, t, otp, mailer, dataSources }
     ) {
       try {
         const { firstName, id, emailVerified } =
           await dataSources.users.findOne({ where: { email } });
 
         const key = `${EMAIL_OTP_KEY_PREFIX}:${id}`;
-        const sentToken = await store.get(key);
+        const sentToken = await cache.get(key);
 
         if (!emailVerified) {
           throw new QueryError(EMAIL_NOT_VERIFIED);
@@ -25,7 +25,7 @@ export default {
         if (!sentToken) {
           const token = otp.getEmailOTP();
 
-          await store.set({
+          await cache.set({
             key,
             value: token,
             expiresIn: EMAIL_OTP_EXPIRES_IN,

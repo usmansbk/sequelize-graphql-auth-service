@@ -8,19 +8,19 @@ export default {
     async requestCurrentUserPhoneNumberVerification(
       _parent,
       { phoneNumber },
-      { currentUser, store, t, otp, mailer }
+      { currentUser, cache, t, otp, mailer }
     ) {
       try {
         const user = await currentUser.cache().update({ phoneNumber });
 
         const { id, phoneNumberVerified } = user;
         const key = `${PHONE_NUMBER_KEY_PREFIX}:${id}`;
-        const sentToken = await store.get(key);
+        const sentToken = await cache.get(key);
 
         if (!(sentToken || phoneNumberVerified)) {
           const token = otp.getNumberCode();
 
-          await store.set({
+          await cache.set({
             key,
             value: token,
             expiresIn: SMS_OTP_EXPIRES_IN,

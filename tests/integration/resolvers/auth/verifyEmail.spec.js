@@ -1,7 +1,7 @@
 import { gql } from "apollo-server-express";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
-import store from "~utils/store";
+import cache from "~utils/cache";
 import mailer from "~utils/mailer";
 import jwt from "~utils/jwt";
 import { EMAIL_VERIFICATION_KEY_PREFIX } from "~constants/auth";
@@ -44,7 +44,7 @@ describe("Mutation.verifyEmail", () => {
     });
 
     const key = `${EMAIL_VERIFICATION_KEY_PREFIX}:${user.id}`;
-    await store.set({
+    await cache.set({
       key,
       value: token,
       expiresIn: exp,

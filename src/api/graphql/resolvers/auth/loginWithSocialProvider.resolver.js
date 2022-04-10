@@ -8,7 +8,7 @@ export default {
     async loginWithSocialProvider(
       _parent,
       { input },
-      { t, dataSources, jwt, clientId, store }
+      { t, dataSources, jwt, clientId, cache }
     ) {
       try {
         const userInfo = await jwt.verifySocialToken(input);
@@ -24,7 +24,7 @@ export default {
         });
 
         // refresh token rotation
-        await store.set({
+        await cache.set({
           key: `${clientId}:${id}`,
           value: sid,
           expiresIn: exp,

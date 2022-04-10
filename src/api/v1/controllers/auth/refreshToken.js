@@ -8,7 +8,7 @@ const refreshTokenController = async (req, res) => {
     client_id: clientId,
   } = req.headers;
   const {
-    context: { store, jwt },
+    context: { cache, jwt },
     t,
   } = req;
 
@@ -17,7 +17,7 @@ const refreshTokenController = async (req, res) => {
     const decodedRefreshToken = jwt.verify(rfToken); // this will throw an error if invalid
 
     const key = `${clientId}:${expiredToken.sub}`;
-    const expectedJti = await store.get(key);
+    const expectedJti = await cache.get(key);
 
     if (decodedRefreshToken.jti !== expectedJti) {
       throw new TokenError(TOKEN_INVALID_ERROR);
@@ -29,7 +29,7 @@ const refreshTokenController = async (req, res) => {
     });
 
     // rotate refresh token
-    await store.set({
+    await cache.set({
       key,
       value: sid,
       expiresIn: exp,

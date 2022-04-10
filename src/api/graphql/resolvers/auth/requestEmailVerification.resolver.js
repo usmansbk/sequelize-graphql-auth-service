@@ -12,7 +12,7 @@ export default {
     async requestEmailVerification(
       _parent,
       { email },
-      { locale, store, t, jwt, clientId, mailer, dataSources }
+      { locale, cache, t, jwt, clientId, mailer, dataSources }
     ) {
       const { firstName, id, emailVerified } = await dataSources.users.findOne({
         where: { email },
@@ -20,7 +20,7 @@ export default {
 
       const key = `${EMAIL_VERIFICATION_KEY_PREFIX}:${id}`;
 
-      const sentToken = await store.get(key);
+      const sentToken = await cache.get(key);
 
       if (!(sentToken || emailVerified)) {
         const { token, exp } = jwt.generateToken(
@@ -31,7 +31,7 @@ export default {
           EMAIL_VERIFICATION_TOKEN_EXPIRES_IN
         );
 
-        await store.set({
+        await cache.set({
           key,
           value: token,
           expiresIn: exp,

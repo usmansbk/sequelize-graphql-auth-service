@@ -1,7 +1,7 @@
 import { gql } from "apollo-server-express";
 import FactoryBot from "tests/factories";
 import createApolloTestServer from "tests/mocks/apolloServer";
-import store from "~utils/store";
+import cache from "~utils/cache";
 
 const query = gql`
   mutation Logout($all: Boolean) {
@@ -34,7 +34,7 @@ describe("Mutation.logout", () => {
 
   test("should clear current user session", async () => {
     const res = await server.executeOperation({ query }, { currentUser });
-    const sessionId = await store.get(
+    const sessionId = await cache.get(
       `${process.env.WEB_CLIENT_ID}:${currentUser.id}`
     );
     expect(res.data.logout).toEqual({
@@ -57,7 +57,7 @@ describe("Mutation.logout", () => {
         currentUser,
       }
     );
-    const sessionId = await store.get(
+    const sessionId = await cache.get(
       `${process.env.WEB_CLIENT_ID}:${currentUser.id}`
     );
 

@@ -10,13 +10,13 @@ export default {
     async verifyEmail(
       _parent,
       { token },
-      { dataSources, store, t, jwt, mailer, locale }
+      { dataSources, cache, t, jwt, mailer, locale }
     ) {
       try {
         const { sub } = jwt.verify(token);
         const key = `${EMAIL_VERIFICATION_KEY_PREFIX}:${sub}`;
 
-        const expectedToken = await store.get(key);
+        const expectedToken = await cache.get(key);
 
         if (token !== expectedToken) {
           throw new QueryError(INVALID_LINK);
@@ -27,7 +27,7 @@ export default {
           status: ACCOUNT_STATUS.ACTIVE,
         });
 
-        await store.remove(key);
+        await cache.remove(key);
 
         const { email, firstName } = user;
 

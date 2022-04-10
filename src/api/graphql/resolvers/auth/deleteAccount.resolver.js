@@ -5,11 +5,11 @@ import { DELETE_ACCOUNT_KEY_PREFIX } from "~constants/auth";
 
 export default {
   Mutation: {
-    async deleteAccount(_parent, { token }, { dataSources, store, t, jwt }) {
+    async deleteAccount(_parent, { token }, { dataSources, cache, t, jwt }) {
       try {
         const { sub } = jwt.verify(token);
         const key = `${DELETE_ACCOUNT_KEY_PREFIX}:${sub}`;
-        const expectedToken = await store.get(key);
+        const expectedToken = await cache.get(key);
 
         if (token !== expectedToken) {
           throw new QueryError(INVALID_LINK);

@@ -2,7 +2,7 @@ import { gql } from "apollo-server-express";
 import dayjs from "dayjs";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
-import store from "~utils/store";
+import cache from "~utils/cache";
 import jwt from "~utils/jwt";
 import { PASSWORD_KEY_PREFIX } from "~constants/auth";
 
@@ -29,7 +29,7 @@ describe("Mutation.resetPassword", () => {
       aud: process.env.WEB_CLIENT_ID,
     });
     token = result.token;
-    await store.set({
+    await cache.set({
       key: `${PASSWORD_KEY_PREFIX}:${user.id}`,
       value: result.token,
       expiresIn: dayjs.duration(1, "minutes").asMilliseconds(),
@@ -53,7 +53,7 @@ describe("Mutation.resetPassword", () => {
 
     await user.reload();
     const changed = await user.checkPassword(password);
-    const sid = await store.get(`${process.env.WEB_CLIENT_ID}:${user.id}`);
+    const sid = await cache.get(`${process.env.WEB_CLIENT_ID}:${user.id}`);
 
     expect(res.data.resetPassword).toEqual({
       code: "PasswordChanged",

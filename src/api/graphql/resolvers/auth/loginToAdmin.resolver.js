@@ -16,7 +16,7 @@ export default {
     async loginToAdmin(
       _parent,
       { input },
-      { dataSources, jwt, t, store, clientId, mailer, locale }
+      { dataSources, jwt, t, cache, clientId, mailer, locale }
     ) {
       try {
         const [user, granted] =
@@ -28,7 +28,7 @@ export default {
 
         const attemptCountKey = `${FAILED_LOGIN_ATTEMPT_KEY_PREFIX}:${input.username}`;
         if (user && !granted) {
-          const attempts = await store.increment(attemptCountKey);
+          const attempts = await cache.increment(attemptCountKey);
           if (attempts === MAX_LOGIN_ATTEMPTS) {
             mailer.sendEmail({
               template: emailTemplates.FAILED_LOGIN,
@@ -47,7 +47,7 @@ export default {
           throw new QueryError(INCORRECT_USERNAME_OR_PASSWORD);
         }
 
-        await store.remove(attemptCountKey);
+        await cache.remove(attemptCountKey);
 
         const { id, firstName } = user;
 
@@ -57,7 +57,7 @@ export default {
         });
 
         // refresh token rotation
-        await store.set({
+        await cache.set({
           key: `${clientId}:${id}`,
           value: sid,
           expiresIn: exp,

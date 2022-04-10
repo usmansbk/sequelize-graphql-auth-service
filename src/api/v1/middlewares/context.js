@@ -2,7 +2,7 @@ import db from "~db/models";
 import jwt from "~utils/jwt";
 import otp from "~utils/otp";
 import log from "~utils/logger";
-import store from "~utils/store";
+import cache from "~utils/cache";
 import mailer from "~utils/mailer";
 import fileStorage from "~utils/fileStorage";
 
@@ -18,7 +18,7 @@ const contextMiddleware = async (req, _res, next) => {
   if (accessToken) {
     try {
       tokenInfo = jwt.verify(accessToken);
-      sessionId = await store.get(`${clientId}:${tokenInfo.sub}`);
+      sessionId = await cache.get(`${clientId}:${tokenInfo.sub}`);
       currentUser = await db.User.scope("permissions")
         .cache()
         .findByPk(tokenInfo.sub);
@@ -35,7 +35,7 @@ const contextMiddleware = async (req, _res, next) => {
     db,
     otp,
     jwt,
-    store,
+    cache,
     isRootUser,
     fileStorage,
     tokenInfo,

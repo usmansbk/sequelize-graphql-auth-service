@@ -8,12 +8,12 @@ export default {
     async resetPassword(
       _parent,
       { input: { password, token } },
-      { dataSources, store, t, jwt }
+      { dataSources, cache, t, jwt }
     ) {
       try {
         const { sub } = jwt.verify(token);
         const key = `${PASSWORD_KEY_PREFIX}:${sub}`;
-        const expectedToken = await store.get(key);
+        const expectedToken = await cache.get(key);
 
         if (token !== expectedToken) {
           // we can report suspicious activity here
@@ -22,11 +22,11 @@ export default {
 
         await dataSources.users.update(sub, { password, emailVerified: true });
 
-        await store.remove(key);
+        await cache.remove(key);
 
         // invalidate all refresh tokens
         await Promise.all(
-          jwt.audience.map((aud) => store.remove(`${aud}:${sub}`))
+          jwt.audience.map((aud) => cache.remove(`${aud}:${sub}`))
         );
 
         // we can send an email here to inform user of the change...

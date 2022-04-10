@@ -7,7 +7,7 @@ export default {
     async registerWithEmail(
       _parent,
       { input },
-      { dataSources, jwt, t, store, clientId }
+      { dataSources, jwt, t, cache, clientId }
     ) {
       try {
         const { id, firstName } = await dataSources.users.createWithEmail(
@@ -20,7 +20,7 @@ export default {
         });
 
         // refresh token rotation
-        await store.set({
+        await cache.set({
           key: `${clientId}:${id}`,
           value: sid,
           expiresIn: exp,

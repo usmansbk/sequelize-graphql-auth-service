@@ -1,7 +1,7 @@
 import { gql } from "apollo-server-express";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
-import store from "~utils/store";
+import cache from "~utils/cache";
 import jwt from "~utils/jwt";
 import { DELETE_ACCOUNT_KEY_PREFIX } from "~constants/auth";
 
@@ -39,7 +39,7 @@ describe("Mutation.deleteAccount", () => {
       aud: process.env.WEB_CLIENT_ID,
     });
     token = payload.token;
-    await store.set({
+    await cache.set({
       key,
       value: token,
       expiresIn: payload.exp,

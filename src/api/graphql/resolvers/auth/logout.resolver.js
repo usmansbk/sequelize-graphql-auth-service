@@ -4,17 +4,17 @@ import { LOGGED_OUT } from "~constants/i18n";
 export default {
   Mutation: {
     // Log out is idempotent
-    async logout(_parent, { all }, { store, t, accessToken, jwt, clientId }) {
+    async logout(_parent, { all }, { cache, t, accessToken, jwt, clientId }) {
       if (accessToken) {
         const { sub } = jwt.decode(accessToken);
 
         // delete session
         if (all) {
           await Promise.all(
-            jwt.audience.map((aud) => store.remove(`${aud}:${sub}`))
+            jwt.audience.map((aud) => cache.remove(`${aud}:${sub}`))
           );
         } else {
-          await store.remove(`${clientId}:${sub}`);
+          await cache.remove(`${clientId}:${sub}`);
         }
       }
 

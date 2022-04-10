@@ -13,7 +13,7 @@ export default {
     async loginWithEmail(
       _parent,
       { input },
-      { dataSources, jwt, t, store, clientId, mailer, locale }
+      { dataSources, jwt, t, cache, clientId, mailer, locale }
     ) {
       try {
         const [user, granted] = await dataSources.users.findByEmailAndPassword(
@@ -22,7 +22,7 @@ export default {
 
         const attemptCountKey = `${FAILED_LOGIN_ATTEMPT_KEY_PREFIX}:${input.email}`;
         if (user && !granted) {
-          const attempts = await store.increment(attemptCountKey);
+          const attempts = await cache.increment(attemptCountKey);
           if (attempts === MAX_LOGIN_ATTEMPTS) {
             await dataSources.users.update(user.id, {
               status: ACCOUNT_STATUS.LOCKED,
@@ -44,7 +44,7 @@ export default {
           throw new QueryError(INCORRECT_EMAIL_OR_PASSWORD);
         }
 
-        await store.remove(attemptCountKey);
+        await cache.remove(attemptCountKey);
 
         const { id, firstName } = user;
 
@@ -54,7 +54,7 @@ export default {
         });
 
         // refresh token rotation
-        await store.set({
+        await cache.set({
           key: `${clientId}:${id}`,
           value: sid,
           expiresIn: exp,

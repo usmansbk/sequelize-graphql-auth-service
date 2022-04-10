@@ -1,8 +1,8 @@
 import db from "~db/models";
-import store from "~utils/store";
+import cache from "~utils/cache";
 
 afterEach(async () => {
-  await store.clearAll();
+  await cache.clearAll();
 });
 
 afterAll(async () => {

@@ -8,13 +8,13 @@ export default {
     async verifyPhoneNumber(
       _parent,
       { token },
-      { dataSources, store, tokenInfo, t }
+      { dataSources, cache, tokenInfo, t }
     ) {
       try {
         const { sub } = tokenInfo;
         const key = `${PHONE_NUMBER_KEY_PREFIX}:${sub}`;
 
-        const expectedToken = await store.get(key);
+        const expectedToken = await cache.get(key);
 
         if (token !== expectedToken) {
           throw new QueryError(INVALID_OTP);
@@ -24,7 +24,7 @@ export default {
           phoneNumberVerified: true,
         });
 
-        await store.remove(key);
+        await cache.remove(key);
 
         return Success({
           message: t(PHONE_NUMBER_VERIFIED),

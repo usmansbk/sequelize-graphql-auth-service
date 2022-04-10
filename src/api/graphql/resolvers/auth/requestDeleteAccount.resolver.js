@@ -12,11 +12,11 @@ export default {
     async requestDeleteAccount(
       _parent,
       _args,
-      { locale, store, t, jwt, clientId, mailer, currentUser }
+      { locale, cache, t, jwt, clientId, mailer, currentUser }
     ) {
       const { firstName, id, email } = currentUser;
       const key = `${DELETE_ACCOUNT_KEY_PREFIX}:${id}`;
-      const sentToken = await store.get(key);
+      const sentToken = await cache.get(key);
 
       if (!sentToken) {
         const { token, exp } = jwt.generateToken(
@@ -27,7 +27,7 @@ export default {
           DELETE_ACCOUNT_TOKEN_EXPIRES_IN
         );
 
-        await store.set({
+        await cache.set({
           key,
           value: token,
           expiresIn: exp,
