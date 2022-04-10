@@ -7,6 +7,9 @@ const define = {
     resource: faker.database.column(),
     action: faker.database.column(),
   }),
+  associations: {
+    roles: "role",
+  },
 };
 
 export default define;

@@ -11,6 +11,10 @@ const define = {
     username: faker.internet.userName(),
     locale: "en",
   }),
+  associations: {
+    avatar: "file",
+    roles: "role",
+  },
 };
 
 export default define;

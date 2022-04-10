@@ -5,6 +5,10 @@ const define = {
   attributes: () => ({
     name: faker.word.adverb(),
   }),
+  associations: {
+    members: "user",
+    permissions: "permission",
+  },
 };
 
 export default define;
