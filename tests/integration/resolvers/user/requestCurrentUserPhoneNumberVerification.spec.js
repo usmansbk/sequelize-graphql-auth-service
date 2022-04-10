@@ -1,7 +1,7 @@
 import { gql } from "apollo-server-express";
-import mailer from "~utils/mailer";
 import createApolloTestServer from "tests/mocks/apolloServer";
-import UserFactory from "tests/factories/user";
+import FactoryBot from "tests/factories";
+import mailer from "~utils/mailer";
 
 jest.mock("~utils/mailer", () => {
   return {
@@ -37,21 +37,21 @@ describe("Mutation.requestCurrentUserPhoneNumberVerification", () => {
     const { errors } = await server.executeOperation({
       query,
       variables: {
-        phoneNumber: "+2348037863727",
+        phoneNumber: FactoryBot.attributesFor("user").phoneNumber,
       },
     });
     expect(errors[0].message).toMatch("Unauthenticated");
   });
 
   test("should send an sms to logged-in user", async () => {
-    const currentUser = await UserFactory.create({
+    const currentUser = await FactoryBot.create("user", {
       phoneNumberVerified: true,
     });
     const res = await server.executeOperation(
       {
         query,
         variables: {
-          phoneNumber: "+2348037863727",
+          phoneNumber: FactoryBot.attributesFor("user").phoneNumber,
         },
       },
       { currentUser }
@@ -69,14 +69,14 @@ describe("Mutation.requestCurrentUserPhoneNumberVerification", () => {
   });
 
   test("should unverify phone number", async () => {
-    const currentUser = await UserFactory.create({
+    const currentUser = await FactoryBot.create("user", {
       phoneNumberVerified: true,
     });
     const res = await server.executeOperation(
       {
         query,
         variables: {
-          phoneNumber: UserFactory.attributes().phoneNumber,
+          phoneNumber: FactoryBot.attributesFor("user").phoneNumber,
         },
       },
       { currentUser }

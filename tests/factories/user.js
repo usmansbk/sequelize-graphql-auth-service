@@ -1,5 +1,4 @@
 import faker from "@faker-js/faker";
-import db from "~db/models";
 
 const attributes = (fields = {}) => ({
   firstName: faker.name.firstName(),
@@ -12,15 +11,9 @@ const attributes = (fields = {}) => ({
   ...fields,
 });
 
-const create = (values) => db.User.create(attributes(values));
-
-const build = (values) => db.File.build(attributes(values));
-
-const UserFactory = {
+const define = {
+  modelName: "User",
   attributes,
-  create,
-  build,
-  model: db.User,
 };
 
-export default UserFactory;
+export default define;

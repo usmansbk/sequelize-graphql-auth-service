@@ -1,7 +1,7 @@
 import { gql } from "apollo-server-express";
-import mailer from "~utils/mailer";
 import createApolloTestServer from "tests/mocks/apolloServer";
-import UserFactory from "tests/factories/user";
+import FactoryBot from "tests/factories";
+import mailer from "~utils/mailer";
 
 jest.mock("~utils/mailer", () => {
   return {
@@ -30,7 +30,9 @@ describe("Mutation.requestEmailVerification", () => {
   });
 
   test("should not send an email to a verified user", async () => {
-    const currentUser = await UserFactory.create({ emailVerified: true });
+    const currentUser = await FactoryBot.create("user", {
+      emailVerified: true,
+    });
     await server.executeOperation({
       query,
       variables: {
@@ -41,7 +43,7 @@ describe("Mutation.requestEmailVerification", () => {
   });
 
   test("should send an email to an unverified user", async () => {
-    const currentUser = await UserFactory.create();
+    const currentUser = await FactoryBot.create("user");
     await server.executeOperation({
       query,
       variables: {

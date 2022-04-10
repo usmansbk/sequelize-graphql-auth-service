@@ -1,5 +1,4 @@
 import faker from "@faker-js/faker";
-import db from "~db/models";
 
 const attributes = (fields = {}) => ({
   name: faker.word.adverb(),
@@ -8,15 +7,9 @@ const attributes = (fields = {}) => ({
   ...fields,
 });
 
-const create = (values) => db.Permission.create(attributes(values));
-
-const build = (values) => db.Permission.build(attributes(values));
-
-const PermissionFactory = {
+const define = {
+  modelName: "Permission",
   attributes,
-  create,
-  build,
-  model: db.Permission,
 };
 
-export default PermissionFactory;
+export default define;

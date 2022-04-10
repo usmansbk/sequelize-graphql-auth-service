@@ -1,9 +1,9 @@
 import { gql } from "apollo-server-express";
-import store from "~utils/store";
 import createApolloTestServer from "tests/mocks/apolloServer";
+import FactoryBot from "tests/factories";
+import store from "~utils/store";
 import jwt from "~utils/jwt";
 import { DELETE_ACCOUNT_KEY_PREFIX } from "~constants/auth";
-import UserFactory from "tests/factories/user";
 
 const query = gql`
   mutation DeleteAccount($token: String!) {
@@ -28,7 +28,7 @@ describe("Mutation.deleteAccount", () => {
   let token;
   let user;
   beforeEach(async () => {
-    user = await UserFactory.create();
+    user = await FactoryBot.create("user");
     const key = `${DELETE_ACCOUNT_KEY_PREFIX}:${user.id}`;
     const payload = jwt.generateToken({
       sub: user.id,
@@ -49,9 +49,9 @@ describe("Mutation.deleteAccount", () => {
         token,
       },
     });
-    const found = await UserFactory.model.findByPk(user.id);
+    const deleted = await FactoryBot.db("user").findByPk(user.id);
 
-    expect(found).toBe(null);
+    expect(deleted).toBe(null);
     expect(res.data?.deleteAccount).toEqual({
       code: "AccountDeleted",
       message: "AccountDeleted",

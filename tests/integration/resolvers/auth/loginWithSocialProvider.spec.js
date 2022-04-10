@@ -1,6 +1,6 @@
 import { gql } from "apollo-server-express";
 import createApolloTestServer from "tests/mocks/apolloServer";
-import UserFactory from "tests/factories/user";
+import FactoryBot from "tests/factories";
 import jwt from "~utils/jwt";
 import TokenError from "~utils/errors/TokenError";
 import { TOKEN_INVALID_ERROR } from "~constants/i18n";
@@ -30,7 +30,7 @@ describe("Mutation.loginWithSocialProvider", () => {
   });
 
   test("should register a new user if they don't exist", async () => {
-    const { firstName, lastName, email } = UserFactory.attributes();
+    const { firstName, lastName, email } = FactoryBot.attributesFor("user");
     jwt.verifySocialToken.mockReturnValue({
       firstName,
       lastName,
@@ -50,8 +50,8 @@ describe("Mutation.loginWithSocialProvider", () => {
   });
 
   test("should login an already existing user", async () => {
-    const fields = UserFactory.attributes();
-    await UserFactory.create(fields);
+    const fields = FactoryBot.attributesFor("user");
+    await FactoryBot.create("user", fields);
     jwt.verifySocialToken.mockReturnValue({
       firstName: fields.firstName,
       lastName: fields.lastName,

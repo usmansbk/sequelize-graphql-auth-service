@@ -1,5 +1,4 @@
 import faker from "@faker-js/faker";
-import db from "~db/models";
 
 const attributes = (fields = {}) => ({
   key: faker.internet.domainName(),
@@ -10,15 +9,9 @@ const attributes = (fields = {}) => ({
   ...fields,
 });
 
-const create = (values) => db.File.create(attributes(values));
-
-const build = (values) => db.File.build(attributes(values));
-
-const FileFactory = {
+const define = {
+  modelName: "File",
   attributes,
-  create,
-  build,
-  model: db.File,
 };
 
-export default FileFactory;
+export default define;

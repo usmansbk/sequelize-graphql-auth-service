@@ -1,7 +1,6 @@
 import { gql } from "apollo-server-express";
 import createApolloTestServer from "tests/mocks/apolloServer";
-import UserFactory from "tests/factories/user";
-import RoleFactory from "tests/factories/role";
+import FactoryBot from "tests/factories";
 
 const query = gql`
   mutation ChangeUserFullname($input: ChangeUserFullnameInput!) {
@@ -31,15 +30,15 @@ describe("Mutation.changeUserFullname", () => {
   });
 
   test("should allow admin to change users fullname", async () => {
-    const user = await UserFactory.create();
-    const role = await RoleFactory.create({ name: "admin" });
+    const user = await FactoryBot.create("user");
+    const role = await FactoryBot.create("role", { name: "admin" });
     await user.addRole(role);
-    const currentUser = await UserFactory.model
+    const currentUser = await FactoryBot.db("user")
       .scope("permissions")
       .findByPk(user.id);
-    const otherUser = await UserFactory.create();
+    const otherUser = await FactoryBot.create("user");
 
-    const { firstName, lastName } = UserFactory.attributes();
+    const { firstName, lastName } = FactoryBot.attributesFor("user");
     const res = await server.executeOperation(
       {
         query,
@@ -58,13 +57,13 @@ describe("Mutation.changeUserFullname", () => {
   });
 
   test("should not allow non-admin to change users fullname", async () => {
-    const user = await UserFactory.create();
-    const currentUser = await UserFactory.model
+    const user = await FactoryBot.create("user");
+    const currentUser = await FactoryBot.db("user")
       .scope("permissions")
       .findByPk(user.id);
-    const otherUser = await UserFactory.create();
+    const otherUser = await FactoryBot.create("user");
 
-    const { firstName, lastName } = UserFactory.attributes();
+    const { firstName, lastName } = FactoryBot.attributesFor("user");
     const res = await server.executeOperation(
       {
         query,
