@@ -4,8 +4,8 @@ const define = {
   modelName: "Permission",
   attributes: () => ({
     name: faker.unique(faker.random.word),
-    resource: faker.word.noun(),
-    action: faker.word.verb(),
+    resource: "permissions",
+    action: "read",
   }),
   associations: {
     roles: "role",
