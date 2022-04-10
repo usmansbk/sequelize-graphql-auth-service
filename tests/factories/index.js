@@ -28,7 +28,7 @@ const FactoryBot = {
   build: (name, values) => factories[name.toLowerCase()].build(values),
   db: (name) => factories[name.toLowerCase()].model,
   truncate: () =>
-    Object.values(factories).forEach((factory) => factory.truncate()),
+    Promise.all(Object.values(factories).map((factory) => factory.truncate())),
 };
 
 export default FactoryBot;
