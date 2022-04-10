@@ -232,7 +232,7 @@ Example: Assuming we have a User type defined,
 
 ```gql
 type User {
-  id
+  id: ID!
   avatar: Photo
   tasks: TaskList!
   savedTasks: [Task]
