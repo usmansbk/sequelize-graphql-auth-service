@@ -39,6 +39,10 @@ describe("Mutation.resetPassword", () => {
     await server.stop();
   });
 
+  afterEach(async () => {
+    await FactoryBot.truncate();
+  });
+
   test("should update password and logout", async () => {
     const password = "password1";
     const res = await server.executeOperation(

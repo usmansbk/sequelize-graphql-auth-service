@@ -29,6 +29,10 @@ describe("Mutation.loginWithSocialProvider", () => {
     await server.stop();
   });
 
+  afterEach(async () => {
+    await FactoryBot.truncate();
+  });
+
   test("should register a new user if they don't exist", async () => {
     const { firstName, lastName, email } = FactoryBot.attributesFor("user");
     jwt.verifySocialToken.mockReturnValue({

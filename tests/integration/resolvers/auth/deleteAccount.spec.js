@@ -25,6 +25,10 @@ describe("Mutation.deleteAccount", () => {
     await server.stop();
   });
 
+  afterEach(async () => {
+    await FactoryBot.truncate();
+  });
+
   let token;
   let user;
   beforeEach(async () => {

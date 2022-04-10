@@ -25,6 +25,10 @@ describe("Query.getUserById", () => {
     await server.stop();
   });
 
+  afterEach(async () => {
+    await FactoryBot.truncate();
+  });
+
   test("should return user by id", async () => {
     const currentUser = await FactoryBot.create("user");
 

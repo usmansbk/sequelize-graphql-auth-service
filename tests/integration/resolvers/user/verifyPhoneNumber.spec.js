@@ -28,6 +28,10 @@ describe("Mutation.verifyPhoneNumber", () => {
     await server.stop();
   });
 
+  afterEach(async () => {
+    await FactoryBot.truncate();
+  });
+
   test("should verify phone number", async () => {
     const currentUser = await FactoryBot.create("user");
 

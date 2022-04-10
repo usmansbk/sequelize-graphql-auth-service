@@ -1,6 +1,6 @@
 import { gql } from "apollo-server-express";
 import createApolloTestServer from "tests/mocks/apolloServer";
-import UserFactory from "tests/factories/user";
+import FactoryBot from "tests/factories";
 
 const query = gql`
   mutation RegisterWithEmail($input: CreateUserInput!) {
@@ -23,11 +23,15 @@ describe("Mutation.registerWithEmail", () => {
     await server.stop();
   });
 
+  afterEach(async () => {
+    await FactoryBot.truncate();
+  });
+
   test("should create a new user", async () => {
     const res = await server.executeOperation({
       query,
       variables: {
-        input: UserFactory.attributes(),
+        input: FactoryBot.attributesFor("user"),
       },
     });
     expect(res).toEqual(res);

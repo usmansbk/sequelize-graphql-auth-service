@@ -27,6 +27,10 @@ describe("Mutation.loginToAdmin", () => {
     await server.stop();
   });
 
+  afterEach(async () => {
+    await FactoryBot.truncate();
+  });
+
   test("should login a user with correct username & password combination", async () => {
     const fields = FactoryBot.attributesFor("user", { emailVerified: true });
     await FactoryBot.create("user", {

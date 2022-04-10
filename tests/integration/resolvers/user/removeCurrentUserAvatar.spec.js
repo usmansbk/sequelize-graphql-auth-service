@@ -30,6 +30,10 @@ describe("Mutation.removeCurrentUserAvatar", () => {
     await server.stop();
   });
 
+  afterEach(async () => {
+    await FactoryBot.truncate();
+  });
+
   test("should remove user avatar", async () => {
     const user = await FactoryBot.create("user");
     await user.createAvatar(FactoryBot.attributesFor("file"));

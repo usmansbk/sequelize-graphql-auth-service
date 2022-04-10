@@ -29,6 +29,10 @@ describe("Mutation.requestEmailVerification", () => {
     await server.stop();
   });
 
+  afterEach(async () => {
+    await FactoryBot.truncate();
+  });
+
   test("should not send an email to a verified user", async () => {
     const currentUser = await FactoryBot.create("user", {
       emailVerified: true,

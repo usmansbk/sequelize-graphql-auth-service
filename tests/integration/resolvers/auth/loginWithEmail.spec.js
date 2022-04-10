@@ -27,6 +27,10 @@ describe("Mutation.loginWithEmail", () => {
     await server.stop();
   });
 
+  afterEach(async () => {
+    await FactoryBot.truncate();
+  });
+
   test("should login a user with correct email & password combination", async () => {
     const fields = FactoryBot.attributesFor("user");
     await FactoryBot.create("user", fields);

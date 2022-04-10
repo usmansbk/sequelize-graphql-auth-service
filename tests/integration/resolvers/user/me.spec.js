@@ -29,6 +29,10 @@ describe("Query.me", () => {
     await server.stop();
   });
 
+  afterEach(async () => {
+    await FactoryBot.truncate();
+  });
+
   test("should return current user", async () => {
     const user = await FactoryBot.create("user");
 

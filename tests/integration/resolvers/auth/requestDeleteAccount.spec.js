@@ -29,6 +29,10 @@ describe("Mutation.requestDeleteAccount", () => {
     await server.stop();
   });
 
+  afterEach(async () => {
+    await FactoryBot.truncate();
+  });
+
   test("should send a delete account email to a logged in user", async () => {
     const currentUser = await FactoryBot.create("user");
     const res = await server.executeOperation({ query }, { currentUser });

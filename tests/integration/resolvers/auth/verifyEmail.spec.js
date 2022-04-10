@@ -32,6 +32,10 @@ describe("Mutation.verifyEmail", () => {
     await server.stop();
   });
 
+  afterEach(async () => {
+    await FactoryBot.truncate();
+  });
+
   test("should verify email and send welcome email", async () => {
     const user = await FactoryBot.create("user");
     const { token, exp } = jwt.generateToken({

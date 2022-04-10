@@ -29,6 +29,10 @@ describe("Mutation.createUser", () => {
     await server.stop();
   });
 
+  afterEach(async () => {
+    await FactoryBot.truncate();
+  });
+
   test("should allow admin to create user", async () => {
     const user = await FactoryBot.create("user", {
       include: {

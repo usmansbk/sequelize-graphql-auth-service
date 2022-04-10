@@ -29,6 +29,10 @@ describe("Mutation.changeUserFullname", () => {
     await server.stop();
   });
 
+  afterEach(async () => {
+    await FactoryBot.truncate();
+  });
+
   test("should allow admin to change users fullname", async () => {
     const user = await FactoryBot.create("user", {
       include: {

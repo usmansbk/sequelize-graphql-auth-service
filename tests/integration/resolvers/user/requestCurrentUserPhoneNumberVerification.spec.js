@@ -33,6 +33,10 @@ describe("Mutation.requestCurrentUserPhoneNumberVerification", () => {
     await server.stop();
   });
 
+  afterEach(async () => {
+    await FactoryBot.truncate();
+  });
+
   test("should not be accessed by unauthenticated users", async () => {
     const { errors } = await server.executeOperation({
       query,

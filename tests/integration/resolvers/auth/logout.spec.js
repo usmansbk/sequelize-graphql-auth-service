@@ -28,6 +28,10 @@ describe("Mutation.logout", () => {
     currentUser = await FactoryBot.create("user");
   });
 
+  afterEach(async () => {
+    await FactoryBot.truncate();
+  });
+
   test("should clear current user session", async () => {
     const res = await server.executeOperation({ query }, { currentUser });
     const sessionId = await store.get(

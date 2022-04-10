@@ -28,6 +28,10 @@ describe("Mutation.registerWithEmail", () => {
     await server.stop();
   });
 
+  afterEach(async () => {
+    await FactoryBot.truncate();
+  });
+
   test("should register a new user and return the access and refresh tokens", async () => {
     const {
       data: { registerWithEmail },

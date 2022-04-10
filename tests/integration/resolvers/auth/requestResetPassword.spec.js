@@ -29,6 +29,10 @@ describe("Mutation.requestResetPassword", () => {
     await server.stop();
   });
 
+  afterEach(async () => {
+    await FactoryBot.truncate();
+  });
+
   test("should send a reset password link to registered user", async () => {
     const currentUser = await FactoryBot.create("user");
     const {
