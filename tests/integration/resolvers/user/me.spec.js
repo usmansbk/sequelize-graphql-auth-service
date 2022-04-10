@@ -2,7 +2,6 @@ import { gql } from "apollo-server-express";
 import db from "~db/models";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import attributes from "tests/attributes";
-import store from "~utils/store";
 
 const query = gql`
   query Me {
@@ -28,9 +27,7 @@ describe("Query.me", () => {
   });
 
   afterAll(async () => {
-    await store.clearAll();
     await server.stop();
-    await db.sequelize.close();
   });
 
   test("should return current user", async () => {

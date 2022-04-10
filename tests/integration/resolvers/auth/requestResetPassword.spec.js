@@ -3,7 +3,6 @@ import createApolloTestServer from "tests/mocks/apolloServer";
 import attributes from "tests/attributes";
 import mailer from "~utils/mailer";
 import db from "~db/models";
-import store from "~utils/store";
 
 jest.mock("~utils/mailer", () => {
   return {
@@ -28,9 +27,7 @@ describe("Mutation.requestResetPassword", () => {
   });
 
   afterAll(async () => {
-    await store.clearAll();
     await server.stop();
-    await db.sequelize.close();
   });
 
   test("should send a reset password link to registered user", async () => {

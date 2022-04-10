@@ -2,7 +2,6 @@ import { gql } from "apollo-server-express";
 import db from "~db/models";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import attributes from "tests/attributes";
-import store from "~utils/store";
 
 const query = gql`
   mutation RegisterWithEmail($input: CreateUserInput!) {
@@ -27,9 +26,7 @@ describe("Mutation.registerWithEmail", () => {
   });
 
   afterAll(async () => {
-    await store.clearAll();
     await server.stop();
-    await db.sequelize.close();
   });
 
   test("should register a new user and return the access and refresh tokens", async () => {

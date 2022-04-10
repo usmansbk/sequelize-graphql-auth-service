@@ -3,7 +3,6 @@ import db from "~db/models";
 import fileStorage from "~utils/fileStorage";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import attributes from "tests/attributes";
-import store from "~utils/store";
 
 fileStorage.remove = jest.fn().mockReturnValueOnce(Promise.resolve());
 
@@ -29,9 +28,7 @@ describe("Mutation.removeCurrentUserAvatar", () => {
   });
 
   afterAll(async () => {
-    await store.clearAll();
     await server.stop();
-    await db.sequelize.close();
   });
 
   test("should remove user avatar", async () => {

@@ -30,9 +30,7 @@ describe("Mutation.verifyEmail", () => {
   });
 
   afterAll(async () => {
-    await store.clearAll();
     await server.stop();
-    await db.sequelize.close();
   });
 
   test("should verify email and send welcome email", async () => {

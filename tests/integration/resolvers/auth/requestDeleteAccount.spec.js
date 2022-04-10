@@ -3,7 +3,6 @@ import db from "~db/models";
 import mailer from "~utils/mailer";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import attributes from "tests/attributes";
-import store from "~utils/store";
 
 const query = gql`
   mutation RequestDeleteAccount {
@@ -28,9 +27,7 @@ describe("Mutation.requestDeleteAccount", () => {
   });
 
   afterAll(async () => {
-    await store.clearAll();
     await server.stop();
-    await db.sequelize.close();
   });
 
   test("should send a delete account email to a logged in user", async () => {

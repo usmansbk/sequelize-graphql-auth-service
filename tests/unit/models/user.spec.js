@@ -5,10 +5,6 @@ import attributes from "tests/attributes";
 fileStorage.remove = jest.fn().mockReturnValueOnce(Promise.resolve());
 
 describe("User", () => {
-  afterAll(async () => {
-    await db.sequelize.close();
-  });
-
   describe("association", () => {
     test("should remove avatar on delete", async () => {
       const user = await db.User.create(attributes.user());

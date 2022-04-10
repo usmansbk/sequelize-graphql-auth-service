@@ -3,7 +3,6 @@ import db from "~db/models";
 import mailer from "~utils/mailer";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import attributes from "tests/attributes";
-import store from "~utils/store";
 
 jest.mock("~utils/mailer", () => {
   return {
@@ -32,9 +31,7 @@ describe("Mutation.requestCurrentUserPhoneNumberVerification", () => {
   });
 
   afterAll(async () => {
-    await store.clearAll();
     await server.stop();
-    await db.sequelize.close();
   });
 
   test("should not be accessed by unauthenticated users", async () => {

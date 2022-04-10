@@ -4,7 +4,6 @@ import createApolloTestServer from "tests/mocks/apolloServer";
 import db from "~db/models";
 import jwt from "~utils/jwt";
 import TokenError from "~utils/errors/TokenError";
-import store from "~utils/store";
 import { TOKEN_INVALID_ERROR } from "~constants/i18n";
 
 jwt.verifySocialToken = jest.fn();
@@ -28,9 +27,7 @@ describe("Mutation.loginWithSocialProvider", () => {
   });
 
   afterAll(async () => {
-    await store.clearAll();
     await server.stop();
-    await db.sequelize.close();
   });
 
   test("should register a new user if they don't exist", async () => {

@@ -2,7 +2,6 @@ import { gql } from "apollo-server-express";
 import db from "~db/models";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import attributes from "tests/attributes";
-import store from "~utils/store";
 
 const query = gql`
   mutation CreateUser($input: CreateUserInput!) {
@@ -28,13 +27,13 @@ describe("Mutation.createUser", () => {
   });
 
   afterAll(async () => {
-    await store.clearAll();
     await server.stop();
-    await db.sequelize.close();
   });
 
   test("should allow admin to create user", async () => {
     const user = await db.User.create(attributes.user());
+    const role = await db.Role.create({ name: "admin" });
+    await user.addRole(role);
     const currentUser = await db.User.scope("permissions").findByPk(user.id);
 
     const input = attributes.user();

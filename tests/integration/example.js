@@ -22,7 +22,6 @@ describe("Mutation.registerWithEmail", () => {
 
   afterAll(async () => {
     await server.stop();
-    await db.sequelize.close();
   });
 
   test("should create a new user", async () => {

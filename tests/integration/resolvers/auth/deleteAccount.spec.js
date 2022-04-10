@@ -23,9 +23,7 @@ describe("Mutation.deleteAccount", () => {
   });
 
   afterAll(async () => {
-    await store.clearAll();
     await server.stop();
-    await db.sequelize.close();
   });
 
   let token;

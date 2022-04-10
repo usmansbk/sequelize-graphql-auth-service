@@ -28,11 +28,12 @@ describe("Mutation.changeUserFullname", () => {
 
   afterAll(async () => {
     await server.stop();
-    await db.sequelize.close();
   });
 
   test("should allow admin to change users fullname", async () => {
     const user = await db.User.create(attributes.user());
+    const role = await db.Role.create({ name: "admin" });
+    await user.addRole(role);
     const currentUser = await db.User.scope("permissions").findByPk(user.id);
     const otherUser = await db.User.create(attributes.user());
 
