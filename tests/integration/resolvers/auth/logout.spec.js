@@ -1,5 +1,5 @@
 import { gql } from "apollo-server-express";
-import UserFactory from "tests/factories/user";
+import FactoryBot from "tests/factories";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import store from "~utils/store";
 
@@ -25,7 +25,7 @@ describe("Mutation.logout", () => {
   });
 
   beforeEach(async () => {
-    currentUser = await UserFactory.create();
+    currentUser = await FactoryBot.create("user");
   });
 
   test("should clear current user session", async () => {

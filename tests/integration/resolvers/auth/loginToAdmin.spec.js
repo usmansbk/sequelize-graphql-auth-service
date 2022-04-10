@@ -1,8 +1,7 @@
 import { gql } from "apollo-server-express";
 import createApolloTestServer from "tests/mocks/apolloServer";
+import FactoryBot from "tests/factories";
 import mailer from "~utils/mailer";
-import RoleFactory from "tests/factories/role";
-import UserFactory from "tests/factories/user";
 
 mailer.sendEmail = jest.fn();
 
@@ -23,7 +22,7 @@ describe("Mutation.loginToAdmin", () => {
   let role;
   beforeAll(async () => {
     server = createApolloTestServer();
-    role = await RoleFactory.create({ name: "admin" });
+    role = await FactoryBot.create("role", { name: "admin" });
   });
 
   afterAll(async () => {
@@ -31,8 +30,8 @@ describe("Mutation.loginToAdmin", () => {
   });
 
   test("should login a user with correct username & password combination", async () => {
-    const fields = UserFactory.attributes({ emailVerified: true });
-    const user = await UserFactory.create(fields);
+    const fields = FactoryBot.attributesFor("user", { emailVerified: true });
+    const user = await FactoryBot.create("user", fields);
     await user.addRole(role);
 
     const {
@@ -52,8 +51,8 @@ describe("Mutation.loginToAdmin", () => {
   });
 
   test("should not login a non-admin user with correct username & password combination", async () => {
-    const fields = UserFactory.attributes();
-    await UserFactory.create(fields);
+    const fields = FactoryBot.attributesFor("user");
+    await FactoryBot.create("user", fields);
 
     const res = await server.executeOperation({
       query,
@@ -73,8 +72,7 @@ describe("Mutation.loginToAdmin", () => {
   });
 
   test("should not login admin with wrong username & password combination", async () => {
-    const fields = UserFactory.attributes({ emailVerified: true });
-    const user = await UserFactory.create(fields);
+    const user = await FactoryBot.create("user", { emailVerified: true });
     await user.addRole(role);
 
     const {
@@ -83,8 +81,8 @@ describe("Mutation.loginToAdmin", () => {
       query,
       variables: {
         input: {
-          username: fields.username,
-          password: fields.email,
+          username: user.username,
+          password: "wrong-password",
         },
       },
     });
@@ -94,11 +92,10 @@ describe("Mutation.loginToAdmin", () => {
   });
 
   test("should report on 5 failed attempts if account with verified email exist", async () => {
-    const fields = UserFactory.attributes({ emailVerified: true });
-    const user = await UserFactory.create(fields);
+    const user = await FactoryBot.create("user", { emailVerified: true });
     await user.addRole(role);
 
-    const attempts = new Array(5).fill(fields).map(
+    const attempts = new Array(5).fill(user.toJSON()).map(
       ({ username }) =>
         new Promise((resolve) =>
           server
