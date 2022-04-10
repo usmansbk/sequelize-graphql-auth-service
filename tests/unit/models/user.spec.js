@@ -19,7 +19,5 @@ describe("User", () => {
       expect(deletedFile).toBe(null);
       expect(fileStorage.remove).toBeCalled();
     });
-
-    test("should not delete role on destroy", async () => {});
   });
 });
