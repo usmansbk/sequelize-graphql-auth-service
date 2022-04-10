@@ -1,7 +1,6 @@
 import { gql } from "apollo-server-express";
 import createApolloTestServer from "tests/mocks/apolloServer";
-import UserFactory from "tests/factories/user";
-import RoleFactory from "tests/factories/role";
+import FactoryBot from "tests/factories";
 
 const query = gql`
   mutation CreateUser($input: CreateUserInput!) {
@@ -31,14 +30,14 @@ describe("Mutation.createUser", () => {
   });
 
   test("should allow admin to create user", async () => {
-    const user = await UserFactory.create();
-    const role = await RoleFactory.create({ name: "admin" });
+    const user = await FactoryBot.create("user");
+    const role = await FactoryBot.create("role", { name: "admin" });
     await user.addRole(role);
-    const currentUser = await UserFactory.model
+    const currentUser = await FactoryBot.db("user")
       .scope("permissions")
       .findByPk(user.id);
 
-    const input = UserFactory.attributes();
+    const input = FactoryBot.attributesFor("user");
     const res = await server.executeOperation(
       {
         query,
@@ -52,12 +51,12 @@ describe("Mutation.createUser", () => {
   });
 
   test("should not allow non-admin to create user", async () => {
-    const user = await UserFactory.create();
-    const currentUser = await UserFactory.model
+    const user = await FactoryBot.create("user");
+    const currentUser = await FactoryBot.db("user")
       .scope("permissions")
       .findByPk(user.id);
 
-    const input = UserFactory.attributes();
+    const input = FactoryBot.attributesFor("user");
     const res = await server.executeOperation(
       {
         query,
