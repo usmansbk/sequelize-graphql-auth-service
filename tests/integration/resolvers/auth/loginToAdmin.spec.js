@@ -1,8 +1,8 @@
 import { gql } from "apollo-server-express";
-import db from "~db/models";
 import createApolloTestServer from "tests/mocks/apolloServer";
-import attributes from "tests/attributes";
 import mailer from "~utils/mailer";
+import RoleFactory from "tests/factories/role";
+import UserFactory from "tests/factories/user";
 
 mailer.sendEmail = jest.fn();
 
@@ -23,7 +23,7 @@ describe("Mutation.loginToAdmin", () => {
   let role;
   beforeAll(async () => {
     server = createApolloTestServer();
-    role = await db.Role.create({ name: "admin" });
+    role = await RoleFactory.create({ name: "admin" });
   });
 
   afterAll(async () => {
@@ -31,8 +31,8 @@ describe("Mutation.loginToAdmin", () => {
   });
 
   test("should login a user with correct username & password combination", async () => {
-    const fields = attributes.user({ emailVerified: true });
-    const user = await db.User.create(fields);
+    const fields = UserFactory.attributes({ emailVerified: true });
+    const user = await UserFactory.create(fields);
     await user.addRole(role);
 
     const {
@@ -52,8 +52,8 @@ describe("Mutation.loginToAdmin", () => {
   });
 
   test("should not login a non-admin user with correct username & password combination", async () => {
-    const fields = attributes.user();
-    await db.User.create(fields);
+    const fields = UserFactory.attributes();
+    await UserFactory.create(fields);
 
     const res = await server.executeOperation({
       query,
@@ -73,8 +73,8 @@ describe("Mutation.loginToAdmin", () => {
   });
 
   test("should not login admin with wrong username & password combination", async () => {
-    const fields = attributes.user({ emailVerified: true });
-    const user = await db.User.create(fields);
+    const fields = UserFactory.attributes({ emailVerified: true });
+    const user = await UserFactory.create(fields);
     await user.addRole(role);
 
     const {
@@ -94,8 +94,8 @@ describe("Mutation.loginToAdmin", () => {
   });
 
   test("should report on 5 failed attempts if account with verified email exist", async () => {
-    const fields = attributes.user({ emailVerified: true });
-    const user = await db.User.create(fields);
+    const fields = UserFactory.attributes({ emailVerified: true });
+    const user = await UserFactory.create(fields);
     await user.addRole(role);
 
     const attempts = new Array(5).fill(fields).map(

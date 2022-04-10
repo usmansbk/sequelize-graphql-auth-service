@@ -1,8 +1,7 @@
 import { gql } from "apollo-server-express";
-import db from "~db/models";
 import mailer from "~utils/mailer";
 import createApolloTestServer from "tests/mocks/apolloServer";
-import attributes from "tests/attributes";
+import UserFactory from "tests/factories/user";
 
 jest.mock("~utils/mailer", () => {
   return {
@@ -31,9 +30,9 @@ describe("Mutation.requestEmailOTP", () => {
   });
 
   test("should send an email to a verified user", async () => {
-    const currentUser = await db.User.create(
-      attributes.user({ emailVerified: true })
-    );
+    const currentUser = await UserFactory.create({
+      emailVerified: true,
+    });
     await server.executeOperation({
       query,
       variables: {
@@ -44,7 +43,7 @@ describe("Mutation.requestEmailOTP", () => {
   });
 
   test("should not send an email to unverified user", async () => {
-    const currentUser = await db.User.create(attributes.user());
+    const currentUser = await UserFactory.create();
     await server.executeOperation({
       query,
       variables: {

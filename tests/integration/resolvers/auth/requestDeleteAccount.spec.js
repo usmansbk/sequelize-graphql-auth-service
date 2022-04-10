@@ -1,8 +1,7 @@
 import { gql } from "apollo-server-express";
-import db from "~db/models";
 import mailer from "~utils/mailer";
 import createApolloTestServer from "tests/mocks/apolloServer";
-import attributes from "tests/attributes";
+import UserFactory from "tests/factories/user";
 
 const query = gql`
   mutation RequestDeleteAccount {
@@ -31,7 +30,7 @@ describe("Mutation.requestDeleteAccount", () => {
   });
 
   test("should send a delete account email to a logged in user", async () => {
-    const currentUser = await db.User.create(attributes.user());
+    const currentUser = await UserFactory.create();
     const res = await server.executeOperation({ query }, { currentUser });
     expect(mailer.sendEmail).toBeCalledTimes(1);
     expect(res.data.requestDeleteAccount).toEqual({
@@ -42,7 +41,7 @@ describe("Mutation.requestDeleteAccount", () => {
   });
 
   test("should send email only when previous link is used or expired", async () => {
-    const currentUser = await db.User.create(attributes.user());
+    const currentUser = await UserFactory.create();
     const NUMBER_OF_REQUESTS = 2;
 
     for (let i = 0; i < NUMBER_OF_REQUESTS; i++) {

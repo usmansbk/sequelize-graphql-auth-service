@@ -1,7 +1,6 @@
 import { gql } from "apollo-server-express";
-import db from "~db/models";
 import createApolloTestServer from "tests/mocks/apolloServer";
-import attributes from "tests/attributes";
+import UserFactory from "tests/factories/user";
 
 const query = gql`
   mutation RegisterWithEmail($input: CreateUserInput!) {
@@ -35,7 +34,7 @@ describe("Mutation.registerWithEmail", () => {
     } = await server.executeOperation({
       query,
       variables: {
-        input: attributes.user(),
+        input: UserFactory.attributes(),
       },
     });
     expect(registerWithEmail.message).toMatch("WelcomeNewUser");
@@ -44,14 +43,14 @@ describe("Mutation.registerWithEmail", () => {
   });
 
   test("should not register a user if the email is already taken and verified by an existing user", async () => {
-    const existingUser = await db.User.create(
-      attributes.user({ emailVerified: true })
-    );
+    const existingUser = await UserFactory.create({
+      emailVerified: true,
+    });
 
     const res = await server.executeOperation({
       query,
       variables: {
-        input: attributes.user({ email: existingUser.email }),
+        input: UserFactory.attributes({ email: existingUser.email }),
       },
     });
     const {
@@ -64,11 +63,11 @@ describe("Mutation.registerWithEmail", () => {
   });
 
   test("should register a new user if the email is taken but unverified", async () => {
-    const existingUser = await db.User.create(attributes.user());
+    const existingUser = await UserFactory.create();
     const res = await server.executeOperation({
       query,
       variables: {
-        input: attributes.user({ email: existingUser.email }),
+        input: UserFactory.attributes({ email: existingUser.email }),
       },
     });
     const {

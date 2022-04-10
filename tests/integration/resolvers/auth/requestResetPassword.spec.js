@@ -1,8 +1,7 @@
 import { gql } from "apollo-server-express";
 import createApolloTestServer from "tests/mocks/apolloServer";
-import attributes from "tests/attributes";
+import UserFactory from "tests/factories/user";
 import mailer from "~utils/mailer";
-import db from "~db/models";
 
 jest.mock("~utils/mailer", () => {
   return {
@@ -31,7 +30,7 @@ describe("Mutation.requestResetPassword", () => {
   });
 
   test("should send a reset password link to registered user", async () => {
-    const currentUser = await db.User.create(attributes.user());
+    const currentUser = await UserFactory.create();
     const {
       data: { requestPasswordReset },
     } = await server.executeOperation({
@@ -50,7 +49,7 @@ describe("Mutation.requestResetPassword", () => {
     } = await server.executeOperation({
       query,
       variables: {
-        email: attributes.user().email,
+        email: UserFactory.attributes().email,
       },
     });
     expect(requestPasswordReset.message).toMatch("SentResetPasswordEmail");
@@ -58,8 +57,8 @@ describe("Mutation.requestResetPassword", () => {
   });
 
   test("should not send email until previous one is used or expired", async () => {
-    const fields = attributes.user();
-    await db.User.create(fields);
+    const fields = UserFactory.attributes();
+    await UserFactory.create(fields);
     const NUMBER_OF_REQUESTS = 2;
 
     const requests = new Array(NUMBER_OF_REQUESTS).fill(fields).map(

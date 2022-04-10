@@ -1,8 +1,7 @@
 import { gql } from "apollo-server-express";
-import db from "~db/models";
-import store from "~utils/store";
+import UserFactory from "tests/factories/user";
 import createApolloTestServer from "tests/mocks/apolloServer";
-import attributes from "tests/attributes";
+import store from "~utils/store";
 
 const query = gql`
   mutation Logout($all: Boolean) {
@@ -26,7 +25,7 @@ describe("Mutation.logout", () => {
   });
 
   beforeEach(async () => {
-    currentUser = await db.User.create(attributes.user());
+    currentUser = await UserFactory.create();
   });
 
   test("should clear current user session", async () => {

@@ -1,11 +1,10 @@
 import { gql } from "apollo-server-express";
 import dayjs from "dayjs";
-import db from "~db/models";
 import createApolloTestServer from "tests/mocks/apolloServer";
-import attributes from "tests/attributes";
 import store from "~utils/store";
 import jwt from "~utils/jwt";
 import { PASSWORD_KEY_PREFIX } from "~constants/auth";
+import UserFactory from "tests/factories/user";
 
 const query = gql`
   mutation ResetPassword($input: PasswordResetInput!) {
@@ -23,7 +22,7 @@ describe("Mutation.resetPassword", () => {
   let token;
   beforeAll(async () => {
     server = createApolloTestServer();
-    user = await db.User.create(attributes.user());
+    user = await UserFactory.create();
     const result = jwt.generateToken({
       sub: user.id,
       aud: process.env.WEB_CLIENT_ID,
