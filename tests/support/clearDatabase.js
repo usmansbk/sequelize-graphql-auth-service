@@ -1,8 +1,10 @@
 import db from "~db/models";
 import store from "~utils/store";
 
-afterAll(async () => {
+afterEach(async () => {
   await store.clearAll();
-  store.close();
+});
+
+afterAll(async () => {
   await db.sequelize.close();
 });
