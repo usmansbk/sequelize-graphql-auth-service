@@ -23,7 +23,7 @@ definitions.forEach(({ modelName, attributes, associations }) => {
 });
 
 const create = async (name, { include, ...values } = {}) => {
-  const created = await factories[name.toLowerCase()].create(values);
+  const newInstance = await factories[name.toLowerCase()].create(values);
   if (include) {
     const { associations, model } = factories[name];
     if (!associations) {
@@ -62,10 +62,10 @@ const create = async (name, { include, ...values } = {}) => {
       } else {
         relationship = await create(factoryName, fields);
       }
-      await created[accessors.set](relationship);
+      await newInstance[accessors.set](relationship);
     }
   }
-  return created;
+  return newInstance;
 };
 
 const FactoryBot = {

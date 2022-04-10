@@ -26,30 +26,30 @@ describe("Query.getUserById", () => {
   });
 
   test("should return user by id", async () => {
-    const user = await FactoryBot.create("user");
+    const currentUser = await FactoryBot.create("user");
 
     const res = await server.executeOperation(
       {
         query,
         variables: {
-          id: user.id,
+          id: currentUser.id,
         },
       },
-      { currentUser: user }
+      { currentUser }
     );
     expect(res.data.getUserById).toEqual({
       code: "Success",
       message: "Success",
       success: true,
       user: {
-        id: user.id,
+        id: currentUser.id,
       },
     });
   });
 
   test("should return null user if not found", async () => {
-    const user = await FactoryBot.create("user");
-    const unregisteredUser = FactoryBot.build("user");
+    const currentUser = await FactoryBot.create("user");
+    const unregisteredUser = await FactoryBot.build("user");
 
     const res = await server.executeOperation(
       {
@@ -58,7 +58,7 @@ describe("Query.getUserById", () => {
           id: unregisteredUser.id,
         },
       },
-      { currentUser: user }
+      { currentUser }
     );
     expect(res.data.getUserById).toEqual({
       code: "UserNotFound",
