@@ -23,7 +23,7 @@ definitions.forEach(({ modelName, attributes, associations }) => {
 });
 
 const create = async (name, { include, ...values } = {}) => {
-  const modelInstance = await factories[name.toLowerCase()].create(values);
+  const created = await factories[name.toLowerCase()].create(values);
   if (include) {
     const { associations, model } = factories[name];
     if (!associations) {
@@ -49,12 +49,19 @@ const create = async (name, { include, ...values } = {}) => {
       }
 
       const { accessors, isMultiAssociation } = association;
-      console.log(accessors);
-      const targetModelInstance = await create(factoryName, include[alias]);
-      await modelInstance[accessors.add](targetModelInstance);
+      const input = include[alias];
+      let relationship;
+      if (isMultiAssociation && Array.isArray(input)) {
+        relationship = await Promise.all(
+          input.map((i) => create(factoryName, i))
+        );
+      } else {
+        relationship = await create(factoryName, input);
+      }
+      await created[accessors.set](relationship);
     }
   }
-  return modelInstance;
+  return created;
 };
 
 const FactoryBot = {
