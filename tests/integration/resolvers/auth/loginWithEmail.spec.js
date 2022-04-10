@@ -67,7 +67,7 @@ describe("Mutation.loginWithEmail", () => {
   });
 
   test("should report on 5 failed attempts if account with verified email exist", async () => {
-    const user = await FactoryBot.create("user", fields, {
+    const user = await FactoryBot.create("user", {
       emailVerified: true,
     });
 
