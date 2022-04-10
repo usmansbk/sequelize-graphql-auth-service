@@ -1,8 +1,7 @@
 import { gql } from "apollo-server-express";
-import db from "~db/models";
 import mailer from "~utils/mailer";
 import createApolloTestServer from "tests/mocks/apolloServer";
-import attributes from "tests/attributes";
+import UserFactory from "tests/factories/user";
 
 jest.mock("~utils/mailer", () => {
   return {
@@ -45,9 +44,9 @@ describe("Mutation.requestCurrentUserPhoneNumberVerification", () => {
   });
 
   test("should send an sms to logged-in user", async () => {
-    const currentUser = await db.User.create(
-      attributes.user({ phoneNumberVerified: true })
-    );
+    const currentUser = await UserFactory.create({
+      phoneNumberVerified: true,
+    });
     const res = await server.executeOperation(
       {
         query,
@@ -70,14 +69,14 @@ describe("Mutation.requestCurrentUserPhoneNumberVerification", () => {
   });
 
   test("should unverify phone number", async () => {
-    const currentUser = await db.User.create(
-      attributes.user({ phoneNumberVerified: true })
-    );
+    const currentUser = await UserFactory.create({
+      phoneNumberVerified: true,
+    });
     const res = await server.executeOperation(
       {
         query,
         variables: {
-          phoneNumber: attributes.user().phoneNumber,
+          phoneNumber: UserFactory.attributes().phoneNumber,
         },
       },
       { currentUser }

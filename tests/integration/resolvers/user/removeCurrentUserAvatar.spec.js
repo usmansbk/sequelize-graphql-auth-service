@@ -1,8 +1,8 @@
 import { gql } from "apollo-server-express";
-import db from "~db/models";
 import fileStorage from "~utils/fileStorage";
 import createApolloTestServer from "tests/mocks/apolloServer";
-import attributes from "tests/attributes";
+import UserFactory from "tests/factories/user";
+import FileFactory from "tests/factories/file";
 
 fileStorage.remove = jest.fn().mockReturnValueOnce(Promise.resolve());
 
@@ -32,8 +32,8 @@ describe("Mutation.removeCurrentUserAvatar", () => {
   });
 
   test("should remove user avatar", async () => {
-    const user = await db.User.create(attributes.user());
-    await user.createAvatar(attributes.file());
+    const user = await UserFactory.create();
+    await user.createAvatar(FileFactory.attributes());
 
     const res = await server.executeOperation(
       {
@@ -53,7 +53,7 @@ describe("Mutation.removeCurrentUserAvatar", () => {
   });
 
   test("should not allow unauthenticated access", async () => {
-    const fields = attributes.user();
+    const fields = UserFactory.attributes();
     const { errors } = await server.executeOperation({
       query,
       variables: {

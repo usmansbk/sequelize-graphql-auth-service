@@ -1,9 +1,8 @@
 import { gql } from "apollo-server-express";
-import db from "~db/models";
 import store from "~utils/store";
 import { PHONE_NUMBER_KEY_PREFIX } from "~constants/auth";
 import createApolloTestServer from "tests/mocks/apolloServer";
-import attributes from "tests/attributes";
+import UserFactory from "tests/factories/user";
 
 const query = gql`
   mutation VerifyPhoneNumber($token: String!) {
@@ -30,7 +29,7 @@ describe("Mutation.verifyPhoneNumber", () => {
   });
 
   test("should verify phone number", async () => {
-    const currentUser = await db.User.create(attributes.user());
+    const currentUser = await UserFactory.create();
 
     const token = "mockToken";
     const key = `${PHONE_NUMBER_KEY_PREFIX}:${currentUser.id}`;
@@ -62,7 +61,7 @@ describe("Mutation.verifyPhoneNumber", () => {
   });
 
   test("should not use invalid otp", async () => {
-    const user = await db.User.create(attributes.user());
+    const currentUser = await UserFactory.create();
 
     const res = await server.executeOperation(
       {
@@ -71,7 +70,7 @@ describe("Mutation.verifyPhoneNumber", () => {
           token: "mockToken",
         },
       },
-      { currentUser: user }
+      { currentUser }
     );
 
     expect(res.data.verifyPhoneNumber).toEqual({
