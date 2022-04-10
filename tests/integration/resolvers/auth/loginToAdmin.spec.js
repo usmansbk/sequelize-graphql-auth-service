@@ -33,9 +33,7 @@ describe("Mutation.loginToAdmin", () => {
       ...fields,
       include: {
         roles: {
-          values: {
-            name: "admin",
-          },
+          name: "admin",
         },
       },
     });
@@ -82,9 +80,7 @@ describe("Mutation.loginToAdmin", () => {
       emailVerified: true,
       include: {
         roles: {
-          values: {
-            name: "admin",
-          },
+          name: "admin",
         },
       },
     });
@@ -110,9 +106,7 @@ describe("Mutation.loginToAdmin", () => {
       emailVerified: true,
       include: {
         roles: {
-          values: {
-            name: "admin",
-          },
+          name: "admin",
         },
       },
     });

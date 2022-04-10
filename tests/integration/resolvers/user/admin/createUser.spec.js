@@ -33,9 +33,7 @@ describe("Mutation.createUser", () => {
     const user = await FactoryBot.create("user", {
       include: {
         roles: {
-          values: {
-            name: "admin",
-          },
+          name: "admin",
         },
       },
     });

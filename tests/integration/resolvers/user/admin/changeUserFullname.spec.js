@@ -33,9 +33,7 @@ describe("Mutation.changeUserFullname", () => {
     const user = await FactoryBot.create("user", {
       include: {
         roles: {
-          values: {
-            name: "admin",
-          },
+          name: "admin",
         },
       },
     });
