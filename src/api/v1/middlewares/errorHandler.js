@@ -1,22 +1,26 @@
 import { AuthenticationError } from "apollo-server-core";
 import analytics from "~services/analytics";
 import { SOMETHING_WENT_WRONG } from "~constants/i18n";
-import Sentry from "~services/sentry";
 
+// eslint-disable-next-line no-unused-vars
 const errorHandler = (err, req, res, next) => {
   analytics.flush();
-  Sentry.captureException(err);
   if (err instanceof AuthenticationError) {
-    res.status(401).json({
-      success: false,
-      message: req.t(err.message),
-    });
-    next();
+    res
+      .status(401)
+      .json({
+        success: false,
+        message: req.t(err.message),
+      })
+      .end();
   } else {
-    res.status(500).json({
-      success: false,
-      message: req.t(SOMETHING_WENT_WRONG),
-    });
+    res
+      .status(500)
+      .json({
+        success: false,
+        message: req.t(SOMETHING_WENT_WRONG),
+      })
+      .end();
   }
 };
 
