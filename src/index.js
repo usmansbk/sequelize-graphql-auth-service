@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import Sentry from "~services/sentry";
 import v1 from "~api/v1/routes";
 import db from "~db/models";
 import startApolloServer from "~api/graphql";
@@ -14,6 +15,7 @@ const app = express();
 useLanguageMiddleware(app);
 
 app.use(cors());
+app.use(Sentry.Handlers.requestHandler());
 app.use(contextMiddleware);
 app.use(rateLimiter);
 app.use("/v1", v1);
@@ -22,6 +24,8 @@ if (app.get("env") === "production") {
   // https://www.npmjs.com/package/express-rate-limit
   app.set("trust proxy", 1);
 }
+
+app.use(Sentry.Handlers.errorHandler());
 app.use(errorHandler);
 
 const main = async () => {

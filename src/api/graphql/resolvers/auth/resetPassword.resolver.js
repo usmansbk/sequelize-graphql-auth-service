@@ -2,6 +2,7 @@ import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
 import { INVALID_LINK, PASSWORD_CHANGED } from "~constants/i18n";
 import { PASSWORD_KEY_PREFIX } from "~constants/auth";
+import analytics from "~services/analytics";
 
 export default {
   Mutation: {
@@ -30,6 +31,11 @@ export default {
         );
 
         // we can send an email here to inform user of the change...
+
+        analytics.track({
+          userId: sub,
+          event: "Reset Password",
+        });
 
         return Success({
           message: t(PASSWORD_CHANGED),

@@ -2,6 +2,7 @@ import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
 import { WELCOME_BACK, WELCOME_NEW_USER } from "~constants/i18n";
 import { ACCOUNT_STATUS } from "~constants/models";
+import analytics from "~services/analytics";
 
 export default {
   Mutation: {
@@ -16,7 +17,7 @@ export default {
           ...userInfo,
           status: ACCOUNT_STATUS.ACTIVE,
         });
-        const { id, firstName } = user;
+        const { id, firstName, fullName, username, email, locale } = user;
 
         const { accessToken, refreshToken, sid, exp } = jwt.generateAuthTokens({
           sub: id,
@@ -28,6 +29,19 @@ export default {
           key: `${clientId}:${id}`,
           value: sid,
           expiresIn: exp,
+        });
+
+        analytics.track({
+          userId: id,
+          event: "Logged In",
+          properties: {
+            fullName,
+            username,
+            email,
+            locale,
+            provider: input.provider,
+            clientId,
+          },
         });
 
         const code = created ? WELCOME_NEW_USER : WELCOME_BACK;

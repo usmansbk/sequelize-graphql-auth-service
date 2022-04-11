@@ -5,6 +5,8 @@ import log from "~utils/logger";
 import cache from "~utils/cache";
 import mailer from "~utils/mailer";
 import storage from "~utils/storage";
+import analytics from "~services/analytics";
+import Sentry from "~services/sentry";
 
 const contextMiddleware = async (req, _res, next) => {
   const { authorization, client_id: clientId } = req.headers;
@@ -23,6 +25,22 @@ const contextMiddleware = async (req, _res, next) => {
         .cache()
         .findByPk(tokenInfo.sub);
       isRootUser = !!currentUser.roles.find(({ name }) => name === "root");
+      analytics.identify({
+        userId: currentUser.id,
+        traits: {
+          fullName: currentUser.fullName,
+          username: currentUser.username,
+          email: currentUser.email,
+          locale: currentUser.locale,
+        },
+        context: {
+          clientId,
+        },
+      });
+      Sentry.setUser({
+        id: currentUser.id,
+        email: currentUser.email,
+      });
       if (currentUser?.locale) {
         await req.i18n.changeLanguage(currentUser.locale);
       }

@@ -12,8 +12,8 @@ GraphQL server optimized for Sequelize ORM
 - [x] File Upload
 - [x] i18n
 - [x] Dockerize
+- [x] Analytics
 - [ ] Push Notification
-- [ ] Analytics
 
 ## Built with
 
@@ -271,9 +271,15 @@ query {
 }
 ```
 
+## Analytics
+
+[Segment](https://segment.com/docs/) allows us to collect data with different analytics tools. To setup our analytics, create a Segment account and add your `SEGMENT_WRITE_KEY` to the `.env` file.
+
 ## Error handling
 
-We use ["wrapping exceptions"](https://javascript.info/custom-errors#wrapping-exceptions) technique to handle errors. This allows us to take full control of the kind of errors we return, and easily translate them before sending to the end-users.
+We use ["wrapping exceptions"](https://javascript.info/custom-errors#wrapping-exceptions) technique to handle client generated errors. This allows us to take full control of the kind of errors we return, and easily translate them before sending to the end-users.
+
+Internal server errors are logged to sentry. Create a [Sentry](https://sentry.io) account and add your `SENTRY_DSN` to the `.env` file.
 
 ## Coding standard
 
