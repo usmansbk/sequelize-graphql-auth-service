@@ -75,8 +75,8 @@ const create = async (name, { include, ...values } = {}) => {
 const FactoryBot = {
   create: async (name, values) => {
     const newInstance = await create(name, values);
-    if (values.include) {
-      return model.findByPk(newInstance.id, {
+    if (values?.include) {
+      return factories[name].model.findByPk(newInstance.id, {
         include: buildIncludeQuery(values.include),
       });
     }

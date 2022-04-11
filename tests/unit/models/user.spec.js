@@ -5,6 +5,8 @@ describe("User", () => {
     await FactoryBot.truncate();
   });
 
+  afterAll(() => jest.useRealTimers());
+
   describe("#associations", () => {
     test("should remove avatar on destroy", async () => {
       const user = await FactoryBot.create("user", {
@@ -46,7 +48,7 @@ describe("User", () => {
       });
       await user.reload();
 
-      expect(user.passwordResetAt).toBe(new Date());
+      expect(user.passwordResetAt).toEqual(new Date());
     });
   });
 });
