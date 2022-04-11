@@ -1,3 +1,4 @@
+import { ApolloError } from "apollo-server-core";
 import analytics from "~services/analytics";
 import Sentry from "~services/sentry";
 
@@ -11,8 +12,17 @@ const errorPlugin = {
     return {
       async didEncounterErrors(requestContext) {
         const { errors, context, operation, request } = requestContext;
+        if (!operation) {
+          return;
+        }
+
         analytics.flush();
         errors.forEach((e) => {
+          e.message = context.t(e.message);
+
+          if (e instanceof ApolloError) {
+            return;
+          }
           Sentry.withScope((scope) => {
             // Annotate whether failing operation was query/mutation/subscription
             scope.setTag("kind", operation.operation);
@@ -33,7 +43,6 @@ const errorPlugin = {
             }
             Sentry.captureException(e);
           });
-          e.message = context.t(e.message);
         });
       },
     };
