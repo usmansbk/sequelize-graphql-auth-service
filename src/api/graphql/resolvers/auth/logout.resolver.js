@@ -1,5 +1,6 @@
 import { Success } from "~helpers/response";
 import { LOGGED_OUT } from "~constants/i18n";
+import analytics from "~services/analytics";
 
 export default {
   Mutation: {
@@ -13,8 +14,22 @@ export default {
           await Promise.all(
             jwt.audience.map((aud) => cache.remove(`${aud}:${sub}`))
           );
+          analytics.track({
+            userId: sub,
+            event: "Logged Out",
+            properties: {
+              client: "all",
+            },
+          });
         } else {
           await cache.remove(`${clientId}:${sub}`);
+          analytics.track({
+            userId: sub,
+            event: "Logged Out",
+            properties: {
+              client: clientId,
+            },
+          });
         }
       }
 

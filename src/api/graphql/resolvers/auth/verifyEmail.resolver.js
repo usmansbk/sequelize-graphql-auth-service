@@ -4,6 +4,7 @@ import QueryError from "~utils/errors/QueryError";
 import { EMAIL_VERIFICATION_KEY_PREFIX } from "~constants/auth";
 import emailTemplates from "~helpers/emailTemplates";
 import { ACCOUNT_STATUS } from "~constants/models";
+import analytics from "~services/analytics";
 
 export default {
   Mutation: {
@@ -39,6 +40,14 @@ export default {
           locals: {
             locale: user.locale || locale,
             name: firstName,
+          },
+        });
+
+        analytics.track({
+          userId: sub,
+          event: "Verified Email",
+          properties: {
+            email,
           },
         });
 

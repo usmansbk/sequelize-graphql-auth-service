@@ -7,6 +7,7 @@ import {
   MAX_LOGIN_ATTEMPTS,
 } from "~constants/auth";
 import { ACCOUNT_STATUS } from "~constants/models";
+import analytics from "~services/analytics";
 
 export default {
   Mutation: {
@@ -46,7 +47,7 @@ export default {
 
         await cache.remove(attemptCountKey);
 
-        const { id, firstName } = user;
+        const { id, firstName, email, username, fullName } = user;
 
         const { accessToken, refreshToken, sid, exp } = jwt.generateAuthTokens({
           sub: id,
@@ -58,6 +59,19 @@ export default {
           key: `${clientId}:${id}`,
           value: sid,
           expiresIn: exp,
+        });
+
+        analytics.track({
+          userId: id,
+          event: "Logged In",
+          properties: {
+            fullName,
+            email,
+            username,
+            locale,
+            client: clientId,
+            provider: "email",
+          },
         });
 
         return Success({

@@ -1,7 +1,9 @@
 import { AuthenticationError } from "apollo-server-core";
+import analytics from "~services/analytics";
 import { SOMETHING_WENT_WRONG } from "~constants/i18n";
 
 const errorHandler = (err, req, res, next) => {
+  analytics.flush();
   if (err instanceof AuthenticationError) {
     res.status(401).json({
       success: false,
