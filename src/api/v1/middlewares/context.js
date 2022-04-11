@@ -47,7 +47,7 @@ const contextMiddleware = async (req, _res, next) => {
         }
       }
     } catch (e) {
-      log.warn(e.message);
+      log.warn(e);
     }
   }
 
