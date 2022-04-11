@@ -4,6 +4,7 @@ describe("User", () => {
   beforeEach(async () => {
     await FactoryBot.truncate();
   });
+
   describe("#associations", () => {
     test("should remove avatar on destroy", async () => {
       const user = await FactoryBot.create("user", {
@@ -32,6 +33,20 @@ describe("User", () => {
       const count = await FactoryBot.db("role").count();
 
       expect(count).toBe(4);
+    });
+  });
+
+  describe("#hooks", () => {
+    test("should set passwordResetAt when password change", async () => {
+      jest.useFakeTimers();
+      const user = await FactoryBot.create("user");
+
+      await user.update({
+        password: FactoryBot.attributesFor("user").password,
+      });
+      await user.reload();
+
+      expect(user.passwordResetAt).toBe(new Date());
     });
   });
 });

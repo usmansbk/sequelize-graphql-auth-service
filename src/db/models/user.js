@@ -3,6 +3,9 @@ import bcrypt from "bcrypt";
 import { nanoid } from "nanoid";
 import sequelizeCache from "sequelize-transparent-cache";
 import RedisAdaptor from "sequelize-transparent-cache-ioredis";
+import client from "~services/redis";
+import otp from "~utils/otp";
+import dayjs from "~utils/dayjs";
 import {
   USER_FIRST_NAME_EMPTY_ERROR,
   USER_FIRST_NAME_REQUIRED_ERROR,
@@ -27,8 +30,6 @@ import {
   USER_AVATAR_ALIAS,
   USER_ROLES_JOIN_TABLE,
 } from "~constants/models";
-import client from "~services/redis";
-import otp from "~utils/otp";
 
 const redisAdaptor = new RedisAdaptor({
   client,
@@ -233,6 +234,9 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.ENUM(Object.values(ACCOUNT_STATUS)),
         defaultValue: ACCOUNT_STATUS.PROVISIONED,
       },
+      passwordResetAt: {
+        type: DataTypes.DATE,
+      },
     },
     {
       sequelize,
@@ -263,6 +267,11 @@ export default (sequelize, DataTypes) => {
   User.beforeUpdate("unverify new phone number", (user) => {
     if (user.changed("phoneNumber")) {
       user.setDataValue("phoneNumberVerified", false);
+    }
+  });
+  User.beforeUpdate("update last password reset", (user) => {
+    if (user.changed("password")) {
+      user.setDataValue("passwordResetAt", dayjs.utc().toDate());
     }
   });
 
