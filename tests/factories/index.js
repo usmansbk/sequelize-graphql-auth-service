@@ -1,6 +1,7 @@
 import path from "path";
 import { loadFilesSync } from "@graphql-tools/load-files";
 import db from "~db/models";
+import { buildIncludeQuery } from "~utils/transformers/filter";
 
 const definitions = loadFilesSync(path.join(__dirname, "."), {
   ignoreIndex: true,
@@ -21,23 +22,6 @@ definitions.forEach(({ modelName, attributes, associations }) => {
     associations,
   };
 });
-
-const buildIncludeQuery = (include) => {
-  if (!include) {
-    return undefined;
-  }
-
-  return Object.keys(include).map((association) => {
-    const value = include[association];
-    const query = { association };
-
-    if (value.include) {
-      query.include = buildIncludeQuery(value.include);
-    }
-
-    return query;
-  });
-};
 
 const create = async (name, { include, ...values } = {}) => {
   const newInstance = await factories[name.toLowerCase()].create(values);

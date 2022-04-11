@@ -9,12 +9,18 @@ const recursivelyBuildInclude = (fields, model) => {
   Object.keys(fields).forEach((field) => {
     const association = model?.associations[field];
     if (association) {
-      include.push({
+      const query = {
         association: field,
-        include: fields?.[field]
-          ? recursivelyBuildInclude(fields[field], association.target)
-          : undefined,
-      });
+      };
+
+      if (fields?.[field]) {
+        query.include = recursivelyBuildInclude(
+          fields[field],
+          association.target
+        );
+      }
+
+      include.push(query);
     }
   });
 

@@ -40,10 +40,18 @@ export const buildIncludeQuery = (include) => {
   return Object.keys(include).map((association) => {
     const value = include[association];
 
-    return {
+    const query = {
       association,
-      where: buildWhereQuery(value.where),
-      include: buildIncludeQuery(value.include),
     };
+
+    if (value.where) {
+      query.where = buildWhereQuery(value.where);
+    }
+
+    if (value.include) {
+      query.include = buildIncludeQuery(value.include);
+    }
+
+    return query;
   });
 };
