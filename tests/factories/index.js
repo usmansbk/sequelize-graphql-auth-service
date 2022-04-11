@@ -84,16 +84,20 @@ const create = async (name, { include, ...values } = {}) => {
       }
       await newInstance[accessors.set](relationship);
     }
-
-    return model.findByPk(newInstance.id, {
-      include: include && buildIncludeQuery(include),
-    });
   }
   return newInstance;
 };
 
 const FactoryBot = {
-  create,
+  create: async (name, values) => {
+    const newInstance = await create(name, values);
+    if (values.include) {
+      return model.findByPk(newInstance.id, {
+        include: buildIncludeQuery(values.include),
+      });
+    }
+    return newInstance;
+  },
   attributesFor: (name, values) =>
     factories[name.toLowerCase()].attributes(values),
   build: (name, values) => factories[name.toLowerCase()].build(values),
