@@ -1,13 +1,7 @@
 import db from "~db/models";
 
-const { sequelize } = db;
-
-const createTestDatabaseTables = async () => {
-  await sequelize.sync({ force: true });
-};
-
 const globalSetup = async () => {
-  await createTestDatabaseTables();
+  await db.sequelize.sync({ force: true });
 };
 
 export default globalSetup;
