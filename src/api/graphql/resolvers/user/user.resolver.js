@@ -5,11 +5,19 @@ import { USER_NOT_FOUND } from "~constants/i18n";
 export default {
   User: {
     async avatar(user) {
-      const file = user.avatar;
-      return file?.toJSON();
+      if (user.avatar === undefined) {
+        return user.getAvatar();
+      }
+      return user.avatar;
     },
     isOwner(user, _args, { currentUser }) {
       return user.id === currentUser?.id;
+    },
+    roles(user) {
+      if (user.roles === undefined) {
+        return user.getRoles();
+      }
+      return user.roles;
     },
   },
   Query: {

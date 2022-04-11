@@ -4,6 +4,12 @@ import { ROLE_NOT_FOUND } from "~constants/i18n";
 
 export default {
   Role: {
+    permissions(role) {
+      if (role.permissions === undefined) {
+        return role.getPermissions();
+      }
+      return role.permissions;
+    },
     members(role, { page, where }, { dataSources }, info) {
       return dataSources.users.paginate({
         page,

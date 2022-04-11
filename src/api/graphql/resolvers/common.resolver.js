@@ -19,10 +19,10 @@ export default {
   Byte: ByteResolver,
   Photo: {
     url(parent, { resize }) {
-      return getImageUrl(parent, resize);
+      return getImageUrl(parent.toJSON(), resize);
     },
     thumbnail(parent, { resize }) {
-      return getImageUrl(parent, resize);
+      return getImageUrl(parent.toJSON(), resize);
     },
   },
 };
