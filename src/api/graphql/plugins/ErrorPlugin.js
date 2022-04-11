@@ -1,7 +1,8 @@
 /**
  * This plugin translates the errors to the client request language
+ * and logs errors to analytics
  */
-const i18nErrorPlugin = {
+const ErrorPlugin = {
   async requestDidStart() {
     return {
       async didEncounterErrors(requestContext) {
@@ -14,4 +15,4 @@ const i18nErrorPlugin = {
   },
 };
 
-export default i18nErrorPlugin;
+export default ErrorPlugin;

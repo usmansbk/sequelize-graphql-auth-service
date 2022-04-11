@@ -11,7 +11,7 @@ import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 import dataSources from "./datasources";
 import applyDirectives from "./directives";
-import i18nErrorPlugin from "./plugins/i18nErrorPlugin";
+import ErrorPlugin from "./plugins/ErrorPlugin";
 
 export const createSchema = () => {
   const schema = makeExecutableSchema({
@@ -26,10 +26,7 @@ const createApolloServer = (app) => {
   const httpServer = http.createServer(app);
   const server = new ApolloServer({
     schema: createSchema(),
-    plugins: [
-      ApolloServerPluginDrainHttpServer({ httpServer }),
-      i18nErrorPlugin,
-    ],
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer }), ErrorPlugin],
     logger,
     dataSources,
     context: ({ req }) => {
