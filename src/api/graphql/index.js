@@ -11,7 +11,7 @@ import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 import dataSources from "./datasources";
 import applyDirectives from "./directives";
-import ErrorPlugin from "./plugins/ErrorPlugin";
+import errorPlugin from "./plugins/errorPlugin";
 
 export const createSchema = () => {
   const schema = makeExecutableSchema({
@@ -26,7 +26,7 @@ const createApolloServer = (app) => {
   const httpServer = http.createServer(app);
   const server = new ApolloServer({
     schema: createSchema(),
-    plugins: [ApolloServerPluginDrainHttpServer({ httpServer }), ErrorPlugin],
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer }), errorPlugin],
     logger,
     dataSources,
     context: ({ req }) => {

@@ -2,7 +2,7 @@
  * This plugin translates the errors to the client request language
  * and logs errors to analytics
  */
-const ErrorPlugin = {
+const errorPlugin = {
   async requestDidStart() {
     return {
       async didEncounterErrors(requestContext) {
@@ -15,4 +15,4 @@ const ErrorPlugin = {
   },
 };
 
-export default ErrorPlugin;
+export default errorPlugin;
