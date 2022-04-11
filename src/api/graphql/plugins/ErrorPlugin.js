@@ -4,8 +4,6 @@ import Sentry from "~services/sentry";
 
 /**
  * https://blog.sentry.io/2020/07/22/handling-graphql-errors-using-sentry
- * This plugin translates the errors to the client request language
- * and logs errors to analytics
  */
 const errorPlugin = {
   async requestDidStart() {
@@ -18,6 +16,7 @@ const errorPlugin = {
 
         analytics.flush();
         errors.forEach((e) => {
+          // translate to user request language
           e.message = context.t(e.message);
 
           if (e instanceof ApolloError) {
