@@ -8,10 +8,10 @@ export default {
     async registerWithEmail(
       _parent,
       { input },
-      { dataSources, jwt, t, cache, clientId }
+      { dataSources, jwt, t, cache, clientId, locale }
     ) {
       try {
-        const { id, firstName, email, fullName, locale, username } =
+        const { id, firstName, email, fullName, username } =
           await dataSources.users.createWithEmail(input);
 
         const { accessToken, refreshToken, sid, exp } = jwt.generateAuthTokens({
