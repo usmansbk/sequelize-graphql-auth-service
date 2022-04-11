@@ -277,7 +277,9 @@ query {
 
 ## Error handling
 
-We use ["wrapping exceptions"](https://javascript.info/custom-errors#wrapping-exceptions) technique to handle client generated errors. This allows us to take full control of the kind of errors we return, and easily translate them before sending to the end-users. Internal server errors are logged to sentry.
+We use ["wrapping exceptions"](https://javascript.info/custom-errors#wrapping-exceptions) technique to handle client generated errors. This allows us to take full control of the kind of errors we return, and easily translate them before sending to the end-users.
+
+Internal server errors are logged to sentry. Create a [Sentry](https://sentry.io) account and add your `SENTRY_DSN` to the `.env` file.
 
 ## Coding standard
 

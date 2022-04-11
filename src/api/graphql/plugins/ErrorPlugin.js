@@ -1,4 +1,5 @@
 import analytics from "~services/analytics";
+import Sentry from "~services/sentry";
 
 /**
  * This plugin translates the errors to the client request language
@@ -11,6 +12,7 @@ const errorPlugin = {
         const { errors, context } = requestContext;
         analytics.flush();
         errors.forEach((e) => {
+          Sentry.captureException(e);
           e.message = context.t(e.message);
         });
       },
