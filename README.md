@@ -12,8 +12,8 @@ GraphQL server optimized for Sequelize ORM
 - [x] File Upload
 - [x] i18n
 - [x] Dockerize
+- [x] Analytics
 - [ ] Push Notification
-- [ ] Analytics
 
 ## Built with
 
@@ -270,6 +270,10 @@ query {
   }
 }
 ```
+
+## Analytics
+
+[Segment](https://segment.com/docs/) allows us to collect data with different analytics tools. To setup our analytics, create a Segment account and add your `SEGMENT_WRITE_KEY` to the `.env` file.
 
 ## Error handling
 
