@@ -259,6 +259,7 @@ export default (sequelize, DataTypes) => {
       const plainPassword = user.getDataValue("password");
       const hashedPassword = await bcrypt.hash(plainPassword, 10);
       user.setDataValue("password", hashedPassword);
+      user.setDataValue("passwordResetAt", dayjs.utc().toDate());
     }
   };
 
@@ -267,11 +268,6 @@ export default (sequelize, DataTypes) => {
   User.beforeUpdate("unverify new phone number", (user) => {
     if (user.changed("phoneNumber")) {
       user.setDataValue("phoneNumberVerified", false);
-    }
-  });
-  User.beforeUpdate("update last password reset", (user) => {
-    if (user.changed("password")) {
-      user.setDataValue("passwordResetAt", dayjs.utc().toDate());
     }
   });
 
