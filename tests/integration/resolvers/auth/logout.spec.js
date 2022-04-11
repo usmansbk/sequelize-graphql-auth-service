@@ -15,7 +15,6 @@ const query = gql`
 
 describe("Mutation.logout", () => {
   let server;
-  let currentUser;
   beforeAll(() => {
     server = createApolloTestServer();
   });
@@ -25,18 +24,17 @@ describe("Mutation.logout", () => {
   });
 
   beforeEach(async () => {
-    currentUser = await FactoryBot.create("user");
-  });
-
-  beforeEach(async () => {
     await FactoryBot.truncate();
   });
 
   test("should clear current user session", async () => {
+    const currentUser = await FactoryBot.create("user");
     const res = await server.executeOperation({ query }, { currentUser });
+
     const sessionId = await cache.get(
       `${process.env.WEB_CLIENT_ID}:${currentUser.id}`
     );
+
     expect(res.data.logout).toEqual({
       code: "LoggedOut",
       success: true,
@@ -46,6 +44,7 @@ describe("Mutation.logout", () => {
   });
 
   test("should clear all current user sessions", async () => {
+    const currentUser = await FactoryBot.create("user");
     const res = await server.executeOperation(
       {
         query,
@@ -57,6 +56,7 @@ describe("Mutation.logout", () => {
         currentUser,
       }
     );
+
     const sessionId = await cache.get(
       `${process.env.WEB_CLIENT_ID}:${currentUser.id}`
     );
