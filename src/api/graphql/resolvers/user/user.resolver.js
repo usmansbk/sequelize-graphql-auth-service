@@ -5,18 +5,11 @@ import { USER_NOT_FOUND } from "~constants/i18n";
 export default {
   User: {
     async avatar(user) {
-      const file = user.avatar || (await user.getAvatar());
+      const file = user.avatar;
       return file?.toJSON();
     },
     isOwner(user, _args, { currentUser }) {
       return user.id === currentUser?.id;
-    },
-    /**
-     * Fields aren't eager-loaded when we run Sequelize `Model.update`
-     * In such case, we want to fallback to lazy-loading
-     */
-    roles(user) {
-      return user.roles || user.getRoles();
     },
   },
   Query: {

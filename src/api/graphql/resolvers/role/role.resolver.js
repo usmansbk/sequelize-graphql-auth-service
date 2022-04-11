@@ -4,13 +4,6 @@ import { ROLE_NOT_FOUND } from "~constants/i18n";
 
 export default {
   Role: {
-    /**
-     * Fields aren't eager-loaded when we run Sequelize `Model.update`
-     * In such case, we want to fallback to lazy-loading 
-     */
-    permissions(role) {
-      return role.permissions || role.getPermissions();
-    },
     members(role, { page, where }, { dataSources }, info) {
       return dataSources.users.paginate({
         page,
