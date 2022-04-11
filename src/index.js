@@ -15,8 +15,8 @@ const app = express();
 useLanguageMiddleware(app);
 
 app.use(cors());
-app.use(Sentry.Handlers.requestHandler());
 app.use(contextMiddleware);
+app.use(Sentry.Handlers.requestHandler());
 app.use(rateLimiter);
 app.use("/v1", v1);
 
