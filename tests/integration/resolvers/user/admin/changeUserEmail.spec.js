@@ -56,7 +56,7 @@ describe("Mutation.changeUserEmail", () => {
       { currentUser }
     );
 
-    expect(res.data.changeUserUsername.user).toEqual({ email });
+    expect(res.data.changeUserEmail.user).toEqual({ email });
   });
 
   test("should not allow non-admin to change users email", async () => {

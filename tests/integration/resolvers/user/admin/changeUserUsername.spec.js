@@ -3,7 +3,7 @@ import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
 
 const query = gql`
-  mutation ChangeUserUsername($input: ChangeUserUsernameInput!) {
+  mutation ChangeUserUsername($input: ChangeUsernameInput!) {
     changeUserUsername(input: $input) {
       code
       message

@@ -3,8 +3,8 @@ import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
 
 const query = gql`
-  mutation RemoveUserAvatar($input: RemoveUserAvatarInput!) {
-    removeUserAvatar(input: $input) {
+  mutation RemoveUserAvatar($id: ID!) {
+    removeUserAvatar(id: $id) {
       code
       message
       user {
@@ -54,7 +54,7 @@ describe("Mutation.changeUserStatus", () => {
       { currentUser }
     );
 
-    expect(res.data.changeUserUsername.user).toEqual({ avatar: null });
+    expect(res.data.removeUserAvatar.user).toEqual({ avatar: null });
   });
 
   test("should not allow non-admin to remove other user avatar", async () => {

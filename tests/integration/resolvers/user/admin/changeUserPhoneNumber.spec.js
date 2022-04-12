@@ -56,7 +56,7 @@ describe("Mutation.changeUserPhoneNumber", () => {
       { currentUser }
     );
 
-    expect(res.data.changeUserUsername.user).toEqual({ locale });
+    expect(res.data.changeUserPhoneNumber.user).toEqual({ phoneNumber });
   });
 
   test("should not allow non-admin to change users phone number", async () => {
