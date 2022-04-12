@@ -9,7 +9,9 @@ const query = gql`
       message
       role {
         members {
-          totalCount
+          items {
+            id
+          }
         }
       }
     }
@@ -58,9 +60,10 @@ describe("Mutation.detachRoleFromAllMembers", () => {
         },
         { currentUser: admin }
       );
-      console.log(res.errors);
 
-      expect(res.data.detachRoleFromAllMembers.role.members.totalCount).toBe(0);
+      expect(res.data.detachRoleFromAllMembers.role.members.items).toHaveLength(
+        0
+      );
     });
   });
 });
