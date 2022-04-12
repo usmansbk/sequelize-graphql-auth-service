@@ -20,7 +20,7 @@ const getUser = async (id) => {
   if (cached) {
     userRoles = JSON.parse(cached);
   } else {
-    userRoles = (await loadFromDb()).roles;
+    userRoles = await loadFromDb();
   }
 
   return {
