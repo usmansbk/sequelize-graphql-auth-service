@@ -50,34 +50,6 @@ export default (sequelize, DataTypes) => {
     checkPassword(password) {
       return bcrypt.compare(password, this.password);
     }
-
-    hasRole(roles) {
-      const userRoles = this.get(ROLES_ALIAS);
-
-      if (!userRoles) {
-        throw new Error(
-          "Use model `permissions` scope or eager load user roles."
-        );
-      }
-
-      return userRoles.some((roleModel) => roles.includes(roleModel.name));
-    }
-
-    hasPermission(scopes) {
-      const roles = this.get(ROLES_ALIAS);
-
-      if (!roles) {
-        throw new Error(
-          "Use model `permissions` scope or eager load user roles."
-        );
-      }
-
-      return roles.some((role) =>
-        role.permissions.some(({ action, resource }) =>
-          scopes.includes(`${action}:${resource}`)
-        )
-      );
-    }
   }
   User.init(
     {
