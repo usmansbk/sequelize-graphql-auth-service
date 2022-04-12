@@ -9,7 +9,7 @@ export default {
     async loginWithSocialProvider(
       _parent,
       { input },
-      { t, dataSources, jwt, clientId, cache }
+      { t, dataSources, jwt, clientId }
     ) {
       try {
         const userInfo = await jwt.verifySocialToken(input);
@@ -19,16 +19,9 @@ export default {
         });
         const { id, firstName } = user;
 
-        const { accessToken, refreshToken, sid, exp } = jwt.generateAuthTokens({
+        const { accessToken, refreshToken } = await jwt.generateAuthTokens({
           sub: id,
           aud: clientId,
-        });
-
-        // refresh token rotation
-        await cache.set({
-          key: `${clientId}:${id}`,
-          value: sid,
-          expiresIn: exp,
         });
 
         analytics.track({

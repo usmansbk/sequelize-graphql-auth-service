@@ -8,23 +8,16 @@ export default {
     async registerWithEmail(
       _parent,
       { input },
-      { dataSources, jwt, t, cache, clientId }
+      { dataSources, jwt, t, clientId }
     ) {
       try {
         const { id, firstName } = await dataSources.users.createWithEmail(
           input
         );
 
-        const { accessToken, refreshToken, sid, exp } = jwt.generateAuthTokens({
+        const { accessToken, refreshToken } = await jwt.generateAuthTokens({
           sub: id,
           aud: clientId,
-        });
-
-        // refresh token rotation
-        await cache.set({
-          key: `${clientId}:${id}`,
-          value: sid,
-          expiresIn: exp,
         });
 
         analytics.track({

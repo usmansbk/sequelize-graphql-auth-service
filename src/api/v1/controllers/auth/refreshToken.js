@@ -23,16 +23,9 @@ const refreshTokenController = async (req, res) => {
       throw new TokenError(TOKEN_INVALID_ERROR);
     }
 
-    const { accessToken, refreshToken, sid, exp } = jwt.generateAuthTokens({
+    const { accessToken, refreshToken } = await jwt.generateAuthTokens({
       aud: clientId,
       sub: decodedRefreshToken.sub,
-    });
-
-    // rotate refresh token
-    await cache.set({
-      key,
-      value: sid,
-      expiresIn: exp,
     });
 
     res.json({
