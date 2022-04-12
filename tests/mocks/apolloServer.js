@@ -1,6 +1,7 @@
 import { ApolloServer } from "apollo-server-express";
 import { createSchema } from "~api/graphql";
 import dataSources from "~api/graphql/datasources";
+import db from "~db/models";
 import otp from "~utils/otp";
 import jwt from "~utils/jwt";
 import mailer from "~utils/mailer";
@@ -43,6 +44,7 @@ const createApolloTestServer = () => {
 
       return {
         t: (msg) => msg,
+        db,
         otp,
         jwt,
         cache,
