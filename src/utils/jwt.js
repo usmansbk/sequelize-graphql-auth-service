@@ -20,6 +20,7 @@ import {
   GOOGLE_PROVIDER,
 } from "~constants/auth";
 import TokenError from "./errors/TokenError";
+import cache from "./cache";
 
 const privateKey = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
 const publicKey = fs.readFileSync(process.env.JWT_PUBLIC_KEY);
@@ -80,23 +81,27 @@ const generateToken = (payload = {}, expiresIn = "5 minutes") => {
  * @param { string } refreshTokenExp  - refresh token expiresIn (days)
  * @returns
  */
-const generateAuthTokens = (
-  { aud, ...payload },
+const generateAuthTokens = async (
+  { aud, sub },
   tokenExp = ACCESS_TOKEN_EXPIRES_IN,
   refreshTokenExp = REFRESH_TOKEN_EXPIRES_IN
 ) => {
   const refreshToken = generateToken({ aud }, refreshTokenExp);
   const accessToken = generateToken(
-    { aud, sid: refreshToken.id, ...payload },
+    { aud, sub, sid: refreshToken.id },
     tokenExp
   );
+  // Token rotation
+  await cache.set({
+    key: `${aud}:${sub}`,
+    value: refreshToken.id,
+    expiresIn: refreshToken.exp,
+  });
 
   return {
     accessToken: accessToken.token,
     refreshToken: refreshToken.token,
-    jti: accessToken.id,
     sid: refreshToken.id,
-    exp: refreshToken.exp,
   };
 };
 

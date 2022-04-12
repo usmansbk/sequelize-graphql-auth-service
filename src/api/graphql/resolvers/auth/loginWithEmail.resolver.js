@@ -49,16 +49,9 @@ export default {
 
         const { id, firstName } = user;
 
-        const { accessToken, refreshToken, sid, exp } = jwt.generateAuthTokens({
+        const { accessToken, refreshToken } = await jwt.generateAuthTokens({
           sub: id,
           aud: clientId,
-        });
-
-        // refresh token rotation
-        await cache.set({
-          key: `${clientId}:${id}`,
-          value: sid,
-          expiresIn: exp,
         });
 
         analytics.track({
