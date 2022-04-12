@@ -55,7 +55,7 @@ describe("Role", () => {
       expect(members).toHaveLength(3);
     });
 
-    test("should remove members", async () => {
+    test("should detach members", async () => {
       const role = await FactoryBot.create("role", {
         include: {
           members: {
@@ -76,6 +76,22 @@ describe("Role", () => {
       });
 
       expect(members).toHaveLength(0);
+    });
+
+    test("should not cascade delete members", async () => {
+      const roleWithMembers = await FactoryBot.create("role", {
+        include: {
+          members: {
+            _count: 3,
+          },
+        },
+      });
+
+      await roleWithMembers.destroy();
+
+      const count = await FactoryBot.db("user").count();
+
+      expect(count).toBe(3);
     });
   });
 });
