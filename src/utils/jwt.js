@@ -101,9 +101,7 @@ const generateAuthTokens = async (
   return {
     accessToken: accessToken.token,
     refreshToken: refreshToken.token,
-    jti: accessToken.id,
     sid: refreshToken.id,
-    exp: refreshToken.exp,
   };
 };
 
