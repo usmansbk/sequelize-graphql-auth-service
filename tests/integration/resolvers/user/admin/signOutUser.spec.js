@@ -2,7 +2,6 @@ import { gql } from "apollo-server-express";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
 import cache from "~utils/cache";
-import { AUTH_KEY_PREFIX } from "~constants/auth";
 
 const query = gql`
   mutation SignOutUser($id: ID!) {
@@ -36,7 +35,7 @@ describe("Mutation.signOutUser", () => {
       },
     });
     const otherUser = await FactoryBot.create("user");
-    const key = `${AUTH_KEY_PREFIX}:${otherUser.id}`;
+    const key = `${process.env.WEB_CLIENT_ID}:${otherUser.id}`;
     await cache.set({
       key,
       value: "mockToken",

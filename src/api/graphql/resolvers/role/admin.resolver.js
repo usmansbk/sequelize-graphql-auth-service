@@ -1,7 +1,7 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
 import { ROLE_MEMBERS_ALIAS } from "~constants/models";
-import { AUTH_KEY_PREFIX } from "~constants/auth";
+import { PERMISSIONS_KEY_PREFIX } from "~constants/auth";
 
 export default {
   Query: {
@@ -103,7 +103,7 @@ export default {
         });
         if (role.members.length) {
           await cache.remove(
-            ...role.members.map(({ id }) => `${AUTH_KEY_PREFIX}:${id}`)
+            ...role.members.map(({ id }) => `${PERMISSIONS_KEY_PREFIX}:${id}`)
           );
         }
         return Success({ role });
@@ -142,7 +142,7 @@ export default {
         });
         if (role.members.length) {
           await cache.remove(
-            ...role.members.map(({ id }) => `${AUTH_KEY_PREFIX}:${id}`)
+            ...role.members.map(({ id }) => `${PERMISSIONS_KEY_PREFIX}:${id}`)
           );
         }
         return Success({ role });
@@ -182,7 +182,7 @@ export default {
         });
         if (role.members.length) {
           await cache.remove(
-            ...role.members.map(({ id }) => `${AUTH_KEY_PREFIX}:${id}`)
+            ...role.members.map(({ id }) => `${PERMISSIONS_KEY_PREFIX}:${id}`)
           );
         }
         return Success({ role });

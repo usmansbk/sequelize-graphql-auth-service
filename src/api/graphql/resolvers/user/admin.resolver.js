@@ -1,6 +1,6 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
-import { AUTH_KEY_PREFIX } from "~constants/auth";
+import { PERMISSIONS_KEY_PREFIX } from "~constants/auth";
 
 export default {
   Query: {
@@ -210,7 +210,7 @@ export default {
           await account.addRoles(roleIds, { transaction });
           return account;
         });
-        await cache.remove(`${AUTH_KEY_PREFIX}:${userId}`);
+        await cache.remove(`${PERMISSIONS_KEY_PREFIX}:${userId}`);
         return Success({ user });
       } catch (e) {
         if (e instanceof QueryError) {
@@ -240,7 +240,7 @@ export default {
           await account.removeRoles(roleIds, { transaction });
           return account;
         });
-        await cache.remove(`${AUTH_KEY_PREFIX}:${userId}`);
+        await cache.remove(`${PERMISSIONS_KEY_PREFIX}:${userId}`);
         return Success({ user });
       } catch (e) {
         if (e instanceof QueryError) {
@@ -271,7 +271,7 @@ export default {
           await account.removeRoles(roles, { transaction });
           return account;
         });
-        await cache.remove(`${AUTH_KEY_PREFIX}:${userId}`);
+        await cache.remove(`${PERMISSIONS_KEY_PREFIX}:${userId}`);
         return Success({ user });
       } catch (e) {
         if (e instanceof QueryError) {

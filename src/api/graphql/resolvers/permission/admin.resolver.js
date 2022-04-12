@@ -1,7 +1,7 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
 import { ROLES_ALIAS, ROLE_MEMBERS_ALIAS } from "~constants/models";
-import { AUTH_KEY_PREFIX } from "~constants/auth";
+import { PERMISSIONS_KEY_PREFIX } from "~constants/auth";
 
 export default {
   Query: {
@@ -96,7 +96,9 @@ export default {
 
         await Promise.all(
           permission.roles.map(({ members }) =>
-            cache.remove(...members.map(({ id }) => `${AUTH_KEY_PREFIX}:${id}`))
+            cache.remove(
+              ...members.map(({ id }) => `${PERMISSIONS_KEY_PREFIX}:${id}`)
+            )
           )
         );
 
