@@ -47,7 +47,7 @@ export default {
 
         await cache.remove(attemptCountKey);
 
-        const { id, firstName, email, username, fullName } = user;
+        const { id, firstName } = user;
 
         const { accessToken, refreshToken, sid, exp } = jwt.generateAuthTokens({
           sub: id,
@@ -65,11 +65,6 @@ export default {
           userId: id,
           event: "Logged In",
           properties: {
-            fullName,
-            email,
-            username,
-            locale,
-            client: clientId,
             provider: "email",
           },
         });

@@ -17,7 +17,7 @@ export default {
           ...userInfo,
           status: ACCOUNT_STATUS.ACTIVE,
         });
-        const { id, firstName, fullName, username, email, locale } = user;
+        const { id, firstName } = user;
 
         const { accessToken, refreshToken, sid, exp } = jwt.generateAuthTokens({
           sub: id,
@@ -35,12 +35,7 @@ export default {
           userId: id,
           event: "Logged In",
           properties: {
-            fullName,
-            username,
-            email,
-            locale,
             provider: input.provider,
-            clientId,
           },
         });
 

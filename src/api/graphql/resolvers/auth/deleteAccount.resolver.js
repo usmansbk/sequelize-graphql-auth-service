@@ -6,11 +6,7 @@ import analytics from "~services/analytics";
 
 export default {
   Mutation: {
-    async deleteAccount(
-      _parent,
-      { token },
-      { dataSources, cache, t, jwt, clientId, locale }
-    ) {
+    async deleteAccount(_parent, { token }, { dataSources, cache, t, jwt }) {
       try {
         const { sub } = jwt.verify(token);
         const key = `${DELETE_ACCOUNT_KEY_PREFIX}:${sub}`;
@@ -25,10 +21,6 @@ export default {
         analytics.track({
           userId: sub,
           event: "Deleted Account",
-          properties: {
-            clientId,
-            locale,
-          },
         });
 
         return Success({

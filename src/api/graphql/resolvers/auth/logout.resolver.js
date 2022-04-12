@@ -14,24 +14,14 @@ export default {
           await Promise.all(
             jwt.audience.map((aud) => cache.remove(`${aud}:${sub}`))
           );
-          analytics.track({
-            userId: sub,
-            event: "Logged Out",
-            properties: {
-              client: "all",
-            },
-          });
         } else {
           await cache.remove(`${clientId}:${sub}`);
-          analytics.track({
-            userId: sub,
-            event: "Logged Out",
-            properties: {
-              client: clientId,
-            },
-          });
         }
         await cache.remove(sub);
+        analytics.track({
+          userId: sub,
+          event: "Logged Out",
+        });
       }
 
       return Success({

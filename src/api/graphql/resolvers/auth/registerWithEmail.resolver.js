@@ -8,11 +8,12 @@ export default {
     async registerWithEmail(
       _parent,
       { input },
-      { dataSources, jwt, t, cache, clientId, locale }
+      { dataSources, jwt, t, cache, clientId }
     ) {
       try {
-        const { id, firstName, email, fullName, username } =
-          await dataSources.users.createWithEmail(input);
+        const { id, firstName } = await dataSources.users.createWithEmail(
+          input
+        );
 
         const { accessToken, refreshToken, sid, exp } = jwt.generateAuthTokens({
           sub: id,
@@ -29,13 +30,6 @@ export default {
         analytics.track({
           userId: id,
           event: "Signed Up",
-          properties: {
-            fullName,
-            email,
-            username,
-            clientId,
-            locale,
-          },
         });
         return Success({
           message: t(WELCOME_NEW_USER, { firstName }),
