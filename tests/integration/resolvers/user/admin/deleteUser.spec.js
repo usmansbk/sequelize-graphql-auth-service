@@ -3,8 +3,8 @@ import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
 
 const query = gql`
-  mutation DeleteRole($id: ID!, $reason: String) {
-    deleteRole(id: $id, reason: $reason) {
+  mutation DeleteUser($id: ID!, $reason: String) {
+    deleteUser(id: $id, reason: $reason) {
       code
       message
       id
@@ -12,7 +12,7 @@ const query = gql`
   }
 `;
 
-describe("Mutation.deleteRole", () => {
+describe("Mutation.deleteUser", () => {
   let server;
   beforeAll(() => {
     server = createApolloTestServer();
@@ -37,49 +37,50 @@ describe("Mutation.deleteRole", () => {
         },
       });
     });
-    test("should delete a role", async () => {
-      const role = await FactoryBot.create("role");
+
+    test("should delete a user", async () => {
+      const user = await FactoryBot.create("user");
 
       const res = await server.executeOperation(
         {
           query,
           variables: {
-            id: role.id,
+            id: user.id,
           },
         },
         { currentUser: admin }
       );
 
-      expect(res.data.deleteRole.id).toBe(role.id);
+      expect(res.data.deleteUser.id).toBe(user.id);
     });
 
-    test("should delete role with optional reason", async () => {
-      const role = await FactoryBot.create("role");
+    test("should delete a user with reason", async () => {
+      const user = await FactoryBot.create("user");
 
       const res = await server.executeOperation(
         {
           query,
           variables: {
-            id: role.id,
+            id: user.id,
             reason: "testing",
           },
         },
         { currentUser: admin }
       );
 
-      expect(res.data.deleteRole.id).toBe(role.id);
+      expect(res.data.deleteUser.id).toBe(user.id);
     });
   });
 
-  test("should not allow non-admin to delete role", async () => {
+  test("should not allow non-admin to delete user", async () => {
     const currentUser = await FactoryBot.create("user");
-    const role = await FactoryBot.create("role");
+    const otherUser = await FactoryBot.create("user");
 
     const res = await server.executeOperation(
       {
         query,
         variables: {
-          id: role.id,
+          id: otherUser.id,
         },
       },
       { currentUser }

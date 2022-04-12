@@ -38,7 +38,7 @@ type Mutation {
     @auth(rules: [{ allow: role, roles: ["admin"] }])
   removeUserAvatar(id: ID!): UserMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
-  deleteUser(id: ID!, reason: String!): DeleteMutationResponse!
+  deleteUser(id: ID!, reason: String): DeleteMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
   attachRolesToUser(userId: ID!, roleIds: [ID!]!): UserMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
