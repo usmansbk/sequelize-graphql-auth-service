@@ -282,8 +282,8 @@ export default class SequelizeDataSource extends DataSource {
         where: paginationWhere,
         ...options,
       }),
-      this.model.count({ where: paginationWhere, ...options }),
-      this.model.count({ where, ...options }),
+      this.model.count({ where: paginationWhere, include, ...options }),
+      this.model.count({ where, include, ...options }),
     ]);
 
     if (before) {
