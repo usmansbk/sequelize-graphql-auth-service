@@ -228,6 +228,9 @@ export default (sequelize, DataTypes) => {
           include: [
             {
               association: ROLES_ALIAS,
+              through: {
+                attributes: [],
+              },
             },
           ],
         },
