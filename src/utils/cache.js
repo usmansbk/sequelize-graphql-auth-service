@@ -4,7 +4,7 @@ const set = ({ key, value, expiresIn }) => client.setex(key, expiresIn, value);
 
 const get = (key) => client.get(key);
 
-const remove = (key) => client.del(key);
+const remove = (...args) => client.del(...args);
 
 const increment = (key) => client.incr(key);
 

@@ -1,5 +1,6 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
+import { AUTH_KEY_PREFIX } from "~constants/auth";
 
 export default {
   Query: {
@@ -196,7 +197,7 @@ export default {
     async attachRolesToUser(
       _parent,
       { roleIds, userId },
-      { dataSources, db, t }
+      { dataSources, db, t, cache }
     ) {
       try {
         const user = await db.sequelize.transaction(async (transaction) => {
@@ -209,6 +210,7 @@ export default {
           await account.addRoles(roleIds, { transaction });
           return account;
         });
+        await cache.remove(`${AUTH_KEY_PREFIX}:${userId}`);
         return Success({ user });
       } catch (e) {
         if (e instanceof QueryError) {
@@ -225,7 +227,7 @@ export default {
     async detachRolesFromUser(
       _parent,
       { roleIds, userId },
-      { dataSources, db, t }
+      { dataSources, db, t, cache }
     ) {
       try {
         const user = await db.sequelize.transaction(async (transaction) => {
@@ -238,6 +240,7 @@ export default {
           await account.removeRoles(roleIds, { transaction });
           return account;
         });
+        await cache.remove(`${AUTH_KEY_PREFIX}:${userId}`);
         return Success({ user });
       } catch (e) {
         if (e instanceof QueryError) {
@@ -251,7 +254,11 @@ export default {
         throw e;
       }
     },
-    async detachAllRolesFromUser(_parent, { userId }, { dataSources, db, t }) {
+    async detachAllRolesFromUser(
+      _parent,
+      { userId },
+      { dataSources, db, t, cache }
+    ) {
       try {
         const user = await db.sequelize.transaction(async (transaction) => {
           const account = await dataSources.users.findOne({
@@ -264,6 +271,7 @@ export default {
           await account.removeRoles(roles, { transaction });
           return account;
         });
+        await cache.remove(`${AUTH_KEY_PREFIX}:${userId}`);
         return Success({ user });
       } catch (e) {
         if (e instanceof QueryError) {
