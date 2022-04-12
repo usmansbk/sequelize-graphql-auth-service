@@ -6,14 +6,12 @@ import jwt from "~utils/jwt";
 import mailer from "~utils/mailer";
 import cache from "~utils/cache";
 import storage from "~utils/storage";
-import FactoryBot from "tests/factories";
+import getUser from "~helpers/getUser";
 
 const clientId = process.env.WEB_CLIENT_ID;
 
 const auth = async (user) => {
-  const currentUser = await FactoryBot.db("user")
-    .scope("roles")
-    .findByPk(user.id);
+  const currentUser = getUser(user.id);
   const { accessToken, sid, exp } = jwt.generateAuthTokens({
     aud: clientId,
     sub: user.id,

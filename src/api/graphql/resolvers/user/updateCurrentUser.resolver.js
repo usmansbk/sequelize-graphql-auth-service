@@ -4,9 +4,13 @@ import { Fail, Success } from "~helpers/response";
 
 export default {
   Mutation: {
-    async updateCurrentUserFullname(_parent, { input }, { currentUser, t }) {
+    async updateCurrentUserFullname(
+      _parent,
+      { input },
+      { currentUser, dataSources, t }
+    ) {
       try {
-        const user = await currentUser.update(input);
+        const user = await dataSources.users.update(currentUser.id, input);
 
         return Success({
           code: PROFILE_UPDATED,
@@ -24,9 +28,15 @@ export default {
         throw e;
       }
     },
-    async updateCurrentUserUsername(_parent, { username }, { currentUser, t }) {
+    async updateCurrentUserUsername(
+      _parent,
+      { username },
+      { currentUser, dataSources, t }
+    ) {
       try {
-        const user = await currentUser.update({ username });
+        const user = await dataSources.users.update(currentUser.id, {
+          username,
+        });
 
         return Success({
           code: PROFILE_UPDATED,
@@ -44,9 +54,13 @@ export default {
         throw e;
       }
     },
-    async updateCurrentUserLocale(_parent, { locale }, { currentUser, t }) {
+    async updateCurrentUserLocale(
+      _parent,
+      { locale },
+      { currentUser, t, dataSources }
+    ) {
       try {
-        const user = await currentUser.update({ locale });
+        const user = await dataSources.users.update(currentUser.id, { locale });
 
         return Success({
           code: PROFILE_UPDATED,
@@ -70,7 +84,8 @@ export default {
       { currentUser, t, dataSources }
     ) {
       try {
-        const avatar = await currentUser.getAvatar();
+        const user = await dataSources.users.findByPk(currentUser.id);
+        const avatar = await user.getAvatar();
         if (avatar) {
           await dataSources.files.destroy(avatar.id);
         }
