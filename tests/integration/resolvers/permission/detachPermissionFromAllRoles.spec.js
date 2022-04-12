@@ -9,7 +9,9 @@ const query = gql`
       message
       permission {
         roles {
-          totalCount
+          items {
+            id
+          }
         }
       }
     }
@@ -60,8 +62,8 @@ describe("Mutation.detachPermissionFromAllRoles", () => {
       );
 
       expect(
-        res.data.detachPermissionFromAllRoles.permission.roles.totalCount
-      ).toBe(0);
+        res.data.detachPermissionFromAllRoles.permission.roles.items
+      ).toHaveLength(0);
     });
   });
 });
