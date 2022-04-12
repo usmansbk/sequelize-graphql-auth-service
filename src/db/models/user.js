@@ -1,9 +1,6 @@
 import { Model } from "sequelize";
 import bcrypt from "bcrypt";
 import { nanoid } from "nanoid";
-import sequelizeCache from "sequelize-transparent-cache";
-import RedisAdaptor from "sequelize-transparent-cache-ioredis";
-import client from "~services/redis";
 import otp from "~utils/otp";
 import dayjs from "~utils/dayjs";
 import {
@@ -29,14 +26,6 @@ import {
   USER_AVATAR_ALIAS,
   USER_ROLES_JOIN_TABLE,
 } from "~constants/models";
-
-const redisAdaptor = new RedisAdaptor({
-  client,
-  namespace: "model",
-  lifetime: 60 * 60,
-});
-
-const { withCache } = sequelizeCache(redisAdaptor);
 
 export default (sequelize, DataTypes) => {
   class User extends Model {
@@ -71,6 +60,22 @@ export default (sequelize, DataTypes) => {
       }
 
       return userRoles.some((roleModel) => roles.includes(roleModel.name));
+    }
+
+    hasPermission(scopes) {
+      const roles = this.get(ROLES_ALIAS);
+
+      if (!roles) {
+        throw new Error(
+          "Use model `permissions` scope or eager load user roles."
+        );
+      }
+
+      return roles.some((role) =>
+        role.permissions.some(({ action, resource }) =>
+          scopes.includes(`${action}:${resource}`)
+        )
+      );
     }
   }
   User.init(
@@ -259,5 +264,5 @@ export default (sequelize, DataTypes) => {
     }
   });
 
-  return withCache(User);
+  return User;
 };

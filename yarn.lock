@@ -8435,16 +8435,6 @@ sequelize-pool@^7.1.0:
   resolved "https://registry.yarnpkg.com/sequelize-pool/-/sequelize-pool-7.1.0.tgz#210b391af4002762f823188fd6ecfc7413020768"
   integrity sha512-G9c0qlIWQSK29pR/5U2JF5dDQeqqHRragoyahj/Nx4KOOQ3CPPfzxnfqFPCSB7x5UgjOgnZ61nSxz+fjDpRlJg==
 
-sequelize-transparent-cache-ioredis@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/sequelize-transparent-cache-ioredis/-/sequelize-transparent-cache-ioredis-2.3.0.tgz#311cc9d68cdb0a54deb2ad26b93bc2c44a66a787"
-  integrity sha512-UK88ADmuJyGRjG7MLQrmfjMLnDigLG44SkWnAIfDlRU7yLyiEH3gGD6yaj6bgadACKxJ6fxRypJKeDqOMJEDVA==
-
-sequelize-transparent-cache@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/sequelize-transparent-cache/-/sequelize-transparent-cache-2.3.0.tgz#15dfd3b4a38c1a9365ffa96b6dd4c7b2990143da"
-  integrity sha512-IgKRo6IzIaXlxBC+262vr+C9gqgNI8/L27eu5N2LfhNUpLWQ/N/4BIyNdgg8kZwZ0wGel+Wg7k281vVKzhFAaw==
-
 sequelize@^6.18.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-6.18.0.tgz#0e99e0c07ee144eb456374a56e2bd501634c3d16"

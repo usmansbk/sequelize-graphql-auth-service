@@ -6,7 +6,7 @@ export default {
   Mutation: {
     async updateCurrentUserFullname(_parent, { input }, { currentUser, t }) {
       try {
-        const user = await currentUser.cache().update(input);
+        const user = await currentUser.update(input);
 
         return Success({
           code: PROFILE_UPDATED,
@@ -26,7 +26,7 @@ export default {
     },
     async updateCurrentUserUsername(_parent, { username }, { currentUser, t }) {
       try {
-        const user = await currentUser.cache().update({ username });
+        const user = await currentUser.update({ username });
 
         return Success({
           code: PROFILE_UPDATED,
@@ -46,7 +46,7 @@ export default {
     },
     async updateCurrentUserLocale(_parent, { locale }, { currentUser, t }) {
       try {
-        const user = await currentUser.cache().update({ locale });
+        const user = await currentUser.update({ locale });
 
         return Success({
           code: PROFILE_UPDATED,

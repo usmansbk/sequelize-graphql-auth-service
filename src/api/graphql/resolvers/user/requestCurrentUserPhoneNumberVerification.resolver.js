@@ -11,7 +11,7 @@ export default {
       { currentUser, cache, t, otp, mailer }
     ) {
       try {
-        const user = await currentUser.cache().update({ phoneNumber });
+        const user = await currentUser.update({ phoneNumber });
 
         const { id, phoneNumberVerified } = user;
         const key = `${PHONE_NUMBER_KEY_PREFIX}:${id}`;

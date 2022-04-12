@@ -90,8 +90,6 @@
     "rate-limit-redis": "^3.0.1",
     "retry": "^0.13.1",
     "sequelize": "^6.18.0",
-    "sequelize-transparent-cache": "^2.3.0",
-    "sequelize-transparent-cache-ioredis": "^2.3.0",
     "twilio": "^3.76.1"
   },
   "lint-staged": {

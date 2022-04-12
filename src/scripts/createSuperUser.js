@@ -2,7 +2,6 @@ import inquirer from "inquirer";
 import db from "~db/models";
 import log from "~utils/logger";
 import { PERMISSIONS_ALIAS } from "~constants/models";
-import cache from "~utils/cache";
 
 const permissions = [
   {
@@ -70,7 +69,6 @@ const createSuperUser = async () => {
       await root.addRole(superUser, { transaction: t });
     });
     await sequelize.close();
-    cache.close();
   } catch (e) {
     log.error(e);
   }

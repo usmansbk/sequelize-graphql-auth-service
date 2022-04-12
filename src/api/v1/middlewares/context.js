@@ -22,9 +22,7 @@ const contextMiddleware = async (req, _res, next) => {
     try {
       tokenInfo = jwt.verify(accessToken);
       sessionId = await cache.get(`${clientId}:${tokenInfo.sub}`);
-      currentUser = await db.User.scope("roles")
-        .cache()
-        .findByPk(tokenInfo.sub);
+      currentUser = await db.User.scope("roles").findByPk(tokenInfo.sub);
       if (currentUser) {
         isRootUser = currentUser.hasRole(["root"]);
         isAdmin = currentUser.hasRole(["admin"]);
