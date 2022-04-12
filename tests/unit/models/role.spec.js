@@ -8,7 +8,7 @@ describe("Role", () => {
     test("should create member association", async () => {
       const role = await FactoryBot.create("role", {
         include: {
-          member: {
+          members: {
             _count: 4,
           },
         },
@@ -22,7 +22,7 @@ describe("Role", () => {
     test("should count members correctly", async () => {
       const role = await FactoryBot.create("role", {
         include: {
-          member: {
+          members: {
             _count: 3,
           },
         },
@@ -34,17 +34,15 @@ describe("Role", () => {
       expect(count).toBe(3);
     });
 
-    test("should remove members association", async () => {
+    test("should return members using nested query", async () => {
       const role = await FactoryBot.create("role", {
         include: {
-          member: {
+          members: {
             _count: 3,
           },
         },
       });
-      await role.setMember([]);
 
-      const count = await role.countMembers();
       const members = await FactoryBot.db("user").findAll({
         include: {
           association: "roles",
@@ -54,7 +52,29 @@ describe("Role", () => {
         },
       });
 
-      expect(count).toBe(0);
+      expect(members).toHaveLength(3);
+    });
+
+    test("should remove members", async () => {
+      const role = await FactoryBot.create("role", {
+        include: {
+          members: {
+            _count: 3,
+          },
+        },
+      });
+
+      await role.setMembers([]);
+
+      const members = await FactoryBot.db("user").findAll({
+        include: {
+          association: "roles",
+          where: {
+            id: role.id,
+          },
+        },
+      });
+
       expect(members).toHaveLength(0);
     });
   });
