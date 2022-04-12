@@ -22,10 +22,21 @@ const contextMiddleware = async (req, _res, next) => {
     try {
       tokenInfo = jwt.verify(accessToken);
       sessionId = await cache.get(`${clientId}:${tokenInfo.sub}`);
+      const cachedAuthData = await cache.get(tokenInfo.sub);
+
+      if (cachedAuthData) {
+        console.log(JSON.parse(cachedAuthData));
+      }
       currentUser = await db.User.scope("roles").findByPk(tokenInfo.sub);
       if (currentUser) {
         isRootUser = currentUser.hasRole(["root"]);
         isAdmin = currentUser.hasRole(["admin"]);
+        await cache.set({
+          key: tokenInfo.sub,
+          value: JSON.stringify(currentUser.roles),
+          expiresIn: 5 * 60, // 5 minutes
+        });
+
         analytics.identify({
           userId: currentUser.id,
           traits: {
