@@ -34,16 +34,13 @@ describe("Mutation.changeUserFullname", () => {
   });
 
   test("should allow admin to change users fullname", async () => {
-    const user = await FactoryBot.create("user", {
+    const currentUser = await FactoryBot.create("user", {
       include: {
         roles: {
           name: "admin",
         },
       },
     });
-    const currentUser = await FactoryBot.db("user")
-      .scope("roles")
-      .findByPk(user.id);
     const otherUser = await FactoryBot.create("user");
 
     const { firstName, lastName } = FactoryBot.attributesFor("user");
@@ -65,10 +62,7 @@ describe("Mutation.changeUserFullname", () => {
   });
 
   test("should not allow non-admin to change users fullname", async () => {
-    const user = await FactoryBot.create("user");
-    const currentUser = await FactoryBot.db("user")
-      .scope("roles")
-      .findByPk(user.id);
+    const currentUser = await FactoryBot.create("user");
     const otherUser = await FactoryBot.create("user");
 
     const { firstName, lastName } = FactoryBot.attributesFor("user");

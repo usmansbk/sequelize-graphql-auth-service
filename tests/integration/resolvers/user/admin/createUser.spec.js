@@ -34,16 +34,13 @@ describe("Mutation.createUser", () => {
   });
 
   test("should allow admin to create user", async () => {
-    const user = await FactoryBot.create("user", {
+    const currentUser = await FactoryBot.create("user", {
       include: {
         roles: {
           name: "admin",
         },
       },
     });
-    const currentUser = await FactoryBot.db("user")
-      .scope("roles")
-      .findByPk(user.id);
 
     const input = FactoryBot.attributesFor("user");
     const res = await server.executeOperation(
@@ -59,10 +56,7 @@ describe("Mutation.createUser", () => {
   });
 
   test("should not allow non-admin to create user", async () => {
-    const user = await FactoryBot.create("user");
-    const currentUser = await FactoryBot.db("user")
-      .scope("roles")
-      .findByPk(user.id);
+    const currentUser = await FactoryBot.create("user");
 
     const input = FactoryBot.attributesFor("user");
     const res = await server.executeOperation(
