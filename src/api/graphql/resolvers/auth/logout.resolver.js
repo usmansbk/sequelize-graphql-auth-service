@@ -31,6 +31,7 @@ export default {
             },
           });
         }
+        await cache.remove(sub);
       }
 
       return Success({
