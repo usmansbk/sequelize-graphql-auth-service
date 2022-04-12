@@ -7,7 +7,7 @@ const rateLimiter = rateLimit({
   max: 2000,
   standardHeaders: true,
   legacyHeaders: false,
-  cache: new RedisStore({
+  store: new RedisStore({
     sendCommand: (...args) => client.call(...args),
   }),
   delayMs: 0,
