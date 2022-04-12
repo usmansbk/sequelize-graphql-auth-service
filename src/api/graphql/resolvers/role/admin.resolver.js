@@ -1,7 +1,5 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
-import { ROLE_MEMBERS_ALIAS } from "~constants/models";
-import { PERMISSIONS_KEY_PREFIX } from "~constants/auth";
 
 export default {
   Query: {
@@ -83,7 +81,7 @@ export default {
     async attachPermissionsToRole(
       _parent,
       { roleId, permissionIds },
-      { dataSources, db, t, cache }
+      { dataSources, db, t }
     ) {
       try {
         const role = await db.sequelize.transaction(async (transaction) => {
@@ -91,21 +89,11 @@ export default {
             where: {
               id: roleId,
             },
-            include: [
-              {
-                association: ROLE_MEMBERS_ALIAS,
-              },
-            ],
             transaction,
           });
           await foundRole.addPermissions(permissionIds, { transaction });
           return foundRole;
         });
-        if (role.members.length) {
-          await cache.remove(
-            ...role.members.map(({ id }) => `${PERMISSIONS_KEY_PREFIX}:${id}`)
-          );
-        }
         return Success({ role });
       } catch (e) {
         if (e instanceof QueryError) {
@@ -122,7 +110,7 @@ export default {
     async detachPermissionsFromRole(
       _parent,
       { roleId, permissionIds },
-      { dataSources, db, t, cache }
+      { dataSources, db, t }
     ) {
       try {
         const role = await db.sequelize.transaction(async (transaction) => {
@@ -130,21 +118,11 @@ export default {
             where: {
               id: roleId,
             },
-            include: [
-              {
-                association: ROLE_MEMBERS_ALIAS,
-              },
-            ],
             transaction,
           });
           await foundRole.removePermissions(permissionIds, { transaction });
           return foundRole;
         });
-        if (role.members.length) {
-          await cache.remove(
-            ...role.members.map(({ id }) => `${PERMISSIONS_KEY_PREFIX}:${id}`)
-          );
-        }
         return Success({ role });
       } catch (e) {
         if (e instanceof QueryError) {
@@ -161,7 +139,7 @@ export default {
     async detachRoleFromAllMembers(
       _parent,
       { roleId },
-      { dataSources, db, t, cache }
+      { dataSources, db, t }
     ) {
       try {
         const role = await db.sequelize.transaction(async (transaction) => {
@@ -169,22 +147,12 @@ export default {
             where: {
               id: roleId,
             },
-            include: [
-              {
-                association: ROLE_MEMBERS_ALIAS,
-              },
-            ],
             transaction,
           });
           const members = await foundRole.getMembers({ transaction });
           await foundRole.removeMembers(members, { transaction });
           return foundRole;
         });
-        if (role.members.length) {
-          await cache.remove(
-            ...role.members.map(({ id }) => `${PERMISSIONS_KEY_PREFIX}:${id}`)
-          );
-        }
         return Success({ role });
       } catch (e) {
         if (e instanceof QueryError) {
