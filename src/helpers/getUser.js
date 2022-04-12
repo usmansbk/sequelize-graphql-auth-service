@@ -1,10 +1,11 @@
 import db from "~db/models";
 import cache from "~utils/cache";
+import { AUTH_KEY_PREFIX } from "~constants/auth";
 
 const getUser = async (id) => {
   let userRoles;
 
-  const key = `auth:${id}`;
+  const key = `${AUTH_KEY_PREFIX}:${id}`;
   const cached = await cache.get(key);
 
   const loadFromDb = async () => {

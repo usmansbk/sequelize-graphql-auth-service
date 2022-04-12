@@ -12,6 +12,8 @@ type Mutation {
   deleteAccount(token: String!): AuthMutationResponse!
   logout(all: Boolean): AuthMutationResponse!
   loginToAdmin(input: AdminLoginInput!): AuthMutationResponse!
+  signOutUser(id: ID!, reason: String): RequestResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
 }
 
 type Query {

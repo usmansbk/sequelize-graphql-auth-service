@@ -21,6 +21,7 @@ export const EMAIL_OTP_KEY_PREFIX = "email:otp";
 export const PHONE_NUMBER_KEY_PREFIX = "phone";
 export const DELETE_ACCOUNT_KEY_PREFIX = "account:delete";
 export const FAILED_LOGIN_ATTEMPT_KEY_PREFIX = "login:attempt";
+export const AUTH_KEY_PREFIX = "auth";
 
 export const GOOGLE_PROVIDER = "GOOGLE";
 export const FACEBOOK_PROVIDER = "FACEBOOK";

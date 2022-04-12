@@ -1,6 +1,7 @@
+import analytics from "~services/analytics";
 import { Success } from "~helpers/response";
 import { LOGGED_OUT } from "~constants/i18n";
-import analytics from "~services/analytics";
+import { AUTH_KEY_PREFIX } from "~constants/auth";
 
 export default {
   Mutation: {
@@ -17,7 +18,7 @@ export default {
         } else {
           await cache.remove(`${clientId}:${sub}`);
         }
-        await cache.remove(sub);
+        await cache.remove(`${AUTH_KEY_PREFIX}:${sub}`);
         analytics.track({
           userId: sub,
           event: "Logged Out",
