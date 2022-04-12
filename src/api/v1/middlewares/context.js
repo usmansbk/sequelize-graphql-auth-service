@@ -16,6 +16,7 @@ const contextMiddleware = async (req, _res, next) => {
   const accessToken = authorization?.split(" ")?.[1];
   let currentUser;
   let isRootUser = false;
+  let isAdmin = false;
 
   if (accessToken) {
     try {
@@ -25,7 +26,8 @@ const contextMiddleware = async (req, _res, next) => {
         .cache()
         .findByPk(tokenInfo.sub);
       if (currentUser) {
-        isRootUser = !!currentUser.roles.find(({ name }) => name === "root");
+        isRootUser = currentUser.hasRole(["root"]);
+        isAdmin = currentUser.hasRole(["admin"]);
         analytics.identify({
           userId: currentUser.id,
           traits: {
@@ -56,6 +58,7 @@ const contextMiddleware = async (req, _res, next) => {
     otp,
     jwt,
     cache,
+    isAdmin,
     isRootUser,
     storage,
     tokenInfo,

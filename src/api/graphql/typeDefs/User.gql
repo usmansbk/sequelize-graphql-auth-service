@@ -54,49 +54,20 @@ type User {
   lastName: String!
   fullName: String!
   username: String
-  email: EmailAddress!
-    @auth(
-      rules: [
-        { allow: owner, identityClaim: "id" }
-        { allow: role, roles: ["admin"] }
-      ]
-    )
-  phoneNumber: PhoneNumber
-    @auth(
-      rules: [
-        { allow: owner, identityClaim: "id" }
-        { allow: role, roles: ["admin"] }
-      ]
-    )
+  email: EmailAddress! @auth(rules: [{ allow: owner, identityClaim: "id" }])
+  phoneNumber: PhoneNumber @auth(rules: [{ allow: owner, identityClaim: "id" }])
   avatar: Photo
   socialAvatarURL: URL
   isOwner: Boolean!
   locale: Locale!
   emailVerified: Boolean!
   phoneNumberVerified: Boolean!
-  roles: [Role]!
-    @auth(
-      rules: [
-        { allow: owner, identityClaim: "id" }
-        { allow: role, roles: ["admin"] }
-      ]
-    )
+  roles: [Role]! @auth(rules: [{ allow: owner, identityClaim: "id" }])
   createdAt: DateTime!
   updatedAt: DateTime
   passwordResetAt: DateTime
-    @auth(
-      rules: [
-        { allow: owner, identityClaim: "id" }
-        { allow: role, roles: ["admin"] }
-      ]
-    )
-  status: AccountStatus!
-    @auth(
-      rules: [
-        { allow: owner, identityClaim: "id" }
-        { allow: role, roles: ["admin"] }
-      ]
-    )
+    @auth(rules: [{ allow: owner, identityClaim: "id" }])
+  status: AccountStatus! @auth(rules: [{ allow: owner, identityClaim: "id" }])
 }
 
 type UserList implements List {

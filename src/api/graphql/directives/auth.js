@@ -30,7 +30,8 @@ const authDirectiveTransformer = (schema, directiveName) => {
         const newFieldConfig = { ...fieldConfig };
         newFieldConfig.resolve = async (source, args, context, info) => {
           // check authentication
-          const { tokenInfo, sessionId, currentUser, isRootUser } = context;
+          const { tokenInfo, sessionId, currentUser, isRootUser, isAdmin } =
+            context;
           const isLoggedIn = tokenInfo && tokenInfo.sid === sessionId;
 
           if (!(currentUser && isLoggedIn)) {
@@ -56,7 +57,8 @@ const authDirectiveTransformer = (schema, directiveName) => {
                 switch (allow) {
                   case AUTH_OWNER_STRATEGY:
                     return new Promise((permit, reject) => {
-                      const granted = source[identityClaim] === currentUser.id;
+                      const granted =
+                        isAdmin || source[identityClaim] === currentUser.id;
                       if (!granted) {
                         reject();
                       }
@@ -72,7 +74,7 @@ const authDirectiveTransformer = (schema, directiveName) => {
                     });
                   case AUTH_SCOPE_STRATEGY:
                     return new Promise((permit, reject) => {
-                      const granted = currentUser.hasScope(scopes);
+                      const granted = currentUser.hasPermission(scopes);
                       if (!granted) {
                         reject();
                       }

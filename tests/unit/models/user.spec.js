@@ -7,6 +7,53 @@ describe("User", () => {
 
   afterAll(() => jest.useRealTimers());
 
+  describe("#hasRole", () => {
+    test("should check if a user has a given list of roles", async () => {
+      const user = await FactoryBot.create("user", {
+        include: {
+          roles: [{ name: "admin" }],
+        },
+      });
+
+      const check = user.hasRole(["admin"]);
+
+      expect(check).toBe(true);
+    });
+  });
+
+  describe("#hasPermission", () => {
+    test("should check if a user has a given list of permissions", async () => {
+      const user = await FactoryBot.create("user", {
+        include: {
+          roles: {
+            permissions: {
+              action: "read",
+              resource: "posts",
+            },
+          },
+        },
+      });
+
+      const check = user.hasPermission(["read:posts"]);
+
+      expect(check).toBe(true);
+    });
+  });
+
+  describe("#checkPassword", () => {
+    test("should check if a user password is correct and encrypted", async () => {
+      const password = FactoryBot.attributesFor("user").password;
+      const user = await FactoryBot.create("user", {
+        password,
+      });
+
+      const check = await user.checkPassword(password);
+
+      expect(check).toBe(true);
+      expect(password).not.toBe(user.password);
+    });
+  });
+
   describe("#associations", () => {
     test("should remove avatar on destroy", async () => {
       const user = await FactoryBot.create("user", {

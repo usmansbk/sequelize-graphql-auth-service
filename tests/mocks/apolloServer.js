@@ -6,10 +6,14 @@ import jwt from "~utils/jwt";
 import mailer from "~utils/mailer";
 import cache from "~utils/cache";
 import storage from "~utils/storage";
+import FactoryBot from "tests/factories";
 
 const clientId = process.env.WEB_CLIENT_ID;
 
 const login = async (user) => {
+  const currentUser = await FactoryBot.db("user")
+    .scope("permissions")
+    .findByPk(user.id);
   const { accessToken, sid, exp } = jwt.generateAuthTokens({
     aud: clientId,
     sub: user.id,
@@ -19,8 +23,13 @@ const login = async (user) => {
     value: sid,
     expiresIn: exp,
   });
+  const isAdmin = currentUser.hasRole(["admin"]);
+  const isRootUser = currentUser.hasRole(["root"]);
 
   return {
+    isAdmin,
+    isRootUser,
+    currentUser,
     accessToken,
     sessionId: sid,
     tokenInfo: { sid, sub: user.id },
@@ -32,7 +41,7 @@ const createApolloTestServer = () => {
   const server = new ApolloServer({
     schema,
     dataSources,
-    context: async ({ currentUser, isRootUser } = {}) => {
+    context: async ({ currentUser } = {}) => {
       let payload = {};
 
       if (currentUser) {
@@ -46,9 +55,7 @@ const createApolloTestServer = () => {
         cache,
         mailer,
         clientId,
-        isRootUser,
         storage,
-        currentUser,
         ...payload,
       };
     },
