@@ -11,7 +11,7 @@ import getUser from "~helpers/getUser";
 const clientId = process.env.WEB_CLIENT_ID;
 
 const auth = async (user) => {
-  const currentUser = getUser(user.id);
+  const currentUser = await getUser(user.id);
   const { accessToken, sid, exp } = jwt.generateAuthTokens({
     aud: clientId,
     sub: user.id,
