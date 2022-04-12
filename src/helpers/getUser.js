@@ -4,7 +4,8 @@ import cache from "~utils/cache";
 const getUser = async (id) => {
   let userRoles;
 
-  const cached = await cache.get(id);
+  const key = `auth:${id}`;
+  const cached = await cache.get(key);
 
   if (cached) {
     userRoles = JSON.parse(cached);
@@ -12,7 +13,7 @@ const getUser = async (id) => {
     const user = await db.User.scope("roles").findByPk(id);
     userRoles = user.roles;
     await cache.set({
-      key: id,
+      key,
       value: JSON.stringify(userRoles),
       expiresIn: 5 * 60, // 5 minutes
     });
@@ -21,7 +22,8 @@ const getUser = async (id) => {
   return {
     id,
     hasRole: (roles) => userRoles.some((role) => roles.includes(role.name)),
-    hasPermission: (scopes) => userRoles.some((role) =>
+    hasPermission: (scopes) =>
+      userRoles.some((role) =>
         role.permissions.some(({ action, resource }) =>
           scopes.includes(`${action}:${resource}`)
         )
