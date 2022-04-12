@@ -38,7 +38,7 @@ const create = async (name, { include, ...values } = {}) => {
       const factoryName = associations[alias];
       if (!factoryName) {
         throw new Error(
-          `[FactoryBot] No "${factoryName} association defined in "${name}" factory`
+          `[FactoryBot] No "${alias}" association defined in "${name}" factory`
         );
       }
 
