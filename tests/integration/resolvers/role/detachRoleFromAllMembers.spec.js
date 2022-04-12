@@ -82,7 +82,7 @@ describe("Mutation.detachRoleFromAllMembers", () => {
         {
           query,
           variables: {
-            roleId: other.id,
+            roleId: role.id,
           },
         },
         { currentUser: admin }

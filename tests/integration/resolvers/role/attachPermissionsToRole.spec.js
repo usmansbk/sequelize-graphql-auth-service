@@ -83,7 +83,7 @@ describe("Mutation.attachPermissionsToRole", () => {
         {
           query,
           variables: {
-            roleId: other.id,
+            roleId: role.id,
             permissionIds: [permission.id],
           },
         },

@@ -84,7 +84,7 @@ describe("Mutation.detachPermissionsFromRole", () => {
         {
           query,
           variables: {
-            roleId: other.id,
+            roleId: role.id,
             permissionIds: [permission.id],
           },
         },
