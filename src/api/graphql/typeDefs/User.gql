@@ -83,7 +83,13 @@ type User {
     )
   createdAt: DateTime!
   updatedAt: DateTime
-  passwordResetAt: DateTime @auth(rules: [{ allow: role, roles: ["admin"] }])
+  passwordResetAt: DateTime
+    @auth(
+      rules: [
+        { allow: owner, identityClaim: "id" }
+        { allow: role, roles: ["admin"] }
+      ]
+    )
   status: AccountStatus!
     @auth(
       rules: [
