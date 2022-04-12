@@ -10,7 +10,7 @@ import FactoryBot from "tests/factories";
 
 const clientId = process.env.WEB_CLIENT_ID;
 
-const login = async (user) => {
+const auth = async (user) => {
   const currentUser = await FactoryBot.db("user")
     .scope("roles")
     .findByPk(user.id);
@@ -45,7 +45,7 @@ const createApolloTestServer = () => {
       let payload = {};
 
       if (currentUser) {
-        payload = await login(currentUser);
+        payload = await auth(currentUser);
       }
 
       return {
