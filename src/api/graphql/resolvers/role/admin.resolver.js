@@ -85,10 +85,7 @@ export default {
     ) {
       try {
         const role = await db.sequelize.transaction(async (transaction) => {
-          const foundRole = await dataSources.roles.findOne({
-            where: {
-              id: roleId,
-            },
+          const foundRole = await dataSources.roles.findByPk(roleId, {
             transaction,
           });
           await foundRole.addPermissions(permissionIds, { transaction });
@@ -114,10 +111,7 @@ export default {
     ) {
       try {
         const role = await db.sequelize.transaction(async (transaction) => {
-          const foundRole = await dataSources.roles.findOne({
-            where: {
-              id: roleId,
-            },
+          const foundRole = await dataSources.roles.findByPk(roleId, {
             transaction,
           });
           await foundRole.removePermissions(permissionIds, { transaction });
@@ -143,14 +137,10 @@ export default {
     ) {
       try {
         const role = await db.sequelize.transaction(async (transaction) => {
-          const foundRole = await dataSources.roles.findOne({
-            where: {
-              id: roleId,
-            },
+          const foundRole = await dataSources.roles.findByPk(roleId, {
             transaction,
           });
-          const members = await foundRole.getMembers({ transaction });
-          await foundRole.removeMembers(members, { transaction });
+          await foundRole.setMembers([], { transaction });
           return foundRole;
         });
         return Success({ role });

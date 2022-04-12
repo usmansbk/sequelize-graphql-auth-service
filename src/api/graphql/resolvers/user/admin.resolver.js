@@ -201,10 +201,7 @@ export default {
     ) {
       try {
         const user = await db.sequelize.transaction(async (transaction) => {
-          const account = await dataSources.users.findOne({
-            where: {
-              id: userId,
-            },
+          const account = await dataSources.users.findByPk(userId, {
             transaction,
           });
           await account.addRoles(roleIds, { transaction });
@@ -231,10 +228,7 @@ export default {
     ) {
       try {
         const user = await db.sequelize.transaction(async (transaction) => {
-          const account = await dataSources.users.findOne({
-            where: {
-              id: userId,
-            },
+          const account = await dataSources.users.findByPk(userId, {
             transaction,
           });
           await account.removeRoles(roleIds, { transaction });
@@ -261,14 +255,10 @@ export default {
     ) {
       try {
         const user = await db.sequelize.transaction(async (transaction) => {
-          const account = await dataSources.users.findOne({
-            where: {
-              id: userId,
-            },
+          const account = await dataSources.users.findByPk(userId, {
             transaction,
           });
-          const roles = await account.getRoles({ transaction });
-          await account.removeRoles(roles, { transaction });
+          await account.setRoles([], { transaction });
           return account;
         });
         await cache.remove(`${PERMISSIONS_KEY_PREFIX}:${userId}`);
