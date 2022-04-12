@@ -7,4 +7,5 @@ afterEach(async () => {
 
 afterAll(async () => {
   await db.sequelize.close();
+  cache.close();
 });

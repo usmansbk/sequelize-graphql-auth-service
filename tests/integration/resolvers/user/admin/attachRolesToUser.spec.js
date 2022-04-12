@@ -77,6 +77,7 @@ describe("Mutation.attachRolesToUser", () => {
       await cache.set({
         key,
         value: "mockPermissions",
+        expiresIn: 10000,
       });
 
       await server.executeOperation(

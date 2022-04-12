@@ -63,7 +63,7 @@ describe("Mutation.detachAllRolesFromUser", () => {
         { currentUser: admin }
       );
 
-      expect(res.data.attachRolesToUser.user.roles).toHaveLength(0);
+      expect(res.data.detachAllRolesFromUser.user.roles).toHaveLength(0);
     });
 
     test("should invalidate cached permissions", async () => {
@@ -76,6 +76,7 @@ describe("Mutation.detachAllRolesFromUser", () => {
       await cache.set({
         key,
         value: "mockPermissions",
+        expiresIn: 10000,
       });
 
       await server.executeOperation(
