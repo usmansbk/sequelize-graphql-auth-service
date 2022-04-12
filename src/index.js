@@ -7,7 +7,7 @@ import startApolloServer from "~api/graphql";
 import log from "~utils/logger";
 import { useLanguageMiddleware } from "~config/i18n";
 import contextMiddleware from "~api/v1/middlewares/context";
-import rateLimiter from "~api/v1/middlewares/rateLimiter";
+import apiLimiter from "~api/v1/middlewares/apiLimiter";
 import errorHandler from "~api/v1/middlewares/errorHandler";
 
 const app = express();
@@ -17,7 +17,7 @@ useLanguageMiddleware(app);
 app.use(cors());
 app.use(contextMiddleware);
 app.use(Sentry.Handlers.requestHandler());
-app.use(rateLimiter);
+app.use(apiLimiter);
 app.use("/v1", v1);
 
 if (app.get("env") === "production") {
