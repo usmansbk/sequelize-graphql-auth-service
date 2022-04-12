@@ -3,16 +3,20 @@ import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
 
 const query = gql`
-  mutation DeleteRole($id: ID!, $reason: String) {
-    deleteRole(id: $id, reason: $reason) {
+  mutation UpdatePermission($input: UpdatePermissionInput!) {
+    updatePermission(input: $input) {
       code
       message
-      id
+      permission {
+        name
+        action
+        resource
+      }
     }
   }
 `;
 
-describe("Mutation.deleteRole", () => {
+describe("Mutation.updatePermission", () => {
   let server;
   beforeAll(() => {
     server = createApolloTestServer();
@@ -37,49 +41,49 @@ describe("Mutation.deleteRole", () => {
         },
       });
     });
-    test("should delete a role", async () => {
-      const role = await FactoryBot.create("role");
+    test("should update permission", async () => {
+      const permission = await FactoryBot.create("permission", {
+        name: "ReadPosts",
+        action: "read",
+        resource: "posts",
+      });
 
       const res = await server.executeOperation(
         {
           query,
           variables: {
-            id: role.id,
+            input: {
+              id: permission.id,
+              name: "WriteBlogs",
+              action: "write",
+              resource: "blogs",
+            },
           },
         },
         { currentUser: admin }
       );
 
-      expect(res.data.deleteRole.id).toBe(role.id);
-    });
-
-    test("should delete role with reason", async () => {
-      const role = await FactoryBot.create("role");
-
-      const res = await server.executeOperation(
-        {
-          query,
-          variables: {
-            id: role.id,
-            reason: "testing",
-          },
-        },
-        { currentUser: admin }
-      );
-
-      expect(res.data.deleteRole.id).toBe(role.id);
+      expect(res.data.updatePermission.permission).toEqual({
+        name: "WriteBlogs",
+        action: "write",
+        resource: "blogs",
+      });
     });
   });
 
-  test("should not allow non-admin to delete role", async () => {
+  test("should not allow non-admin to update permission", async () => {
     const currentUser = await FactoryBot.create("user");
-    const role = await FactoryBot.create("role");
+    const permission = await FactoryBot.create("permission");
 
+    const { name } = FactoryBot.attributesFor("permission");
     const res = await server.executeOperation(
       {
         query,
         variables: {
-          id: role.id,
+          input: {
+            id: permission.id,
+            name,
+          },
         },
       },
       { currentUser }

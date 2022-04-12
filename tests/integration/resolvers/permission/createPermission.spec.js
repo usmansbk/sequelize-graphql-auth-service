@@ -3,16 +3,18 @@ import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
 
 const query = gql`
-  mutation DeleteRole($id: ID!, $reason: String) {
-    deleteRole(id: $id, reason: $reason) {
+  mutation CreatePermission($input: CreatePermissionInput!) {
+    createPermission(input: $input) {
       code
       message
-      id
+      permission {
+        name
+      }
     }
   }
 `;
 
-describe("Mutation.deleteRole", () => {
+describe("Mutation.createPermission", () => {
   let server;
   beforeAll(() => {
     server = createApolloTestServer();
@@ -37,49 +39,33 @@ describe("Mutation.deleteRole", () => {
         },
       });
     });
-    test("should delete a role", async () => {
-      const role = await FactoryBot.create("role");
+    test("should create permission", async () => {
+      const input = FactoryBot.attributesFor("permission");
 
       const res = await server.executeOperation(
         {
           query,
           variables: {
-            id: role.id,
+            input,
           },
         },
         { currentUser: admin }
       );
 
-      expect(res.data.deleteRole.id).toBe(role.id);
-    });
-
-    test("should delete role with reason", async () => {
-      const role = await FactoryBot.create("role");
-
-      const res = await server.executeOperation(
-        {
-          query,
-          variables: {
-            id: role.id,
-            reason: "testing",
-          },
-        },
-        { currentUser: admin }
-      );
-
-      expect(res.data.deleteRole.id).toBe(role.id);
+      expect(res.data.createPermission.permission).toEqual({
+        name: input.name,
+      });
     });
   });
 
-  test("should not allow non-admin to delete role", async () => {
+  test("should not allow non-admin to create permission", async () => {
     const currentUser = await FactoryBot.create("user");
-    const role = await FactoryBot.create("role");
 
     const res = await server.executeOperation(
       {
         query,
         variables: {
-          id: role.id,
+          input: FactoryBot.attributesFor("permission"),
         },
       },
       { currentUser }
