@@ -69,16 +69,6 @@ export default (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Role",
-      defaultScope: {
-        include: [
-          {
-            association: PERMISSIONS_ALIAS,
-            through: {
-              attributes: [],
-            },
-          },
-        ],
-      },
     }
   );
   return Role;

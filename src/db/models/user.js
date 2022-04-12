@@ -22,6 +22,7 @@ import {
 } from "~constants/i18n";
 import {
   ACCOUNT_STATUS,
+  PERMISSIONS_ALIAS,
   ROLES_ALIAS,
   USER_AVATAR_ALIAS,
   USER_ROLES_JOIN_TABLE,
@@ -233,9 +234,19 @@ export default (sequelize, DataTypes) => {
           include: [
             {
               association: ROLES_ALIAS,
+              attributes: ["name"],
               through: {
                 attributes: [],
               },
+              include: [
+                {
+                  association: PERMISSIONS_ALIAS,
+                  attributes: ["action", "resource"],
+                  through: {
+                    attributes: [],
+                  },
+                },
+              ],
             },
           ],
         },
