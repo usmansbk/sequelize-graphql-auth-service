@@ -42,7 +42,7 @@ describe("Mutation.createUser", () => {
       },
     });
     const currentUser = await FactoryBot.db("user")
-      .scope("permissions")
+      .scope("roles")
       .findByPk(user.id);
 
     const input = FactoryBot.attributesFor("user");
@@ -61,7 +61,7 @@ describe("Mutation.createUser", () => {
   test("should not allow non-admin to create user", async () => {
     const user = await FactoryBot.create("user");
     const currentUser = await FactoryBot.db("user")
-      .scope("permissions")
+      .scope("roles")
       .findByPk(user.id);
 
     const input = FactoryBot.attributesFor("user");

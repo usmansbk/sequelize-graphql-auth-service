@@ -42,7 +42,7 @@ describe("Mutation.changeUserFullname", () => {
       },
     });
     const currentUser = await FactoryBot.db("user")
-      .scope("permissions")
+      .scope("roles")
       .findByPk(user.id);
     const otherUser = await FactoryBot.create("user");
 
@@ -67,7 +67,7 @@ describe("Mutation.changeUserFullname", () => {
   test("should not allow non-admin to change users fullname", async () => {
     const user = await FactoryBot.create("user");
     const currentUser = await FactoryBot.db("user")
-      .scope("permissions")
+      .scope("roles")
       .findByPk(user.id);
     const otherUser = await FactoryBot.create("user");
 

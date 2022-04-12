@@ -12,7 +12,7 @@ const clientId = process.env.WEB_CLIENT_ID;
 
 const login = async (user) => {
   const currentUser = await FactoryBot.db("user")
-    .scope("permissions")
+    .scope("roles")
     .findByPk(user.id);
   const { accessToken, sid, exp } = jwt.generateAuthTokens({
     aud: clientId,

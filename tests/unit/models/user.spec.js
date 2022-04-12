@@ -21,25 +21,6 @@ describe("User", () => {
     });
   });
 
-  describe("#hasPermission", () => {
-    test("should check if a user has a given list of permissions", async () => {
-      const user = await FactoryBot.create("user", {
-        include: {
-          roles: {
-            permissions: {
-              action: "read",
-              resource: "posts",
-            },
-          },
-        },
-      });
-
-      const check = user.hasPermission(["read:posts"]);
-
-      expect(check).toBe(true);
-    });
-  });
-
   describe("#checkPassword", () => {
     test("should check if a user password is correct and encrypted", async () => {
       const password = FactoryBot.attributesFor("user").password;

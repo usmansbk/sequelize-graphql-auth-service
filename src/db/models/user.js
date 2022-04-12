@@ -25,7 +25,6 @@ import {
 } from "~constants/i18n";
 import {
   ACCOUNT_STATUS,
-  PERMISSIONS_ALIAS,
   ROLES_ALIAS,
   USER_AVATAR_ALIAS,
   USER_ROLES_JOIN_TABLE,
@@ -72,23 +71,6 @@ export default (sequelize, DataTypes) => {
       }
 
       return userRoles.some((roleModel) => roles.includes(roleModel.name));
-    }
-
-    hasScope(scopes) {
-      const roles = this.get(ROLES_ALIAS);
-      if (!roles) {
-        throw new Error(
-          "Use model `permissions` scope or eager load user roles."
-        );
-      }
-      const permissions = roles.reduce(
-        (result, role) => result.concat(role.permissions),
-        []
-      );
-
-      return permissions.some(({ action, resource }) =>
-        scopes.includes(`${action}:${resource}`)
-      );
     }
   }
   User.init(
@@ -242,11 +224,10 @@ export default (sequelize, DataTypes) => {
       sequelize,
       modelName: "User",
       scopes: {
-        permissions: {
+        roles: {
           include: [
             {
               association: ROLES_ALIAS,
-              include: [{ association: PERMISSIONS_ALIAS }],
             },
           ],
         },
