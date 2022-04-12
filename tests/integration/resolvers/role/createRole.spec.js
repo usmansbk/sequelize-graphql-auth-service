@@ -57,7 +57,7 @@ describe("Mutation.createRole", () => {
 
       expect(res.data.createRole.role).toEqual({
         name: input.name,
-        permissions: null,
+        permissions: [],
       });
     });
 

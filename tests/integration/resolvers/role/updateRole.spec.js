@@ -65,7 +65,6 @@ describe("Mutation.updateRole", () => {
 
     test("should update role description", async () => {
       const role = await FactoryBot.create("role", { description: "staff" });
-      const { description } = FactoryBot.attributesFor("role");
 
       const res = await server.executeOperation(
         {
@@ -73,7 +72,7 @@ describe("Mutation.updateRole", () => {
           variables: {
             input: {
               id: role.id,
-              description,
+              description: "Staff only",
             },
           },
         },
@@ -82,7 +81,7 @@ describe("Mutation.updateRole", () => {
 
       expect(res.data.updateRole.role).toEqual({
         name: role.name,
-        description,
+        description: "Staff only",
       });
     });
   });
