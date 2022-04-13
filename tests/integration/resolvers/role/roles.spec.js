@@ -27,7 +27,7 @@ describe("Query.roles", () => {
   });
 
   let admin;
-  beforeEach(async () => {
+  beforeAll(async () => {
     await FactoryBot.truncate();
     admin = await FactoryBot.create("user", {
       include: {
@@ -56,13 +56,22 @@ describe("Query.roles", () => {
     expect(res.data.roles.items).toHaveLength(4);
   });
 
-  test("should return total count of members", async () => {
+  test("should filter items", async () => {
     const res = await server.executeOperation(
       {
         query,
+        variables: {
+          filter: {
+            where: {
+              name: {
+                eq: "admin",
+              },
+            },
+          },
+        },
       },
       { currentUser: admin }
     );
-    expect(res.data.roles.items[0].members.totalCount).toBe(2);
+    expect(res.data.roles.totalCount).toBe(1);
   });
 });
