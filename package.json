@@ -7,7 +7,7 @@
     "dev": "nodemon --exec babel-node -r dotenv/config src",
     "createsu": "babel-node -r dotenv/config src/scripts/createSuperUser",
     "clientId": "babel-node src/scripts/generateClientId",
-    "test": "cross-env NODE_ENV=test jest -i --testTimeout=60000",
+    "test": "cross-env NODE_ENV=test jest -i --testTimeout=100000 --logHeapUsage",
     "prepare": "husky install"
   },
   "description": "Sequelize GraphQL server template",

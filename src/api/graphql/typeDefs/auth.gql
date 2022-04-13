@@ -17,8 +17,8 @@ type Mutation {
 }
 
 type Query {
-  supportedAuthActions: [PermissionAction]! @auth
-  supportedAuthResources: [PermissionResource]! @auth
+  supportedAuthActions: [String]! @auth
+  supportedAuthResources: [String]! @auth
 }
 
 enum SocialProvider {
