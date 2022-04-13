@@ -22,8 +22,8 @@ describe("Mutation.detachPermissionsFromRole", () => {
     server = createApolloTestServer();
   });
 
-  afterAll(async () => {
-    await server.stop();
+  afterAll((done) => {
+    server.stop().then(done);
   });
 
   beforeEach(async () => {
