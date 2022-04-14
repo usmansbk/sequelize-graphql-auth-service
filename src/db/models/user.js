@@ -203,17 +203,20 @@ export default (sequelize, DataTypes) => {
       modelName: "User",
       scopes: {
         roles: {
+          attributes: ["id", "firstName", "lastName", "email", "locale"],
           include: [
             {
               association: ROLES_ALIAS,
-              attributes: ["name"],
+              attributes: ["id", "name"],
               through: {
                 attributes: [],
               },
               include: [
                 {
                   association: PERMISSIONS_ALIAS,
-                  attributes: ["action", "resource"],
+                  attributes: {
+                    include: ["id", "action", "resource"],
+                  },
                   through: {
                     attributes: [],
                   },
