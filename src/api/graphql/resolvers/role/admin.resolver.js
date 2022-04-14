@@ -63,9 +63,10 @@ export default {
         throw e;
       }
     },
-    async deleteRole(_parent, { id }, { dataSources, t }) {
+    async deleteRole(_parent, { id }, { dataSources, t, cache }) {
       try {
         await dataSources.roles.destroy(id);
+        await cache.remove(`${ROLE_PERMISSIONS_PREFIX}:${id}`);
         return Success({ id });
       } catch (e) {
         if (e instanceof QueryError) {
