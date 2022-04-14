@@ -18,3 +18,6 @@ export const ACCOUNT_STATUS = {
   PROVISIONED: "PROVISIONED",
   ACTIVE: "ACTIVE",
 };
+
+export const ROLES_SCOPE = "roles";
+export const PERMISSIONS_SCOPE = "permissions";

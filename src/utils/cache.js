@@ -22,7 +22,23 @@ const clearAll = () => client.flushall();
 
 const close = () => client.disconnect();
 
-const setJSON = (key, obj) => client.hset(key, obj);
+const setHash = (key, obj) => client.hmset(key, obj);
+
+const getHash = (key) => client.hgetall(key);
+
+const getHashField = (key, field) => client.hget(key, field);
+
+const setJSON = (key, obj, expiresIn) =>
+  set(key, JSON.stringify(obj), expiresIn);
+
+const getJSON = async (key) => {
+  const value = await get(key);
+
+  if (value) {
+    return JSON.parse(value);
+  }
+  return value;
+};
 
 export default {
   set,
@@ -33,5 +49,9 @@ export default {
   increment,
   clearAll,
   close,
+  setHash,
+  getHash,
+  getHashField,
   setJSON,
+  getJSON,
 };
