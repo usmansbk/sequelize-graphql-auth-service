@@ -10,10 +10,10 @@ import {
 } from "~constants/models";
 
 const saveUserInstance = async (key, user) => {
-  await cache.setJSON(
-    key,
-    { ...user, roles: user.roles.map((role) => role.id),}
-  );
+  await cache.setJSON(key, {
+    ...user,
+    roles: user.roles.map((role) => role.id),
+  });
 
   await Promise.all(
     user.roles.map((role) =>
