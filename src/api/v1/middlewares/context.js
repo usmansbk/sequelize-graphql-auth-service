@@ -8,6 +8,7 @@ import storage from "~utils/storage";
 import analytics from "~services/analytics";
 import Sentry from "~services/sentry";
 import getUser from "~helpers/getUser";
+import TokenError from "~utils/errors/TokenError";
 
 const contextMiddleware = async (req, _res, next) => {
   const { authorization, client_id: clientId } = req.headers;
@@ -40,6 +41,9 @@ const contextMiddleware = async (req, _res, next) => {
         }
       }
     } catch (e) {
+      if (!(e instanceof TokenError)) {
+        Sentry.captureException(e);
+      }
       log.warn(e);
     }
   }
