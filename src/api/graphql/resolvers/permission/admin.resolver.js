@@ -1,5 +1,7 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
+import { ROLES_ALIAS } from "~constants/models";
+import { ROLE_PERMISSIONS_PREFIX } from "~constants/auth";
 
 export default {
   Query: {
@@ -65,20 +67,32 @@ export default {
     async detachPermissionFromAllRoles(
       _parent,
       { permissionId },
-      { dataSources, db, t }
+      { dataSources, db, t, cache }
     ) {
       try {
+        let roles;
         const permission = await db.sequelize.transaction(
           async (transaction) => {
             const foundPermission = await dataSources.permissions.findOne({
               where: {
                 id: permissionId,
               },
+              include: [
+                {
+                  association: ROLES_ALIAS,
+                },
+              ],
               transaction,
             });
+            roles = foundPermission.roles;
             await foundPermission.setRoles([], { transaction });
             return foundPermission;
           }
+        );
+        await Promise.all(
+          roles.map((role) =>
+            cache.remove(`${ROLE_PERMISSIONS_PREFIX}:${role.id}`)
+          )
         );
         return Success({ permission });
       } catch (e) {
