@@ -22,6 +22,8 @@ const clearAll = () => client.flushall();
 
 const close = () => client.disconnect();
 
+const setJSON = (key, obj) => client.hset(key, obj);
+
 export default {
   set,
   exists,
@@ -31,4 +33,5 @@ export default {
   increment,
   clearAll,
   close,
+  setJSON,
 };

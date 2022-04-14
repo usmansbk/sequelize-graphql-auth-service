@@ -18,6 +18,8 @@ export const PHONE_NUMBER_KEY_PREFIX = "phone";
 export const DELETE_ACCOUNT_KEY_PREFIX = "account:delete";
 export const FAILED_LOGIN_ATTEMPT_KEY_PREFIX = "login:attempt";
 export const PERMISSIONS_KEY_PREFIX = "auth:permissions";
+export const USER_ROLES_PREFIX = "user:roles";
+export const ROLE_PERMISSIONS_PREFIX = "role:permissions";
 
 export const GOOGLE_PROVIDER = "GOOGLE";
 export const FACEBOOK_PROVIDER = "FACEBOOK";
