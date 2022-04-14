@@ -9,6 +9,7 @@ build
 .env
 .env.production
 yarn-error.log
+*.rdb
 
 # Keys
 *.key
