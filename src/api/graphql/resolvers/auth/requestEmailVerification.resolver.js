@@ -20,7 +20,7 @@ export default {
 
       const key = `${EMAIL_VERIFICATION_KEY_PREFIX}:${id}`;
 
-      const sentToken = await cache.get(key);
+      const sentToken = await cache.exists(key);
 
       if (!(sentToken || emailVerified)) {
         const { token, exp } = jwt.generateToken(

@@ -16,7 +16,7 @@ export default {
     ) {
       const { firstName, id, email } = currentUser;
       const key = `${DELETE_ACCOUNT_KEY_PREFIX}:${id}`;
-      const sentToken = await cache.get(key);
+      const sentToken = await cache.exists(key);
 
       if (!sentToken) {
         const { token, exp } = jwt.generateToken(

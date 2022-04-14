@@ -16,7 +16,7 @@ export default {
           await dataSources.users.findOne({ where: { email } });
 
         const key = `${EMAIL_OTP_KEY_PREFIX}:${id}`;
-        const sentToken = await cache.get(key);
+        const sentToken = await cache.exists(key);
 
         if (!emailVerified) {
           throw new QueryError(EMAIL_NOT_VERIFIED);

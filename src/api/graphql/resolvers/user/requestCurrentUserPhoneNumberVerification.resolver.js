@@ -17,7 +17,7 @@ export default {
 
         const { id, phoneNumberVerified } = user;
         const key = `${PHONE_NUMBER_KEY_PREFIX}:${id}`;
-        const sentToken = await cache.get(key);
+        const sentToken = await cache.exists(key);
 
         if (!(sentToken || phoneNumberVerified)) {
           const token = otp.getNumberCode();

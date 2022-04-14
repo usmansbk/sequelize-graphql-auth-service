@@ -8,6 +8,8 @@ const set = (key, value, expiresIn = "5 minutes") => {
   return client.setex(key, exp, value);
 };
 
+const exists = (key) => client.exists(key);
+
 const get = (key) => client.get(key);
 
 const getAndDelete = (key) => client.getdel(key);
@@ -22,6 +24,7 @@ const close = () => client.disconnect();
 
 export default {
   set,
+  exists,
   get,
   getAndDelete,
   remove,
