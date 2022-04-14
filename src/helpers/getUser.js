@@ -10,18 +10,24 @@ const getUser = async (id) => {
 
   const loadFromDb = async () => {
     const user = await db.User.scope("roles").findByPk(id);
-    await cache.set({
-      key,
-      value: JSON.stringify(user.roles),
-      expiresIn: 5 * 60, // 5 minutes
-    });
-    return user.roles;
+    if (user) {
+      await cache.set({
+        key,
+        value: JSON.stringify(user.roles),
+        expiresIn: 5 * 60, // 5 minutes
+      });
+    }
+    return user?.roles;
   };
 
   if (cached) {
     userRoles = JSON.parse(cached);
   } else {
     userRoles = await loadFromDb();
+  }
+
+  if (!userRoles) {
+    return null;
   }
 
   return {
