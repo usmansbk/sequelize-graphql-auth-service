@@ -1,5 +1,6 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
+import { ROLE_PERMISSIONS_PREFIX } from "~constants/auth";
 
 export default {
   Query: {
@@ -81,7 +82,7 @@ export default {
     async attachPermissionsToRole(
       _parent,
       { roleId, permissionIds },
-      { dataSources, db, t }
+      { dataSources, db, t, cache }
     ) {
       try {
         const role = await db.sequelize.transaction(async (transaction) => {
@@ -91,6 +92,7 @@ export default {
           await foundRole.addPermissions(permissionIds, { transaction });
           return foundRole;
         });
+        await cache.remove(`${ROLE_PERMISSIONS_PREFIX}:${role.id}`);
         return Success({ role });
       } catch (e) {
         if (e instanceof QueryError) {
@@ -107,7 +109,7 @@ export default {
     async detachPermissionsFromRole(
       _parent,
       { roleId, permissionIds },
-      { dataSources, db, t }
+      { dataSources, db, t, cache }
     ) {
       try {
         const role = await db.sequelize.transaction(async (transaction) => {
@@ -117,6 +119,7 @@ export default {
           await foundRole.removePermissions(permissionIds, { transaction });
           return foundRole;
         });
+        await cache.remove(`${ROLE_PERMISSIONS_PREFIX}:${role.id}`);
         return Success({ role });
       } catch (e) {
         if (e instanceof QueryError) {
@@ -133,7 +136,7 @@ export default {
     async detachRoleFromAllMembers(
       _parent,
       { roleId },
-      { dataSources, db, t }
+      { dataSources, db, t, cache }
     ) {
       try {
         const role = await db.sequelize.transaction(async (transaction) => {
@@ -143,6 +146,7 @@ export default {
           await foundRole.setMembers([], { transaction });
           return foundRole;
         });
+        await cache.remove(`${ROLE_PERMISSIONS_PREFIX}:${role.id}`);
         return Success({ role });
       } catch (e) {
         if (e instanceof QueryError) {
