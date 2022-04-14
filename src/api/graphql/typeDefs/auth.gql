@@ -16,11 +16,6 @@ type Mutation {
     @auth(rules: [{ allow: role, roles: ["admin"] }])
 }
 
-type Query {
-  supportedAuthActions: [String]! @auth
-  supportedAuthResources: [String]! @auth
-}
-
 enum SocialProvider {
   GOOGLE
   FACEBOOK
