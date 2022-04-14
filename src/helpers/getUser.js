@@ -63,15 +63,14 @@ const getUser = async (id) => {
       }
     }
     return instance.set(ROLES_ALIAS, roles);
-  } 
-    user = await db.User.scope(ROLES_SCOPE).findByPk(id);
+  }
+  user = await db.User.scope(ROLES_SCOPE).findByPk(id);
 
-    if (user) {
-      await saveUserInstance(key, user.toJSON());
-    }
+  if (user) {
+    await saveUserInstance(key, user.toJSON());
+  }
 
-    return user;
-  
+  return user;
 };
 
 export default getUser;
