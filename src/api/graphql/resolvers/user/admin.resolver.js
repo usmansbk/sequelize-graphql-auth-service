@@ -201,7 +201,10 @@ export default {
     ) {
       try {
         const user = await db.sequelize.transaction(async (transaction) => {
-          const account = await dataSources.users.findByPk(userId, {
+          const account = await dataSources.users.findOne({
+            where: {
+              id: userId,
+            },
             transaction,
           });
           await account.addRoles(roleIds, { transaction });
@@ -228,7 +231,10 @@ export default {
     ) {
       try {
         const user = await db.sequelize.transaction(async (transaction) => {
-          const account = await dataSources.users.findByPk(userId, {
+          const account = await dataSources.users.findOne({
+            where: {
+              id: userId,
+            },
             transaction,
           });
           await account.removeRoles(roleIds, { transaction });

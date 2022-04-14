@@ -70,12 +70,12 @@ export default {
       try {
         const permission = await db.sequelize.transaction(
           async (transaction) => {
-            const foundPermission = await dataSources.permissions.findByPk(
-              permissionId,
-              {
-                transaction,
-              }
-            );
+            const foundPermission = await dataSources.permissions.findOne({
+              where: {
+                id: permissionId,
+              },
+              transaction,
+            });
             await foundPermission.setRoles([], { transaction });
             return foundPermission;
           }
