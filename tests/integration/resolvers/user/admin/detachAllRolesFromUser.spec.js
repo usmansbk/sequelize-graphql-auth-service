@@ -73,11 +73,7 @@ describe("Mutation.detachAllRolesFromUser", () => {
       });
 
       const key = `${PERMISSIONS_KEY_PREFIX}:${other.id}`;
-      await cache.set({
-        key,
-        value: "mockPermissions",
-        expiresIn: 10000,
-      });
+      await cache.set(key, "mockPermissions", "1 minute");
 
       await server.executeOperation(
         {

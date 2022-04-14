@@ -1,5 +1,4 @@
 import { gql } from "apollo-server-express";
-import dayjs from "dayjs";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
 import cache from "~utils/cache";
@@ -29,11 +28,11 @@ describe("Mutation.resetPassword", () => {
       aud: process.env.WEB_CLIENT_ID,
     });
     token = result.token;
-    await cache.set({
-      key: `${PASSWORD_KEY_PREFIX}:${user.id}`,
-      value: result.token,
-      expiresIn: dayjs.duration(1, "minutes").asMilliseconds(),
-    });
+    await cache.set(
+      `${PASSWORD_KEY_PREFIX}:${user.id}`,
+      result.token,
+      "1 minute"
+    );
   });
 
   test("should update password and logout", async () => {

@@ -44,11 +44,7 @@ describe("Mutation.verifyEmail", () => {
     });
 
     const key = `${EMAIL_VERIFICATION_KEY_PREFIX}:${user.id}`;
-    await cache.set({
-      key,
-      value: token,
-      expiresIn: exp,
-    });
+    await cache.set(key, token, exp);
 
     const res = await server.executeOperation({
       query,

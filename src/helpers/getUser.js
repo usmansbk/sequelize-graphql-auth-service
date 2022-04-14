@@ -11,11 +11,7 @@ const getUser = async (id) => {
   const loadFromDb = async () => {
     const user = await db.User.scope("roles").findByPk(id);
     if (user) {
-      await cache.set({
-        key,
-        value: JSON.stringify(user.roles),
-        expiresIn: 5 * 60, // 5 minutes
-      });
+      await cache.set(key, JSON.stringify(user.roles), "5 minutes");
     }
     return user?.roles;
   };

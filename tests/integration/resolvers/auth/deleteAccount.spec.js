@@ -39,11 +39,7 @@ describe("Mutation.deleteAccount", () => {
       aud: process.env.WEB_CLIENT_ID,
     });
     token = payload.token;
-    await cache.set({
-      key,
-      value: token,
-      expiresIn: payload.exp,
-    });
+    await cache.set(key, token, payload.exp);
   });
 
   test("should delete user", async () => {

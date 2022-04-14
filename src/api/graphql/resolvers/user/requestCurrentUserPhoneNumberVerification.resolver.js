@@ -22,11 +22,7 @@ export default {
         if (!(sentToken || phoneNumberVerified)) {
           const token = otp.getNumberCode();
 
-          await cache.set({
-            key,
-            value: token,
-            expiresIn: SMS_OTP_EXPIRES_IN,
-          });
+          await cache.set(key, token, SMS_OTP_EXPIRES_IN);
 
           mailer.sendSMS(token, phoneNumber);
         }

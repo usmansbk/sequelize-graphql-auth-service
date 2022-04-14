@@ -31,11 +31,7 @@ export default {
           EMAIL_VERIFICATION_TOKEN_EXPIRES_IN
         );
 
-        await cache.set({
-          key,
-          value: token,
-          expiresIn: exp,
-        });
+        await cache.set(key, token, exp);
 
         mailer.sendEmail({
           template: emailTemplates.VERIFY_EMAIL,

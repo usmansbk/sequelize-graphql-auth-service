@@ -37,11 +37,7 @@ describe("Mutation.verifyPhoneNumber", () => {
 
     const token = "mockToken";
     const key = `${PHONE_NUMBER_KEY_PREFIX}:${currentUser.id}`;
-    await cache.set({
-      key,
-      value: token,
-      expiresIn: 10000,
-    });
+    await cache.set(key, token, "1 minute");
 
     const res = await server.executeOperation(
       {

@@ -34,11 +34,7 @@ export default {
             RESET_PASSWORD_TOKEN_EXPIRES_IN
           );
 
-          await cache.set({
-            key,
-            value: token,
-            expiresIn: exp,
-          });
+          await cache.set(key, token, exp);
 
           mailer.sendEmail({
             template: emailTemplates.RESET_PASSWORD,

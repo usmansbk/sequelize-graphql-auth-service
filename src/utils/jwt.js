@@ -5,7 +5,6 @@ import jwt, {
   JsonWebTokenError,
 } from "jsonwebtoken";
 import { nanoid } from "nanoid";
-import dayjs from "~utils/dayjs";
 import verifyGoogleToken from "~services/googleOAuth";
 import verifyFacebookToken from "~services/facebookOAuth";
 import {
@@ -68,10 +67,8 @@ const decode = (token) => jwt.decode(token);
 
 const generateToken = (payload = {}, expiresIn = "5 minutes") => {
   const { token, id } = sign(payload, expiresIn);
-  const [time, units] = expiresIn.split(" ");
-  const exp = dayjs.duration(Number.parseInt(time, 10), units).asSeconds();
 
-  return { token, exp, id };
+  return { token, exp: expiresIn, id };
 };
 
 /**
@@ -91,12 +88,9 @@ const generateAuthTokens = async (
     { aud, sub, sid: refreshToken.id },
     tokenExp
   );
+
   // Token rotation
-  await cache.set({
-    key: `${aud}:${sub}`,
-    value: refreshToken.id,
-    expiresIn: refreshToken.exp,
-  });
+  await cache.set(`${aud}:${sub}`, refreshToken.id, refreshToken.exp);
 
   return {
     accessToken: accessToken.token,

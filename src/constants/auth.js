@@ -1,5 +1,3 @@
-import dayjs from "~utils/dayjs";
-
 // expiresIn is expressed in seconds or a string describing a time span https://github.com/zeit/ms
 export const ID_TOKEN_EXPIRES_IN = "30 minutes";
 export const ACCESS_TOKEN_EXPIRES_IN = "15 days";
@@ -7,10 +5,8 @@ export const REFRESH_TOKEN_EXPIRES_IN = "14 days";
 export const RESET_PASSWORD_TOKEN_EXPIRES_IN = "20 minutes";
 export const DELETE_ACCOUNT_TOKEN_EXPIRES_IN = "5 minutes";
 export const EMAIL_VERIFICATION_TOKEN_EXPIRES_IN = "10 hours";
-
-// opt is expressed in dayjs duration (in minutes) format
-export const EMAIL_OTP_EXPIRES_IN = dayjs.duration(5, "minutes").asSeconds();
-export const SMS_OTP_EXPIRES_IN = dayjs.duration(5, "minutes").asSeconds();
+export const EMAIL_OTP_EXPIRES_IN = "5 minutes";
+export const SMS_OTP_EXPIRES_IN = "5 minutes";
 
 export const SMS_OTP_LENGTH = 6;
 export const EMAIL_OTP_LENGTH = 8;
@@ -36,7 +32,7 @@ export const AUTH_STRATEGIES = [
 ];
 
 export const MAX_LOGIN_ATTEMPTS = 5;
-export const LOGIN_ATTEMPTS_INTERVAL = dayjs.duration(5, "minutes").asSeconds();
+export const LOGIN_ATTEMPTS_INTERVAL = "3 minutes";
 
 export const resources = ["users", "roles", "permissions", "all"];
 export const actions = ["create", "read", "update", "delete", "list", "all"];

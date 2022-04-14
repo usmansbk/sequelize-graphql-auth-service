@@ -25,11 +25,7 @@ export default {
         if (!sentToken) {
           const token = otp.getEmailOTP();
 
-          await cache.set({
-            key,
-            value: token,
-            expiresIn: EMAIL_OTP_EXPIRES_IN,
-          });
+          await cache.set(key, token, EMAIL_OTP_EXPIRES_IN);
 
           mailer.sendEmail({
             template: emailTemplates.OTP,

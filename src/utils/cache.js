@@ -1,6 +1,12 @@
 import client from "~services/redis";
+import dayjs from "~utils/dayjs";
 
-const set = ({ key, value, expiresIn }) => client.setex(key, expiresIn, value);
+const set = (key, value, expiresIn = "5 minutes") => {
+  const [time, units] = expiresIn.split(" ");
+  const exp = dayjs.duration(Number.parseInt(time, 10), units).asSeconds();
+
+  return client.setex(key, exp, value);
+};
 
 const get = (key) => client.get(key);
 

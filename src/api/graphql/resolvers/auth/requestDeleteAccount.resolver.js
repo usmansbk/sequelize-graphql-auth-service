@@ -27,11 +27,7 @@ export default {
           DELETE_ACCOUNT_TOKEN_EXPIRES_IN
         );
 
-        await cache.set({
-          key,
-          value: token,
-          expiresIn: exp,
-        });
+        await cache.set(key, token, exp);
 
         mailer.sendEmail({
           template: emailTemplates.CONFIRM_DELETE_ACCOUNT,
