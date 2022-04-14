@@ -1,41 +1,77 @@
+// eslint-disable no-await-in-loop
 import db from "~db/models";
 import cache from "~utils/cache";
-import { PERMISSIONS_KEY_PREFIX } from "~constants/auth";
+import { ROLE_PERMISSIONS_PREFIX, USER_PREFIX } from "~constants/auth";
+import {
+  PERMISSIONS_ALIAS,
+  PERMISSIONS_SCOPE,
+  ROLES_ALIAS,
+  ROLES_SCOPE,
+} from "~constants/models";
+
+const saveUserInstance = async (key, user) => {
+  await cache.setJSON(
+    key,
+    { ...user, roles: user.roles.map((role) => role.id),}
+  );
+
+  await Promise.all(
+    user.roles.map((role) =>
+      cache.setJSON(`${ROLE_PERMISSIONS_PREFIX}:${role.id}`, role)
+    )
+  );
+};
 
 const getUser = async (id) => {
-  let userRoles;
+  const key = `${USER_PREFIX}:${id}`;
+  let user = await cache.getJSON(key);
 
-  const key = `${PERMISSIONS_KEY_PREFIX}:${id}`;
-  const cached = await cache.get(key);
+  if (user) {
+    const instance = db.User.build(user, {
+      isNewRecord: false,
+      raw: false,
+      include: {
+        model: db.Role,
+        as: ROLES_ALIAS,
+        include: [
+          {
+            as: PERMISSIONS_ALIAS,
+            model: db.Permission,
+          },
+        ],
+      },
+    });
 
-  const loadFromDb = async () => {
-    const user = await db.User.scope("roles").findByPk(id);
-    if (user) {
-      await cache.set(key, JSON.stringify(user.roles), "5 minutes");
+    const roles = [];
+    /* eslint-disable no-await-in-loop */
+    for (let i = 0; i < user.roles.length; i += 1) {
+      const roleId = user.roles[i];
+      const roleKey = `${ROLE_PERMISSIONS_PREFIX}:${roleId}`;
+      let role = await cache.getJSON(roleKey);
+
+      if (!role) {
+        role = (
+          await db.Role.scope(PERMISSIONS_SCOPE).findByPk(roleId)
+        ).toJSON();
+        if (role) {
+          await cache.setJSON(roleKey, role);
+        }
+      }
+
+      if (role) {
+        roles.push(role);
+      }
     }
-    return user?.roles;
-  };
+    return instance.set(ROLES_ALIAS, roles);
+  } 
+    user = await db.User.scope(ROLES_SCOPE).findByPk(id);
 
-  if (cached) {
-    userRoles = JSON.parse(cached);
-  } else {
-    userRoles = await loadFromDb();
-  }
+    if (user) {
+      await saveUserInstance(key, user.toJSON());
+    }
 
-  if (!userRoles) {
-    return null;
-  }
-
-  return {
-    id,
-    hasRole: (roles) => userRoles.some((role) => roles.includes(role.name)),
-    hasPermission: (scopes) =>
-      userRoles.some((role) =>
-        role.permissions.some(({ action, resource }) =>
-          scopes.includes(`${action}:${resource}`)
-        )
-      ),
-  };
+    return user;
+  
 };
 
 export default getUser;

@@ -47,6 +47,18 @@ export default (sequelize, DataTypes) => {
       });
     }
 
+    hasRole(roles) {
+      const userRoles = this.get(ROLES_ALIAS);
+
+      if (!userRoles) {
+        throw new Error(
+          "Use model `permissions` scope or eager load user roles."
+        );
+      }
+
+      return userRoles.some((roleModel) => roles.includes(roleModel.name));
+    }
+
     checkPassword(password) {
       return bcrypt.compare(password, this.password);
     }
