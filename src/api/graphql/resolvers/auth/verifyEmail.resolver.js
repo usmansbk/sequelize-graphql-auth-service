@@ -17,7 +17,7 @@ export default {
         const { sub } = jwt.verify(token);
         const key = `${EMAIL_VERIFICATION_KEY_PREFIX}:${sub}`;
 
-        const expectedToken = await cache.get(key);
+        const expectedToken = await cache.getAndDelete(key);
 
         if (token !== expectedToken) {
           throw new QueryError(INVALID_LINK);
@@ -27,8 +27,6 @@ export default {
           emailVerified: true,
           status: ACCOUNT_STATUS.ACTIVE,
         });
-
-        await cache.remove(key);
 
         const { email, firstName } = user;
 

@@ -14,7 +14,7 @@ export default {
         const { sub } = tokenInfo;
         const key = `${PHONE_NUMBER_KEY_PREFIX}:${sub}`;
 
-        const expectedToken = await cache.get(key);
+        const expectedToken = await cache.getAndDelete(key);
 
         if (token !== expectedToken) {
           throw new QueryError(INVALID_OTP);
@@ -23,8 +23,6 @@ export default {
         const user = await dataSources.users.update(sub, {
           phoneNumberVerified: true,
         });
-
-        await cache.remove(key);
 
         return Success({
           message: t(PHONE_NUMBER_VERIFIED),

@@ -14,7 +14,7 @@ export default {
       try {
         const { sub } = jwt.verify(token);
         const key = `${PASSWORD_KEY_PREFIX}:${sub}`;
-        const expectedToken = await cache.get(key);
+        const expectedToken = await cache.getAndDelete(key);
 
         if (token !== expectedToken) {
           // we can report suspicious activity here
@@ -22,8 +22,6 @@ export default {
         }
 
         await dataSources.users.update(sub, { password, emailVerified: true });
-
-        await cache.remove(key);
 
         // invalidate all refresh tokens
         await Promise.all(
