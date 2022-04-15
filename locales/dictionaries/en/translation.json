@@ -1,4 +1,6 @@
 {
   "SignUpFailed": "Sign up failed",
-  "IncorrectUsernameOrPassword": "Incorrect username or password"
+  "IncorrectUsernameOrPassword": "Incorrect username or password",
+  "EmailVerificationFailed": "Your email address could not be verified.",
+  "TokenInvalidError": "Your token is invalid."
 }
