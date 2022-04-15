@@ -49,8 +49,23 @@ export default {
         throw e;
       }
     },
-    async deletePermission(_parent, { id }, { dataSources, t }) {
+    async deletePermission(_parent, { id }, { dataSources, t, cache }) {
       try {
+        const permission = await dataSources.permissions.findOne({
+          where: {
+            id,
+          },
+          include: {
+            association: ROLES_ALIAS,
+            attributes: ["id"],
+          },
+        });
+        await Promise.all(
+          permission.roles.map((role) =>
+            cache.remove(`${ROLE_PERMISSIONS_PREFIX}:${role.id}`)
+          )
+        );
+
         await dataSources.permissions.destroy(id);
         return Success({ id });
       } catch (e) {
@@ -80,6 +95,7 @@ export default {
               include: [
                 {
                   association: ROLES_ALIAS,
+                  attributes: ["id"],
                 },
               ],
               transaction,
