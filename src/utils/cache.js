@@ -20,7 +20,7 @@ const increment = (key) => client.incr(key);
 
 const clearAll = () => client.flushall();
 
-const close = () => client.disconnect();
+const close = () => client.quit();
 
 const setHash = (key, obj) => client.hmset(key, obj);
 

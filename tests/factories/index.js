@@ -76,9 +76,10 @@ const FactoryBot = {
   create: async (name, values) => {
     const newInstance = await create(name, values);
     if (values?.include) {
-      return factories[name].model.findByPk(newInstance.id, {
+      const instance = await factories[name].model.findByPk(newInstance.id, {
         include: buildIncludeQuery(values.include),
       });
+      return instance;
     }
     return newInstance;
   },

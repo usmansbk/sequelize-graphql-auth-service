@@ -1,6 +1,8 @@
 import { gql } from "apollo-server-express";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
+import cache from "~utils/cache";
+import { ROLE_PERMISSIONS_PREFIX } from "~constants/auth";
 
 const query = gql`
   mutation AttachPermissionsToRole($roleId: ID!, $permissionIds: [ID!]!) {
@@ -60,6 +62,30 @@ describe("Mutation.attachPermissionsToRole", () => {
       expect(res.data.attachPermissionsToRole.role.permissions).toEqual([
         { id: permission.id },
       ]);
+    });
+
+    test("should invalidate cache", async () => {
+      const role = await FactoryBot.create("role", {
+        include: {
+          permissions: {},
+        },
+      });
+      const key = `${ROLE_PERMISSIONS_PREFIX}:${role.id}`;
+      await cache.setJSON(key, role.toJSON());
+
+      await server.executeOperation(
+        {
+          query,
+          variables: {
+            roleId: role.id,
+            permissionIds: [role.permissions[0].id],
+          },
+        },
+        { currentUser: admin }
+      );
+
+      const cleared = await cache.get(key);
+      expect(cleared).toBe(null);
     });
   });
 });

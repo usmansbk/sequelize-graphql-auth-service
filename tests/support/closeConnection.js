@@ -6,11 +6,9 @@ afterEach((done) => {
 });
 
 afterAll((done) => {
-  cache.close();
   db.sequelize
     .close()
-    .then(() => {
-      done();
-    })
+    .then(() => cache.close())
+    .then(() => done())
     .catch(done);
 });
