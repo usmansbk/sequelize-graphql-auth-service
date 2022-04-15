@@ -4,6 +4,7 @@ import {
   ROLE_DESCRIPTION_LEN_ERROR,
   ROLE_NAME_LEN_ERROR,
   ROLE_NAME_UNIQUE_ERROR,
+  ROLE_NAME_INVALID_FORMAT_ERROR,
 } from "~constants/i18n";
 import {
   PERMISSIONS_ALIAS,
@@ -47,6 +48,10 @@ export default (sequelize, DataTypes) => {
           msg: ROLE_NAME_UNIQUE_ERROR,
         },
         validate: {
+          is: {
+            args: /^[a-zA-Z0-9_:]+$/i,
+            msg: ROLE_NAME_INVALID_FORMAT_ERROR,
+          },
           len: {
             args: [1, 64],
             msg: ROLE_NAME_LEN_ERROR,

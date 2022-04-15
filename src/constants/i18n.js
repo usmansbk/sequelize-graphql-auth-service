@@ -23,11 +23,14 @@ export const ROLE_NAME_LEN_ERROR = "RoleNameLengthError";
 export const ROLE_NAME_UNIQUE_ERROR = "RoleNameUniqueError";
 export const ROLE_DESCRIPTION_LEN_ERROR = "RoleDescriptionLengthError";
 export const ROLE_DESCRIPTION_EMPTY_ERROR = "RoleDescriptionEmptyError";
+export const ROLE_NAME_INVALID_FORMAT_ERROR = "RoleNameInvalidFormatError";
 
 // Permission
 export const PERMISSION_SCOPE_UNIQUE_ERROR = "PermissionScopeUniqueError";
 export const PERMISSION_SCOPE_EMPTY_ERROR = "PermissionScopeEmptyError";
 export const PERMISSION_SCOPE_LEN_ERROR = "PermissionScopeLengthError";
+export const PERMISSION_SCOPE_INVALID_FORMAT_ERROR =
+  "PermissionScopeInvalidFormatError";
 export const PERMISSION_DESCRIPTION_LEN_ERROR =
   "PermissionDescriptionLengthError";
 export const PERMISSION_DESCRIPTION_EMPTY_ERROR =

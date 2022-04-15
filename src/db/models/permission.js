@@ -5,6 +5,7 @@ import {
   PERMISSION_DESCRIPTION_EMPTY_ERROR,
   PERMISSION_DESCRIPTION_LEN_ERROR,
   PERMISSION_SCOPE_EMPTY_ERROR,
+  PERMISSION_SCOPE_INVALID_FORMAT_ERROR,
 } from "~constants/i18n";
 import { ROLES_ALIAS, ROLE_PERMISSIONS_JOIN_TABLE } from "~constants/models";
 
@@ -40,6 +41,10 @@ export default (sequelize, DataTypes) => {
           msg: PERMISSION_SCOPE_UNIQUE_ERROR,
         },
         validate: {
+          is: {
+            args: /^[a-zA-Z0-9_:]+$/i,
+            msg: PERMISSION_SCOPE_INVALID_FORMAT_ERROR,
+          },
           notEmpty: {
             msg: PERMISSION_SCOPE_EMPTY_ERROR,
           },
