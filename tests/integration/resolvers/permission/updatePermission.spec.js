@@ -8,9 +8,7 @@ const query = gql`
       code
       message
       permission {
-        name
-        action
-        resource
+        scope
       }
     }
   }
@@ -43,9 +41,7 @@ describe("Mutation.updatePermission", () => {
     });
     test("should update permission", async () => {
       const permission = await FactoryBot.create("permission", {
-        name: "ReadPosts",
-        action: "read",
-        resource: "posts",
+        scope: "read:posts",
       });
 
       const res = await server.executeOperation(
@@ -54,9 +50,7 @@ describe("Mutation.updatePermission", () => {
           variables: {
             input: {
               id: permission.id,
-              name: "WriteBlogs",
-              action: "write",
-              resource: "blogs",
+              scope: "write:posts",
             },
           },
         },
@@ -64,9 +58,7 @@ describe("Mutation.updatePermission", () => {
       );
 
       expect(res.data.updatePermission.permission).toEqual({
-        name: "WriteBlogs",
-        action: "write",
-        resource: "blogs",
+        scope: "write:posts",
       });
     });
   });
@@ -75,14 +67,14 @@ describe("Mutation.updatePermission", () => {
     const currentUser = await FactoryBot.create("user");
     const permission = await FactoryBot.create("permission");
 
-    const { name } = FactoryBot.attributesFor("permission");
+    const { scope } = FactoryBot.attributesFor("permission");
     const res = await server.executeOperation(
       {
         query,
         variables: {
           input: {
             id: permission.id,
-            name,
+            scope,
           },
         },
       },

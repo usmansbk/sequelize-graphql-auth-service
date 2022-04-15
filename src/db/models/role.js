@@ -57,7 +57,7 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         validate: {
           len: {
-            args: [0, 100],
+            args: [0, 240],
             msg: ROLE_DESCRIPTION_LEN_ERROR,
           },
           notEmpty: {
@@ -75,7 +75,7 @@ export default (sequelize, DataTypes) => {
           include: [
             {
               association: PERMISSIONS_ALIAS,
-              attributes: ["id", "action", "resource"],
+              attributes: ["id", "scope"],
               through: {
                 attributes: [],
               },

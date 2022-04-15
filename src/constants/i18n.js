@@ -25,14 +25,13 @@ export const ROLE_DESCRIPTION_LEN_ERROR = "RoleDescriptionLengthError";
 export const ROLE_DESCRIPTION_EMPTY_ERROR = "RoleDescriptionEmptyError";
 
 // Permission
-export const PERMISSION_NAME_LEN_ERROR = "PermissionNameLengthError";
-export const PERMISSION_NAME_EMPTY_ERROR = "PermissionNameEmptyError";
-export const PERMISSION_NAME_UNIQUE_ERROR = "PermissionNameUniqueError";
+export const PERMISSION_SCOPE_UNIQUE_ERROR = "PermissionScopeUniqueError";
+export const PERMISSION_SCOPE_EMPTY_ERROR = "PermissionScopeEmptyError";
+export const PERMISSION_SCOPE_LEN_ERROR = "PermissionScopeLengthError";
 export const PERMISSION_DESCRIPTION_LEN_ERROR =
   "PermissionDescriptionLengthError";
 export const PERMISSION_DESCRIPTION_EMPTY_ERROR =
   "PermissionDescriptionEmptyError";
-export const PERMISSION_INVALID_NAME_ERROR = "PermissionInvalidNameError";
 
 // jwt token
 export const TOKEN_EXPIRED_ERROR = "TokenExpiredError";

@@ -229,7 +229,7 @@ export default (sequelize, DataTypes) => {
               include: [
                 {
                   association: PERMISSIONS_ALIAS,
-                  attributes: ["id", "action", "resource"],
+                  attributes: ["id", "scope"],
                   through: {
                     attributes: [],
                   },

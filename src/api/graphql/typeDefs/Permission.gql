@@ -18,9 +18,7 @@ type Mutation {
 
 type Permission {
   id: ID!
-  name: String!
-  action: String!
-  resource: String!
+  scope: String!
   description: String
   roles(page: ListPage, where: RoleAttributesWhere): RoleList!
   createdAt: DateTime!
@@ -51,17 +49,13 @@ type PermissionMutationResponse implements Response & FormErrors {
 # Inputs
 
 input CreatePermissionInput {
-  name: String!
-  action: String!
-  resource: String!
-  description: String
+  scope: String!
+  description: String!
 }
 
 input UpdatePermissionInput {
   id: ID!
-  name: String
-  action: String
-  resource: String
+  scope: String
   description: String
 }
 
@@ -72,9 +66,7 @@ input PermissionFilter {
 
 input PermissionAttributesWhere {
   id: IDFieldFilter
-  name: StringFieldFilter
-  action: StringFieldFilter
-  resource: StringFieldFilter
+  scope: StringFieldFilter
   createdAt: DateTimeFieldFilter
   updatedAt: DateTimeFieldFilter
   and: [PermissionAttributesWhere!]

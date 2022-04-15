@@ -1,10 +1,10 @@
 import { Model } from "sequelize";
 import {
-  PERMISSION_NAME_LEN_ERROR,
-  PERMISSION_NAME_EMPTY_ERROR,
-  PERMISSION_NAME_UNIQUE_ERROR,
+  PERMISSION_SCOPE_UNIQUE_ERROR,
+  PERMISSION_SCOPE_LEN_ERROR,
   PERMISSION_DESCRIPTION_EMPTY_ERROR,
-  PERMISSION_INVALID_NAME_ERROR,
+  PERMISSION_DESCRIPTION_LEN_ERROR,
+  PERMISSION_SCOPE_EMPTY_ERROR,
 } from "~constants/i18n";
 import { ROLES_ALIAS, ROLE_PERMISSIONS_JOIN_TABLE } from "~constants/models";
 
@@ -33,38 +33,34 @@ export default (sequelize, DataTypes) => {
           isUUID: 4,
         },
       },
-      name: {
+      scope: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: {
-          msg: PERMISSION_NAME_UNIQUE_ERROR,
+          msg: PERMISSION_SCOPE_UNIQUE_ERROR,
         },
         validate: {
-          len: {
-            args: [1, 64],
-            msg: PERMISSION_NAME_LEN_ERROR,
-          },
           notEmpty: {
-            msg: PERMISSION_NAME_EMPTY_ERROR,
+            msg: PERMISSION_SCOPE_EMPTY_ERROR,
           },
-          isAlphanumeric: {
-            msg: PERMISSION_INVALID_NAME_ERROR,
+          notNull: {
+            msg: PERMISSION_SCOPE_EMPTY_ERROR,
+          },
+          len: {
+            args: [0, 240],
+            msg: PERMISSION_SCOPE_LEN_ERROR,
           },
         },
-      },
-      action: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      resource: {
-        type: DataTypes.STRING,
-        allowNull: false,
       },
       description: {
         type: DataTypes.STRING,
         validate: {
           notEmpty: {
             msg: PERMISSION_DESCRIPTION_EMPTY_ERROR,
+          },
+          len: {
+            args: [0, 240],
+            msg: PERMISSION_DESCRIPTION_LEN_ERROR,
           },
         },
       },
