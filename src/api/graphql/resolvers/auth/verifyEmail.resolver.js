@@ -52,7 +52,6 @@ export default {
         return Success({
           message: t(EMAIL_VERIFIED),
           code: EMAIL_VERIFIED,
-          user,
         });
       } catch (e) {
         if (e instanceof QueryError) {
