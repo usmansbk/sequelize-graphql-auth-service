@@ -206,6 +206,9 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.ENUM(Object.values(ACCOUNT_STATUS)),
         defaultValue: ACCOUNT_STATUS.PROVISIONED,
       },
+      lastLogin: {
+        type: DataTypes.DATE,
+      },
       passwordResetAt: {
         type: DataTypes.DATE,
       },

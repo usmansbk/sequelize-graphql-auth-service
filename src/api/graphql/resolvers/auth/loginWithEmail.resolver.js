@@ -1,13 +1,14 @@
+import analytics from "~services/analytics";
+import dayjs from "~utils/dayjs";
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
-import { INCORRECT_EMAIL_OR_PASSWORD, WELCOME_BACK } from "~constants/i18n";
 import emailTemplates from "~helpers/emailTemplates";
+import { INCORRECT_EMAIL_OR_PASSWORD, WELCOME_BACK } from "~constants/i18n";
 import {
   FAILED_LOGIN_ATTEMPT_KEY_PREFIX,
   MAX_LOGIN_ATTEMPTS,
 } from "~constants/auth";
 import { ACCOUNT_STATUS } from "~constants/models";
-import analytics from "~services/analytics";
 
 export default {
   Mutation: {
@@ -48,6 +49,10 @@ export default {
         await cache.remove(attemptCountKey);
 
         const { id, firstName } = user;
+
+        await dataSources.users.update(id, {
+          lastLogin: dayjs.utc().toDate(),
+        });
 
         const { accessToken, refreshToken } = await jwt.generateAuthTokens({
           sub: id,

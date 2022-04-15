@@ -1,8 +1,9 @@
+import analytics from "~services/analytics";
+import dayjs from "~utils/dayjs";
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
 import { WELCOME_BACK, WELCOME_NEW_USER } from "~constants/i18n";
 import { ACCOUNT_STATUS } from "~constants/models";
-import analytics from "~services/analytics";
 
 export default {
   Mutation: {
@@ -18,6 +19,10 @@ export default {
           status: ACCOUNT_STATUS.ACTIVE,
         });
         const { id, firstName } = user;
+
+        await dataSources.users.update(id, {
+          lastLogin: dayjs.utc().toDate(),
+        });
 
         const { accessToken, refreshToken } = await jwt.generateAuthTokens({
           sub: id,
