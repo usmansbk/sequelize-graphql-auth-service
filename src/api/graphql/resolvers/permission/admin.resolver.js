@@ -58,6 +58,9 @@ export default {
           include: {
             association: ROLES_ALIAS,
             attributes: ["id"],
+            through: {
+              attributes: [],
+            },
           },
         });
         await Promise.all(
@@ -85,28 +88,27 @@ export default {
       { dataSources, db, t, cache }
     ) {
       try {
-        let roles;
         const permission = await db.sequelize.transaction(
           async (transaction) => {
             const foundPermission = await dataSources.permissions.findOne({
               where: {
                 id: permissionId,
               },
-              include: [
-                {
-                  association: ROLES_ALIAS,
-                  attributes: ["id"],
+              include: {
+                association: ROLES_ALIAS,
+                attributes: ["id"],
+                through: {
+                  attributes: [],
                 },
-              ],
+              },
               transaction,
             });
-            roles = foundPermission.roles;
             await foundPermission.setRoles([], { transaction });
             return foundPermission;
           }
         );
         await Promise.all(
-          roles.map((role) =>
+          permission.roles.map((role) =>
             cache.remove(`${ROLE_PERMISSIONS_PREFIX}:${role.id}`)
           )
         );
