@@ -59,6 +59,7 @@ export const FAIL = "Fail";
 export const INVALID_LINK = "InvalidLink";
 export const INVALID_OTP = "InvalidOtp";
 export const EMAIL_NOT_VERIFIED = "EmailNotVerified";
+export const EMAIL_VERIFICATION_FAILED = "EmailVerificationFailed";
 
 // send emails
 export const SENT_VERIFICATION_EMAIL = "SentVerificationEmail";

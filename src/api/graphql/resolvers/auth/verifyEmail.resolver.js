@@ -1,5 +1,5 @@
 import { Fail, Success } from "~helpers/response";
-import { EMAIL_VERIFIED, INVALID_LINK } from "~constants/i18n";
+import { EMAIL_VERIFICATION_FAILED, EMAIL_VERIFIED } from "~constants/i18n";
 import QueryError from "~utils/errors/QueryError";
 import { EMAIL_VERIFICATION_KEY_PREFIX } from "~constants/auth";
 import emailTemplates from "~helpers/emailTemplates";
@@ -20,7 +20,7 @@ export default {
         const expectedToken = await cache.getAndDelete(key);
 
         if (token !== expectedToken) {
-          throw new QueryError(INVALID_LINK);
+          throw new QueryError(EMAIL_VERIFICATION_FAILED);
         }
 
         const user = await dataSources.users.update(sub, {
