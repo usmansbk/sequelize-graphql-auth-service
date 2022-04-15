@@ -4,5 +4,6 @@
   "EmailNotVerified": "Verify your email address.",
   "EmailVerificationFailed": "Your email address could not be verified.",
   "TokenInvalidError": "Your token is invalid.",
-  "SentVerificationEmail": "We have sent an email with a confirmation link to your email address."
+  "SentVerificationEmail": "We have sent an email with a confirmation link to your email address.",
+  "UsernameUnavailableError": "Username is already taken."
 }
