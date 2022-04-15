@@ -7,6 +7,6 @@
   "SentVerificationEmail": "We have sent an email with a confirmation link to your email address.",
   "UsernameUnavailableError": "Username is already taken.",
   "UserEmailUnavailableError": "Email is already registered.",
-  "RoleNameUniqueError": "Role name already exists.",
-  "PermissionNameUniqueError": "Permission name already exists."
+  "RoleNameUniqueError": "Role already exists.",
+  "PermissionScopeUniqueError": "Permission already exists."
 }
