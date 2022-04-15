@@ -129,7 +129,7 @@ export default (sequelize, DataTypes) => {
           },
         },
         defaultValue() {
-          return `user${otp.getNumberCode(10)}`;
+          return `user${otp.getNumberCode(15)}`;
         },
       },
       email: {
