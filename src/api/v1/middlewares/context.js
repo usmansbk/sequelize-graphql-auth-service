@@ -32,9 +32,16 @@ const contextMiddleware = async (req, _res, next) => {
 
         analytics.identify({
           userId: currentUser.id,
+          traits: {
+            firstName: currentUser.firstName,
+            lastName: currentUser.lastName,
+            email: currentUser.email,
+            locale: currentUser.locale,
+          },
         });
         Sentry.setUser({
           id: currentUser.id,
+          email: currentUser.email,
         });
         if (currentUser.locale) {
           await req.i18n.changeLanguage(currentUser.locale);
