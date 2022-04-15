@@ -7,7 +7,7 @@
     "dev": "nodemon --exec babel-node -r dotenv/config src",
     "createsu": "babel-node -r dotenv/config src/scripts/createSuperUser",
     "clientid": "babel-node src/scripts/generateClientId",
-    "test": "cross-env NODE_ENV=test jest -i --testTimeout=100000",
+    "test": "cross-env NODE_ENV=test jest -i",
     "prepare": "husky install"
   },
   "description": "Sequelize GraphQL server template",
@@ -37,7 +37,8 @@
     "lint-staged": "^12.3.7",
     "nodemon": "^2.0.15",
     "prettier": "^2.6.2",
-    "sequelize-cli": "^6.4.1"
+    "sequelize-cli": "^6.4.1",
+    "weak-napi": "^2.0.2"
   },
   "dependencies": {
     "@aws-sdk/credential-provider-node": "^3.67.0",
