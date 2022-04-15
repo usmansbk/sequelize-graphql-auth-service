@@ -17,7 +17,6 @@ export const EMAIL_OTP_KEY_PREFIX = "email:otp";
 export const PHONE_NUMBER_KEY_PREFIX = "phone";
 export const DELETE_ACCOUNT_KEY_PREFIX = "account:delete";
 export const FAILED_LOGIN_ATTEMPT_KEY_PREFIX = "login:attempt";
-export const PERMISSIONS_KEY_PREFIX = "auth:permissions";
 export const USER_PREFIX = "user:account";
 export const ROLE_PERMISSIONS_PREFIX = "role:permissions";
 

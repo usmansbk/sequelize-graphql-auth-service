@@ -1,6 +1,6 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
-import { PERMISSIONS_KEY_PREFIX } from "~constants/auth";
+import { USER_PREFIX } from "~constants/auth";
 
 export default {
   Query: {
@@ -179,9 +179,10 @@ export default {
         throw e;
       }
     },
-    async deleteUser(_parent, { id }, { dataSources, t }) {
+    async deleteUser(_parent, { id }, { dataSources, t, cache }) {
       try {
         await dataSources.users.destroy(id);
+        await cache.remove(`${USER_PREFIX}:${id}`);
         return Success({ id });
       } catch (e) {
         if (e instanceof QueryError) {
@@ -210,7 +211,7 @@ export default {
           await account.addRoles(roleIds, { transaction });
           return account;
         });
-        await cache.remove(`${PERMISSIONS_KEY_PREFIX}:${userId}`);
+        await cache.remove(`${USER_PREFIX}:${userId}`);
         return Success({ user });
       } catch (e) {
         if (e instanceof QueryError) {
@@ -240,7 +241,7 @@ export default {
           await account.removeRoles(roleIds, { transaction });
           return account;
         });
-        await cache.remove(`${PERMISSIONS_KEY_PREFIX}:${userId}`);
+        await cache.remove(`${USER_PREFIX}:${userId}`);
         return Success({ user });
       } catch (e) {
         if (e instanceof QueryError) {
@@ -267,7 +268,7 @@ export default {
           await account.setRoles([], { transaction });
           return account;
         });
-        await cache.remove(`${PERMISSIONS_KEY_PREFIX}:${userId}`);
+        await cache.remove(`${USER_PREFIX}:${userId}`);
         return Success({ user });
       } catch (e) {
         if (e instanceof QueryError) {

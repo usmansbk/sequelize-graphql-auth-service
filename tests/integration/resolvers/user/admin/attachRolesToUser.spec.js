@@ -2,7 +2,7 @@ import { gql } from "apollo-server-express";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
 import cache from "~utils/cache";
-import { PERMISSIONS_KEY_PREFIX } from "~constants/auth";
+import { USER_PREFIX } from "~constants/auth";
 
 const query = gql`
   mutation AttachRolesToUser($userId: ID!, $roleIds: [ID!]!) {
@@ -73,7 +73,7 @@ describe("Mutation.attachRolesToUser", () => {
         name: "staff",
       });
 
-      const key = `${PERMISSIONS_KEY_PREFIX}:${other.id}`;
+      const key = `${USER_PREFIX}:${other.id}`;
       await cache.set(key, "mockPermissions", "1 minute");
 
       await server.executeOperation(

@@ -1,6 +1,8 @@
 import { gql } from "apollo-server-express";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
+import { USER_PREFIX } from "~constants/auth";
+import cache from "~utils/cache";
 
 const query = gql`
   mutation DeleteUser($id: ID!, $reason: String) {
@@ -69,6 +71,25 @@ describe("Mutation.deleteUser", () => {
       );
 
       expect(res.data.deleteUser.id).toBe(user.id);
+    });
+
+    test("should invalidate cache", async () => {
+      const user = await FactoryBot.create("user");
+      const key = `${USER_PREFIX}:${user.id}`;
+      await cache.setJSON(key, user.toJSON());
+
+      await server.executeOperation(
+        {
+          query,
+          variables: {
+            id: user.id,
+          },
+        },
+        { currentUser: admin }
+      );
+
+      const cleared = await cache.get(key);
+      expect(cleared).toBe(null);
     });
   });
 
