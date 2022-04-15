@@ -8,7 +8,7 @@ const query = gql`
       code
       message
       permission {
-        name
+        scope
       }
     }
   }
@@ -53,7 +53,7 @@ describe("Mutation.createPermission", () => {
       );
 
       expect(res.data.createPermission.permission).toEqual({
-        name: input.name,
+        scope: input.scope,
       });
     });
   });

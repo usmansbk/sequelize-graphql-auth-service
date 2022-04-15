@@ -6,8 +6,7 @@ import { PERMISSIONS_ALIAS } from "~constants/models";
 const permissions = [
   {
     name: "Root",
-    action: "all",
-    resource: "all",
+    scope: "all",
     description:
       "For administrative purposes, and has the highest access rights in the organisation.",
   },
