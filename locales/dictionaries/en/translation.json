@@ -1,6 +1,7 @@
 {
   "SignUpFailed": "Sign up failed",
-  "IncorrectUsernameOrPassword": "Incorrect username or password",
+  "IncorrectUsernameOrPassword": "Incorrect username or password.",
+  "EmailNotVerified": "Verify your email address.",
   "EmailVerificationFailed": "Your email address could not be verified.",
   "TokenInvalidError": "Your token is invalid.",
   "SentVerificationEmail": "We have sent an email with a confirmation link to your email address."
