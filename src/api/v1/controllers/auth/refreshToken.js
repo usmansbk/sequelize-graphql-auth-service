@@ -1,4 +1,3 @@
-import dayjs from "~utils/dayjs";
 import TokenError from "~utils/errors/TokenError";
 import { TOKEN_INVALID_ERROR } from "~constants/i18n";
 
@@ -9,7 +8,7 @@ const refreshTokenController = async (req, res) => {
     client_id: clientId,
   } = req.headers;
   const {
-    context: { cache, jwt, db },
+    context: { cache, jwt },
     t,
   } = req;
 
@@ -29,16 +28,6 @@ const refreshTokenController = async (req, res) => {
       sub: decodedRefreshToken.sub,
     });
 
-    await db.User.update(
-      {
-        lastLogin: dayjs.utc().toDate(),
-      },
-      {
-        where: {
-          id: expiredToken.sub,
-        },
-      }
-    );
     res.json({
       success: true,
       accessToken,
