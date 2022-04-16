@@ -12,8 +12,6 @@ type Mutation {
     @auth(rules: [{ allow: role, roles: ["admin"] }])
   deletePermission(id: ID!, reason: String): DeleteMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
-  detachPermissionFromAllRoles(permissionId: ID!): PermissionMutationResponse!
-    @auth(rules: [{ allow: role, roles: ["admin"] }])
 }
 
 type Permission {

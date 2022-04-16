@@ -82,48 +82,5 @@ export default {
         throw e;
       }
     },
-    async detachPermissionFromAllRoles(
-      _parent,
-      { permissionId },
-      { dataSources, db, t, cache }
-    ) {
-      try {
-        const permission = await db.sequelize.transaction(
-          async (transaction) => {
-            const foundPermission = await dataSources.permissions.findOne({
-              where: {
-                id: permissionId,
-              },
-              include: {
-                association: ROLES_ALIAS,
-                attributes: ["id"],
-                through: {
-                  attributes: [],
-                },
-              },
-              transaction,
-            });
-            await foundPermission.setRoles([], { transaction });
-            return foundPermission;
-          }
-        );
-        await Promise.all(
-          permission.roles.map((role) =>
-            cache.remove(`${ROLE_PERMISSIONS_PREFIX}:${role.id}`)
-          )
-        );
-        return Success({ permission });
-      } catch (e) {
-        if (e instanceof QueryError) {
-          return Fail({
-            message: t(e.message),
-            errors: e.errors,
-            code: e.code,
-          });
-        }
-
-        throw e;
-      }
-    },
   },
 };
