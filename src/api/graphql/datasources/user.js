@@ -1,5 +1,6 @@
+import { ForbiddenError } from "apollo-server-core";
 import { USER_PREFIX } from "~constants/auth";
-import { ROLES_ALIAS } from "~constants/models";
+import { ACCOUNT_STATUS, ROLES_ALIAS } from "~constants/models";
 import SequelizeDataSource from "./SequelizeDataSource";
 
 export default class UserDS extends SequelizeDataSource {
@@ -58,8 +59,16 @@ export default class UserDS extends SequelizeDataSource {
      * We consider unverified emails as temporary accounts with limited or no access to service
      * until verified
      */
-    if (user && !user.emailVerified) {
-      await this.destroy(user.id);
+    if (user) {
+      if (
+        !user.emailVerified &&
+        [ACCOUNT_STATUS.BLOCKED, ACCOUNT_STATUS.LOCKED].includes(user.status)
+      ) {
+        throw new ForbiddenError(user.status);
+      }
+      if (!user.emailVerified) {
+        await this.destroy(user.id);
+      }
     }
 
     user = await this.create(fields);
