@@ -9,5 +9,7 @@
   "UsernameUnavailableError": "Username is already taken.",
   "UserEmailUnavailableError": "Email is already registered.",
   "RoleNameUniqueError": "Role already exists.",
-  "PermissionScopeUniqueError": "Permission already exists."
+  "PermissionScopeUniqueError": "Permission already exists.",
+  "RoleNotFound": "It looks like you're trying to access a role that either has been deleted or never existed.",
+  "PermissionNotFound": "It looks like you're trying to access a permission that either has been deleted or never existed."
 }
