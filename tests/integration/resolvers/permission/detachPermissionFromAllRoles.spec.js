@@ -10,11 +10,7 @@ const query = gql`
       code
       message
       permission {
-        roles {
-          items {
-            id
-          }
-        }
+        id
       }
     }
   }
@@ -53,7 +49,7 @@ describe("Mutation.detachPermissionFromAllRoles", () => {
         },
       });
 
-      const res = await server.executeOperation(
+      await server.executeOperation(
         {
           query,
           variables: {
@@ -63,9 +59,8 @@ describe("Mutation.detachPermissionFromAllRoles", () => {
         { currentUser: admin }
       );
 
-      expect(
-        res.data.detachPermissionFromAllRoles.permission.roles.items
-      ).toHaveLength(0);
+      const roles = await permission.getRoles();
+      expect(roles).toHaveLength(0);
     });
 
     test("should invalidate cache", async () => {

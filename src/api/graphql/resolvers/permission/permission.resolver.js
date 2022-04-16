@@ -3,26 +3,6 @@ import { Fail, Success } from "~helpers/response";
 import { PERMISSION_NOT_FOUND } from "~constants/i18n";
 
 export default {
-  Permission: {
-    roles(permission, { page, where }, { dataSources }, info) {
-      return dataSources.roles.paginate({
-        page,
-        info,
-        filter: {
-          where,
-          include: {
-            permissions: {
-              where: {
-                id: {
-                  eq: permission.id,
-                },
-              },
-            },
-          },
-        },
-      });
-    },
-  },
   Query: {
     async getPermissionById(_parent, { id }, { dataSources, t }, info) {
       try {

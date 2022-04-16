@@ -20,7 +20,6 @@ type Permission {
   id: ID!
   scope: String!
   description: String
-  roles(page: ListPage, where: RoleAttributesWhere): RoleList!
   createdAt: DateTime!
   updatedAt: DateTime
 }
