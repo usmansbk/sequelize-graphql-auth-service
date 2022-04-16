@@ -218,7 +218,14 @@ export default (sequelize, DataTypes) => {
       modelName: "User",
       scopes: {
         roles: {
-          attributes: ["id", "firstName", "lastName", "email", "locale"],
+          attributes: [
+            "id",
+            "firstName",
+            "lastName",
+            "email",
+            "locale",
+            "status",
+          ],
           include: [
             {
               association: ROLES_ALIAS,

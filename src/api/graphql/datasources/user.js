@@ -1,3 +1,4 @@
+import { USER_PREFIX } from "~constants/auth";
 import { ROLES_ALIAS } from "~constants/models";
 import SequelizeDataSource from "./SequelizeDataSource";
 
@@ -64,5 +65,10 @@ export default class UserDS extends SequelizeDataSource {
     user = await this.create(fields);
 
     return user;
+  }
+
+  async onUpdate(args) {
+    await this.context.cache.remove(`${USER_PREFIX}:${args.oldImage.id}`);
+    super.onUpdate(args);
   }
 }
