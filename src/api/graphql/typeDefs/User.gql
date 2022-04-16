@@ -170,6 +170,7 @@ input UserAttributesWhere {
   phoneNumberVerified: BooleanFieldFilter
   locale: StringFieldFilter
   status: StringFieldFilter
+  lastLogin: DateTimeFieldFilter
   createdAt: DateTimeFieldFilter
   updatedAt: DateTimeFieldFilter
   and: [UserAttributesWhere!]
