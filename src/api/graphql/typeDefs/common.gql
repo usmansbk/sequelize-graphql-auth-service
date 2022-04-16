@@ -83,8 +83,8 @@ type File {
 # Pagination
 
 enum Sort {
-  ASC
-  DESC
+  asc
+  desc
 }
 
 input ListPageOrder {

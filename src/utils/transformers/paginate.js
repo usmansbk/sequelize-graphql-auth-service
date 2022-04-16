@@ -16,7 +16,7 @@ export const parseCursor = (cursor) => JSON.parse(atob(cursor));
 export const normalizeOrder = (order) =>
   order.map(({ field, sort }) => [field, sort]);
 
-const DEFAULT_DIRECTION = "ASC";
+const DEFAULT_DIRECTION = "asc";
 const PRIMARY_KEY_FIELD = "id";
 const UNIQUE_FIELDS = [PRIMARY_KEY_FIELD, "email", "username"];
 
@@ -32,7 +32,7 @@ export const ensureDeterministicOrder = (order) => {
 };
 
 export const reverseOrder = (order) =>
-  order.map(([field, sort]) => [field, sort === "DESC" ? "ASC" : "DESC"]);
+  order.map(([field, sort]) => [field, sort === "desc" ? "asc" : "desc"]);
 
 const buildPaginationQuery = (order = [], cursor = []) => {
   const [[field, sort]] = order;
