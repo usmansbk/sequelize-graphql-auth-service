@@ -48,14 +48,14 @@ describe("Mutation.changeUserStatus", () => {
         variables: {
           input: {
             id: otherUser.id,
-            status: "BANNED",
+            status: "BLOCKED",
           },
         },
       },
       { currentUser }
     );
 
-    expect(res.data.changeUserStatus.user).toEqual({ status: "BANNED" });
+    expect(res.data.changeUserStatus.user).toEqual({ status: "BLOCKED" });
   });
 
   test("should not allow non-admin to change users status", async () => {

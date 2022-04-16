@@ -78,8 +78,7 @@ type UserList implements List {
 }
 
 enum AccountStatus {
-  SUSPENDED
-  BANNED
+  BLOCKED
   LOCKED
   PROVISIONED
   ACTIVE

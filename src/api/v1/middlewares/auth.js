@@ -17,7 +17,7 @@ const authMiddleware = async (req, _res, next) => {
 
     if (
       [
-        ACCOUNT_STATUS.BANNED,
+        ACCOUNT_STATUS.BLOCKED,
         ACCOUNT_STATUS.SUSPENDED,
         ACCOUNT_STATUS.LOCKED,
       ].includes(currentUser.status)

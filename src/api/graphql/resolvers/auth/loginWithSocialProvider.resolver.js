@@ -1,3 +1,4 @@
+import { ForbiddenError } from "apollo-server-core";
 import analytics from "~services/analytics";
 import dayjs from "~utils/dayjs";
 import QueryError from "~utils/errors/QueryError";
@@ -18,6 +19,13 @@ export default {
           ...userInfo,
           status: ACCOUNT_STATUS.ACTIVE,
         });
+
+        if (
+          [ACCOUNT_STATUS.BLOCKED, ACCOUNT_STATUS.LOCKED].includes(user.status)
+        ) {
+          throw new ForbiddenError(user.status);
+        }
+
         const { id, firstName } = user;
 
         await dataSources.users.update(id, {

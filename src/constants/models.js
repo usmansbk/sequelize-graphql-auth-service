@@ -12,8 +12,7 @@ export const USER_ROLES_JOIN_TABLE = "UserRoles";
 export const ROLE_PERMISSIONS_JOIN_TABLE = "RolePermissions";
 
 export const ACCOUNT_STATUS = {
-  SUSPENDED: "SUSPENDED",
-  BANNED: "BANNED",
+  BLOCKED: "BLOCKED",
   LOCKED: "LOCKED",
   PROVISIONED: "PROVISIONED",
   ACTIVE: "ACTIVE",

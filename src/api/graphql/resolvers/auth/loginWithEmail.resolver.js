@@ -1,3 +1,4 @@
+import { ForbiddenError } from "apollo-server-core";
 import analytics from "~services/analytics";
 import dayjs from "~utils/dayjs";
 import QueryError from "~utils/errors/QueryError";
@@ -44,6 +45,12 @@ export default {
 
         if (!granted) {
           throw new QueryError(INCORRECT_EMAIL_OR_PASSWORD);
+        }
+
+        if (
+          [ACCOUNT_STATUS.BLOCKED, ACCOUNT_STATUS.LOCKED].includes(user.status)
+        ) {
+          throw new ForbiddenError(user.status);
         }
 
         await cache.remove(attemptCountKey);

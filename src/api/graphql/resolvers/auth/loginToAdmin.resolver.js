@@ -1,3 +1,4 @@
+import { ForbiddenError } from "apollo-server-core";
 import dayjs from "~utils/dayjs";
 import analytics from "~services/analytics";
 import QueryError from "~utils/errors/QueryError";
@@ -12,6 +13,7 @@ import {
   FAILED_LOGIN_ATTEMPT_KEY_PREFIX,
   MAX_LOGIN_ATTEMPTS,
 } from "~constants/auth";
+import { ACCOUNT_STATUS } from "~constants/models";
 
 export default {
   Mutation: {
@@ -47,6 +49,12 @@ export default {
 
         if (!granted) {
           throw new QueryError(INCORRECT_USERNAME_OR_PASSWORD);
+        }
+
+        if (
+          [ACCOUNT_STATUS.BLOCKED, ACCOUNT_STATUS.LOCKED].includes(user.status)
+        ) {
+          throw new ForbiddenError(user.status);
         }
 
         await cache.remove(attemptCountKey);
