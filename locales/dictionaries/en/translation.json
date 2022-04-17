@@ -12,5 +12,9 @@
   "PermissionScopeUniqueError": "Permission already exists.",
   "RoleNotFound": "It looks like you're trying to access a role that either has been deleted or never existed.",
   "PermissionNotFound": "It looks like you're trying to access a permission that either has been deleted or never existed.",
-  "FieldErrors": "Some errors occured while saving."
+  "FieldErrors": "Some errors occured while saving.",
+  "Unauthenticated": "Sign in to continue.",
+  "Unauthorized": "You do not have the necessary permissions.",
+  "SomethingWentWrong": "Sorry, we ran into a problem.",
+  "InvalidClienId": "It seems your client has been tempered with. We've reported to our security engineers for your safety."
 }
