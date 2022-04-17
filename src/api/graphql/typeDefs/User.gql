@@ -42,9 +42,9 @@ type Mutation {
     @auth(rules: [{ allow: role, roles: ["admin"] }])
   assignRolesToUser(userId: ID!, roleIds: [ID!]!): UserMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
-  detachRolesFromUser(userId: ID!, roleIds: [ID!]!): UserMutationResponse!
+  removeRolesFromUser(userId: ID!, roleIds: [ID!]!): UserMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
-  detachAllRolesFromUser(userId: ID!): UserMutationResponse!
+  removeAllRolesFromUser(userId: ID!): UserMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
 }
 

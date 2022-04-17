@@ -225,7 +225,7 @@ export default {
         throw e;
       }
     },
-    async detachRolesFromUser(
+    async removeRolesFromUser(
       _parent,
       { roleIds, userId },
       { dataSources, db, t, cache }
@@ -255,7 +255,7 @@ export default {
         throw e;
       }
     },
-    async detachAllRolesFromUser(
+    async removeAllRolesFromUser(
       _parent,
       { userId },
       { dataSources, db, t, cache }

@@ -140,7 +140,7 @@ export default {
         throw e;
       }
     },
-    async removeAllMembersFromRole(
+    async removeAllUsersFromRole(
       _parent,
       { roleId },
       { dataSources, db, t, cache }

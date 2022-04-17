@@ -6,7 +6,7 @@ import { ROLE_PERMISSIONS_PREFIX } from "~constants/auth";
 
 const query = gql`
   mutation RemoveAllMembersFromRole($roleId: ID!) {
-    removeAllMembersFromRole(roleId: $roleId) {
+    removeAllUsersFromRole(roleId: $roleId) {
       code
       message
       role {
@@ -20,7 +20,7 @@ const query = gql`
   }
 `;
 
-describe("Mutation.removeAllMembersFromRole", () => {
+describe("Mutation.removeAllUsersFromRole", () => {
   let server;
   beforeAll(() => {
     server = createApolloTestServer();
@@ -63,7 +63,7 @@ describe("Mutation.removeAllMembersFromRole", () => {
         { currentUser: admin }
       );
 
-      expect(res.data.removeAllMembersFromRole.role.members.items).toHaveLength(
+      expect(res.data.removeAllUsersFromRole.role.members.items).toHaveLength(
         0
       );
     });

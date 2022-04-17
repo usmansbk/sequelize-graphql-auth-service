@@ -18,13 +18,15 @@ type Mutation {
   ): RoleMutationResponse! @auth(rules: [{ allow: role, roles: ["admin"] }])
   addUsersToRole(roleId: ID!, userIds: [ID!]!): RoleMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
-  removeUsersFromRole(roleId: ID!, userIds: [ID!]!): RoleMutationResponse!
-    @auth(rules: [{ allow: role, roles: ["admin"] }])
   removePermissionsFromRole(
     roleId: ID!
     permissionIds: [ID!]!
   ): RoleMutationResponse! @auth(rules: [{ allow: role, roles: ["admin"] }])
-  removeAllMembersFromRole(roleId: ID!): RoleMutationResponse!
+  removeAllPermissionsFromRole(roleId: ID!): RoleMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+  removeUsersFromRole(roleId: ID!, userIds: [ID!]!): RoleMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+  removeAllUsersFromRole(roleId: ID!): RoleMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
 }
 
