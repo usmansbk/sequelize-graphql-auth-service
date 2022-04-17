@@ -2,11 +2,11 @@ import { gql } from "apollo-server-express";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
 import cache from "~utils/cache";
-import { ROLE_PERMISSIONS_PREFIX } from "~constants/auth";
+import { ROLE_PERMISSIONS_PREFIX, USER_PREFIX } from "~constants/auth";
 
 const query = gql`
-  mutation RemoveAllMembersFromRole($roleId: ID!) {
-    removeAllUsersFromRole(roleId: $roleId) {
+  mutation RemoveMembersFromRole($roleId: ID!, $userIds: [ID!]!) {
+    removeUsersFromRole(roleId: $roleId, userIds: $userIds) {
       code
       message
       role {
@@ -20,7 +20,7 @@ const query = gql`
   }
 `;
 
-describe("Mutation.removeAllUsersFromRole", () => {
+describe("Mutation.removeUsersFromRole", () => {
   let server;
   beforeAll(() => {
     server = createApolloTestServer();
@@ -46,7 +46,7 @@ describe("Mutation.removeAllUsersFromRole", () => {
       });
     });
 
-    test("should detach role from all members", async () => {
+    test("should remove members from role", async () => {
       const role = await FactoryBot.create("role", {
         include: {
           members: {},
@@ -58,26 +58,30 @@ describe("Mutation.removeAllUsersFromRole", () => {
           query,
           variables: {
             roleId: role.id,
+            userIds: role.members.map((member) => member.id),
           },
         },
         { currentUser: admin }
       );
 
-      expect(res.data.removeAllUsersFromRole.role.members.items).toHaveLength(
-        0
-      );
+      expect(res.data.removeUsersFromRole.role.members.items).toHaveLength(0);
     });
 
     test("should revoke session", async () => {
-      const role = await FactoryBot.create("role");
-      const key = `${ROLE_PERMISSIONS_PREFIX}:${role.id}`;
-      await cache.setJSON(key, role.toJSON());
+      const role = await FactoryBot.create("role", {
+        include: {
+          members: {},
+        },
+      });
+      const key = `${USER_PREFIX}:${role.members[0].id}`;
+      await cache.setJSON(key, role.members[0].toJSON());
 
       await server.executeOperation(
         {
           query,
           variables: {
             roleId: role.id,
+            userIds: role.members.map((member) => member.id),
           },
         },
         { currentUser: admin }

@@ -24,8 +24,6 @@ type Mutation {
   ): RoleMutationResponse! @auth(rules: [{ allow: role, roles: ["admin"] }])
   removeUsersFromRole(roleId: ID!, userIds: [ID!]!): RoleMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
-  removeAllUsersFromRole(roleId: ID!): RoleMutationResponse!
-    @auth(rules: [{ allow: role, roles: ["admin"] }])
 }
 
 type Role {

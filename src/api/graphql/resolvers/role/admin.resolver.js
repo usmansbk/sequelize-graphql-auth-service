@@ -1,6 +1,6 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
-import { ROLE_PERMISSIONS_PREFIX } from "~constants/auth";
+import { ROLE_PERMISSIONS_PREFIX, USER_PREFIX } from "~constants/auth";
 
 export default {
   Query: {
@@ -140,9 +140,9 @@ export default {
         throw e;
       }
     },
-    async removeAllUsersFromRole(
+    async removeUsersFromRole(
       _parent,
-      { roleId },
+      { roleId, userIds },
       { dataSources, db, t, cache }
     ) {
       try {
@@ -153,10 +153,12 @@ export default {
             },
             transaction,
           });
-          await foundRole.setMembers([], { transaction });
+          await foundRole.removeMembers(userIds, { transaction });
           return foundRole;
         });
-        await cache.remove(`${ROLE_PERMISSIONS_PREFIX}:${role.id}`);
+        await Promise.all(
+          userIds.map((id) => cache.remove(`${USER_PREFIX}:${id}`))
+        );
         return Success({ role });
       } catch (e) {
         if (e instanceof QueryError) {
