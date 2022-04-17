@@ -195,7 +195,7 @@ export default {
         throw e;
       }
     },
-    async attachRolesToUser(
+    async assignRolesToUser(
       _parent,
       { roleIds, userId },
       { dataSources, db, t, cache }

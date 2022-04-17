@@ -5,8 +5,8 @@ import cache from "~utils/cache";
 import { USER_PREFIX } from "~constants/auth";
 
 const query = gql`
-  mutation AttachRolesToUser($userId: ID!, $roleIds: [ID!]!) {
-    attachRolesToUser(userId: $userId, roleIds: $roleIds) {
+  mutation AssignRolesToUser($userId: ID!, $roleIds: [ID!]!) {
+    assignRolesToUser(userId: $userId, roleIds: $roleIds) {
       code
       message
       user {
@@ -19,7 +19,7 @@ const query = gql`
   }
 `;
 
-describe("Mutation.attachRolesToUser", () => {
+describe("Mutation.assignRolesToUser", () => {
   let server;
   beforeAll(() => {
     server = createApolloTestServer();
@@ -45,7 +45,7 @@ describe("Mutation.attachRolesToUser", () => {
       });
     });
 
-    test("should attach roles to user", async () => {
+    test("should assign roles to user", async () => {
       const other = await FactoryBot.create("user");
       const role = await FactoryBot.create("role", {
         name: "staff",
@@ -62,12 +62,12 @@ describe("Mutation.attachRolesToUser", () => {
         { currentUser: admin }
       );
 
-      expect(res.data.attachRolesToUser.user.roles).toEqual([
+      expect(res.data.assignRolesToUser.user.roles).toEqual([
         { name: "staff", id: role.id },
       ]);
     });
 
-    test("should invalidate cached permissions", async () => {
+    test("should revoke session", async () => {
       const other = await FactoryBot.create("user");
       const role = await FactoryBot.create("role", {
         name: "staff",

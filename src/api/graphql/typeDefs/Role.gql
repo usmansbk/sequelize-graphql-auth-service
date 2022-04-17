@@ -16,6 +16,10 @@ type Mutation {
     roleId: ID!
     permissionIds: [ID!]!
   ): RoleMutationResponse! @auth(rules: [{ allow: role, roles: ["admin"] }])
+  addUsersToRole(roleId: ID!, userIds: [ID!]!): RoleMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+  removeUsersFromRole(roleId: ID!, userIds: [ID!]!): RoleMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
   removePermissionsFromRole(
     roleId: ID!
     permissionIds: [ID!]!
