@@ -12,15 +12,15 @@ type Mutation {
     @auth(rules: [{ allow: role, roles: ["admin"] }])
   deleteRole(id: ID!, reason: String): DeleteMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
-  attachPermissionsToRole(
+  addPermissionsToRole(
     roleId: ID!
     permissionIds: [ID!]!
   ): RoleMutationResponse! @auth(rules: [{ allow: role, roles: ["admin"] }])
-  detachPermissionsFromRole(
+  removePermissionsFromRole(
     roleId: ID!
     permissionIds: [ID!]!
   ): RoleMutationResponse! @auth(rules: [{ allow: role, roles: ["admin"] }])
-  detachRoleFromAllMembers(roleId: ID!): RoleMutationResponse!
+  removeAllMembersFromRole(roleId: ID!): RoleMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
 }
 

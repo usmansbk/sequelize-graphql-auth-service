@@ -6,7 +6,7 @@ import cache from "~utils/cache";
 
 const query = gql`
   mutation DetachPermissionsFromRole($roleId: ID!, $permissionIds: [ID!]!) {
-    detachPermissionsFromRole(roleId: $roleId, permissionIds: $permissionIds) {
+    removePermissionsFromRole(roleId: $roleId, permissionIds: $permissionIds) {
       code
       message
       role {
@@ -18,7 +18,7 @@ const query = gql`
   }
 `;
 
-describe("Mutation.detachPermissionsFromRole", () => {
+describe("Mutation.removePermissionsFromRole", () => {
   let server;
   beforeAll(() => {
     server = createApolloTestServer();
@@ -60,7 +60,7 @@ describe("Mutation.detachPermissionsFromRole", () => {
         { currentUser: admin }
       );
 
-      expect(res.data.detachPermissionsFromRole.role.permissions).toHaveLength(
+      expect(res.data.removePermissionsFromRole.role.permissions).toHaveLength(
         0
       );
     });

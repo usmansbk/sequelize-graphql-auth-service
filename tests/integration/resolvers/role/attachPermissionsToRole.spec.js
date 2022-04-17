@@ -6,7 +6,7 @@ import { ROLE_PERMISSIONS_PREFIX } from "~constants/auth";
 
 const query = gql`
   mutation AttachPermissionsToRole($roleId: ID!, $permissionIds: [ID!]!) {
-    attachPermissionsToRole(roleId: $roleId, permissionIds: $permissionIds) {
+    addPermissionsToRole(roleId: $roleId, permissionIds: $permissionIds) {
       code
       message
       role {
@@ -18,7 +18,7 @@ const query = gql`
   }
 `;
 
-describe("Mutation.attachPermissionsToRole", () => {
+describe("Mutation.addPermissionsToRole", () => {
   let server;
   beforeAll(() => {
     server = createApolloTestServer();
@@ -59,7 +59,7 @@ describe("Mutation.attachPermissionsToRole", () => {
         { currentUser: admin }
       );
 
-      expect(res.data.attachPermissionsToRole.role.permissions).toEqual([
+      expect(res.data.addPermissionsToRole.role.permissions).toEqual([
         { id: permission.id },
       ]);
     });

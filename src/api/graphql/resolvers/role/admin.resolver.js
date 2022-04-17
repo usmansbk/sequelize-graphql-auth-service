@@ -80,7 +80,7 @@ export default {
         throw e;
       }
     },
-    async attachPermissionsToRole(
+    async addPermissionsToRole(
       _parent,
       { roleId, permissionIds },
       { dataSources, db, t, cache }
@@ -110,7 +110,7 @@ export default {
         throw e;
       }
     },
-    async detachPermissionsFromRole(
+    async removePermissionsFromRole(
       _parent,
       { roleId, permissionIds },
       { dataSources, db, t, cache }
@@ -140,7 +140,7 @@ export default {
         throw e;
       }
     },
-    async detachRoleFromAllMembers(
+    async removeAllMembersFromRole(
       _parent,
       { roleId },
       { dataSources, db, t, cache }
