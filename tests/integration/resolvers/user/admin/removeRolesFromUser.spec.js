@@ -5,20 +5,21 @@ import cache from "~utils/cache";
 import { USER_PREFIX } from "~constants/auth";
 
 const query = gql`
-  mutation DetachAllRolesFromUser($userId: ID!) {
-    removeAllRolesFromUser(userId: $userId) {
+  mutation RemoveRolesFromUser($userId: ID!, $roleIds: [ID!]!) {
+    removeRolesFromUser(userId: $userId, roleIds: $roleIds) {
       code
       message
       user {
         roles {
           id
+          name
         }
       }
     }
   }
 `;
 
-describe("Mutation.removeAllRolesFromUser", () => {
+describe("Mutation.removeRolesFromUser", () => {
   let server;
   beforeAll(() => {
     server = createApolloTestServer();
@@ -44,26 +45,25 @@ describe("Mutation.removeAllRolesFromUser", () => {
       });
     });
 
-    test("should detach all roles from user", async () => {
-      const other = await FactoryBot.create("user", {
-        include: {
-          roles: {
-            name: "staff",
-          },
-        },
+    test("should detach roles from user", async () => {
+      const other = await FactoryBot.create("user");
+      const role = await FactoryBot.create("role", {
+        name: "staff",
       });
+      await role.addMember(other);
 
       const res = await server.executeOperation(
         {
           query,
           variables: {
             userId: other.id,
+            roleIds: [role.id],
           },
         },
         { currentUser: admin }
       );
 
-      expect(res.data.removeAllRolesFromUser.user.roles).toHaveLength(0);
+      expect(res.data.removeRolesFromUser.user.roles).toHaveLength(0);
     });
 
     test("should invalidate cached permissions", async () => {
