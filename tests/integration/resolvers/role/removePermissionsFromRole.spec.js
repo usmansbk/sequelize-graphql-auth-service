@@ -5,7 +5,7 @@ import { ROLE_PERMISSIONS_PREFIX } from "~constants/auth";
 import cache from "~utils/cache";
 
 const query = gql`
-  mutation DetachPermissionsFromRole($roleId: ID!, $permissionIds: [ID!]!) {
+  mutation RemovePermissionsFromRole($roleId: ID!, $permissionIds: [ID!]!) {
     removePermissionsFromRole(roleId: $roleId, permissionIds: $permissionIds) {
       code
       message

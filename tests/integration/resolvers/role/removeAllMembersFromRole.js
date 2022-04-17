@@ -5,8 +5,8 @@ import cache from "~utils/cache";
 import { ROLE_PERMISSIONS_PREFIX } from "~constants/auth";
 
 const query = gql`
-  mutation DetachRoleFromAllMembers($roleId: ID!) {
-    detachRoleFromAllMembers(roleId: $roleId) {
+  mutation RemoveAllMembersFromRole($roleId: ID!) {
+    removeAllMembersFromRole(roleId: $roleId) {
       code
       message
       role {
@@ -20,7 +20,7 @@ const query = gql`
   }
 `;
 
-describe("Mutation.detachRoleFromAllMembers", () => {
+describe("Mutation.removeAllMembersFromRole", () => {
   let server;
   beforeAll(() => {
     server = createApolloTestServer();
@@ -63,7 +63,7 @@ describe("Mutation.detachRoleFromAllMembers", () => {
         { currentUser: admin }
       );
 
-      expect(res.data.detachRoleFromAllMembers.role.members.items).toHaveLength(
+      expect(res.data.removeAllMembersFromRole.role.members.items).toHaveLength(
         0
       );
     });

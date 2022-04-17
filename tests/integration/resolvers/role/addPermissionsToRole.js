@@ -5,7 +5,7 @@ import cache from "~utils/cache";
 import { ROLE_PERMISSIONS_PREFIX } from "~constants/auth";
 
 const query = gql`
-  mutation AttachPermissionsToRole($roleId: ID!, $permissionIds: [ID!]!) {
+  mutation AddPermissionsToRole($roleId: ID!, $permissionIds: [ID!]!) {
     addPermissionsToRole(roleId: $roleId, permissionIds: $permissionIds) {
       code
       message
