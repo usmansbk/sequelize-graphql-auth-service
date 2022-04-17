@@ -59,16 +59,13 @@ export default class UserDS extends SequelizeDataSource {
      * We consider unverified emails as temporary accounts with limited or no access to service
      * until verified
      */
-    if (user) {
+    if (user && !user.emailVerified) {
       if (
-        !user.emailVerified &&
         [ACCOUNT_STATUS.BLOCKED, ACCOUNT_STATUS.LOCKED].includes(user.status)
       ) {
         throw new ForbiddenError(user.status);
       }
-      if (!user.emailVerified) {
-        await this.destroy(user.id);
-      }
+      await this.destroy(user.id);
     }
 
     user = await this.create(fields);
