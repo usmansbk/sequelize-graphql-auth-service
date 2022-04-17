@@ -72,7 +72,7 @@ describe("Mutation.deleteRole", () => {
       expect(res.data.deleteRole.id).toBe(role.id);
     });
 
-    test("should invalidate cache", async () => {
+    test("should revoke session", async () => {
       const role = await FactoryBot.create("role");
       const key = `${ROLE_PERMISSIONS_PREFIX}:${role.id}`;
       await cache.setJSON(key, role.toJSON());

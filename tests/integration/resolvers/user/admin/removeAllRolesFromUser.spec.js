@@ -44,7 +44,7 @@ describe("Mutation.removeAllRolesFromUser", () => {
       });
     });
 
-    test("should detach all roles from user", async () => {
+    test("should remove all roles from user", async () => {
       const other = await FactoryBot.create("user", {
         include: {
           roles: {
@@ -66,7 +66,7 @@ describe("Mutation.removeAllRolesFromUser", () => {
       expect(res.data.removeAllRolesFromUser.user.roles).toHaveLength(0);
     });
 
-    test("should invalidate cached permissions", async () => {
+    test("should revoke session", async () => {
       const other = await FactoryBot.create("user");
       const role = await FactoryBot.create("role", {
         name: "staff",

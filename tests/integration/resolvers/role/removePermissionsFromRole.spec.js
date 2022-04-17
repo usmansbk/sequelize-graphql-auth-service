@@ -44,7 +44,7 @@ describe("Mutation.removePermissionsFromRole", () => {
       });
     });
 
-    test("should detach permission from role", async () => {
+    test("should remove permission from role", async () => {
       const permission = await FactoryBot.create("permission");
       const role = await FactoryBot.create("role");
       await role.addPermission(permission);
@@ -66,7 +66,7 @@ describe("Mutation.removePermissionsFromRole", () => {
     });
     cache;
 
-    test("should invalidate cache", async () => {
+    test("should revoke session", async () => {
       const role = await FactoryBot.create("role", {
         include: {
           permissions: {},
