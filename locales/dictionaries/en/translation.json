@@ -11,5 +11,6 @@
   "RoleNameUniqueError": "Role already exists.",
   "PermissionScopeUniqueError": "Permission already exists.",
   "RoleNotFound": "It looks like you're trying to access a role that either has been deleted or never existed.",
-  "PermissionNotFound": "It looks like you're trying to access a permission that either has been deleted or never existed."
+  "PermissionNotFound": "It looks like you're trying to access a permission that either has been deleted or never existed.",
+  "FieldErrors": "Some errors occured while saving."
 }
