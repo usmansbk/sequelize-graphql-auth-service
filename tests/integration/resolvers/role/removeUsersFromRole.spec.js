@@ -2,7 +2,7 @@ import { gql } from "apollo-server-express";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
 import cache from "~utils/cache";
-import { ROLE_PERMISSIONS_PREFIX, USER_PREFIX } from "~constants/auth";
+import { USER_PREFIX } from "~constants/auth";
 
 const query = gql`
   mutation RemoveMembersFromRole($roleId: ID!, $userIds: [ID!]!) {
