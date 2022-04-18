@@ -9,13 +9,6 @@ const query = gql`
     removeUsersFromRole(roleId: $roleId, userIds: $userIds) {
       code
       message
-      role {
-        members {
-          items {
-            id
-          }
-        }
-      }
     }
   }
 `;
@@ -53,7 +46,7 @@ describe("Mutation.removeUsersFromRole", () => {
         },
       });
 
-      const res = await server.executeOperation(
+      await server.executeOperation(
         {
           query,
           variables: {
@@ -64,7 +57,9 @@ describe("Mutation.removeUsersFromRole", () => {
         { currentUser: admin }
       );
 
-      expect(res.data.removeUsersFromRole.role.members.items).toHaveLength(0);
+      const count = await role.countMembers();
+
+      expect(count).toBe(0);
     });
 
     test("should revoke session", async () => {

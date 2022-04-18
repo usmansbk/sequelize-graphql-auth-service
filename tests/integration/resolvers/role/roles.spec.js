@@ -8,9 +8,6 @@ const query = gql`
       totalCount
       items {
         id
-        members {
-          totalCount
-        }
       }
     }
   }
@@ -36,13 +33,7 @@ describe("Query.roles", () => {
     });
 
     for (let i = 0; i < 3; i++) {
-      await FactoryBot.create("role", {
-        include: {
-          members: {
-            _count: 2,
-          },
-        },
-      });
+      await FactoryBot.create("role");
     }
   });
 
