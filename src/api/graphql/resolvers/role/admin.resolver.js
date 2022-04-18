@@ -39,7 +39,6 @@ export default {
             code: e.code,
           });
         }
-
         throw e;
       }
     },
@@ -59,7 +58,6 @@ export default {
             code: e.code,
           });
         }
-
         throw e;
       }
     },
@@ -76,7 +74,6 @@ export default {
             code: e.code,
           });
         }
-
         throw e;
       }
     },
@@ -106,7 +103,37 @@ export default {
             code: e.code,
           });
         }
-
+        throw e;
+      }
+    },
+    async assignRoleToUsers(
+      _parent,
+      { roleId, userIds },
+      { dataSources, db, t, cache }
+    ) {
+      try {
+        const role = await db.sequelize.transaction(async (transaction) => {
+          const foundRole = await dataSources.roles.findOne({
+            where: {
+              id: roleId,
+            },
+            transaction,
+          });
+          await foundRole.addMembers(userIds, { transaction });
+          return foundRole;
+        });
+        await Promise.all(
+          userIds.map((id) => cache.remove(`${USER_PREFIX}:${id}`))
+        );
+        return Success({ role });
+      } catch (e) {
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            errors: e.errors,
+            code: e.code,
+          });
+        }
         throw e;
       }
     },
