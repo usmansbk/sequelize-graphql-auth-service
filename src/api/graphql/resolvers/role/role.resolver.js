@@ -10,7 +10,9 @@ export default {
       }
       return role.permissions;
     },
-    members(role, { page, where }, { dataSources }, info) {
+  },
+  Query: {
+    getRoleMembers(_parent, { id, page, where }, { dataSources }, info) {
       return dataSources.users.paginate({
         page,
         info,
@@ -20,7 +22,7 @@ export default {
             roles: {
               where: {
                 id: {
-                  eq: role.id,
+                  eq: id,
                 },
               },
             },
@@ -28,8 +30,6 @@ export default {
         },
       });
     },
-  },
-  Query: {
     async getRoleById(_parent, { id }, { dataSources, t }, info) {
       try {
         const role = await dataSources.roles.findOne({

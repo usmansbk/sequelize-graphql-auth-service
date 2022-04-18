@@ -1,6 +1,11 @@
 type Query {
   getRoleById(id: ID!): RolePayload!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
+  getRoleMembers(
+    id: ID!
+    page: ListPage
+    where: UserAttributesWhere
+  ): UserList! @auth(rules: [{ allow: role, roles: ["admin"] }])
   roles(page: ListPage, filter: RoleFilter): RoleList!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
 }
@@ -31,7 +36,6 @@ type Role {
   name: String!
   description: String
   permissions: [Permission]!
-  members(page: ListPage, where: UserAttributesWhere): UserList!
   createdAt: DateTime!
   updatedAt: DateTime
 }
