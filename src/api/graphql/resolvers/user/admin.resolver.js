@@ -255,31 +255,5 @@ export default {
         throw e;
       }
     },
-    async removeAllRolesFromUser(
-      _parent,
-      { userId },
-      { dataSources, db, t, cache }
-    ) {
-      try {
-        const user = await db.sequelize.transaction(async (transaction) => {
-          const account = await dataSources.users.findByPk(userId, {
-            transaction,
-          });
-          await account.setRoles([], { transaction });
-          return account;
-        });
-        await cache.remove(`${USER_PREFIX}:${userId}`);
-        return Success({ user });
-      } catch (e) {
-        if (e instanceof QueryError) {
-          return Fail({
-            message: t(e.message),
-            errors: e.errors,
-            code: e.code,
-          });
-        }
-        throw e;
-      }
-    },
   },
 };
