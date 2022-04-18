@@ -226,50 +226,9 @@ query {
 
 - Eager-loading only works with `Query`. `Mutation` isn't supported
 
-- Nested cursor-paginated fields aren't eager-loaded
+- Nested cursor-paginated fields aren't eager-loaded, and hard to maintain in the frontend.
 
-Example: Assuming we have a User type defined,
-
-```gql
-type User {
-  id: ID!
-  avatar: Photo
-  tasks: TaskList!
-  savedTasks: [Task]
-}
-```
-
-The following query will run two seperate SQL queries
-One to fetch `user`, `avatar`, and `savedTasks`, and the other to fetch `tasks`
-
-```gql
-query {
-  user {
-    id
-    ## this will be eager-loaded
-    avatar {
-      url
-    }
-
-    ## ...while this will run an extra query
-    tasks {
-      items {
-        id
-        name
-      }
-      pageInfo {
-        ...
-      }
-    }
-
-    ## this is not paginated. So it'll be eager-loaded
-    savedTasks {
-      id
-      name
-    }
-  }
-}
-```
+- Paginated fields should be added to the root `Query` for the reason above.
 
 ## Analytics
 
