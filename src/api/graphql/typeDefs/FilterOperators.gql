@@ -5,8 +5,10 @@ https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#operators
 input IDFieldFilter {
   eq: ID
   ne: ID
+  is: ID
   or: [IDFieldFilter!]
   and: [IDFieldFilter!]
+  not: [IDFieldFilter!]
 
   in: [ID!]
   notIn: [ID!]
@@ -15,8 +17,10 @@ input IDFieldFilter {
 input NumberFieldFilter {
   eq: Int
   ne: Int
+  is: Int
   or: [NumberFieldFilter!]
   and: [NumberFieldFilter!]
+  not: [NumberFieldFilter!]
 
   gt: Int
   gte: Int
@@ -26,13 +30,16 @@ input NumberFieldFilter {
   notBetween: [Int!]
   in: [Int!]
   notIn: [Int!]
+  any: [Int!]
 }
 
 input StringFieldFilter {
   eq: String
   ne: String
+  is: String
   and: [StringFieldFilter!]
   or: [StringFieldFilter!]
+  not: [StringFieldFilter!]
 
   in: [String!]
   notIn: [String!]
@@ -47,13 +54,16 @@ input StringFieldFilter {
   notRegexp: String
   iRegexp: String
   notIRegexp: String
+  any: [String!]
 }
 
 input DateTimeFieldFilter {
   eq: DateTime
   ne: DateTime
+  is: DateTime
   and: [DateTimeFieldFilter!]
   or: [DateTimeFieldFilter!]
+  not: [DateTimeFieldFilter!]
 
   gt: DateTime
   gte: DateTime
@@ -61,13 +71,16 @@ input DateTimeFieldFilter {
   lte: DateTime
   between: [DateTime!]
   notBetween: [DateTime!]
+  any: [DateTime!]
 }
 
 input DateFieldFilter {
   eq: Date
   ne: Date
+  is: Date
   and: [DateFieldFilter!]
   or: [DateFieldFilter!]
+  not: [DateFieldFilter!]
 
   gt: Date
   gte: Date
@@ -75,9 +88,9 @@ input DateFieldFilter {
   lte: Date
   between: [Date!]
   notBetween: [Date!]
+  any: [Date!]
 }
 
 input BooleanFieldFilter {
   is: Boolean
-  not: Boolean
 }

@@ -3,6 +3,7 @@ import { Op } from "sequelize";
 const CONDITIONALS = {
   and: "and",
   or: "or",
+  not: "not",
 };
 
 const buildComparison = (operation) => {
@@ -22,7 +23,11 @@ export const buildWhereQuery = (where) => {
   Object.keys(where).forEach((attribute) => {
     const value = where[attribute];
 
-    if (attribute === CONDITIONALS.and || attribute === CONDITIONALS.or) {
+    if (
+      attribute === CONDITIONALS.and ||
+      attribute === CONDITIONALS.or ||
+      attribute === CONDITIONALS.not
+    ) {
       query[Op[attribute]] = value.map(buildWhereQuery);
     } else {
       query[attribute] = buildComparison(value);
