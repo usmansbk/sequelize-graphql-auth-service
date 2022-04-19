@@ -264,6 +264,11 @@ export default (sequelize, DataTypes) => {
       user.setDataValue("phoneNumberVerified", false);
     }
   });
+  User.beforeUpdate("unverify new email", (user) => {
+    if (user.changed("email")) {
+      user.setDataValue("emailVerified", false);
+    }
+  });
   User.beforeUpdate("update last password reset", (user) => {
     if (user.changed("password")) {
       user.setDataValue("passwordResetAt", dayjs.utc().toDate());
