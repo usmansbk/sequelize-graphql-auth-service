@@ -67,6 +67,7 @@ input DateTimeFieldFilter {
   and: [DateTimeFieldFilter!]
   or: [DateTimeFieldFilter!]
   not: [DateTimeFieldFilter!]
+  any: [DateTime!]
 
   gt: DateTime
   gte: DateTime
@@ -83,6 +84,7 @@ input DateFieldFilter {
   and: [DateFieldFilter!]
   or: [DateFieldFilter!]
   not: [DateFieldFilter!]
+  any: [Date!]
 
   gt: Date
   gte: Date
