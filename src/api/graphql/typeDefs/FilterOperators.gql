@@ -12,6 +12,7 @@ input IDFieldFilter {
 
   in: [ID!]
   notIn: [ID!]
+  any: [ID!]
 }
 
 input NumberFieldFilter {
@@ -28,6 +29,7 @@ input NumberFieldFilter {
   lte: Int
   between: [Int!]
   notBetween: [Int!]
+
   in: [Int!]
   notIn: [Int!]
   any: [Int!]
