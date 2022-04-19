@@ -10,7 +10,6 @@ export default {
         page,
         filter,
         info,
-        skip: ["roles"],
       });
     },
   },

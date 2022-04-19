@@ -9,7 +9,6 @@ export default {
         page,
         filter,
         info,
-        skip: ["members"],
       });
     },
   },
