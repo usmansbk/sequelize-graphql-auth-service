@@ -16,5 +16,6 @@
   "Unauthenticated": "Sign in to continue.",
   "Unauthorized": "You do not have the necessary permissions.",
   "SomethingWentWrong": "Sorry, we ran into a problem.",
-  "InvalidClientId": "It seems your client has been tempered with. We've reported to our security engineers for your safety."
+  "InvalidClientId": "It seems your client has been tempered with. We've reported to our security engineers for your safety.",
+  "UserNotFound": "Account does not exist."
 }
