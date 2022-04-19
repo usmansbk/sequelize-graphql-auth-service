@@ -33,14 +33,15 @@ describe("Mutation.registerWithEmail", () => {
   });
 
   test("should register a new user and return the access and refresh tokens", async () => {
-    const {
-      data: { registerWithEmail },
-    } = await server.executeOperation({
+    const res = await server.executeOperation({
       query,
       variables: {
         input: FactoryBot.attributesFor("user"),
       },
     });
+    const {
+      data: { registerWithEmail },
+    } = res;
     expect(registerWithEmail.message).toMatch("WelcomeNewUser");
     expect(registerWithEmail.accessToken).toBeDefined();
     expect(registerWithEmail.refreshToken).toBeDefined();
@@ -48,7 +49,7 @@ describe("Mutation.registerWithEmail", () => {
 
   test("should not register a user if the email is already taken and verified by an existing user", async () => {
     const existingUser = await FactoryBot.create("user", {
-      emailVerified: true,
+      status: "ACTIVE",
     });
 
     const res = await server.executeOperation({

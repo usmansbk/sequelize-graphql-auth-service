@@ -19,9 +19,13 @@ export default {
       { dataSources, jwt, t, cache, clientId, mailer, locale }
     ) {
       try {
-        const [user, granted] = await dataSources.users.findByEmailAndPassword(
-          input
-        );
+        const user = await dataSources.users.findOne({
+          where: {
+            email: input.email,
+          },
+        });
+
+        const granted = await user?.checkPassword(input.password);
 
         const attemptCountKey = `${FAILED_LOGIN_ATTEMPT_KEY_PREFIX}:${input.email}`;
         if (user && !granted) {

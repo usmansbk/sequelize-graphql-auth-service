@@ -2,6 +2,8 @@ import QueryError from "~utils/errors/QueryError";
 import { Success, Fail } from "~helpers/response";
 import analytics from "~services/analytics";
 import { SIGNUP_FAILED, WELCOME_NEW_USER } from "~constants/i18n";
+import { ForbiddenError } from "apollo-server-core";
+import { ACCOUNT_STATUS } from "~constants/models";
 
 export default {
   Mutation: {
@@ -11,9 +13,25 @@ export default {
       { dataSources, jwt, t, clientId }
     ) {
       try {
-        const { id, firstName } = await dataSources.users.createWithEmail(
-          input
-        );
+        const account = await dataSources.users.findOne({
+          where: {
+            email: input.email,
+          },
+        });
+
+        if (account) {
+          if (
+            [ACCOUNT_STATUS.BLOCKED, ACCOUNT_STATUS.LOCKED].includes(
+              account.status
+            )
+          ) {
+            throw new ForbiddenError(account.status);
+          }
+          if (account.status === ACCOUNT_STATUS.PROVISIONED) {
+            await dataSources.users.destroy(account.id);
+          }
+        }
+        const { id, firstName } = await dataSources.users.create(input);
 
         const { accessToken, refreshToken } = await jwt.generateAuthTokens({
           sub: id,

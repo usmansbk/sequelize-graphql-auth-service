@@ -13,7 +13,7 @@ import {
   FAILED_LOGIN_ATTEMPT_KEY_PREFIX,
   MAX_LOGIN_ATTEMPTS,
 } from "~constants/auth";
-import { ACCOUNT_STATUS } from "~constants/models";
+import { ACCOUNT_STATUS, ROLES_ALIAS } from "~constants/models";
 
 export default {
   Mutation: {
@@ -23,8 +23,21 @@ export default {
       { dataSources, jwt, t, cache, clientId, mailer, locale }
     ) {
       try {
-        const [user, granted] =
-          await dataSources.users.findAdminByUsernameAndPassword(input);
+        const user = await dataSources.users.findOne({
+          where: {
+            username: input.username,
+          },
+          include: [
+            {
+              association: ROLES_ALIAS,
+              where: {
+                name: ["root", "admin"],
+              },
+            },
+          ],
+        });
+
+        const granted = await user?.checkPassword(input.password);
 
         if (user && granted && !user.emailVerified) {
           throw new QueryError(EMAIL_NOT_VERIFIED);
