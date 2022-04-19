@@ -23,16 +23,16 @@ input NumberFieldFilter {
   and: [NumberFieldFilter!]
   not: [NumberFieldFilter!]
 
+  in: [Int!]
+  notIn: [Int!]
+  any: [Int!]
+
   gt: Int
   gte: Int
   lt: Int
   lte: Int
   between: [Int!]
   notBetween: [Int!]
-
-  in: [Int!]
-  notIn: [Int!]
-  any: [Int!]
 }
 
 input StringFieldFilter {
@@ -45,6 +45,8 @@ input StringFieldFilter {
 
   in: [String!]
   notIn: [String!]
+  any: [String!]
+
   like: String
   notLike: String
   startsWith: String
@@ -56,7 +58,6 @@ input StringFieldFilter {
   notRegexp: String
   iRegexp: String
   notIRegexp: String
-  any: [String!]
 }
 
 input DateTimeFieldFilter {
@@ -73,7 +74,6 @@ input DateTimeFieldFilter {
   lte: DateTime
   between: [DateTime!]
   notBetween: [DateTime!]
-  any: [DateTime!]
 }
 
 input DateFieldFilter {
@@ -90,7 +90,6 @@ input DateFieldFilter {
   lte: Date
   between: [Date!]
   notBetween: [Date!]
-  any: [Date!]
 }
 
 input BooleanFieldFilter {
