@@ -148,7 +148,7 @@ input ChangeUserLocaleInput {
 
 input ChangeUserPhoneNumberInput {
   id: ID!
-  phoneNumber: PhoneNumber!
+  phoneNumber: PhoneNumber
 }
 
 input UserFilter {
