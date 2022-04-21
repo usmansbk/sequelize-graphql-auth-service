@@ -54,7 +54,7 @@
     "apollo-server-core": "^3.6.7",
     "apollo-server-express": "^3.6.7",
     "atob": "^2.1.2",
-    "aws-sdk": "^2.1118.0",
+    "aws-sdk": "^2.1119.0",
     "bcrypt": "^5.0.1",
     "btoa": "^1.2.1",
     "bunyan": "^1.8.15",
