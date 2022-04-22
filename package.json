@@ -40,9 +40,9 @@
     "weak-napi": "^2.0.2"
   },
   "dependencies": {
-    "@aws-sdk/credential-provider-node": "^3.74.0",
+    "@aws-sdk/credential-provider-node": "^3.75.0",
     "@babel/runtime": "^7.17.9",
-    "@faker-js/faker": "^6.1.2",
+    "@faker-js/faker": "^6.2.0",
     "@graphql-tools/load-files": "^6.5.3",
     "@graphql-tools/merge": "^8.2.10",
     "@graphql-tools/schema": "^8.3.10",
