@@ -106,7 +106,10 @@ const uploadAvatar = async (req, res) => {
           code: USER_PROFILE_PICTURE_UPLOADED,
           success: true,
           message: t(USER_PROFILE_PICTURE_UPLOADED),
-          avatar: getImageUrl(avatar),
+          user: {
+            id: currentUser.id,
+            avatar: getImageUrl(avatar),
+          },
         });
       } catch (error) {
         res.status(400).send({
