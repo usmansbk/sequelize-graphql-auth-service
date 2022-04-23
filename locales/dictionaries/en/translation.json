@@ -19,5 +19,6 @@
   "InvalidClientId": "It seems your client has been tempered with. We've reported to our security engineers for your safety.",
   "UserNotFound": "Account does not exist.",
   "ProfileUpdated": "Profile updated.",
-  "UserProfilePictureUploaded": "Profile picture uploaded."
+  "UserProfilePictureUploaded": "Profile picture uploaded.",
+  "UnsupportedFileType": "Unsupported file type."
 }
