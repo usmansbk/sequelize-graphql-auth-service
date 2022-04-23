@@ -18,5 +18,6 @@
   "SomethingWentWrong": "Sorry, we ran into a problem.",
   "InvalidClientId": "It seems your client has been tempered with. We've reported to our security engineers for your safety.",
   "UserNotFound": "Account does not exist.",
-  "ProfileUpdated": "Profile updated."
+  "ProfileUpdated": "Profile updated.",
+  "UserProfilePictureUploaded": "Profile picture uploaded."
 }

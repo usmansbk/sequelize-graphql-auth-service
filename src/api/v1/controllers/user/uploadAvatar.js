@@ -8,6 +8,7 @@ import {
   IMAGE_TOO_LARGE,
   NOTHING_TO_UPLOAD,
   UNSUPPORTED_FILE_TYPE,
+  USER_PROFILE_PICTURE_UPLOADED,
 } from "~constants/i18n";
 import {
   AVATARS_FOLDER,
@@ -15,6 +16,7 @@ import {
   PROFILE_PICTURE_MAX_FILE_SIZE,
   BYTES,
 } from "~constants/files";
+import { getImageUrl } from "~helpers/links";
 
 const { S3_BUCKET } = process.env;
 
@@ -101,8 +103,10 @@ const uploadAvatar = async (req, res) => {
         });
 
         res.send({
+          code: USER_PROFILE_PICTURE_UPLOADED,
           success: true,
-          avatar,
+          message: t(USER_PROFILE_PICTURE_UPLOADED),
+          avatar: getImageUrl(avatar),
         });
       } catch (error) {
         res.status(400).send({

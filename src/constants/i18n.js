@@ -62,6 +62,7 @@ export const INVALID_LINK = "InvalidLink";
 export const INVALID_OTP = "InvalidOtp";
 export const EMAIL_NOT_VERIFIED = "EmailNotVerified";
 export const EMAIL_VERIFICATION_FAILED = "EmailVerificationFailed";
+export const USER_PROFILE_PICTURE_UPLOADED = "UserProfilePictureUploaded";
 
 // send emails
 export const SENT_VERIFICATION_EMAIL = "SentVerificationEmail";
