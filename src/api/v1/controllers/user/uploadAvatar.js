@@ -102,7 +102,6 @@ const uploadAvatar = async (req, res) => {
           return currentUser.createAvatar(input, { transaction });
         });
 
-        console.log(avatar);
         res.send({
           code: USER_PROFILE_PICTURE_UPLOADED,
           success: true,
