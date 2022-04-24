@@ -21,11 +21,9 @@ const authMiddleware = (rules) => async (req, _res, next) => {
     }
 
     if (
-      [
-        ACCOUNT_STATUS.BLOCKED,
-        ACCOUNT_STATUS.SUSPENDED,
-        ACCOUNT_STATUS.LOCKED,
-      ].includes(currentUser.status)
+      [ACCOUNT_STATUS.BLOCKED, ACCOUNT_STATUS.LOCKED].includes(
+        currentUser.status
+      )
     ) {
       throw new ForbiddenError(currentUser.status);
     }
