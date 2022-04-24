@@ -2,12 +2,11 @@ import multer from "multer";
 import numeral from "numeral";
 import multerS3 from "multer-s3";
 import { nanoid } from "nanoid";
-import { ForbiddenError, UserInputError } from "apollo-server-core";
+import { UserInputError } from "apollo-server-core";
 import { s3 } from "~services/aws";
 import {
   IMAGE_TOO_LARGE,
   NOTHING_TO_UPLOAD,
-  UNAUTHORIZED,
   UNSUPPORTED_FILE_TYPE,
   USER_PROFILE_PICTURE_UPLOADED,
 } from "~constants/i18n";
@@ -45,12 +44,8 @@ const upload = multer({
   },
 }).single("avatar");
 
-const changeAvatar = async (req, res, next) => {
-  if (!(req.context.isAdmin || req.context.isRootUser)) {
-    return next(new ForbiddenError(UNAUTHORIZED));
-  }
-
-  return upload(req, res, async (err) => {
+const changeAvatar = async (req, res) => {
+  upload(req, res, async (err) => {
     const {
       context: { storage, db },
       t,

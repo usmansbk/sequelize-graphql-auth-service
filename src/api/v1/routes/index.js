@@ -12,6 +12,6 @@ router.get("/ip", (request, response) => response.send(request.ip));
 
 router.use(morgan("combined"));
 router.use("/auth", authRouter);
-router.use("/user", authMiddleware, userRouter);
+router.use("/user", authMiddleware(), userRouter);
 
 export default router;
