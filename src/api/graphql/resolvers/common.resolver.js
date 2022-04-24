@@ -7,6 +7,7 @@ import {
   LocaleResolver,
   ByteResolver,
   JSONResolver,
+  CountryCodeResolver,
 } from "graphql-scalars";
 import { getImageUrl } from "~helpers/links";
 
@@ -19,6 +20,7 @@ export default {
   Locale: LocaleResolver,
   Byte: ByteResolver,
   JSON: JSONResolver,
+  CountryCode: CountryCodeResolver,
   Photo: {
     url(parent, { resize }) {
       return getImageUrl(parent.toJSON(), resize);

@@ -6,6 +6,7 @@ scalar PhoneNumber
 scalar Locale
 scalar Byte
 scalar JSON
+scalar CountryCode
 
 # Query
 
