@@ -5,6 +5,7 @@ scalar EmailAddress
 scalar PhoneNumber
 scalar Locale
 scalar Byte
+scalar JSON
 
 # Query
 

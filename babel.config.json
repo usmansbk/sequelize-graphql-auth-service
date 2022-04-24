@@ -10,7 +10,7 @@
           "^~(.+)": "./src/\\1",
           "tests": "./tests"
         },
-        "extensions": [".js"]
+        "extensions": [".js", ".json"]
       }
     ]
   ]
