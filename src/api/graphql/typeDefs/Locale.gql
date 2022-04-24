@@ -6,7 +6,7 @@ type Query {
 type Country {
   name: String!
   code: CountryCode!
-  callPrefix: String!
+  phoneNumberPrefix: String!
   phoneNumberPattern: String!
   phoneNumberPlaceholder: String!
 }

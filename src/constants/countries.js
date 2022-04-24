@@ -2,7 +2,7 @@ const countries = [
   {
     name: "Nigeria",
     code: "NG",
-    callPrefix: "+234",
+    phoneNumberPrefix: "+234",
     phoneNumberPattern: "(+234) ### ### ####",
     phoneNumberPlaceholder: "(+234)806 314 8541",
   },
