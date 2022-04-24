@@ -1,27 +1,32 @@
-import { AuthenticationError } from "apollo-server-core";
+import { AuthenticationError, ForbiddenError } from "apollo-server-core";
 import analytics from "~services/analytics";
 import { SOMETHING_WENT_WRONG } from "~constants/i18n";
 
 // eslint-disable-next-line no-unused-vars
 const errorHandler = (err, req, res, next) => {
   analytics.flush();
+  let statusCode;
   if (err instanceof AuthenticationError) {
-    res
-      .status(401)
-      .json({
-        success: false,
-        message: req.t(err.message),
-      })
-      .end();
+    statusCode = 401;
+  } else if (err instanceof ForbiddenError) {
+    statusCode = 403;
   } else {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: req.t(SOMETHING_WENT_WRONG),
-      })
-      .end();
+    statusCode = 500;
   }
+
+  let message;
+  if (statusCode === 500) {
+    message = SOMETHING_WENT_WRONG;
+  } else {
+    message = err.message;
+  }
+  res
+    .status(statusCode)
+    .json({
+      success: false,
+      message: req.t(message),
+    })
+    .end();
 };
 
 export default errorHandler;
