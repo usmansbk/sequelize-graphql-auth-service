@@ -67,7 +67,7 @@
     "dotenv": "^16.0.0",
     "email-templates": "^9.0.0",
     "express": "^4.17.3",
-    "express-rate-limit": "^6.3.0",
+    "express-rate-limit": "^6.4.0",
     "google-auth-library": "^8.0.1",
     "graphql": "^16.3.0",
     "graphql-fields-list": "^2.2.4",
