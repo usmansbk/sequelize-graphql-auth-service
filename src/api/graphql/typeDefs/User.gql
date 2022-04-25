@@ -12,11 +12,10 @@ type Mutation {
     @auth
   updateCurrentUserUsername(username: String!): UserMutationResponse! @auth
   updateCurrentUserLocale(locale: Locale!): UserMutationResponse! @auth
-  removeCurrentUserAvatar: UserMutationResponse! @auth
-  requestCurrentUserPhoneNumberVerification(
-    phoneNumber: PhoneNumber!
-  ): UserMutationResponse! @auth
+  updateCurrentUserPhoneNumber(phoneNumber: PhoneNumber): UserMutationResponse!
+    @auth
   verifyPhoneNumber(token: String!): UserMutationResponse! @auth
+  removeCurrentUserAvatar: UserMutationResponse! @auth
 
   # Admin
   createUser(input: CreateUserInput!): UserMutationResponse!

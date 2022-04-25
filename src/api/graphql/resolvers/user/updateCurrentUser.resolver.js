@@ -1,5 +1,6 @@
 import QueryError from "~utils/errors/QueryError";
-import { PROFILE_UPDATED } from "~constants/i18n";
+import { PROFILE_UPDATED, SENT_SMS_OTP } from "~constants/i18n";
+import { PHONE_NUMBER_KEY_PREFIX, SMS_OTP_EXPIRES_IN } from "~constants/auth";
 import { Fail, Success } from "~helpers/response";
 
 export default {
@@ -96,6 +97,48 @@ export default {
           return Fail({
             message: t(e.message),
             code: e.code,
+          });
+        }
+        throw e;
+      }
+    },
+    async updateCurrentUserPhoneNumber(
+      _parent,
+      { phoneNumber },
+      { currentUser, cache, t, otp, mailer, dataSources }
+    ) {
+      try {
+        const user = await dataSources.users.update(currentUser.id, {
+          phoneNumber,
+        });
+
+        if (phoneNumber) {
+          const { id, phoneNumberVerified } = user;
+          const key = `${PHONE_NUMBER_KEY_PREFIX}:${id}`;
+          const sentToken = await cache.exists(key);
+
+          if (!(sentToken || phoneNumberVerified)) {
+            const token = otp.getNumberCode();
+
+            await cache.set(key, token, SMS_OTP_EXPIRES_IN);
+
+            mailer.sendSMS(token, phoneNumber);
+          }
+        }
+
+        return Success({
+          message: phoneNumber
+            ? t(SENT_SMS_OTP, { phoneNumber })
+            : t(PROFILE_UPDATED),
+          code: phoneNumber ? SENT_SMS_OTP : PROFILE_UPDATED,
+          user,
+        });
+      } catch (e) {
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            code: e.code,
+            errors: e.errors,
           });
         }
         throw e;
