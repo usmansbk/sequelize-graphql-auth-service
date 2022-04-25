@@ -2,6 +2,7 @@ import Email from "email-templates";
 import nodemailer from "nodemailer";
 import log from "~utils/logger";
 import aws, { ses } from "./aws";
+import Sentry from "./sentry";
 
 const { NODE_ENV, MAIL_FROM } = process.env;
 
@@ -23,14 +24,16 @@ const email = new Email({
 });
 
 const sendEmail = async ({ template, message, locals }) => {
+  if (env === "test") {
+    return;
+  }
   try {
     const info = await email.send({ template, message, locals });
 
-    if (env !== "test") {
-      log.info(`Message sent: ${info.messageId}`);
-    }
+    log.info(`Message sent: ${info.messageId}`);
   } catch (e) {
     log.error(e.message);
+    Sentry.captureException(e);
   }
 };
 
