@@ -9,11 +9,7 @@ const sendSMS = async (message, to) => {
     return;
   }
 
-  if (process.env.NODE_ENV === "development") {
-    log.info(to, message);
-    return;
-  }
-
+  log.info(to, message);
   const client = twilio(accountSid, authToken);
   const response = await client.messages.create({
     body: message,
