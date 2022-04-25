@@ -13,6 +13,12 @@ export default {
     isOwner(user, _args, { currentUser }) {
       return user.id === currentUser?.id;
     },
+    async isLoggedIn(user, _args, { cache, jwt }) {
+      const value = await Promise.all(
+        jwt.audience.map((aud) => cache.get(`${aud}:${user.id}`))
+      );
+      return value.some((session) => !!session);
+    },
     roles(user) {
       if (user.roles === undefined) {
         return user.getRoles();
