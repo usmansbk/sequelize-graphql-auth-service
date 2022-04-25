@@ -20,5 +20,6 @@
   "UserNotFound": "Account does not exist.",
   "ProfileUpdated": "Profile updated.",
   "UserProfilePictureUploaded": "Profile picture uploaded.",
-  "UnsupportedFileType": "Unsupported file type."
+  "UnsupportedFileType": "Unsupported file type.",
+  "SentSmsOtp": "We've sent you a verification token."
 }
