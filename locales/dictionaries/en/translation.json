@@ -21,5 +21,6 @@
   "ProfileUpdated": "Profile updated.",
   "UserProfilePictureUploaded": "Profile picture uploaded.",
   "UnsupportedFileType": "Unsupported file type.",
-  "SentSmsOtp": "We've sent you a verification token."
+  "SentSmsOtp": "We've sent you a verification token.",
+  "LoggedOut": "Signed out"
 }

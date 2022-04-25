@@ -10,6 +10,7 @@ export default {
         jwt.audience.map((aud) => cache.remove(`${aud}:${id}`))
       );
       analytics.track({
+        userId: id,
         event: "Logged Out",
         properties: {
           id,
