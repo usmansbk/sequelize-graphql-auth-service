@@ -14,10 +14,10 @@ export default {
       return user.id === currentUser?.id;
     },
     async isLoggedIn(user, _args, { cache, jwt }) {
-      const value = await Promise.all(
+      const sessions = await Promise.all(
         jwt.audience.map((aud) => cache.get(`${aud}:${user.id}`))
       );
-      return value.some((session) => !!session);
+      return sessions.some((session) => !!session);
     },
     roles(user) {
       if (user.roles === undefined) {
