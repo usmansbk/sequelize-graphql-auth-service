@@ -22,5 +22,6 @@
   "UserProfilePictureUploaded": "Profile picture uploaded.",
   "UnsupportedFileType": "Unsupported file type.",
   "SentSmsOtp": "We've sent you a verification token.",
-  "LoggedOut": "Signed out"
+  "LoggedOut": "Signed out",
+  "PhoneNumberVerified": "Your phone number has been successfully verified."
 }
