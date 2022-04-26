@@ -149,14 +149,13 @@ export default {
     ) {
       try {
         const user = await dataSources.users.update(id, { status });
-        if (reason) {
-          analytics.track({
-            event: "Changed Status",
-            properties: {
-              reason,
-            },
-          });
-        }
+        analytics.track({
+          event: "Changed Status",
+          properties: {
+            id,
+            reason,
+          },
+        });
         return Success({ user });
       } catch (e) {
         if (e instanceof QueryError) {
@@ -188,10 +187,17 @@ export default {
         throw e;
       }
     },
-    async deleteUser(_parent, { id }, { dataSources, t, cache }) {
+    async deleteUser(_parent, { id, reason }, { dataSources, t, cache }) {
       try {
         await dataSources.users.destroy(id);
         await cache.remove(`${USER_PREFIX}:${id}`);
+        analytics.track({
+          event: "Deleted User",
+          properties: {
+            id,
+            reason,
+          },
+        });
         return Success({ id });
       } catch (e) {
         if (e instanceof QueryError) {
