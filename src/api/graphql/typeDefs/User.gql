@@ -35,9 +35,7 @@ type Mutation {
     @auth(rules: [{ allow: role, roles: ["admin"] }])
   blockUser(id: ID!, reason: String): UserMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
-  lockUser(id: ID!, reason: String): UserMutationResponse!
-    @auth(rules: [{ allow: role, roles: ["admin"] }])
-  unlockUser(id: ID!, reason: String): UserMutationResponse!
+  unblockUser(id: ID!, reason: String): UserMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
   removeUserAvatar(id: ID!): UserMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
@@ -61,7 +59,7 @@ type User {
   socialAvatarURL: URL
   isOwner: Boolean!
   isLoggedIn: Boolean! @auth(rules: [{ allow: role, roles: ["admin"] }])
-  isLocked: Boolean!
+  isBLocked: Boolean!
   locale: Locale!
   emailVerified: Boolean!
   phoneNumberVerified: Boolean!

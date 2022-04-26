@@ -167,31 +167,7 @@ export default {
         throw e;
       }
     },
-    async lockUser(_parent, { input: { id, reason } }, { dataSources, t }) {
-      try {
-        const user = await dataSources.users.update(id, {
-          status: ACCOUNT_STATUS.LOCKED,
-        });
-        analytics.track({
-          userId: id,
-          event: "Locked User",
-          properties: {
-            reason,
-          },
-        });
-        return Success({ user });
-      } catch (e) {
-        if (e instanceof QueryError) {
-          return Fail({
-            message: t(e.message),
-            errors: e.errors,
-            code: e.code,
-          });
-        }
-        throw e;
-      }
-    },
-    async unlockUser(_parent, { input: { id, reason } }, { dataSources, t }) {
+    async unblockUser(_parent, { input: { id, reason } }, { dataSources, t }) {
       try {
         let user = await dataSources.users.findByPk(id);
 
@@ -202,7 +178,7 @@ export default {
         });
         analytics.track({
           userId: id,
-          event: "Unlocked User",
+          event: "Unblocked User",
           properties: {
             reason,
           },
