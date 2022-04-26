@@ -23,5 +23,6 @@
   "UnsupportedFileType": "Unsupported file type.",
   "SentSmsOtp": "We've sent you a verification token.",
   "LoggedOut": "Signed out",
-  "PhoneNumberVerified": "Your phone number has been successfully verified."
+  "PhoneNumberVerified": "Your phone number has been successfully verified.",
+  "NothingToUpload": "Select a file to upload."
 }
