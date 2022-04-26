@@ -1,3 +1,4 @@
+import analytics from "~services/analytics";
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
 import { USER_PREFIX } from "~constants/auth";
@@ -143,11 +144,19 @@ export default {
     },
     async changeUserStatus(
       _parent,
-      { input: { id, status } },
+      { input: { id, status, reason } },
       { dataSources, t }
     ) {
       try {
         const user = await dataSources.users.update(id, { status });
+        if (reason) {
+          analytics.track({
+            event: "Changed Status",
+            properties: {
+              reason,
+            },
+          });
+        }
         return Success({ user });
       } catch (e) {
         if (e instanceof QueryError) {
