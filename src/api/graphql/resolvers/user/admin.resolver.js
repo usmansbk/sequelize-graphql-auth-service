@@ -143,6 +143,25 @@ export default {
         throw e;
       }
     },
+    async changeUserTimeZone(
+      _parent,
+      { input: { id, timezone } },
+      { dataSources, t }
+    ) {
+      try {
+        const user = await dataSources.users.update(id, { timezone });
+        return Success({ user });
+      } catch (e) {
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            errors: e.errors,
+            code: e.code,
+          });
+        }
+        throw e;
+      }
+    },
     async blockUser(_parent, { id, reason }, { dataSources, t }) {
       try {
         const user = await dataSources.users.update(id, {

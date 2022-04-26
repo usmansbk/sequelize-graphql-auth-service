@@ -79,6 +79,32 @@ export default {
         throw e;
       }
     },
+    async updateCurrentUserTimeZone(
+      _parent,
+      { timezone },
+      { currentUser, t, dataSources }
+    ) {
+      try {
+        const user = await dataSources.users.update(currentUser.id, {
+          timezone,
+        });
+
+        return Success({
+          code: PROFILE_UPDATED,
+          message: t(PROFILE_UPDATED),
+          user,
+        });
+      } catch (e) {
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            code: e.code,
+            errors: e.errors,
+          });
+        }
+        throw e;
+      }
+    },
     async removeCurrentUserAvatar(
       _parent,
       _args,

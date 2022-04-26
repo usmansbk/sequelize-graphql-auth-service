@@ -14,6 +14,7 @@ type Mutation {
   updateCurrentUserLocale(locale: Locale!): UserMutationResponse! @auth
   updateCurrentUserPhoneNumber(phoneNumber: PhoneNumber): UserMutationResponse!
     @auth
+  updateCurrentUserTimeZone(timezone: TimeZone!): UserMutationResponse! @auth
   verifyPhoneNumber(token: String!): UserMutationResponse! @auth
   removeCurrentUserAvatar: UserMutationResponse! @auth
 
@@ -27,6 +28,8 @@ type Mutation {
   changeUserLocale(input: ChangeUserLocaleInput!): UserMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
   changeUserEmail(input: ChangeUserEmailInput!): UserMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+  changeUserTimeZone(input: ChangeUserTimeZoneInput!): UserMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
   changeUserPhoneNumber(
     input: ChangeUserPhoneNumberInput!
@@ -153,6 +156,11 @@ input ChangeUserLocaleInput {
 input ChangeUserPhoneNumberInput {
   id: ID!
   phoneNumber: PhoneNumber
+}
+
+input ChangeUserTimeZoneInput {
+  id: ID!
+  timezone: TimeZone!
 }
 
 input UserFilter {
