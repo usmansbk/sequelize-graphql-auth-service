@@ -149,9 +149,9 @@ export default {
           status: ACCOUNT_STATUS.BLOCKED,
         });
         analytics.track({
+          userId: id,
           event: "Blocked User",
           properties: {
-            id,
             reason,
           },
         });
@@ -173,9 +173,9 @@ export default {
           status: ACCOUNT_STATUS.LOCKED,
         });
         analytics.track({
+          userId: id,
           event: "Locked User",
           properties: {
-            id,
             reason,
           },
         });
@@ -201,9 +201,9 @@ export default {
             : ACCOUNT_STATUS.PROVISIONED,
         });
         analytics.track({
+          userId: id,
           event: "Unlocked User",
           properties: {
-            id,
             reason,
           },
         });
@@ -243,9 +243,9 @@ export default {
         await dataSources.users.destroy(id);
         await cache.remove(`${USER_PREFIX}:${id}`);
         analytics.track({
+          userId: id,
           event: "Deleted User",
           properties: {
-            id,
             reason,
           },
         });
