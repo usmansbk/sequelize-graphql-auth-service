@@ -143,7 +143,7 @@ export default {
         throw e;
       }
     },
-    async blockUser(_parent, { input: { id, reason } }, { dataSources, t }) {
+    async blockUser(_parent, { id, reason }, { dataSources, t }) {
       try {
         const user = await dataSources.users.update(id, {
           status: ACCOUNT_STATUS.BLOCKED,
@@ -167,7 +167,7 @@ export default {
         throw e;
       }
     },
-    async unblockUser(_parent, { input: { id, reason } }, { dataSources, t }) {
+    async unblockUser(_parent, { id, reason }, { dataSources, t }) {
       try {
         let user = await dataSources.users.findByPk(id);
 
