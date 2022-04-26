@@ -1,8 +1,8 @@
+import { ForbiddenError } from "apollo-server-core";
+import analytics from "~services/analytics";
 import QueryError from "~utils/errors/QueryError";
 import { Success, Fail } from "~helpers/response";
-import analytics from "~services/analytics";
 import { SIGNUP_FAILED, WELCOME_NEW_USER } from "~constants/i18n";
-import { ForbiddenError } from "apollo-server-core";
 import { ACCOUNT_STATUS } from "~constants/models";
 
 export default {
@@ -13,22 +13,22 @@ export default {
       { dataSources, jwt, t, clientId }
     ) {
       try {
-        const account = await dataSources.users.findOne({
+        const existingUser = await dataSources.users.findOne({
           where: {
             email: input.email,
           },
         });
 
-        if (account) {
+        if (existingUser) {
           if (
             [ACCOUNT_STATUS.BLOCKED, ACCOUNT_STATUS.LOCKED].includes(
-              account.status
+              existingUser.status
             )
           ) {
-            throw new ForbiddenError(account.status);
+            throw new ForbiddenError(existingUser.status);
           }
-          if (account.status === ACCOUNT_STATUS.PROVISIONED) {
-            await dataSources.users.destroy(account.id);
+          if (existingUser.status === ACCOUNT_STATUS.PROVISIONED) {
+            await dataSources.users.destroy(existingUser.id);
           }
         }
         const { id, firstName } = await dataSources.users.create(input);
