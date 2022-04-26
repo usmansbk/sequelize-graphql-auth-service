@@ -61,7 +61,7 @@ type User {
   isLoggedIn: Boolean! @auth(rules: [{ allow: role, roles: ["admin"] }])
   isLocked: Boolean!
   locale: Locale!
-  timezone: TimeZone
+  timezone: TimeZone!
   emailVerified: Boolean!
   phoneNumberVerified: Boolean!
   roles: [Role]! @auth(rules: [{ allow: owner, identityClaim: "id" }])
