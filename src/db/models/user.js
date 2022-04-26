@@ -212,6 +212,9 @@ export default (sequelize, DataTypes) => {
       passwordResetAt: {
         type: DataTypes.DATE,
       },
+      timezone: {
+        type: DataTypes.STRING,
+      },
     },
     {
       sequelize,

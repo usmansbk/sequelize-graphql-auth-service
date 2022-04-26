@@ -61,6 +61,7 @@ type User {
   isLoggedIn: Boolean! @auth(rules: [{ allow: role, roles: ["admin"] }])
   isLocked: Boolean!
   locale: Locale!
+  timezone: TimeZone
   emailVerified: Boolean!
   phoneNumberVerified: Boolean!
   roles: [Role]! @auth(rules: [{ allow: owner, identityClaim: "id" }])
@@ -168,6 +169,7 @@ input UserAttributesWhere {
   phoneNumber: StringFieldFilter
   emailVerified: BooleanFieldFilter
   phoneNumberVerified: BooleanFieldFilter
+  timezone: StringFieldFilter
   locale: StringFieldFilter
   status: StringFieldFilter
   lastLogin: DateTimeFieldFilter
