@@ -5,7 +5,7 @@ import cache from "~utils/cache";
 import { ROLE_PERMISSIONS_PREFIX } from "~constants/auth";
 
 const query = gql`
-  mutation DeletePermission($id: ID!, $reason: String) {
+  mutation DeletePermission($id: ID!, $reason: NonEmptyString) {
     deletePermission(id: $id, reason: $reason) {
       code
       message

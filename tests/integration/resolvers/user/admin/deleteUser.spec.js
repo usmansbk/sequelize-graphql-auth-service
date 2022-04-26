@@ -5,7 +5,7 @@ import { USER_PREFIX } from "~constants/auth";
 import cache from "~utils/cache";
 
 const query = gql`
-  mutation DeleteUser($id: ID!, $reason: String) {
+  mutation DeleteUser($id: ID!, $reason: NonEmptyString) {
     deleteUser(id: $id, reason: $reason) {
       code
       message
