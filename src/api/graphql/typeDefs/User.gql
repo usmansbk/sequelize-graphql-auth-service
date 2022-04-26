@@ -36,13 +36,13 @@ type Mutation {
   ): UserMutationResponse! @auth(rules: [{ allow: role, roles: ["admin"] }])
   changeUserPassword(input: ChangeUserPasswordInput!): UserMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
-  blockUser(id: ID!, reason: String): UserMutationResponse!
+  blockUser(id: ID!, reason: NonEmptyString): UserMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
-  unblockUser(id: ID!, reason: String): UserMutationResponse!
+  unblockUser(id: ID!, reason: NonEmptyString): UserMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
   removeUserAvatar(id: ID!): UserMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
-  deleteUser(id: ID!, reason: String): DeleteMutationResponse!
+  deleteUser(id: ID!, reason: NonEmptyString): DeleteMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
   assignRolesToUser(userId: ID!, roleIds: [ID!]!): UserMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
@@ -107,30 +107,30 @@ type UserMutationResponse implements Response & FormErrors {
 # Inputs
 
 input CreateUserInput {
-  firstName: String!
-  lastName: String!
-  username: String
+  firstName: NonEmptyString!
+  lastName: NonEmptyString!
+  username: NonEmptyString
   email: EmailAddress!
-  password: String!
+  password: NonEmptyString!
   phoneNumber: PhoneNumber
   locale: Locale
   timezone: TimeZone
 }
 
 input UpdateFullnameInput {
-  firstName: String!
-  lastName: String!
+  firstName: NonEmptyString!
+  lastName: NonEmptyString!
 }
 
 input ChangeUserFullnameInput {
   id: ID!
-  firstName: String!
-  lastName: String!
+  firstName: NonEmptyString!
+  lastName: NonEmptyString!
 }
 
 input ChangeUsernameInput {
   id: ID!
-  username: String!
+  username: NonEmptyString!
 }
 
 input ChangeUserEmailInput {
@@ -140,13 +140,7 @@ input ChangeUserEmailInput {
 
 input ChangeUserPasswordInput {
   id: ID!
-  password: String!
-}
-
-input ChangeUserStatusInput {
-  id: ID!
-  status: AccountStatus!
-  reason: String
+  password: NonEmptyString!
 }
 
 input ChangeUserLocaleInput {

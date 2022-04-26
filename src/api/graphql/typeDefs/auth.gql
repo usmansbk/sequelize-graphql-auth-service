@@ -22,13 +22,13 @@ enum SocialProvider {
 }
 
 input AdminLoginInput {
-  username: String!
-  password: String!
+  username: NonEmptyString!
+  password: NonEmptyString!
 }
 
 input EmailLoginInput {
   email: EmailAddress!
-  password: String!
+  password: NonEmptyString!
 }
 
 input SocialLoginInput {
@@ -37,8 +37,8 @@ input SocialLoginInput {
 }
 
 input PasswordResetInput {
-  password: String!
-  token: String!
+  password: NonEmptyString!
+  token: NonEmptyString!
 }
 
 type AuthFormMutationResponse implements Response & FormErrors {
@@ -86,6 +86,6 @@ enum AuthStrategy {
 input AuthRule {
   allow: AuthStrategy!
   identityClaim: String = "ownerId"
-  roles: [String!]
-  scopes: [String!]
+  roles: [NonEmptyString!]
+  scopes: [NonEmptyString!]
 }

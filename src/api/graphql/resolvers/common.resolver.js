@@ -10,6 +10,7 @@ import {
   CountryCodeResolver,
   JWTResolver,
   TimeZoneResolver,
+  NonEmptyStringResolver,
 } from "graphql-scalars";
 import { getImageUrl } from "~helpers/links";
 
@@ -25,6 +26,7 @@ export default {
   JWT: JWTResolver,
   CountryCode: CountryCodeResolver,
   TimeZone: TimeZoneResolver,
+  NonEmptyString: NonEmptyStringResolver,
   Photo: {
     url(parent, { resize }) {
       return getImageUrl(parent.toJSON(), resize);

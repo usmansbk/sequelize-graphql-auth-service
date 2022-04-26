@@ -15,7 +15,7 @@ type Mutation {
     @auth(rules: [{ allow: role, roles: ["admin"] }])
   updateRole(input: UpdateRoleInput!): RoleMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
-  deleteRole(id: ID!, reason: String): DeleteMutationResponse!
+  deleteRole(id: ID!, reason: NonEmptyString): DeleteMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
   addPermissionsToRole(
     roleId: ID!
@@ -66,15 +66,15 @@ type RolePayload implements Response {
 # Inputs
 
 input CreateRoleInput {
-  name: String!
-  description: String
+  name: NonEmptyString!
+  description: NonEmptyString
   permissionIds: [ID!]
 }
 
 input UpdateRoleInput {
   id: ID!
-  name: String
-  description: String
+  name: NonEmptyString
+  description: NonEmptyString
 }
 
 input RoleFilter {

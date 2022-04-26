@@ -10,7 +10,7 @@ type Mutation {
     @auth(rules: [{ allow: role, roles: ["admin"] }])
   updatePermission(input: UpdatePermissionInput!): PermissionMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
-  deletePermission(id: ID!, reason: String): DeleteMutationResponse!
+  deletePermission(id: ID!, reason: NonEmptyString): DeleteMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
 }
 
@@ -46,14 +46,14 @@ type PermissionMutationResponse implements Response & FormErrors {
 # Inputs
 
 input CreatePermissionInput {
-  scope: String!
-  description: String!
+  scope: NonEmptyString!
+  description: NonEmptyString!
 }
 
 input UpdatePermissionInput {
   id: ID!
-  scope: String
-  description: String
+  scope: NonEmptyString
+  description: NonEmptyString
 }
 
 input PermissionFilter {
