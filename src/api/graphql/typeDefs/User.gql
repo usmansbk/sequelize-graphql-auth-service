@@ -61,6 +61,7 @@ type User {
   socialAvatarURL: URL
   isOwner: Boolean!
   isLoggedIn: Boolean! @auth(rules: [{ allow: role, roles: ["admin"] }])
+  isLocked: Boolean!
   locale: Locale!
   emailVerified: Boolean!
   phoneNumberVerified: Boolean!

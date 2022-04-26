@@ -1,6 +1,7 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
 import { USER_NOT_FOUND } from "~constants/i18n";
+import { ACCOUNT_STATUS } from "~constants/models";
 
 export default {
   User: {
@@ -12,6 +13,11 @@ export default {
     },
     isOwner(user, _args, { currentUser }) {
       return user.id === currentUser?.id;
+    },
+    isLocked(user) {
+      return [ACCOUNT_STATUS.BLOCKED, ACCOUNT_STATUS.LOCKED].includes(
+        user.status
+      );
     },
     async isLoggedIn(user, _args, { cache, jwt }) {
       const sessions = await Promise.all(
