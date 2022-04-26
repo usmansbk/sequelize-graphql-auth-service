@@ -1,4 +1,5 @@
 import { AuthenticationError, ForbiddenError } from "apollo-server-core";
+import TokenError from "~utils/errors/TokenError";
 import analytics from "~services/analytics";
 import { SOMETHING_WENT_WRONG } from "~constants/i18n";
 
@@ -6,7 +7,7 @@ import { SOMETHING_WENT_WRONG } from "~constants/i18n";
 const errorHandler = (err, req, res, next) => {
   analytics.flush();
   let statusCode;
-  if (err instanceof AuthenticationError) {
+  if (err instanceof AuthenticationError || err instanceof TokenError) {
     statusCode = 401;
   } else if (err instanceof ForbiddenError) {
     statusCode = 403;
