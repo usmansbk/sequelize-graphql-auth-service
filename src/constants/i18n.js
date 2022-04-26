@@ -6,6 +6,8 @@ export const USER_LAST_NAME_LEN_ERROR = "UserLastNameLengthError";
 export const USER_USERNAME_LEN_ERROR = "UsernameLengthError";
 export const USER_USERNAME_UNAVAILABLE_ERROR = "UsernameUnavailableError";
 export const USER_USERNAME_EMPTY_ERROR = "UsernameEmptyError";
+export const USER_USERNAME_INVALID_FORMAT_ERROR =
+  "UserUsernameInvalidFormatError";
 export const USER_LAST_NAME_REQUIRED_ERROR = "UserLastNameRequiredError";
 export const USER_LAST_NAME_EMPTY_ERROR = "UserLastNameEmptyError";
 export const USER_EMAIL_UNAVAILABLE_ERROR = "UserEmailUnavailableError";

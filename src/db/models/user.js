@@ -19,6 +19,7 @@ import {
   USER_INVALID_PICTURE_URL_ERROR,
   USER_USERNAME_LEN_ERROR,
   USER_USERNAME_UNAVAILABLE_ERROR,
+  USER_USERNAME_INVALID_FORMAT_ERROR,
 } from "~constants/i18n";
 import {
   ACCOUNT_STATUS,
@@ -120,6 +121,10 @@ export default (sequelize, DataTypes) => {
           msg: USER_USERNAME_UNAVAILABLE_ERROR,
         },
         validate: {
+          is: {
+            args: /^[a-zA-Z0-9_.]+$/,
+            msg: USER_USERNAME_INVALID_FORMAT_ERROR,
+          },
           len: {
             args: [2, 100],
             msg: USER_USERNAME_LEN_ERROR,
