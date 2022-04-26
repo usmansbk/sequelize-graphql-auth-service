@@ -114,6 +114,7 @@ input CreateUserInput {
   password: String!
   phoneNumber: PhoneNumber
   locale: Locale
+  timezone: TimeZone
 }
 
 input UpdateFullnameInput {
