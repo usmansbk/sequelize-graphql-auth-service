@@ -214,6 +214,7 @@ export default (sequelize, DataTypes) => {
       },
       timezone: {
         type: DataTypes.STRING,
+        defaultValue: "UTC",
       },
     },
     {
