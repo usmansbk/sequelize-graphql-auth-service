@@ -1,6 +1,17 @@
 type Query {
+  """
+  {
+    "en": "English"
+  }
+  """
   getLocales: JSON!
   getCountries: [Country]!
+  """
+  {
+    "Africa/Lagos":"+01:00"
+  }
+  """
+  getTimeZones: JSON!
 }
 
 type Country {
