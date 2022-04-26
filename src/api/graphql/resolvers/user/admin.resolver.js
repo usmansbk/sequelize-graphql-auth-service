@@ -2,6 +2,7 @@ import analytics from "~services/analytics";
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
 import { USER_PREFIX } from "~constants/auth";
+import { ACCOUNT_STATUS } from "~constants/models";
 
 export default {
   Query: {
@@ -142,15 +143,65 @@ export default {
         throw e;
       }
     },
-    async changeUserStatus(
-      _parent,
-      { input: { id, status, reason } },
-      { dataSources, t }
-    ) {
+    async blockUser(_parent, { input: { id, reason } }, { dataSources, t }) {
       try {
-        const user = await dataSources.users.update(id, { status });
+        const user = await dataSources.users.update(id, {
+          status: ACCOUNT_STATUS.BLOCKED,
+        });
         analytics.track({
-          event: "Changed Status",
+          event: "Blocked User",
+          properties: {
+            id,
+            reason,
+          },
+        });
+        return Success({ user });
+      } catch (e) {
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            errors: e.errors,
+            code: e.code,
+          });
+        }
+        throw e;
+      }
+    },
+    async lockUser(_parent, { input: { id, reason } }, { dataSources, t }) {
+      try {
+        const user = await dataSources.users.update(id, {
+          status: ACCOUNT_STATUS.LOCKED,
+        });
+        analytics.track({
+          event: "Locked User",
+          properties: {
+            id,
+            reason,
+          },
+        });
+        return Success({ user });
+      } catch (e) {
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            errors: e.errors,
+            code: e.code,
+          });
+        }
+        throw e;
+      }
+    },
+    async unlockUser(_parent, { input: { id, reason } }, { dataSources, t }) {
+      try {
+        let user = await dataSources.users.findByPk(id);
+
+        user = await dataSources.users.update(id, {
+          status: user.emailVerified
+            ? ACCOUNT_STATUS.ACTIVE
+            : ACCOUNT_STATUS.PROVISIONED,
+        });
+        analytics.track({
+          event: "Unlocked User",
           properties: {
             id,
             reason,

@@ -16,7 +16,7 @@ const query = gql`
   }
 `;
 
-describe("Mutation.changeUserStatus", () => {
+describe("Mutation.removeUserAvatar", () => {
   let server;
   beforeAll(() => {
     server = createApolloTestServer();

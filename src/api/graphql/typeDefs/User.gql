@@ -33,7 +33,11 @@ type Mutation {
   ): UserMutationResponse! @auth(rules: [{ allow: role, roles: ["admin"] }])
   changeUserPassword(input: ChangeUserPasswordInput!): UserMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
-  changeUserStatus(input: ChangeUserStatusInput!): UserMutationResponse!
+  blockUser(id: ID!, reason: String): UserMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+  lockUser(id: ID!, reason: String): UserMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+  unlockUser(id: ID!, reason: String): UserMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
   removeUserAvatar(id: ID!): UserMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
