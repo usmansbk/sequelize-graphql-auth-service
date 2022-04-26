@@ -36,6 +36,8 @@ type Role {
   name: String!
   description: String
   permissions: [Permission]!
+  permissionCount: Int!
+  userCount: Int!
   createdAt: DateTime!
   updatedAt: DateTime
 }

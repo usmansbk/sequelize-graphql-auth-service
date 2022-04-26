@@ -10,6 +10,12 @@ export default {
       }
       return role.permissions;
     },
+    permissionCount(role) {
+      return role.countPermissions();
+    },
+    userCount(role) {
+      return role.countMembers();
+    },
   },
   Query: {
     getRoleMembers(_parent, { id, page, where }, { dataSources }, info) {
