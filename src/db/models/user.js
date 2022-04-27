@@ -126,7 +126,7 @@ export default (sequelize, DataTypes) => {
             msg: USER_USERNAME_INVALID_FORMAT_ERROR,
           },
           len: {
-            args: [2, 100],
+            args: [1, 64],
             msg: USER_USERNAME_LEN_ERROR,
           },
           notEmpty: {

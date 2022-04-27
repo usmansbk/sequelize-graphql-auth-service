@@ -53,7 +53,7 @@ export default (sequelize, DataTypes) => {
             msg: ROLE_NAME_INVALID_FORMAT_ERROR,
           },
           len: {
-            args: [1, 64],
+            args: [1, 280],
             msg: ROLE_NAME_LEN_ERROR,
           },
         },
@@ -62,7 +62,7 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         validate: {
           len: {
-            args: [0, 240],
+            args: [0, 280],
             msg: ROLE_DESCRIPTION_LEN_ERROR,
           },
           notEmpty: {

@@ -52,7 +52,7 @@ export default (sequelize, DataTypes) => {
             msg: PERMISSION_SCOPE_EMPTY_ERROR,
           },
           len: {
-            args: [0, 240],
+            args: [1, 280],
             msg: PERMISSION_SCOPE_LEN_ERROR,
           },
         },
@@ -64,7 +64,7 @@ export default (sequelize, DataTypes) => {
             msg: PERMISSION_DESCRIPTION_EMPTY_ERROR,
           },
           len: {
-            args: [0, 240],
+            args: [0, 280],
             msg: PERMISSION_DESCRIPTION_LEN_ERROR,
           },
         },
