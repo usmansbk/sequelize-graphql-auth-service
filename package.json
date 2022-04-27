@@ -40,7 +40,7 @@
     "weak-napi": "^2.0.2"
   },
   "dependencies": {
-    "@aws-sdk/credential-provider-node": "^3.78.0",
+    "@aws-sdk/credential-provider-node": "^3.79.0",
     "@babel/runtime": "^7.17.9",
     "@faker-js/faker": "^6.2.0",
     "@graphql-tools/load-files": "^6.5.3",
@@ -54,7 +54,7 @@
     "apollo-server-core": "^3.6.7",
     "apollo-server-express": "^3.6.7",
     "atob": "^2.1.2",
-    "aws-sdk": "^2.1122.0",
+    "aws-sdk": "^2.1123.0",
     "bcrypt": "^5.0.1",
     "btoa": "^1.2.1",
     "bunyan": "^1.8.15",
