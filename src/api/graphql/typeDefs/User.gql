@@ -180,6 +180,7 @@ input UserAttributesWhere {
   updatedAt: DateTimeFieldFilter
   and: [UserAttributesWhere!]
   or: [UserAttributesWhere!]
+  not: [UserAttributesWhere!]
 }
 
 input UserAssociationInclude {

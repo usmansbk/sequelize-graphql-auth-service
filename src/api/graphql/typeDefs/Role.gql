@@ -89,6 +89,7 @@ input RoleAttributesWhere {
   updatedAt: DateTimeFieldFilter
   and: [RoleAttributesWhere!]
   or: [RoleAttributesWhere!]
+  not: [RoleAttributesWhere!]
 }
 
 input RoleAssociationInclude {

@@ -68,6 +68,7 @@ input PermissionAttributesWhere {
   updatedAt: DateTimeFieldFilter
   and: [PermissionAttributesWhere!]
   or: [PermissionAttributesWhere!]
+  not: [PermissionAttributesWhere!]
 }
 
 input PermissionAssociationInclude {

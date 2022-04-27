@@ -6,26 +6,18 @@ input IDFieldFilter {
   eq: ID
   ne: ID
   is: ID
-  or: [IDFieldFilter!]
-  and: [IDFieldFilter!]
-  not: [IDFieldFilter!]
 
   in: [ID!]
   notIn: [ID!]
-  any: [ID!]
 }
 
 input NumberFieldFilter {
   eq: Int
   ne: Int
   is: Int
-  or: [NumberFieldFilter!]
-  and: [NumberFieldFilter!]
-  not: [NumberFieldFilter!]
 
   in: [Int!]
   notIn: [Int!]
-  any: [Int!]
 
   gt: Int
   gte: Int
@@ -39,13 +31,9 @@ input StringFieldFilter {
   eq: String
   ne: String
   is: String
-  and: [StringFieldFilter!]
-  or: [StringFieldFilter!]
-  not: [StringFieldFilter!]
 
   in: [String!]
   notIn: [String!]
-  any: [String!]
 
   like: String
   notLike: String
@@ -64,10 +52,6 @@ input DateTimeFieldFilter {
   eq: DateTime
   ne: DateTime
   is: DateTime
-  and: [DateTimeFieldFilter!]
-  or: [DateTimeFieldFilter!]
-  not: [DateTimeFieldFilter!]
-  any: [DateTime!]
 
   gt: DateTime
   gte: DateTime
@@ -81,10 +65,6 @@ input DateFieldFilter {
   eq: Date
   ne: Date
   is: Date
-  and: [DateFieldFilter!]
-  or: [DateFieldFilter!]
-  not: [DateFieldFilter!]
-  any: [Date!]
 
   gt: Date
   gte: Date
