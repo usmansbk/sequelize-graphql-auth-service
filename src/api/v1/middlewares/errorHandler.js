@@ -11,6 +11,7 @@ import { SOMETHING_WENT_WRONG } from "~constants/i18n";
 const errorHandler = (err, req, res, next) => {
   analytics.flush();
   let statusCode;
+  let {message} = err;
   if (err instanceof UserInputError) {
     statusCode = 400;
   } else if (err instanceof AuthenticationError || err instanceof TokenError) {
@@ -19,14 +20,9 @@ const errorHandler = (err, req, res, next) => {
     statusCode = 403;
   } else {
     statusCode = 500;
+    message = SOMETHING_WENT_WRONG;
   }
 
-  let message;
-  if (statusCode === 500) {
-    message = SOMETHING_WENT_WRONG;
-  } else {
-    message = err.message;
-  }
   res
     .status(statusCode)
     .json({
