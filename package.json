@@ -40,7 +40,7 @@
     "weak-napi": "^2.0.2"
   },
   "dependencies": {
-    "@aws-sdk/credential-provider-node": "^3.79.0",
+    "@aws-sdk/credential-provider-node": "^3.80.0",
     "@babel/runtime": "^7.17.9",
     "@faker-js/faker": "^6.2.0",
     "@graphql-tools/load-files": "^6.5.3",
@@ -83,7 +83,7 @@
     "multer-s3": "^2.10.0",
     "nanoid": "^3.3.3",
     "node-fetch": "2.6.7",
-    "nodemailer": "^6.7.3",
+    "nodemailer": "^6.7.4",
     "numeral": "^2.0.6",
     "pg": "^8.7.3",
     "pg-hstore": "^2.3.4",
