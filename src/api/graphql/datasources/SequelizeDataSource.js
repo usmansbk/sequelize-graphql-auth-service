@@ -150,6 +150,10 @@ export default class SequelizeDataSource extends DataSource {
     }
   }
 
+  count(options) {
+    return this.model.count(options);
+  }
+
   async create(values, options) {
     try {
       const newItem = await this.model.create(values, options);

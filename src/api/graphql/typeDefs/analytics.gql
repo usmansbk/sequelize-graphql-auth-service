@@ -1,0 +1,4 @@
+type Query {
+  totalUserCount: Int!
+  newUserCount(since: Date): Int!
+}
