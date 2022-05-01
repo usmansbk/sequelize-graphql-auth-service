@@ -1,4 +1,5 @@
 type Query {
-  totalUserCount: Int!
+  totalUserCount: Int! @auth(rules: [{ allow: role, roles: ["admin"] }])
   newUserCount(since: Date): Int!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
 }
