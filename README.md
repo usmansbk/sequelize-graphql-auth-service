@@ -27,21 +27,7 @@ GraphQL server optimized for Sequelize ORM
 
 ## Run with Docker
 
-### Generate token verification and signing keys
-
-Private key
-
-```sh
-ssh-keygen -t rsa -P "" -b 4096 -m PEM -f jwtRS256.key
-```
-
-Public key
-
-```sh
-ssh-keygen -e -m PEM -f jwtRS256.key > jwtRS256.key.pub
-```
-
-### Add **.env** file
+### Create **.env** file
 
 Rename `.env.example` file to `.env`
 
