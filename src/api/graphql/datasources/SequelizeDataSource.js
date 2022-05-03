@@ -15,7 +15,7 @@ import {
   createCursor,
   parseCursor,
   reverseOrder,
-  getPaginationQuery,
+  buildPaginationQuery,
   normalizeOrder,
 } from "~utils/transformers/paginate";
 import { buildWhereQuery, buildIncludeQuery } from "~utils/transformers/filter";
@@ -259,7 +259,7 @@ export default class SequelizeDataSource extends DataSource {
       cursor = parseCursor(after);
     }
 
-    const paginationQuery = cursor && getPaginationQuery(order, cursor);
+    const paginationQuery = cursor && buildPaginationQuery(order, cursor);
     const where = filter?.where && buildWhereQuery(filter.where);
     const includeFilter = filter?.include
       ? buildIncludeQuery(filter.include)
