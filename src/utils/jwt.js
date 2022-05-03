@@ -36,7 +36,7 @@ const sign = (payload, expiresIn = "15m") => {
   const token = jwt.sign(payload, process.env.SECURE_KEY, {
     jwtid: id,
     expiresIn,
-    algorithm: "RS256",
+    // algorithm: "RS256",
     issuer: process.env.HOST,
   });
 

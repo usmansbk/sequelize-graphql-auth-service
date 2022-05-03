@@ -1,5 +1,4 @@
 const formatErrors = (errors, t) => {
-  errors.forEach((e) => console.log(e));
   const formattedErrors = errors.map(
     ({ path, message, validatorArgs, validatorName }) => ({
       field: path,
