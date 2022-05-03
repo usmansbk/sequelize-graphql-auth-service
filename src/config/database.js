@@ -35,5 +35,6 @@ module.exports = {
     database: DB_NAME_PRODUCTION,
     host,
     dialect,
+    use_env_variable: "DATABASE_URL",
   },
 };
