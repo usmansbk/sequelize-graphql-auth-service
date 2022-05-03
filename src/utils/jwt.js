@@ -1,4 +1,4 @@
-import fs from "fs";
+// import fs from "fs";
 import jwt, {
   NotBeforeError,
   TokenExpiredError,
@@ -21,8 +21,8 @@ import {
 import TokenError from "./errors/TokenError";
 import cache from "./cache";
 
-const privateKey = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
-const publicKey = fs.readFileSync(process.env.JWT_PUBLIC_KEY);
+// const privateKey = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
+// const publicKey = fs.readFileSync(process.env.JWT_PUBLIC_KEY);
 
 const audience = [process.env.WEB_CLIENT_ID, process.env.ADMIN_CLIENT_ID];
 
@@ -33,7 +33,7 @@ const audience = [process.env.WEB_CLIENT_ID, process.env.ADMIN_CLIENT_ID];
  */
 const sign = (payload, expiresIn = "15m") => {
   const id = nanoid();
-  const token = jwt.sign(payload, privateKey, {
+  const token = jwt.sign(payload, process.env.SECURE_KEY, {
     jwtid: id,
     expiresIn,
     algorithm: "RS256",
@@ -45,7 +45,7 @@ const sign = (payload, expiresIn = "15m") => {
 
 const verify = (token, options = {}) => {
   try {
-    return jwt.verify(token, publicKey, {
+    return jwt.verify(token, process.env.SECURE_KEY, {
       ...options,
       issuer: process.env.HOST,
       audience,
