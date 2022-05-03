@@ -1,5 +1,4 @@
 import fs from "fs";
-import path from "path";
 import jwt, {
   NotBeforeError,
   TokenExpiredError,
@@ -22,12 +21,8 @@ import {
 import TokenError from "./errors/TokenError";
 import cache from "./cache";
 
-const privateKey = fs.readFileSync(
-  path.resolve(__dirname, "../../", process.env.JWT_PRIVATE_KEY)
-);
-const publicKey = fs.readFileSync(
-  path.resolve(__dirname, "../../", process.env.JWT_PUBLIC_KEY)
-);
+const privateKey = fs.readFileSync(process.env.JWT_PRIVATE_KEY);
+const publicKey = fs.readFileSync(process.env.JWT_PUBLIC_KEY);
 
 const audience = [process.env.WEB_CLIENT_ID, process.env.ADMIN_CLIENT_ID];
 
