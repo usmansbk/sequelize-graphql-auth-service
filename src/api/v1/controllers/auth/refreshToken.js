@@ -1,3 +1,4 @@
+import dayjs from "~utils/dayjs";
 import TokenError from "~utils/errors/TokenError";
 import { TOKEN_INVALID_ERROR } from "~constants/i18n";
 
@@ -8,7 +9,7 @@ const refreshTokenController = async (req, res) => {
     client_id: clientId,
   } = req.headers;
   const {
-    context: { cache, jwt },
+    context: { cache, jwt, db },
     t,
   } = req;
 
@@ -22,6 +23,17 @@ const refreshTokenController = async (req, res) => {
     if (decodedRefreshToken.jti !== expectedJti) {
       throw new TokenError(TOKEN_INVALID_ERROR);
     }
+
+    await db.User.update(
+      {
+        lastLogin: dayjs.utc().toDate(),
+      },
+      {
+        where: {
+          id: expiredToken.sub,
+        },
+      }
+    );
 
     const { accessToken, refreshToken } = await jwt.generateAuthTokens({
       aud: clientId,
