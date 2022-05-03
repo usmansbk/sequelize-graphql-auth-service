@@ -1,6 +1,6 @@
 import btoa from "btoa";
 
-const { HOST, CLOUDFRONT_API_ENDPOINT } = process.env;
+const { CLIENT_HOST, CLOUDFRONT_API_ENDPOINT } = process.env;
 
 export const getImageUrl = (file, resize) => {
   const imageRequest = {
@@ -14,9 +14,9 @@ export const getImageUrl = (file, resize) => {
 };
 
 const links = {
-  verifyEmail: (token) => `${HOST}/verify_email?token=${token}`,
-  resetPassword: (token) => `${HOST}/reset_password?token=${token}`,
-  deleteAccount: (token) => `${HOST}/delete_account?token=${token}`,
+  verifyEmail: (token) => `${CLIENT_HOST}/verify_email?token=${token}`,
+  resetPassword: (token) => `${CLIENT_HOST}/reset_password?token=${token}`,
+  deleteAccount: (token) => `${CLIENT_HOST}/delete_account?token=${token}`,
   getImageUrl,
 };
 
