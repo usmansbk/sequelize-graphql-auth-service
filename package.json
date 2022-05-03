@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "babel src -d build --copy-files",
-    "start": "node build",
+    "start": "node -r dotenv/config build",
     "dev": "nodemon --exec babel-node -r dotenv/config src",
     "createsu": "babel-node -r dotenv/config src/scripts/createSuperUser",
     "clientid": "babel-node src/scripts/generateClientId",
