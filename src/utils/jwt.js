@@ -21,7 +21,7 @@ import TokenError from "./errors/TokenError";
 import cache from "./cache";
 
 const audience = [process.env.WEB_CLIENT_ID, process.env.ADMIN_CLIENT_ID];
-const [newKey, oldKey] = process.env.SECURE_KEY.split(",");
+const [key] = process.env.SECURE_KEY.split(",");
 
 /**
  * exp or any other claim is only set if the payload is an object literal.
@@ -30,7 +30,7 @@ const [newKey, oldKey] = process.env.SECURE_KEY.split(",");
  */
 const sign = (payload, expiresIn = "15m") => {
   const id = nanoid();
-  const token = jwt.sign(payload, newKey, {
+  const token = jwt.sign(payload, key, {
     jwtid: id,
     expiresIn,
     issuer: process.env.HOST,
@@ -41,7 +41,7 @@ const sign = (payload, expiresIn = "15m") => {
 
 const verify = (token, options = {}) => {
   try {
-    return jwt.verify(token, oldKey, {
+    return jwt.verify(token, key, {
       ...options,
       issuer: process.env.HOST,
       audience,
