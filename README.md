@@ -121,7 +121,7 @@ Check the [email-templates](https://github.com/forwardemail/email-templates) doc
 
 ## [SMS](https://www.twilio.com/docs/sms/quickstart/node)
 
-Follow the official Twilio documentation to setup your Twilio account and add your `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, and `PHONE_NUMBER` to your `.env` file.
+Follow the official Twilio documentation to setup your Twilio account and add your `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, and `TWILIO_PHONE_NUMBER` to your `.env` file.
 
 ## Google authentication
 
