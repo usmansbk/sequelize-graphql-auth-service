@@ -25,6 +25,18 @@ GraphQL server optimized for Sequelize ORM
 
 - [Docker](https://docs.docker.com/)
 
+## JSON Web Token
+
+### Generate keys
+
+```sh
+## Private key
+ssh-keygen -t rsa -P "" -b 4096 -m PEM -f jwtRS256.key
+
+## Public key
+ssh-keygen -e -m PEM -f jwtRS256.key > jwtRS256.key.pub
+```
+
 ## Run with Docker
 
 ### Create **.env** file
@@ -91,7 +103,7 @@ yarn install
 
 ## Clients (Mobile, Web, etc)
 
-Each supported client must pass a `client_id` in their request headers. Client IDs are strings assigned by the server. To support a new client, add the ID to the list of audience. This will allow users to login from multiple clients.
+Each supported client must pass a `client_id` in their request headers. Client IDs are strings assigned by the server.
 
 ```sh
 ## Get new ID
@@ -100,7 +112,13 @@ docker-compose run --rm api yarn clientId
 
 ```sh
 ## src/utils/jwt
-const audience = [process.env.WEB_CLIENT_ID, 'your-new-clientId'];
+const clients = [
+  {
+    name: "Admin",
+    id: ADMIN_CLIENT_ID,
+  },
+  { name: "Web", id: WEB_CLIENT_ID },
+];
 ```
 
 Your new client will need to add this `clientId` as part of it's request headers.

@@ -1,3 +1,4 @@
+import fs from "fs";
 import jwt, {
   NotBeforeError,
   TokenExpiredError,
@@ -20,8 +21,20 @@ import {
 import TokenError from "./errors/TokenError";
 import cache from "./cache";
 
-const audience = [process.env.WEB_CLIENT_ID, process.env.ADMIN_CLIENT_ID];
-const [key] = process.env.SECURE_KEY.split(",");
+const { WEB_CLIENT_ID, ADMIN_CLIENT_ID, JWT_PUBLIC_KEY, JWT_PRIVATE_KEY } =
+  process.env;
+const privateKey = fs.readFileSync(JWT_PRIVATE_KEY);
+const publicKey = fs.readFileSync(JWT_PUBLIC_KEY);
+
+const clients = [
+  {
+    name: "Admin",
+    id: ADMIN_CLIENT_ID,
+  },
+  { name: "Web", id: WEB_CLIENT_ID },
+];
+
+const audience = clients.map(({ id }) => id);
 
 /**
  * exp or any other claim is only set if the payload is an object literal.
@@ -30,10 +43,11 @@ const [key] = process.env.SECURE_KEY.split(",");
  */
 const sign = (payload, expiresIn = "15m") => {
   const id = nanoid();
-  const token = jwt.sign(payload, key, {
+  const token = jwt.sign(payload, privateKey, {
     jwtid: id,
     expiresIn,
     issuer: process.env.HOST,
+    algorithm: "RS256",
   });
 
   return { token, id };
@@ -41,7 +55,7 @@ const sign = (payload, expiresIn = "15m") => {
 
 const verify = (token, options = {}) => {
   try {
-    return jwt.verify(token, key, {
+    return jwt.verify(token, publicKey, {
       ...options,
       issuer: process.env.HOST,
       audience,
@@ -119,4 +133,5 @@ export default {
   generateAuthTokens,
   verifySocialToken,
   audience,
+  clients,
 };
