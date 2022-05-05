@@ -25,9 +25,7 @@ GraphQL server optimized for Sequelize ORM
 
 - [Docker](https://docs.docker.com/)
 
-## JSON Web Token
-
-### Generate keys
+## Generate JWT keys
 
 ```sh
 ## Private key
