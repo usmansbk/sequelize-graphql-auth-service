@@ -10,7 +10,6 @@ export default {
           where: { id },
           info,
           path: "permission",
-          skip: ["roles"], // we shouldn't eager-load paginated fields
         });
 
         if (!permission) {

@@ -42,7 +42,6 @@ export default {
           where: { id },
           info,
           path: "role",
-          skip: ["members"], // we shouldn't eager-load paginated fields
         });
 
         if (!role) {
