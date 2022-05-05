@@ -1,5 +1,10 @@
 import QueryError from "~utils/errors/QueryError";
-import { PROFILE_UPDATED, SENT_SMS_OTP } from "~constants/i18n";
+import {
+  INCORRECT_PASSWORD_ERROR,
+  PASSWORD_UPDATED,
+  PROFILE_UPDATED,
+  SENT_SMS_OTP,
+} from "~constants/i18n";
 import { PHONE_NUMBER_KEY_PREFIX, SMS_OTP_EXPIRES_IN } from "~constants/auth";
 import { Fail, Success } from "~helpers/response";
 
@@ -92,6 +97,40 @@ export default {
         return Success({
           code: PROFILE_UPDATED,
           message: t(PROFILE_UPDATED),
+          user,
+        });
+      } catch (e) {
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            code: e.code,
+            errors: e.errors,
+          });
+        }
+        throw e;
+      }
+    },
+    async updateCurrentUserPassword(
+      _parent,
+      { input },
+      { currentUser, t, dataSources }
+    ) {
+      try {
+        const user = await dataSources.users.findByPk(currentUser.id);
+
+        const granted = await user.checkPassword(input.oldPassword);
+
+        if (!granted) {
+          throw new QueryError(INCORRECT_PASSWORD_ERROR);
+        }
+
+        await dataSources.users.update(currentUser.id, {
+          password: input.newPassword,
+        });
+
+        return Success({
+          code: PASSWORD_UPDATED,
+          message: t(PASSWORD_UPDATED),
           user,
         });
       } catch (e) {

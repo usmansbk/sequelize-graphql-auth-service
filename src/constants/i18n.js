@@ -65,6 +65,8 @@ export const INVALID_OTP = "InvalidOtp";
 export const EMAIL_NOT_VERIFIED = "EmailNotVerified";
 export const EMAIL_VERIFICATION_FAILED = "EmailVerificationFailed";
 export const USER_PROFILE_PICTURE_UPLOADED = "UserProfilePictureUploaded";
+export const INCORRECT_PASSWORD_ERROR = "IncorrectPasswordError";
+export const PASSWORD_UPDATED = "PasswordUpdated";
 
 // send emails
 export const SENT_VERIFICATION_EMAIL = "SentVerificationEmail";
