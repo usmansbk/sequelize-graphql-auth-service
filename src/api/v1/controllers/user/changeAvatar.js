@@ -3,7 +3,7 @@ import numeral from "numeral";
 import multerS3 from "multer-s3";
 import { nanoid } from "nanoid";
 import { UserInputError } from "apollo-server-core";
-import { s3 } from "~services/aws";
+import { s3Client } from "~services/aws";
 import {
   IMAGE_TOO_LARGE,
   NOTHING_TO_UPLOAD,
@@ -22,7 +22,7 @@ const { S3_BUCKET } = process.env;
 
 const upload = multer({
   storage: multerS3({
-    s3,
+    s3: s3Client,
     bucket: S3_BUCKET,
     contentType: multerS3.AUTO_CONTENT_TYPE,
     metadata(_req, file, cb) {
