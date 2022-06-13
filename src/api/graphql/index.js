@@ -47,7 +47,7 @@ const startApolloServer = async (app) => {
   await server.start();
   server.applyMiddleware({ app });
   await new Promise((resolve) => {
-    httpServer.listen({ port: process.env.PORT }, resolve);
+    httpServer.listen({ port: process.env.PORT || 4000 }, resolve);
   });
   return server;
 };
