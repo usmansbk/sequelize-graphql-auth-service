@@ -35,7 +35,9 @@ const main = async () => {
     log.info("Database connection has been established successfully.");
     const server = await startApolloServer(app);
     log.info(
-      `🚀 Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`
+      `🚀 Server ready at http://localhost:${process.env.PORT || 4000}${
+        server.graphqlPath
+      }`
     );
   } catch (error) {
     log.error(error);
