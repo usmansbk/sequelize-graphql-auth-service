@@ -45,22 +45,28 @@ Rename `.env.example` file to `.env`
 cp .env.example .env
 ```
 
-### Install dependencies
-
-```sh
-yarn
-```
-
 ### Build image
 
 ```sh
 docker-compose build
 ```
 
+### Install dependencies
+
+```sh
+docker-compose run --rm api yarn
+```
+
 ### Create database
 
 ```sh
-docker-compose run --rm api npx cross-env NODE_ENV=development npx sequelize db:create
+docker-compose run --rm api npx cross-env NODE_ENV=development sequelize db:create
+```
+
+### Seed DB
+
+```sh
+docker-compose run --rm api npx cross-env NODE_ENV=development sequelize db:seed:all
 ```
 
 ### Create root user
@@ -80,23 +86,11 @@ docker-compose up
 create a test database if you haven't
 
 ```sh
-docker-compose run --rm api npx cross-env NODE_ENV=test npx sequelize db:create
+docker-compose run --rm api npx cross-env NODE_ENV=test sequelize db:create
 ```
 
 ```sh
 docker-compose run --rm api yarn test
-```
-
-### Troubleshoot
-
-For M1 chip MacBooks
-
-```sh
-docker exec -it simple-server sh
-
-rm -rf node_modules
-
-yarn install
 ```
 
 ## Clients (Mobile, Web, etc)
