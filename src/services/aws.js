@@ -1,4 +1,4 @@
-import { SES } from "@aws-sdk/client-ses";
+import { SES, SendRawEmailCommand } from "@aws-sdk/client-ses";
 import { S3Client, S3 } from "@aws-sdk/client-s3";
 import { defaultProvider } from "@aws-sdk/credential-provider-node";
 
@@ -17,3 +17,5 @@ export const ses = new SES({
   region: AWS_REGION,
   defaultProvider,
 });
+
+export default { SendRawEmailCommand };
