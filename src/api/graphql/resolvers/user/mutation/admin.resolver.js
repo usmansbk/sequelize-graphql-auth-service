@@ -5,11 +5,6 @@ import { USER_PREFIX } from "~constants/auth";
 import { ACCOUNT_STATUS } from "~constants/models";
 
 export default {
-  Query: {
-    users(_parent, { page, filter }, { dataSources }, info) {
-      return dataSources.users.paginate({ page, filter, info });
-    },
-  },
   Mutation: {
     async createUser(_parent, { input }, { dataSources, t }) {
       try {

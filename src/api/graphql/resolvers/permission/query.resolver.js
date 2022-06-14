@@ -4,6 +4,13 @@ import { PERMISSION_NOT_FOUND } from "~constants/i18n";
 
 export default {
   Query: {
+    permissions(_parent, { page, filter }, { dataSources }, info) {
+      return dataSources.permissions.paginate({
+        page,
+        filter,
+        info,
+      });
+    },
     async getPermissionById(_parent, { id }, { dataSources, t }, info) {
       try {
         const permission = await dataSources.permissions.findOne({

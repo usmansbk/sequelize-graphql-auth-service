@@ -3,15 +3,6 @@ import { Fail, Success } from "~helpers/response";
 import { ROLE_PERMISSIONS_PREFIX, USER_PREFIX } from "~constants/auth";
 
 export default {
-  Query: {
-    roles(_parent, { page, filter }, { dataSources }, info) {
-      return dataSources.roles.paginate({
-        page,
-        filter,
-        info,
-      });
-    },
-  },
   Mutation: {
     async createRole(
       _parent,

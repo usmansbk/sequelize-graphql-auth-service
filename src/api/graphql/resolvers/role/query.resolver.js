@@ -18,6 +18,13 @@ export default {
     },
   },
   Query: {
+    roles(_parent, { page, filter }, { dataSources }, info) {
+      return dataSources.roles.paginate({
+        page,
+        filter,
+        info,
+      });
+    },
     getRoleMembers(_parent, { id, page, where }, { dataSources }, info) {
       return dataSources.users.paginate({
         page,

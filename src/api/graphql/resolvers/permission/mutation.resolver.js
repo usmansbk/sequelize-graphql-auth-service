@@ -4,15 +4,6 @@ import { ROLES_ALIAS } from "~constants/models";
 import { ROLE_PERMISSIONS_PREFIX } from "~constants/auth";
 
 export default {
-  Query: {
-    permissions(_parent, { page, filter }, { dataSources }, info) {
-      return dataSources.permissions.paginate({
-        page,
-        filter,
-        info,
-      });
-    },
-  },
   Mutation: {
     async createPermission(_parent, { input }, { dataSources, t }) {
       try {
