@@ -8,7 +8,7 @@ type Application {
 }
 
 type Query {
-  getApplicationById(id: ID!): [Application]!
+  getApplicationById(id: ID!): Application!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
 
   applications: [Application]! @auth(rules: [{ allow: role, roles: ["admin"] }])
