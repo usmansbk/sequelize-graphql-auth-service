@@ -1,4 +1,4 @@
-// models
+// User
 export const USER_FIRST_NAME_LEN_ERROR = "UserFirstNameLengthError";
 export const USER_FIRST_NAME_REQUIRED_ERROR = "UserFirstNameRequiredError";
 export const USER_FIRST_NAME_EMPTY_ERROR = "UserFirstNameEmptyError";
@@ -19,6 +19,8 @@ export const USER_PASSWORD_LEN_ERROR = "UserInvalidPasswordLengthError";
 export const USER_INVALID_PASSWORD_ERROR = "UserInvalidPasswordError";
 export const USER_INVALID_LOCALE_ERROR = "UserInvalidLocaleError";
 export const USER_INVALID_PICTURE_URL_ERROR = "UserInvalidPictureUrlError";
+
+// Application
 export const APPLICATION_NAME_LEN_ERROR = "ApplicationNameLenError";
 export const APPLICATION_NAME_EMPTY_ERROR = "ApplicationNameEmptyError";
 export const APPLICATION_DESCRIPTION_LEN_ERROR =
