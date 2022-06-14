@@ -13,7 +13,6 @@ GraphQL server optimized for Sequelize ORM
 - [x] i18n
 - [x] Dockerize
 - [x] Analytics
-- [ ] Push Notification
 
 ## Built with
 
