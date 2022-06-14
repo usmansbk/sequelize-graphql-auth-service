@@ -75,6 +75,9 @@ export const EMAIL_VERIFICATION_FAILED = "EmailVerificationFailed";
 export const USER_PROFILE_PICTURE_UPLOADED = "UserProfilePictureUploaded";
 export const INCORRECT_PASSWORD_ERROR = "IncorrectPasswordError";
 export const PASSWORD_UPDATED = "PasswordUpdated";
+export const APPLICATION_CREATED = "ApplicationCreated";
+export const APPLICATION_UPDATED = "ApplicationUpdated";
+export const APPLICATION_DELETED = "ApplicationDeleted";
 
 // send emails
 export const SENT_VERIFICATION_EMAIL = "SentVerificationEmail";

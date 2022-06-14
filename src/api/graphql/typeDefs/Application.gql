@@ -19,10 +19,12 @@ type Mutation {
     input: CreateApplicationInput!
   ): ApplicationMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
-  updateApplicationName(name: NonEmptyString!): ApplicationMutationResponse!
+  updateApplicationName(
+    input: UpdateApplicationNameInput!
+  ): ApplicationMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
   updateApplicationDescription(
-    description: NonEmptyString
+    input: UpdateApplicationDescriptionInput!
   ): ApplicationMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
   deleteApplication(id: ID!, reason: NonEmptyString): DeleteMutationResponse!
@@ -39,5 +41,15 @@ type ApplicationMutationResponse implements Response & FormErrors {
 
 input CreateApplicationInput {
   name: NonEmptyString!
+  description: NonEmptyString
+}
+
+input UpdateApplicationNameInput {
+  id: ID!
+  name: NonEmptyString!
+}
+
+input UpdateApplicationDescriptionInput {
+  id: ID!
   description: NonEmptyString
 }

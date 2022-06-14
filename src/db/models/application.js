@@ -52,7 +52,6 @@ export default (sequelize, DataTypes) => {
       },
       description: {
         type: DataTypes.STRING,
-        allowNull: false,
         validate: {
           len: {
             args: [0, 140],
