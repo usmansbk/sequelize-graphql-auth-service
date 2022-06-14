@@ -1,6 +1,9 @@
 import { Fail, Success } from "~helpers/response";
 import emailTemplates from "~helpers/emailTemplates";
-import { EMAIL_NOT_VERIFIED, SENT_EMAIL_OTP } from "~helpers/constants/i18n";
+import {
+  EMAIL_NOT_VERIFIED,
+  SENT_EMAIL_OTP,
+} from "~helpers/constants/responseCodes";
 import {
   EMAIL_OTP_EXPIRES_IN,
   EMAIL_OTP_KEY_PREFIX,

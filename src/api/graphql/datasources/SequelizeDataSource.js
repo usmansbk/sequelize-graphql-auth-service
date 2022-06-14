@@ -20,7 +20,7 @@ import {
 } from "~utils/transformers/paginate";
 import { buildWhereQuery, buildIncludeQuery } from "~utils/transformers/filter";
 import { buildEagerLoadingQuery } from "~utils/transformers/eagerLoader";
-import { FIELD_ERRORS, ITEM_NOT_FOUND } from "~helpers/constants/i18n";
+import { FIELD_ERRORS, ITEM_NOT_FOUND } from "~helpers/constants/responseCodes";
 
 /**
  * The SequelizeDataSource abstract class helps you query data from an SQL database. Your server

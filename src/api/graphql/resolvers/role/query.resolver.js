@@ -1,6 +1,6 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
-import { ROLE_NOT_FOUND } from "~helpers/constants/i18n";
+import { ROLE_NOT_FOUND } from "~helpers/constants/responseCodes";
 
 export default {
   Role: {

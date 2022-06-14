@@ -9,7 +9,7 @@ import {
   NOTHING_TO_UPLOAD,
   UNSUPPORTED_FILE_TYPE,
   USER_PROFILE_PICTURE_UPLOADED,
-} from "~helpers/constants/i18n";
+} from "~helpers/constants/responseCodes";
 import {
   AVATARS_FOLDER,
   SUPPORTED_PROFILE_PICTURE_FILE_TYPES,

@@ -6,7 +6,7 @@ import {
   PERMISSION_DESCRIPTION_LEN_ERROR,
   PERMISSION_SCOPE_EMPTY_ERROR,
   PERMISSION_SCOPE_INVALID_FORMAT_ERROR,
-} from "~helpers/constants/i18n";
+} from "~helpers/constants/responseCodes";
 import {
   ROLES_ALIAS,
   ROLE_PERMISSIONS_JOIN_TABLE,

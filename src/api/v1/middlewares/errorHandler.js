@@ -5,7 +5,7 @@ import {
 } from "apollo-server-core";
 import TokenError from "~utils/errors/TokenError";
 import analytics from "~services/analytics";
-import { SOMETHING_WENT_WRONG } from "~helpers/constants/i18n";
+import { SOMETHING_WENT_WRONG } from "~helpers/constants/responseCodes";
 
 // eslint-disable-next-line no-unused-vars
 const errorHandler = (err, req, res, next) => {

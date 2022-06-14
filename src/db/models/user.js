@@ -20,7 +20,7 @@ import {
   USER_USERNAME_LEN_ERROR,
   USER_USERNAME_UNAVAILABLE_ERROR,
   USER_USERNAME_INVALID_FORMAT_ERROR,
-} from "~helpers/constants/i18n";
+} from "~helpers/constants/responseCodes";
 import {
   ACCOUNT_STATUS,
   PERMISSIONS_ALIAS,

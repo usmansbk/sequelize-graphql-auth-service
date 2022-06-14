@@ -6,7 +6,7 @@ import {
   SENT_SMS_OTP,
   INVALID_OTP,
   PHONE_NUMBER_VERIFIED,
-} from "~helpers/constants/i18n";
+} from "~helpers/constants/responseCodes";
 import {
   PHONE_NUMBER_KEY_PREFIX,
   SMS_OTP_EXPIRES_IN,

@@ -1,7 +1,7 @@
 import links from "~helpers/links";
 import { Success } from "~helpers/response";
 import emailTemplates from "~helpers/emailTemplates";
-import { SENT_VERIFICATION_EMAIL } from "~helpers/constants/i18n";
+import { SENT_VERIFICATION_EMAIL } from "~helpers/constants/responseCodes";
 import {
   EMAIL_VERIFICATION_TOKEN_EXPIRES_IN,
   EMAIL_VERIFICATION_KEY_PREFIX,

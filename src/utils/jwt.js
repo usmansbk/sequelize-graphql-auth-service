@@ -11,7 +11,7 @@ import {
   TOKEN_EXPIRED_ERROR,
   TOKEN_INVALID_ERROR,
   TOKEN_NOT_BEFORE_ERROR,
-} from "~helpers/constants/i18n";
+} from "~helpers/constants/responseCodes";
 import {
   ACCESS_TOKEN_EXPIRES_IN,
   REFRESH_TOKEN_EXPIRES_IN,

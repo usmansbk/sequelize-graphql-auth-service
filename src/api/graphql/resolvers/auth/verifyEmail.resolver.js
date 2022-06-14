@@ -2,7 +2,7 @@ import { Fail, Success } from "~helpers/response";
 import {
   EMAIL_VERIFICATION_FAILED,
   EMAIL_VERIFIED,
-} from "~helpers/constants/i18n";
+} from "~helpers/constants/responseCodes";
 import QueryError from "~utils/errors/QueryError";
 import { EMAIL_VERIFICATION_KEY_PREFIX } from "~helpers/constants/auth";
 import emailTemplates from "~helpers/emailTemplates";

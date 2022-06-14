@@ -1,6 +1,6 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
-import { USER_NOT_FOUND } from "~helpers/constants/i18n";
+import { USER_NOT_FOUND } from "~helpers/constants/responseCodes";
 import { ACCOUNT_STATUS } from "~helpers/constants/models";
 
 export default {

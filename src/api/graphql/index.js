@@ -6,7 +6,7 @@ import {
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import http from "http";
 import logger from "~utils/logger";
-import { INVALID_CLIENT_ID } from "~helpers/constants/i18n";
+import { INVALID_CLIENT_ID } from "~helpers/constants/responseCodes";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 import dataSources from "./datasources";

@@ -7,7 +7,7 @@ import emailTemplates from "~helpers/emailTemplates";
 import {
   INCORRECT_EMAIL_OR_PASSWORD,
   WELCOME_BACK,
-} from "~helpers/constants/i18n";
+} from "~helpers/constants/responseCodes";
 import {
   FAILED_LOGIN_ATTEMPT_KEY_PREFIX,
   MAX_LOGIN_ATTEMPTS,
