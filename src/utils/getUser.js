@@ -1,13 +1,13 @@
 // eslint-disable no-await-in-loop
 import db from "~db/models";
 import cache from "~utils/cache";
-import { ROLE_PERMISSIONS_PREFIX, USER_PREFIX } from "~constants/auth";
+import { ROLE_PERMISSIONS_PREFIX, USER_PREFIX } from "~helpers/constants/auth";
 import {
   PERMISSIONS_ALIAS,
   PERMISSIONS_SCOPE,
   ROLES_ALIAS,
   ROLES_SCOPE,
-} from "~constants/models";
+} from "~helpers/constants/models";
 
 const saveUserInstance = async (key, user) => {
   await cache.setJSON(key, {

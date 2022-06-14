@@ -1,5 +1,5 @@
 import { Model } from "sequelize";
-import { USER_AVATAR_ALIAS } from "~constants/models";
+import { USER_AVATAR_ALIAS } from "~helpers/constants/models";
 import storage from "~utils/storage";
 
 export default (sequelize, DataTypes) => {

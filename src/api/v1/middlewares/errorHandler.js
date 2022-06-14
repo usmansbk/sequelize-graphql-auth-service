@@ -5,13 +5,13 @@ import {
 } from "apollo-server-core";
 import TokenError from "~utils/errors/TokenError";
 import analytics from "~services/analytics";
-import { SOMETHING_WENT_WRONG } from "~constants/i18n";
+import { SOMETHING_WENT_WRONG } from "~helpers/constants/i18n";
 
 // eslint-disable-next-line no-unused-vars
 const errorHandler = (err, req, res, next) => {
   analytics.flush();
   let statusCode;
-  let {message} = err;
+  let { message } = err;
   if (err instanceof UserInputError) {
     statusCode = 400;
   } else if (err instanceof AuthenticationError || err instanceof TokenError) {

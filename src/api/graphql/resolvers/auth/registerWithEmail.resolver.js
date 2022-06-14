@@ -2,8 +2,8 @@ import { ForbiddenError } from "apollo-server-core";
 import analytics from "~services/analytics";
 import QueryError from "~utils/errors/QueryError";
 import { Success, Fail } from "~helpers/response";
-import { SIGNUP_FAILED, WELCOME_NEW_USER } from "~constants/i18n";
-import { ACCOUNT_STATUS } from "~constants/models";
+import { SIGNUP_FAILED, WELCOME_NEW_USER } from "~helpers/constants/i18n";
+import { ACCOUNT_STATUS } from "~helpers/constants/models";
 
 export default {
   Mutation: {

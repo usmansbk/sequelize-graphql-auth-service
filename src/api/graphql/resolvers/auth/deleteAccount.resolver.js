@@ -1,7 +1,7 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
-import { ACCOUNT_DELETED, INVALID_LINK } from "~constants/i18n";
-import { DELETE_ACCOUNT_KEY_PREFIX } from "~constants/auth";
+import { ACCOUNT_DELETED, INVALID_LINK } from "~helpers/constants/i18n";
+import { DELETE_ACCOUNT_KEY_PREFIX } from "~helpers/constants/auth";
 import analytics from "~services/analytics";
 
 export default {

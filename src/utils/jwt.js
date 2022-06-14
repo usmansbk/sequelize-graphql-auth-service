@@ -11,13 +11,13 @@ import {
   TOKEN_EXPIRED_ERROR,
   TOKEN_INVALID_ERROR,
   TOKEN_NOT_BEFORE_ERROR,
-} from "~constants/i18n";
+} from "~helpers/constants/i18n";
 import {
   ACCESS_TOKEN_EXPIRES_IN,
   REFRESH_TOKEN_EXPIRES_IN,
   FACEBOOK_PROVIDER,
   GOOGLE_PROVIDER,
-} from "~constants/auth";
+} from "~helpers/constants/auth";
 import TokenError from "./errors/TokenError";
 import cache from "./cache";
 

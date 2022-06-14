@@ -9,13 +9,13 @@ import {
   NOTHING_TO_UPLOAD,
   UNSUPPORTED_FILE_TYPE,
   USER_PROFILE_PICTURE_UPLOADED,
-} from "~constants/i18n";
+} from "~helpers/constants/i18n";
 import {
   AVATARS_FOLDER,
   SUPPORTED_PROFILE_PICTURE_FILE_TYPES,
   PROFILE_PICTURE_MAX_FILE_SIZE,
   BYTES,
-} from "~constants/files";
+} from "~helpers/constants/files";
 import { getImageUrl } from "~helpers/links";
 
 const { S3_BUCKET } = process.env;

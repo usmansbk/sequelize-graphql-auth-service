@@ -1,8 +1,8 @@
 import analytics from "~services/analytics";
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
-import { USER_PREFIX } from "~constants/auth";
-import { ACCOUNT_STATUS } from "~constants/models";
+import { USER_PREFIX } from "~helpers/constants/auth";
+import { ACCOUNT_STATUS } from "~helpers/constants/models";
 
 export default {
   Mutation: {

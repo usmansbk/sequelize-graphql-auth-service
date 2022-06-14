@@ -3,8 +3,8 @@ import {
   INVALID_CLIENT_ID,
   UNAUTHENTICATED,
   UNAUTHORIZED,
-} from "~constants/i18n";
-import { ACCOUNT_STATUS } from "~constants/models";
+} from "~helpers/constants/i18n";
+import { ACCOUNT_STATUS } from "~helpers/constants/models";
 
 const authMiddleware = (rules) => async (req, _res, next) => {
   try {

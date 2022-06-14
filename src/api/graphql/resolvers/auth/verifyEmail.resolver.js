@@ -1,9 +1,12 @@
 import { Fail, Success } from "~helpers/response";
-import { EMAIL_VERIFICATION_FAILED, EMAIL_VERIFIED } from "~constants/i18n";
+import {
+  EMAIL_VERIFICATION_FAILED,
+  EMAIL_VERIFIED,
+} from "~helpers/constants/i18n";
 import QueryError from "~utils/errors/QueryError";
-import { EMAIL_VERIFICATION_KEY_PREFIX } from "~constants/auth";
+import { EMAIL_VERIFICATION_KEY_PREFIX } from "~helpers/constants/auth";
 import emailTemplates from "~helpers/emailTemplates";
-import { ACCOUNT_STATUS } from "~constants/models";
+import { ACCOUNT_STATUS } from "~helpers/constants/models";
 import analytics from "~services/analytics";
 
 export default {

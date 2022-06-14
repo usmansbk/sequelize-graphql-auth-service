@@ -8,12 +8,12 @@ import {
   EMAIL_NOT_VERIFIED,
   INCORRECT_USERNAME_OR_PASSWORD,
   WELCOME_BACK,
-} from "~constants/i18n";
+} from "~helpers/constants/i18n";
 import {
   FAILED_LOGIN_ATTEMPT_KEY_PREFIX,
   MAX_LOGIN_ATTEMPTS,
-} from "~constants/auth";
-import { ACCOUNT_STATUS, ROLES_ALIAS } from "~constants/models";
+} from "~helpers/constants/auth";
+import { ACCOUNT_STATUS, ROLES_ALIAS } from "~helpers/constants/models";
 
 export default {
   Mutation: {

@@ -1,6 +1,6 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
-import { PERMISSION_NOT_FOUND } from "~constants/i18n";
+import { PERMISSION_NOT_FOUND } from "~helpers/constants/i18n";
 
 export default {
   Query: {

@@ -1,7 +1,7 @@
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
-import { ROLES_ALIAS } from "~constants/models";
-import { ROLE_PERMISSIONS_PREFIX } from "~constants/auth";
+import { ROLES_ALIAS } from "~helpers/constants/models";
+import { ROLE_PERMISSIONS_PREFIX } from "~helpers/constants/auth";
 
 export default {
   Mutation: {

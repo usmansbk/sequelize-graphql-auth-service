@@ -5,9 +5,9 @@ import {
   AUTH_OWNER_STRATEGY,
   AUTH_ROLE_STRATEGY,
   AUTH_SCOPE_STRATEGY,
-} from "~constants/auth";
-import { UNAUTHENTICATED, UNAUTHORIZED } from "~constants/i18n";
-import { ACCOUNT_STATUS } from "~constants/models";
+} from "~helpers/constants/auth";
+import { UNAUTHENTICATED, UNAUTHORIZED } from "~helpers/constants/i18n";
+import { ACCOUNT_STATUS } from "~helpers/constants/models";
 
 const authDirectiveTransformer = (schema, directiveName) => {
   const typeDirectiveArgumentMaps = {};

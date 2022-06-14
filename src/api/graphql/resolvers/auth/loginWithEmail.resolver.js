@@ -4,12 +4,15 @@ import dayjs from "~utils/dayjs";
 import QueryError from "~utils/errors/QueryError";
 import { Fail, Success } from "~helpers/response";
 import emailTemplates from "~helpers/emailTemplates";
-import { INCORRECT_EMAIL_OR_PASSWORD, WELCOME_BACK } from "~constants/i18n";
+import {
+  INCORRECT_EMAIL_OR_PASSWORD,
+  WELCOME_BACK,
+} from "~helpers/constants/i18n";
 import {
   FAILED_LOGIN_ATTEMPT_KEY_PREFIX,
   MAX_LOGIN_ATTEMPTS,
-} from "~constants/auth";
-import { ACCOUNT_STATUS } from "~constants/models";
+} from "~helpers/constants/auth";
+import { ACCOUNT_STATUS } from "~helpers/constants/models";
 
 export default {
   Mutation: {

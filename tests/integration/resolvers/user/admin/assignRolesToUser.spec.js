@@ -2,7 +2,7 @@ import { gql } from "apollo-server-express";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
 import cache from "~utils/cache";
-import { USER_PREFIX } from "~constants/auth";
+import { USER_PREFIX } from "~helpers/constants/auth";
 
 const query = gql`
   mutation AssignRolesToUser($userId: ID!, $roleIds: [ID!]!) {

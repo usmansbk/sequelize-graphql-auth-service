@@ -1,4 +1,4 @@
-import { USER_PREFIX } from "~constants/auth";
+import { USER_PREFIX } from "~helpers/constants/auth";
 import SequelizeDataSource from "./SequelizeDataSource";
 
 export default class UserDS extends SequelizeDataSource {

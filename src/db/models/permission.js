@@ -6,8 +6,11 @@ import {
   PERMISSION_DESCRIPTION_LEN_ERROR,
   PERMISSION_SCOPE_EMPTY_ERROR,
   PERMISSION_SCOPE_INVALID_FORMAT_ERROR,
-} from "~constants/i18n";
-import { ROLES_ALIAS, ROLE_PERMISSIONS_JOIN_TABLE } from "~constants/models";
+} from "~helpers/constants/i18n";
+import {
+  ROLES_ALIAS,
+  ROLE_PERMISSIONS_JOIN_TABLE,
+} from "~helpers/constants/models";
 
 export default (sequelize, DataTypes) => {
   class Permission extends Model {

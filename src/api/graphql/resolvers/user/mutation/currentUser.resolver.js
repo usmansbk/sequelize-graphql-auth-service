@@ -6,8 +6,11 @@ import {
   SENT_SMS_OTP,
   INVALID_OTP,
   PHONE_NUMBER_VERIFIED,
-} from "~constants/i18n";
-import { PHONE_NUMBER_KEY_PREFIX, SMS_OTP_EXPIRES_IN } from "~constants/auth";
+} from "~helpers/constants/i18n";
+import {
+  PHONE_NUMBER_KEY_PREFIX,
+  SMS_OTP_EXPIRES_IN,
+} from "~helpers/constants/auth";
 import { Fail, Success } from "~helpers/response";
 
 export default {

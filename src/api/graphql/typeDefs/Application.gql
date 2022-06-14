@@ -1,0 +1,43 @@
+type Application {
+  id: ID!
+  clientID: ID!
+  name: String!
+  description: String
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
+type Query {
+  getApplicationById(id: ID!): [Application]!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+
+  applications: [Application]! @auth(rules: [{ allow: role, roles: ["admin"] }])
+}
+
+type Mutation {
+  createApplication(
+    input: CreateApplicationInput!
+  ): ApplicationMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+  updateApplicationName(name: NonEmptyString!): ApplicationMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+  updateApplicationDescription(
+    description: NonEmptyString
+  ): ApplicationMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+  deleteApplication(id: ID!, reason: NonEmptyString): DeleteMutationResponse!
+    @auth(rules: [{ allow: role, roles: ["admin"] }])
+}
+
+type ApplicationMutationResponse implements Response & FormErrors {
+  code: ID!
+  success: Boolean!
+  message: String!
+  errors: [FieldError!]
+  application: Application
+}
+
+input CreateApplicationInput {
+  name: NonEmptyString!
+  description: NonEmptyString
+}

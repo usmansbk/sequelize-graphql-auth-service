@@ -5,13 +5,13 @@ import {
   ROLE_NAME_LEN_ERROR,
   ROLE_NAME_UNIQUE_ERROR,
   ROLE_NAME_INVALID_FORMAT_ERROR,
-} from "~constants/i18n";
+} from "~helpers/constants/i18n";
 import {
   PERMISSIONS_ALIAS,
   ROLE_MEMBERS_ALIAS,
   ROLE_PERMISSIONS_JOIN_TABLE,
   USER_ROLES_JOIN_TABLE,
-} from "~constants/models";
+} from "~helpers/constants/models";
 
 export default (sequelize, DataTypes) => {
   class Role extends Model {

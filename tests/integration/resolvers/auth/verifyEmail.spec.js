@@ -4,7 +4,7 @@ import FactoryBot from "tests/factories";
 import cache from "~utils/cache";
 import mailer from "~utils/mailer";
 import jwt from "~utils/jwt";
-import { EMAIL_VERIFICATION_KEY_PREFIX } from "~constants/auth";
+import { EMAIL_VERIFICATION_KEY_PREFIX } from "~helpers/constants/auth";
 
 const query = gql`
   mutation VerifyEmail($token: String!) {

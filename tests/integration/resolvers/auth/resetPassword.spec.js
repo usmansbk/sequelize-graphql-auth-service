@@ -3,7 +3,7 @@ import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
 import cache from "~utils/cache";
 import jwt from "~utils/jwt";
-import { PASSWORD_KEY_PREFIX } from "~constants/auth";
+import { PASSWORD_KEY_PREFIX } from "~helpers/constants/auth";
 
 const query = gql`
   mutation ResetPassword($input: PasswordResetInput!) {

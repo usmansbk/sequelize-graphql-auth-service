@@ -20,14 +20,14 @@ import {
   USER_USERNAME_LEN_ERROR,
   USER_USERNAME_UNAVAILABLE_ERROR,
   USER_USERNAME_INVALID_FORMAT_ERROR,
-} from "~constants/i18n";
+} from "~helpers/constants/i18n";
 import {
   ACCOUNT_STATUS,
   PERMISSIONS_ALIAS,
   ROLES_ALIAS,
   USER_AVATAR_ALIAS,
   USER_ROLES_JOIN_TABLE,
-} from "~constants/models";
+} from "~helpers/constants/models";
 
 export default (sequelize, DataTypes) => {
   class User extends Model {

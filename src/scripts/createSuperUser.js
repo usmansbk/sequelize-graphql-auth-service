@@ -1,7 +1,7 @@
 import inquirer from "inquirer";
 import db from "~db/models";
 import log from "~utils/logger";
-import { PERMISSIONS_ALIAS } from "~constants/models";
+import { PERMISSIONS_ALIAS } from "~helpers/constants/models";
 
 const permissions = [
   {

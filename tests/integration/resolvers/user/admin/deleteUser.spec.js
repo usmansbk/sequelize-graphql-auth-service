@@ -1,7 +1,7 @@
 import { gql } from "apollo-server-express";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
-import { USER_PREFIX } from "~constants/auth";
+import { USER_PREFIX } from "~helpers/constants/auth";
 import cache from "~utils/cache";
 
 const query = gql`
