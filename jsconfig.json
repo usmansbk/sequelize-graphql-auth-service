@@ -3,7 +3,8 @@
     "baseUrl": ".",
     "paths": {
       "~*": ["./src/*"],
-      "tests/*": ["tests/*"]
+      "tests/*": ["tests/*"],
+      "locales/*": ["locales/*"]
     }
   }
 }

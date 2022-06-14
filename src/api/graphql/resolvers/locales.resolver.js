@@ -1,6 +1,6 @@
-import countries from "~helpers/constants/countries";
-import locales from "~helpers/constants/locales.json";
-import timezones from "~helpers/constants/timezones.json";
+import countries from "locales/countries.json";
+import locales from "locales/locales.json";
+import timezones from "locales/timezones.json";
 
 export default {
   Query: {

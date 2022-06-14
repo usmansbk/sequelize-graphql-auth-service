@@ -21,6 +21,7 @@ module.exports = {
           ["~helpers", "./src/helpers"],
           ["~constants", "./src/constants"],
           ["tests", "./tests"],
+          ["locales", "./locales"],
         ],
         extensions: [".ts", ".js", ".json"],
       },
