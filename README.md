@@ -36,7 +36,7 @@ mkdir certs
 ssh-keygen -t rsa -P "" -b 4096 -m PEM -f certs/jwtRS256.key
 
 ## Public key (only if the previous command does not automatically generate it)
-ssh-keygen -e -m PEM -f jwtRS256.key > jwtRS256.key.pub
+ssh-keygen -e -m PEM -f certs/jwtRS256.key > certs/jwtRS256.key.pub
 ```
 
 ## Run with Docker
