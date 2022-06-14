@@ -28,8 +28,9 @@ export default (sequelize, DataTypes) => {
           isUUID: 4,
         },
       },
-      clientId: {
+      clientID: {
         type: DataTypes.STRING,
+        allowNull: false,
         defaultValue() {
           return nanoid();
         },
