@@ -1,7 +1,8 @@
+import { SendRawEmailCommand } from "@aws-sdk/client-ses";
 import Email from "email-templates";
 import nodemailer from "nodemailer";
 import log from "~utils/logger";
-import aws, { ses } from "./aws";
+import { ses } from "./aws";
 import Sentry from "./sentry";
 
 const { NODE_ENV, MAIL_FROM } = process.env;
@@ -13,7 +14,7 @@ const email = new Email({
     from: MAIL_FROM,
   },
   transport: nodemailer.createTransport({
-    SES: { ses, aws },
+    SES: { ses, aws: { SendRawEmailCommand } },
   }),
   subjectPrefix: env === "development" && `[${env.toUpperCase()}] `,
   i18n: {

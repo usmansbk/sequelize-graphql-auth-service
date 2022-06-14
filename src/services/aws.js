@@ -13,8 +13,7 @@ export const s3Client = new S3Client({
 });
 
 export const ses = new SES({
+  apiVersion: "2010-12-01",
   region: AWS_REGION,
-  credentialDefaultProvider: defaultProvider,
+  defaultProvider,
 });
-
-export default { s3, ses };
