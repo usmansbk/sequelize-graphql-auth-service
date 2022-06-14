@@ -37,14 +37,14 @@
     "jest": "^28.1.1",
     "lint-staged": "^13.0.1",
     "nodemon": "^2.0.16",
-    "prettier": "^2.6.2",
+    "prettier": "^2.7.0",
     "sequelize-cli": "^6.4.1",
     "weak-napi": "^2.0.2"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.107.0",
-    "@aws-sdk/client-ses": "^3.107.0",
-    "@aws-sdk/credential-provider-node": "^3.105.0",
+    "@aws-sdk/client-s3": "^3.109.0",
+    "@aws-sdk/client-ses": "^3.109.0",
+    "@aws-sdk/credential-provider-node": "^3.109.0",
     "@babel/runtime": "^7.18.3",
     "@faker-js/faker": "^7.2.0",
     "@graphql-tools/load-files": "^6.5.4",
