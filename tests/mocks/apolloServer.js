@@ -7,7 +7,7 @@ import jwt from "~utils/jwt";
 import mailer from "~utils/mailer";
 import cache from "~utils/cache";
 import storage from "~utils/storage";
-import getUser from "~helpers/getUser";
+import getUser from "~utils/getUser";
 
 const clientId = process.env.WEB_CLIENT_ID;
 

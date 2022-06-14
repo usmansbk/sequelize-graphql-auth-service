@@ -1,5 +1,5 @@
 import FactoryBot from "tests/factories";
-import getUser from "~helpers/getUser";
+import getUser from "~utils/getUser";
 
 describe("getUser", () => {
   beforeEach(async () => {

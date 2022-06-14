@@ -7,7 +7,7 @@ import mailer from "~utils/mailer";
 import storage from "~utils/storage";
 import analytics from "~services/analytics";
 import Sentry from "~services/sentry";
-import getUser from "~helpers/getUser";
+import getUser from "~utils/getUser";
 import TokenError from "~utils/errors/TokenError";
 
 const contextMiddleware = async (req, _res, next) => {
