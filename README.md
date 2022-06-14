@@ -34,7 +34,7 @@ mkdir certs
 
 ssh-keygen -t rsa -P "" -b 4096 -m PEM -f certs/jwtRS256.key
 
-## Public key (only if the previous command does not automatically generate it)
+## Public key
 ssh-keygen -e -m PEM -f certs/jwtRS256.key > certs/jwtRS256.key.pub
 ```
 
