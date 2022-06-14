@@ -28,12 +28,18 @@ GraphQL server optimized for Sequelize ORM
 ## Generate JWT keys
 
 ```sh
-## Private key
-ssh-keygen -t rsa -P "" -b 4096 -m PEM -f jwtRS256.key
+## Create certificates folder
+mkdir certs
 
-## Public key
+## Private key
+
+ssh-keygen -t rsa -P "" -b 4096 -m PEM -f certs/jwtRS256.key
+
+## Public key (only if the previous command does not automatically generate it)
 ssh-keygen -e -m PEM -f jwtRS256.key > jwtRS256.key.pub
 ```
+
+Create a `certs` folder in the project root and move the generated keys there.
 
 ## Run with Docker
 
