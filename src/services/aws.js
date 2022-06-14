@@ -1,4 +1,4 @@
-import { SESClient } from "@aws-sdk/client-ses";
+import { SES } from "@aws-sdk/client-ses";
 import { S3Client, S3 } from "@aws-sdk/client-s3";
 import { defaultProvider } from "@aws-sdk/credential-provider-node";
 
@@ -12,7 +12,7 @@ export const s3Client = new S3Client({
   region: AWS_REGION,
 });
 
-export const ses = new SESClient({
+export const ses = new SES({
   region: AWS_REGION,
   credentialDefaultProvider: defaultProvider,
 });
