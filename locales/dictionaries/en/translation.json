@@ -28,5 +28,6 @@
   "UserUsernameInvalidFormatError": "Username should only contain letters, numbers, and underscore.",
   "IncorrectPasswordError": "Incorrect password.",
   "PasswordUpdated": "Your password has been updated.",
-  "ApplicationUpdated": "Application updated"
+  "ApplicationUpdated": "Application updated",
+  "ApplicationDelete": "Application deleted"
 }
