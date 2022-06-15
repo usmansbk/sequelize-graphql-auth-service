@@ -27,5 +27,6 @@
   "NothingToUpload": "Select a file to upload.",
   "UserUsernameInvalidFormatError": "Username should only contain letters, numbers, and underscore.",
   "IncorrectPasswordError": "Incorrect password.",
-  "PasswordUpdated": "Your password has been updated."
+  "PasswordUpdated": "Your password has been updated.",
+  "ApplicationUpdated": "Application updated"
 }
