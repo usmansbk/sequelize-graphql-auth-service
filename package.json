@@ -6,7 +6,7 @@
     "start": "node -r dotenv/config build",
     "dev": "nodemon --exec babel-node -r dotenv/config src",
     "createsu": "babel-node -r dotenv/config src/scripts/createSuperUser",
-    "clientid": "babel-node src/scripts/generateClientId",
+    "createapp": "babel-node -r dotenv/config src/scripts/createApplication",
     "test": "cross-env NODE_ENV=test jest -i",
     "prepare": "husky install",
     "seed": "npx sequelize-cli db:seed:all",
