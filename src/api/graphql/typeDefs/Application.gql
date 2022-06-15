@@ -19,12 +19,8 @@ type Mutation {
     input: CreateApplicationInput!
   ): ApplicationMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
-  updateApplicationName(
-    input: UpdateApplicationNameInput!
-  ): ApplicationMutationResponse!
-    @auth(rules: [{ allow: role, roles: ["admin"] }])
-  updateApplicationDescription(
-    input: UpdateApplicationDescriptionInput!
+  updateApplication(
+    input: UpdateApplicationInput!
   ): ApplicationMutationResponse!
     @auth(rules: [{ allow: role, roles: ["admin"] }])
   deleteApplication(id: ID!, reason: NonEmptyString): DeleteMutationResponse!
@@ -44,12 +40,8 @@ input CreateApplicationInput {
   description: NonEmptyString
 }
 
-input UpdateApplicationNameInput {
+input UpdateApplicationInput {
   id: ID!
   name: NonEmptyString!
-}
-
-input UpdateApplicationDescriptionInput {
-  id: ID!
   description: NonEmptyString
 }

@@ -28,39 +28,13 @@ export default {
         throw e;
       }
     },
-    async updateApplicationName(
+    async updateApplication(
       _parent,
-      { input: { id, name } },
+      { input: { id, ...values } },
       { dataSources, t }
     ) {
       try {
-        const application = await dataSources.applications.update(id, { name });
-
-        return Success({
-          application,
-          code: APPLICATION_UPDATED,
-          message: t(APPLICATION_UPDATED),
-        });
-      } catch (e) {
-        if (e instanceof QueryError) {
-          return Fail({
-            message: t(e.message),
-            errors: e.errors,
-            code: e.code,
-          });
-        }
-        throw e;
-      }
-    },
-    async updateApplicationDescription(
-      _parent,
-      { input: { id, description } },
-      { dataSources, t }
-    ) {
-      try {
-        const application = await dataSources.applications.update(id, {
-          description,
-        });
+        const application = await dataSources.applications.update(id, values);
 
         return Success({
           application,
