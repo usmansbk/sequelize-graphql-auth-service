@@ -101,22 +101,12 @@ docker-compose run --rm api yarn test
 Each supported client must pass a `client_id` in their request headers. Client IDs are strings assigned by the server.
 
 ```sh
-## Get new ID
-docker-compose run --rm api yarn clientId
-```
+## Create new app and get a clientID
+docker-compose run --rm api yarn createapp
 
-```sh
-## src/utils/jwt
-const clients = [
-  {
-    name: "Admin",
-    id: ADMIN_CLIENT_ID,
-  },
-  { name: "Web", id: WEB_CLIENT_ID },
-];
+## or list existing apps
+docker-compose run --rm api yarn listapp
 ```
-
-Your new client will need to add this `clientId` as part of it's request headers.
 
 ## [Mailer](https://nodemailer.com/transports/ses/)
 
