@@ -75,16 +75,13 @@ const generateToken = (payload = {}, expiresIn = "5 minutes") => {
  * @param { string } refreshTokenExp  - refresh token expiresIn (days)
  * @returns
  */
-const generateAuthTokens = async (
-  { aud, sub },
+const getAuthTokens = async (
+  sub,
   tokenExp = ACCESS_TOKEN_EXPIRES_IN,
   refreshTokenExp = REFRESH_TOKEN_EXPIRES_IN
 ) => {
-  const refreshToken = generateToken({ aud }, refreshTokenExp);
-  const accessToken = generateToken(
-    { aud, sub, sid: refreshToken.id },
-    tokenExp
-  );
+  const refreshToken = generateToken({ aud: "refresh" }, refreshTokenExp);
+  const accessToken = generateToken({ sub, sid: refreshToken.id }, tokenExp);
 
   return {
     accessToken: accessToken.token,
@@ -115,6 +112,6 @@ export default {
   verify,
   decode,
   generateToken,
-  generateAuthTokens,
+  getAuthTokens,
   verifySocialToken,
 };

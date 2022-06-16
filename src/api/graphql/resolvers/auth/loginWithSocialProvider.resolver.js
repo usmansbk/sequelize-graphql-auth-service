@@ -35,10 +35,9 @@ export default {
           lastLogin: dayjs.utc().toDate(),
         });
 
-        const { accessToken, refreshToken, sid, exp } =
-          await jwt.generateAuthTokens({
-            sub: id,
-          });
+        const { accessToken, refreshToken, sid, exp } = await jwt.getAuthTokens(
+          id
+        );
 
         await cache.set(`${clientId}:${id}`, sid, exp);
 

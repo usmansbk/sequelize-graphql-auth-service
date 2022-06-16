@@ -13,9 +13,7 @@ const clientId = process.env.TEST_CLIENT_ID;
 
 const auth = async (user) => {
   const currentUser = await getUser(user.id);
-  const { accessToken, sid, exp } = await jwt.generateAuthTokens({
-    sub: user.id,
-  });
+  const { accessToken, sid, exp } = await jwt.getAuthTokens(user.id);
   await cache.set(`${clientId}:${user.id}`, sid, exp);
   const isAdmin = currentUser.hasRole(["admin"]);
   const isRootUser = currentUser.hasRole(["root"]);

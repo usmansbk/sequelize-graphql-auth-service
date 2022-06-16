@@ -31,10 +31,9 @@ const refreshTokenController = async (req, res) => {
       }
     );
 
-    const { accessToken, refreshToken, exp, sid } =
-      await jwt.generateAuthTokens({
-        sub: user.id,
-      });
+    const { accessToken, refreshToken, exp, sid } = await jwt.getAuthTokens(
+      user.id
+    );
 
     await cache.set(`${clientId}:${user.id}`, sid, exp);
 
