@@ -2,7 +2,7 @@
   "name": "sequelize-graphql-server-template",
   "version": "1.0.0",
   "scripts": {
-    "build": "babel src -d build --copy-files",
+    "build": "yarn clean && yarn transpile",
     "start": "node -r dotenv/config build",
     "dev": "nodemon --exec babel-node -r dotenv/config src",
     "createsu": "babel-node -r dotenv/config src/scripts/createSuperUser",
@@ -11,7 +11,9 @@
     "test": "cross-env NODE_ENV=test jest -i",
     "prepare": "husky install",
     "seed": "npx sequelize-cli db:seed:all",
-    "undo:seed": "npx sequelize-cli db:seed:undo:all"
+    "undo:seed": "npx sequelize-cli db:seed:undo:all",
+    "clean": "npx rimraf build",
+    "transpile": "babel src -d build --copy-files"
   },
   "description": "Sequelize GraphQL server template",
   "main": "index.js",
@@ -39,6 +41,7 @@
     "lint-staged": "^13.0.1",
     "nodemon": "^2.0.16",
     "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
     "sequelize-cli": "^6.4.1",
     "weak-napi": "^2.0.2"
   },
