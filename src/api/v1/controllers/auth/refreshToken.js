@@ -3,13 +3,9 @@ import TokenError from "~utils/errors/TokenError";
 import { TOKEN_INVALID_ERROR } from "~helpers/constants/responseCodes";
 
 const refreshTokenController = async (req, res) => {
+  const { authorization, refresh_token: rfToken } = req.headers;
   const {
-    authorization,
-    refresh_token: rfToken,
-    client_id: clientId,
-  } = req.headers;
-  const {
-    context: { cache, jwt, db },
+    context: { cache, jwt, db, clientId },
     t,
   } = req;
 
@@ -24,7 +20,7 @@ const refreshTokenController = async (req, res) => {
       throw new TokenError(TOKEN_INVALID_ERROR);
     }
 
-    await db.User.update(
+    const user = await db.User.update(
       {
         lastLogin: dayjs.utc().toDate(),
       },
@@ -35,15 +31,12 @@ const refreshTokenController = async (req, res) => {
       }
     );
 
-    const { accessToken, refreshToken } = await jwt.generateAuthTokens({
-      sub: decodedRefreshToken.sub,
-    });
+    const { accessToken, refreshToken, exp, sid } =
+      await jwt.generateAuthTokens({
+        sub: user.id,
+      });
 
-    await cache.set(
-      `${clientId}:${decodedRefreshToken.sub}`,
-      refreshToken.id,
-      refreshToken.exp
-    );
+    await cache.set(`${clientId}:${user.id}`, sid, exp);
 
     res.json({
       success: true,

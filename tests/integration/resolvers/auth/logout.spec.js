@@ -32,7 +32,7 @@ describe("Mutation.logout", () => {
     const res = await server.executeOperation({ query }, { currentUser });
 
     const sessionId = await cache.get(
-      `${process.env.WEB_CLIENT_ID}:${currentUser.id}`
+      `${process.env.TEST_CLIENT_ID}:${currentUser.id}`
     );
 
     expect(res.data.logout).toEqual({
@@ -58,7 +58,7 @@ describe("Mutation.logout", () => {
     );
 
     const sessionId = await cache.get(
-      `${process.env.WEB_CLIENT_ID}:${currentUser.id}`
+      `${process.env.TEST_CLIENT_ID}:${currentUser.id}`
     );
 
     expect(res.data.logout).toEqual({

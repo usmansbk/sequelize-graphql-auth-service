@@ -35,7 +35,7 @@ describe("Mutation.signOutUser", () => {
       },
     });
     const otherUser = await FactoryBot.create("user");
-    const key = `${process.env.WEB_CLIENT_ID}:${otherUser.id}`;
+    const key = `${process.env.TEST_CLIENT_ID}:${otherUser.id}`;
     await cache.set(key, "mockToken", "1 minute");
 
     await server.executeOperation(

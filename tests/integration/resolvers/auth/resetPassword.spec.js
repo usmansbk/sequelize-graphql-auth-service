@@ -51,7 +51,7 @@ describe("Mutation.resetPassword", () => {
 
     await user.reload();
     const changed = await user.checkPassword(password);
-    const sid = await cache.get(`${process.env.WEB_CLIENT_ID}:${user.id}`);
+    const sid = await cache.get(`${process.env.TEST_CLIENT_ID}:${user.id}`);
 
     expect(res.data.resetPassword).toEqual({
       code: "PasswordChanged",

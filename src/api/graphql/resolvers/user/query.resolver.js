@@ -19,9 +19,9 @@ export default {
         user.status
       );
     },
-    async isLoggedIn(user, _args, { cache, jwt }) {
+    async isLoggedIn(user, _args, { cache, clients }) {
       const sessions = await Promise.all(
-        jwt.audience.map((aud) => cache.get(`${aud}:${user.id}`))
+        clients.map((cid) => cache.get(`${cid}:${user.id}`))
       );
       return sessions.some((session) => !!session);
     },

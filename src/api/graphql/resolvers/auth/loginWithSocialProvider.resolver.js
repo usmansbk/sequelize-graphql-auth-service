@@ -35,11 +35,12 @@ export default {
           lastLogin: dayjs.utc().toDate(),
         });
 
-        const { accessToken, refreshToken } = await jwt.generateAuthTokens({
-          sub: id,
-        });
+        const { accessToken, refreshToken, sid, exp } =
+          await jwt.generateAuthTokens({
+            sub: id,
+          });
 
-        await cache.set(`${clientId}:${id}`, refreshToken.id, refreshToken.exp);
+        await cache.set(`${clientId}:${id}`, sid, exp);
 
         analytics.track({
           userId: id,

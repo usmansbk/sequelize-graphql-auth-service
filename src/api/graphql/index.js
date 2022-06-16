@@ -32,7 +32,7 @@ const createApolloServer = (app) => {
     context: ({ req }) => {
       const { t, context } = req;
 
-      if (!context.jwt.audience.includes(context.clientId)) {
+      if (!context.clients.includes(context.clientId)) {
         throw new AuthenticationError(INVALID_CLIENT_ID);
       }
 

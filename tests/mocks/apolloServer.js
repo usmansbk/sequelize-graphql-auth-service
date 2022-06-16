@@ -9,14 +9,14 @@ import cache from "~utils/cache";
 import storage from "~utils/storage";
 import getUser from "~utils/getUser";
 
-const clientId = process.env.WEB_CLIENT_ID;
+const clientId = process.env.TEST_CLIENT_ID;
 
 const auth = async (user) => {
   const currentUser = await getUser(user.id);
-  const { accessToken, sid, refreshToken } = await jwt.generateAuthTokens({
+  const { accessToken, sid, exp } = await jwt.generateAuthTokens({
     sub: user.id,
   });
-  await cache.set(`${clientId}:${user.id}`, refreshToken.id, refreshToken.exp);
+  await cache.set(`${clientId}:${user.id}`, sid, exp);
   const isAdmin = currentUser.hasRole(["admin"]);
   const isRootUser = currentUser.hasRole(["root"]);
 
@@ -51,6 +51,7 @@ const createApolloTestServer = () => {
         mailer,
         clientId,
         storage,
+        clients: [clientId],
         ...payload,
       };
     },

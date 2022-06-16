@@ -5,14 +5,18 @@ import { LOGGED_OUT } from "~helpers/constants/responseCodes";
 export default {
   Mutation: {
     // Log out is idempotent
-    async logout(_parent, { all }, { cache, t, accessToken, jwt, clientId }) {
+    async logout(
+      _parent,
+      { all },
+      { cache, t, accessToken, jwt, clientId, clients }
+    ) {
       if (accessToken) {
         const { sub } = jwt.decode(accessToken);
 
         // delete session
         if (all) {
           await Promise.all(
-            jwt.audience.map((cid) => cache.remove(`${cid}:${sub}`))
+            clients.map((cid) => cache.remove(`${cid}:${sub}`))
           );
         } else {
           await cache.remove(`${clientId}:${sub}`);

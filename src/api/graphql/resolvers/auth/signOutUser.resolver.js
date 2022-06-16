@@ -4,11 +4,9 @@ import { LOGGED_OUT } from "~helpers/constants/responseCodes";
 
 export default {
   Mutation: {
-    async signOutUser(_parent, { id }, { cache, t, jwt }) {
+    async signOutUser(_parent, { id }, { cache, t, clients }) {
       // delete session
-      await Promise.all(
-        jwt.audience.map((cid) => cache.remove(`${cid}:${id}`))
-      );
+      await Promise.all(clients.map((cid) => cache.remove(`${cid}:${id}`)));
       analytics.track({
         userId: id,
         event: "Logged Out",

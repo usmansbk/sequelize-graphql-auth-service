@@ -19,6 +19,8 @@ const contextMiddleware = async (req, _res, next) => {
   let currentUser;
   let isRootUser = false;
   let isAdmin = false;
+  const apps = await db.Application.findAll();
+  const clients = apps.map((app) => app.clientID);
 
   if (accessToken) {
     try {
@@ -66,6 +68,7 @@ const contextMiddleware = async (req, _res, next) => {
     tokenInfo,
     sessionId,
     clientId,
+    clients,
     mailer,
     accessToken,
     currentUser,

@@ -20,12 +20,9 @@ import {
 } from "~helpers/constants/auth";
 import TokenError from "./errors/TokenError";
 
-const { WEB_CLIENT_ID, ADMIN_CLIENT_ID, JWT_PUBLIC_KEY, JWT_PRIVATE_KEY } =
-  process.env;
+const { JWT_PUBLIC_KEY, JWT_PRIVATE_KEY } = process.env;
 const privateKey = fs.readFileSync(JWT_PRIVATE_KEY);
 const publicKey = fs.readFileSync(JWT_PUBLIC_KEY);
-
-const audience = [WEB_CLIENT_ID, ADMIN_CLIENT_ID];
 
 /**
  * exp or any other claim is only set if the payload is an object literal.
@@ -39,7 +36,6 @@ const sign = (payload, expiresIn = "15m") => {
     expiresIn,
     issuer: process.env.HOST,
     algorithm: "RS256",
-    audience,
   });
 
   return { token, id };
@@ -50,7 +46,6 @@ const verify = (token, options = {}) => {
     return jwt.verify(token, publicKey, {
       ...options,
       issuer: process.env.HOST,
-      audience,
     });
   } catch (e) {
     if (e instanceof NotBeforeError) {
@@ -95,6 +90,7 @@ const generateAuthTokens = async (
     accessToken: accessToken.token,
     refreshToken: refreshToken.token,
     sid: refreshToken.id,
+    exp: refreshToken.exp,
   };
 };
 
@@ -121,5 +117,4 @@ export default {
   generateToken,
   generateAuthTokens,
   verifySocialToken,
-  audience,
 };

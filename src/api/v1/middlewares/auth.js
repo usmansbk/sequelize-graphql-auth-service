@@ -8,11 +8,11 @@ import { ACCOUNT_STATUS } from "~helpers/constants/models";
 
 const authMiddleware = (rules) => async (req, _res, next) => {
   try {
-    const { tokenInfo, sessionId, currentUser, clientId, jwt, isRootUser } =
+    const { tokenInfo, sessionId, currentUser, clientId, isRootUser, clients } =
       req.context;
     const isLoggedIn = tokenInfo && tokenInfo.sid === sessionId;
 
-    if (!jwt.audience.includes(clientId)) {
+    if (!clients.includes(clientId)) {
       throw new AuthenticationError(INVALID_CLIENT_ID);
     }
 
