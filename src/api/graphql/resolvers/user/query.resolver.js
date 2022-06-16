@@ -20,8 +20,8 @@ export default {
       );
     },
     async isLoggedIn(user, _args, { cache, clients }) {
-      const sessions = await Promise.all(
-        clients.map((cid) => cache.get(`${cid}:${user.id}`))
+      const sessions = await cache.getMany(
+        clients.map((cid) => `${cid}:${user.id}`)
       );
       return sessions.some((session) => !!session);
     },

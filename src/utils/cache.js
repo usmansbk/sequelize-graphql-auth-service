@@ -14,6 +14,8 @@ const get = (key) => client.get(key);
 
 const getAndDelete = (key) => client.getdel(key);
 
+const getMany = (keys) => client.mget(keys);
+
 const remove = (...args) => client.del(...args);
 
 const increment = (key) => client.incr(key);
@@ -44,6 +46,7 @@ export default {
   set,
   exists,
   get,
+  getMany,
   getAndDelete,
   remove,
   increment,
