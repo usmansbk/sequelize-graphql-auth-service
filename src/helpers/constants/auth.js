@@ -19,6 +19,7 @@ export const DELETE_ACCOUNT_KEY_PREFIX = "account:delete";
 export const FAILED_LOGIN_ATTEMPT_KEY_PREFIX = "login:attempt";
 export const USER_PREFIX = "user:account";
 export const ROLE_PERMISSIONS_PREFIX = "role:permissions";
+export const CLIENTS_CACHE_KEY = "clients";
 
 export const GOOGLE_PROVIDER = "GOOGLE";
 export const FACEBOOK_PROVIDER = "FACEBOOK";

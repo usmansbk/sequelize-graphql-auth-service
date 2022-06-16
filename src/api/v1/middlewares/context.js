@@ -9,6 +9,7 @@ import analytics from "~services/analytics";
 import Sentry from "~services/sentry";
 import getUser from "~utils/getUser";
 import TokenError from "~utils/errors/TokenError";
+import { CLIENTS_CACHE_KEY } from "~helpers/constants/auth";
 
 const contextMiddleware = async (req, _res, next) => {
   const { authorization, client_id: clientId } = req.headers;
@@ -19,8 +20,14 @@ const contextMiddleware = async (req, _res, next) => {
   let currentUser;
   let isRootUser = false;
   let isAdmin = false;
-  const apps = await db.Application.findAll();
-  const clients = apps.map((app) => app.clientID);
+
+  let clients = await cache.getJSON(CLIENTS_CACHE_KEY);
+
+  if (!clients) {
+    const apps = await db.Application.findAll();
+    clients = apps.map((app) => app.clientID);
+    await cache.setJSON(CLIENTS_CACHE_KEY, clients, "365 days");
+  }
 
   if (accessToken) {
     try {
