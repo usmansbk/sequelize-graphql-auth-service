@@ -5,12 +5,15 @@ import {
   APPLICATION_DELETED,
   APPLICATION_UPDATED,
 } from "~helpers/constants/responseCodes";
+import { CLIENTS_CACHE_KEY } from "~helpers/constants/auth";
 
 export default {
   Mutation: {
-    async createApplication(_parent, { input }, { dataSources, t }) {
+    async createApplication(_parent, { input }, { dataSources, t, cache }) {
       try {
         const application = await dataSources.applications.create(input);
+
+        await cache.remove(CLIENTS_CACHE_KEY);
 
         return Success({
           application,
@@ -52,9 +55,11 @@ export default {
         throw e;
       }
     },
-    async deleteApplication(_parent, { id }, { dataSources, t }) {
+    async deleteApplication(_parent, { id }, { dataSources, t, cache }) {
       try {
         await dataSources.applications.destroy(id);
+
+        await cache.remove(CLIENTS_CACHE_KEY);
 
         return Success({
           id,
