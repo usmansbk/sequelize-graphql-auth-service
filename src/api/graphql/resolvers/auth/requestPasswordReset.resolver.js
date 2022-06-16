@@ -12,7 +12,7 @@ export default {
     async requestPasswordReset(
       _parent,
       { email },
-      { dataSources, locale, cache, t, jwt, clientId, mailer }
+      { dataSources, locale, cache, t, jwt, mailer }
     ) {
       const user = await dataSources.users.findOne({
         where: {
@@ -28,7 +28,6 @@ export default {
         if (!sentToken) {
           const { token, exp } = jwt.generateToken(
             {
-              aud: clientId,
               sub: id,
             },
             RESET_PASSWORD_TOKEN_EXPIRES_IN

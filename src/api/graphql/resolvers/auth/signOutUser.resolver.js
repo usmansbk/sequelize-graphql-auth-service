@@ -7,7 +7,7 @@ export default {
     async signOutUser(_parent, { id }, { cache, t, jwt }) {
       // delete session
       await Promise.all(
-        jwt.audience.map((aud) => cache.remove(`${aud}:${id}`))
+        jwt.audience.map((cid) => cache.remove(`${cid}:${id}`))
       );
       analytics.track({
         userId: id,

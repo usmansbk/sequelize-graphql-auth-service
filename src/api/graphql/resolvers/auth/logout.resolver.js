@@ -12,7 +12,7 @@ export default {
         // delete session
         if (all) {
           await Promise.all(
-            jwt.audience.map((aud) => cache.remove(`${aud}:${sub}`))
+            jwt.audience.map((cid) => cache.remove(`${cid}:${sub}`))
           );
         } else {
           await cache.remove(`${clientId}:${sub}`);

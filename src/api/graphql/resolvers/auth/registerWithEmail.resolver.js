@@ -13,7 +13,7 @@ export default {
     async registerWithEmail(
       _parent,
       { input },
-      { dataSources, jwt, t, clientId }
+      { dataSources, jwt, t, cache, clientId }
     ) {
       try {
         const existingUser = await dataSources.users.findOne({
@@ -38,8 +38,9 @@ export default {
 
         const { accessToken, refreshToken } = await jwt.generateAuthTokens({
           sub: id,
-          aud: clientId,
         });
+
+        await cache.set(`${clientId}:${id}`, refreshToken.id, refreshToken.exp);
 
         analytics.track({
           userId: id,

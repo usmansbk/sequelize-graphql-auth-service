@@ -28,7 +28,7 @@ export default {
 
         // invalidate all refresh tokens
         await Promise.all(
-          jwt.audience.map((aud) => cache.remove(`${aud}:${sub}`))
+          jwt.audience.map((cid) => cache.remove(`${cid}:${sub}`))
         );
 
         // we can send an email here to inform user of the change...

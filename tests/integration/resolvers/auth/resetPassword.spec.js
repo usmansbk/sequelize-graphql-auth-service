@@ -25,7 +25,6 @@ describe("Mutation.resetPassword", () => {
     user = await FactoryBot.create("user");
     const result = jwt.generateToken({
       sub: user.id,
-      aud: process.env.WEB_CLIENT_ID,
     });
     token = result.token;
     await cache.set(

@@ -19,22 +19,13 @@ import {
   GOOGLE_PROVIDER,
 } from "~helpers/constants/auth";
 import TokenError from "./errors/TokenError";
-import cache from "./cache";
 
 const { WEB_CLIENT_ID, ADMIN_CLIENT_ID, JWT_PUBLIC_KEY, JWT_PRIVATE_KEY } =
   process.env;
 const privateKey = fs.readFileSync(JWT_PRIVATE_KEY);
 const publicKey = fs.readFileSync(JWT_PUBLIC_KEY);
 
-const clients = [
-  {
-    name: "Admin",
-    id: ADMIN_CLIENT_ID,
-  },
-  { name: "Web", id: WEB_CLIENT_ID },
-];
-
-const audience = clients.map(({ id }) => id);
+const audience = [WEB_CLIENT_ID, ADMIN_CLIENT_ID];
 
 /**
  * exp or any other claim is only set if the payload is an object literal.
@@ -48,6 +39,7 @@ const sign = (payload, expiresIn = "15m") => {
     expiresIn,
     issuer: process.env.HOST,
     algorithm: "RS256",
+    audience,
   });
 
   return { token, id };
@@ -99,9 +91,6 @@ const generateAuthTokens = async (
     tokenExp
   );
 
-  // Token rotation
-  await cache.set(`${aud}:${sub}`, refreshToken.id, refreshToken.exp);
-
   return {
     accessToken: accessToken.token,
     refreshToken: refreshToken.token,
@@ -133,5 +122,4 @@ export default {
   generateAuthTokens,
   verifySocialToken,
   audience,
-  clients,
 };

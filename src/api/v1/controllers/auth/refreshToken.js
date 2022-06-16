@@ -36,9 +36,14 @@ const refreshTokenController = async (req, res) => {
     );
 
     const { accessToken, refreshToken } = await jwt.generateAuthTokens({
-      aud: clientId,
       sub: decodedRefreshToken.sub,
     });
+
+    await cache.set(
+      `${clientId}:${decodedRefreshToken.sub}`,
+      refreshToken.id,
+      refreshToken.exp
+    );
 
     res.json({
       success: true,

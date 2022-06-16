@@ -12,7 +12,7 @@ export default {
     async requestDeleteAccount(
       _parent,
       _args,
-      { locale, cache, t, jwt, clientId, mailer, currentUser }
+      { locale, cache, t, jwt, mailer, currentUser }
     ) {
       const { firstName, id, email } = currentUser;
       const key = `${DELETE_ACCOUNT_KEY_PREFIX}:${id}`;
@@ -21,7 +21,6 @@ export default {
       if (!sentToken) {
         const { token, exp } = jwt.generateToken(
           {
-            aud: clientId,
             sub: id,
           },
           DELETE_ACCOUNT_TOKEN_EXPIRES_IN

@@ -36,7 +36,6 @@ describe("Mutation.deleteAccount", () => {
     const key = `${DELETE_ACCOUNT_KEY_PREFIX}:${user.id}`;
     const payload = jwt.generateToken({
       sub: user.id,
-      aud: process.env.WEB_CLIENT_ID,
     });
     token = payload.token;
     await cache.set(key, token, payload.exp);

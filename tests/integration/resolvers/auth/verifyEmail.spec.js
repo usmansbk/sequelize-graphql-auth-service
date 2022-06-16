@@ -39,7 +39,6 @@ describe("Mutation.verifyEmail", () => {
   test("should verify email and send welcome email", async () => {
     const user = await FactoryBot.create("user");
     const { token, exp } = jwt.generateToken({
-      aud: process.env.WEB_CLIENT_ID,
       sub: user.id,
     });
 

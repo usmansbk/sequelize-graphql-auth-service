@@ -14,7 +14,7 @@ export default {
     async loginWithSocialProvider(
       _parent,
       { input },
-      { t, dataSources, jwt, clientId }
+      { t, dataSources, jwt, cache, clientId }
     ) {
       try {
         const userInfo = await jwt.verifySocialToken(input);
@@ -37,8 +37,9 @@ export default {
 
         const { accessToken, refreshToken } = await jwt.generateAuthTokens({
           sub: id,
-          aud: clientId,
         });
+
+        await cache.set(`${clientId}:${id}`, refreshToken.id, refreshToken.exp);
 
         analytics.track({
           userId: id,
