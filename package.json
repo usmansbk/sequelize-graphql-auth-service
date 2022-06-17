@@ -38,7 +38,7 @@
     "husky": "^8.0.1",
     "ioredis-mock": "^8.2.2",
     "jest": "^28.1.1",
-    "lint-staged": "^13.0.1",
+    "lint-staged": "^13.0.2",
     "nodemon": "^2.0.16",
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
@@ -46,9 +46,9 @@
     "weak-napi": "^2.0.2"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.110.0",
-    "@aws-sdk/client-ses": "^3.110.0",
-    "@aws-sdk/credential-provider-node": "^3.110.0",
+    "@aws-sdk/client-s3": "^3.112.0",
+    "@aws-sdk/client-ses": "^3.112.0",
+    "@aws-sdk/credential-provider-node": "^3.112.0",
     "@babel/runtime": "^7.18.3",
     "@faker-js/faker": "^7.2.0",
     "@graphql-tools/load-files": "^6.5.4",
@@ -97,7 +97,7 @@
     "pug": "^3.0.2",
     "rate-limit-redis": "^3.0.1",
     "retry": "^0.13.1",
-    "sequelize": "^6.20.1",
+    "sequelize": "^6.21.0",
     "twilio": "^3.77.3"
   },
   "lint-staged": {

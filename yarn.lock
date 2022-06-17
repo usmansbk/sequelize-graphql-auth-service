@@ -200,17 +200,17 @@
   dependencies:
     tslib "^2.3.1"
 
-"@aws-sdk/client-s3@^3.110.0":
-  version "3.110.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-s3/-/client-s3-3.110.0.tgz#84d8e7732a3d4c61dafe72f7cb5b9c0629088f0e"
-  integrity sha512-Hi/ovI9ffTv0p9phuO96TgbKYPJp9jB2atUVtxCtWBNeJ6+PgXPzEl5KltlO7m4++l+/bzgc8E4l9OWiorc7HA==
+"@aws-sdk/client-s3@^3.112.0":
+  version "3.112.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-s3/-/client-s3-3.112.0.tgz#ee3e35a34f80d133e4a3d42bba099678e4945bf4"
+  integrity sha512-vB7+tnYSmyfa0qL0fLkKRgtmZVbAdpyTz/YNL8JYGwcc7jvYjEyGVIgvYMqE3VVE6VMlgMl5ZBlhBFL2XXSAJg==
   dependencies:
     "@aws-crypto/sha1-browser" "2.0.0"
     "@aws-crypto/sha256-browser" "2.0.0"
     "@aws-crypto/sha256-js" "2.0.0"
-    "@aws-sdk/client-sts" "3.110.0"
+    "@aws-sdk/client-sts" "3.112.0"
     "@aws-sdk/config-resolver" "3.110.0"
-    "@aws-sdk/credential-provider-node" "3.110.0"
+    "@aws-sdk/credential-provider-node" "3.112.0"
     "@aws-sdk/eventstream-serde-browser" "3.110.0"
     "@aws-sdk/eventstream-serde-config-resolver" "3.110.0"
     "@aws-sdk/eventstream-serde-node" "3.110.0"
@@ -260,16 +260,16 @@
     fast-xml-parser "3.19.0"
     tslib "^2.3.1"
 
-"@aws-sdk/client-ses@^3.110.0":
-  version "3.110.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-ses/-/client-ses-3.110.0.tgz#8110d94093c85e8b0feacf7131dd8a7bc8506599"
-  integrity sha512-m677QGUPIOwOkAHuwXd5EoCB7IiI+5b7xe/2T1CwKZNlgGDIDQQlpIuayDJ5SEcG34l9LQGh74ujDhX8gp0U9A==
+"@aws-sdk/client-ses@^3.112.0":
+  version "3.112.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-ses/-/client-ses-3.112.0.tgz#2d2a226d9b25e56585356a81b37ba09f24a18b2a"
+  integrity sha512-trwwT/SUfOhmsZk1//Img2wzsjcVXh1v63Iac1V1OlSfm+AEPrOjN6PhzIrcE/iPiG2o3xu/XWAuxp6+fULYsQ==
   dependencies:
     "@aws-crypto/sha256-browser" "2.0.0"
     "@aws-crypto/sha256-js" "2.0.0"
-    "@aws-sdk/client-sts" "3.110.0"
+    "@aws-sdk/client-sts" "3.112.0"
     "@aws-sdk/config-resolver" "3.110.0"
-    "@aws-sdk/credential-provider-node" "3.110.0"
+    "@aws-sdk/credential-provider-node" "3.112.0"
     "@aws-sdk/fetch-http-handler" "3.110.0"
     "@aws-sdk/hash-node" "3.110.0"
     "@aws-sdk/invalid-dependency" "3.110.0"
@@ -303,10 +303,10 @@
     fast-xml-parser "3.19.0"
     tslib "^2.3.1"
 
-"@aws-sdk/client-sso@3.110.0":
-  version "3.110.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-sso/-/client-sso-3.110.0.tgz#3945b1145bd780653fd7acb1d8aefa7fd309938f"
-  integrity sha512-Mzj8bfHaB+Ajghf0iMDdbpzL6jY+GbRDKATpmUOAswBDy72JifoBq7qUAV+NwhjUdF+jUzXkdCAAIaai2kglrg==
+"@aws-sdk/client-sso@3.112.0":
+  version "3.112.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-sso/-/client-sso-3.112.0.tgz#5f308d34566441b94c633018af74036530e69ac6"
+  integrity sha512-FwFmiapxuVQiyMdDaBvCpajnJkVWEUHBdO+7rIpzgKHkODEPou5/AwboaGRPEFYULOyYeI0HiDFzpK0G6de+7Q==
   dependencies:
     "@aws-crypto/sha256-browser" "2.0.0"
     "@aws-crypto/sha256-js" "2.0.0"
@@ -340,15 +340,15 @@
     "@aws-sdk/util-utf8-node" "3.109.0"
     tslib "^2.3.1"
 
-"@aws-sdk/client-sts@3.110.0":
-  version "3.110.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-sts/-/client-sts-3.110.0.tgz#cab709b17af4a6ce4b79c154ae2c22d98d84fc46"
-  integrity sha512-BJD0fxCoqqL7eA/tRRj7z5n4/P8tIZZgOOWJqd6euf6t90uPssz/MJw01bFJBljMl4BtMGvLXHKkyzWtVezI0w==
+"@aws-sdk/client-sts@3.112.0":
+  version "3.112.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-sts/-/client-sts-3.112.0.tgz#97aa584562b7b9b18ca09b5a025e3f5093e07a72"
+  integrity sha512-hSApRO2wg3jk9VRGM6SCZO3aFP7DKVSUqs6FrvlXlj+JU88ZKObjrGE61cCzXoD89Dh+b9t8A2T6W51Nzriaxw==
   dependencies:
     "@aws-crypto/sha256-browser" "2.0.0"
     "@aws-crypto/sha256-js" "2.0.0"
     "@aws-sdk/config-resolver" "3.110.0"
-    "@aws-sdk/credential-provider-node" "3.110.0"
+    "@aws-sdk/credential-provider-node" "3.112.0"
     "@aws-sdk/fetch-http-handler" "3.110.0"
     "@aws-sdk/hash-node" "3.110.0"
     "@aws-sdk/invalid-dependency" "3.110.0"
@@ -413,30 +413,30 @@
     "@aws-sdk/url-parser" "3.110.0"
     tslib "^2.3.1"
 
-"@aws-sdk/credential-provider-ini@3.110.0":
-  version "3.110.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/credential-provider-ini/-/credential-provider-ini-3.110.0.tgz#88e3c00da31634f219b5d7036a150d5819210836"
-  integrity sha512-DVbCWGnvXBvxdf0XGB0nVQjZNwEJc7OhhBFUfF/bP2LXwyZX7n2w4NGNpi2fLnwrgbySoPNbBpp8X3NhVvK14g==
+"@aws-sdk/credential-provider-ini@3.112.0":
+  version "3.112.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/credential-provider-ini/-/credential-provider-ini-3.112.0.tgz#46001d9e61957ddc5a253ba2c45be92474960b43"
+  integrity sha512-ebgZ6/jZdTGHQ3zfq/ccmS+7YmLk6yUWHDmh69VK+B1Dd+S1jFwbD9EQ+pYWCp/gEl9F620NSwb6KghRylPWEQ==
   dependencies:
     "@aws-sdk/credential-provider-env" "3.110.0"
     "@aws-sdk/credential-provider-imds" "3.110.0"
-    "@aws-sdk/credential-provider-sso" "3.110.0"
+    "@aws-sdk/credential-provider-sso" "3.112.0"
     "@aws-sdk/credential-provider-web-identity" "3.110.0"
     "@aws-sdk/property-provider" "3.110.0"
     "@aws-sdk/shared-ini-file-loader" "3.110.0"
     "@aws-sdk/types" "3.110.0"
     tslib "^2.3.1"
 
-"@aws-sdk/credential-provider-node@3.110.0", "@aws-sdk/credential-provider-node@^3.110.0":
-  version "3.110.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/credential-provider-node/-/credential-provider-node-3.110.0.tgz#263a8f7f0bac1645c1ef09ff94bbb7efd5163042"
-  integrity sha512-6AE97H6KDwOYTRjzP7dIyEg4jUd33ZLehgmtaBbJ1GhchtU3L8W0+Mh7ICpwKX/cYMJcKJKzT27BwYVWtOtCDA==
+"@aws-sdk/credential-provider-node@3.112.0", "@aws-sdk/credential-provider-node@^3.112.0":
+  version "3.112.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/credential-provider-node/-/credential-provider-node-3.112.0.tgz#66a87f8d759aabca06bf3205453e1a28301ddeac"
+  integrity sha512-7txS7P3BAaU4cksFw/PnoVskVvO8h/TPvOl/BxFtCiUdwA6FRltLvBeMlN08fwUoqgM6z06q8areBdeDqCHOSw==
   dependencies:
     "@aws-sdk/credential-provider-env" "3.110.0"
     "@aws-sdk/credential-provider-imds" "3.110.0"
-    "@aws-sdk/credential-provider-ini" "3.110.0"
+    "@aws-sdk/credential-provider-ini" "3.112.0"
     "@aws-sdk/credential-provider-process" "3.110.0"
-    "@aws-sdk/credential-provider-sso" "3.110.0"
+    "@aws-sdk/credential-provider-sso" "3.112.0"
     "@aws-sdk/credential-provider-web-identity" "3.110.0"
     "@aws-sdk/property-provider" "3.110.0"
     "@aws-sdk/shared-ini-file-loader" "3.110.0"
@@ -453,12 +453,12 @@
     "@aws-sdk/types" "3.110.0"
     tslib "^2.3.1"
 
-"@aws-sdk/credential-provider-sso@3.110.0":
-  version "3.110.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/credential-provider-sso/-/credential-provider-sso-3.110.0.tgz#2a9c21eb4c7033d465c0c42f91af648a7fae1a7c"
-  integrity sha512-fXV9mc/2U2M5pP5E61uBSFdQXIMgNO4yebitkqNiseI3lg5dJVkYGfiWlvw6qGo6BNxKiEmvJD5Mu6/laYIvbw==
+"@aws-sdk/credential-provider-sso@3.112.0":
+  version "3.112.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/credential-provider-sso/-/credential-provider-sso-3.112.0.tgz#1ef5e8f331040b8e5be9b011f8074c682bf068ba"
+  integrity sha512-b6rOrSXbNK3fGyPvNpyF5zdktmAoNOqHCTmFSUcxRxOipyRGb5JACsbjWthIQkpWkpNCT8GFNLEg9spXPFIdLA==
   dependencies:
-    "@aws-sdk/client-sso" "3.110.0"
+    "@aws-sdk/client-sso" "3.112.0"
     "@aws-sdk/property-provider" "3.110.0"
     "@aws-sdk/shared-ini-file-loader" "3.110.0"
     "@aws-sdk/types" "3.110.0"
@@ -7085,10 +7085,10 @@ linkify-it@3.0.3:
   dependencies:
     uc.micro "^1.0.1"
 
-lint-staged@^13.0.1:
-  version "13.0.1"
-  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-13.0.1.tgz#899e78065ab29b88fdd922482411121664ef66be"
-  integrity sha512-Ykaf4QTi0a02BF7cnq7JIPGOJxH4TkNMWhSlJdH9wOekd0X+gog47Jfh/0L31DqZe5AiydLGC7LkPqpaNm+Kvg==
+lint-staged@^13.0.2:
+  version "13.0.2"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-13.0.2.tgz#35a1c57130e9ad5b1dea784972a40777ba433dd5"
+  integrity sha512-qQLfLTh9z34eMzfEHENC+QBskZfxjomrf+snF3xJ4BzilORbD989NLqQ00ughsF/A+PT41e87+WsMFabf9++pQ==
   dependencies:
     cli-truncate "^3.1.0"
     colorette "^2.0.17"
@@ -8904,10 +8904,10 @@ sequelize-pool@^7.1.0:
   resolved "https://registry.yarnpkg.com/sequelize-pool/-/sequelize-pool-7.1.0.tgz#210b391af4002762f823188fd6ecfc7413020768"
   integrity sha512-G9c0qlIWQSK29pR/5U2JF5dDQeqqHRragoyahj/Nx4KOOQ3CPPfzxnfqFPCSB7x5UgjOgnZ61nSxz+fjDpRlJg==
 
-sequelize@^6.20.1:
-  version "6.20.1"
-  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-6.20.1.tgz#1c796fa9134e46fefd9509e6e8ac947131b214ba"
-  integrity sha512-1YBMv++Yy1JBFFiac1Xoa+Km5qV6YI1ckdkW0xyD7IpLMtE5JmjgZdZXGfwgRUNjhaKMxdzT+nkvJgeXO0rv/g==
+sequelize@^6.21.0:
+  version "6.21.0"
+  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-6.21.0.tgz#8b3858a1257a4e8741faece714683a43dc44dafa"
+  integrity sha512-QItP+QMoZL7KWaYtmRRb41sQ9Ua+dpWQbdREO4jYIUBg5hUfRiGq2i2/gAa25B84ft0EzDPY3UvCQS945ytNvA==
   dependencies:
     "@types/debug" "^4.1.7"
     "@types/validator" "^13.7.1"
