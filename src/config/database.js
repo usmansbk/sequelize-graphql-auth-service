@@ -7,6 +7,7 @@ const {
   DB_NAME_TEST,
   DB_HOST,
   DB_DIALECT,
+  DB_PORT,
 } = process.env;
 
 const dialect = DB_DIALECT;
@@ -17,6 +18,7 @@ module.exports = {
     username: DB_USERNAME,
     password: DB_PASSWORD,
     database: DB_NAME_DEV,
+    port: DB_PORT,
     host,
     dialect,
   },
