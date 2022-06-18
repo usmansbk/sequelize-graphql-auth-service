@@ -26,6 +26,7 @@ module.exports = {
     username: DB_USERNAME,
     password: DB_PASSWORD,
     database: DB_NAME_TEST,
+    port: DB_PORT,
     host,
     dialect,
     logging: false,
