@@ -7,7 +7,7 @@ const define = {
     lastName: faker.name.lastName(),
     email: faker.unique(faker.internet.email),
     password: faker.internet.password(6),
-    phoneNumber: faker.phone.phoneNumber("+234##########"),
+    phoneNumber: faker.phone.number("+234##########"),
     username: faker.unique(faker.internet.userName),
     locale: "en",
   }),
