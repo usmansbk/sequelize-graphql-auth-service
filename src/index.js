@@ -15,9 +15,9 @@ const app = express();
 useLanguageMiddleware(app);
 
 app.use(cors());
+app.use(apiLimiter);
 app.use(contextMiddleware);
 app.use(Sentry.Handlers.requestHandler());
-app.use(apiLimiter);
 app.use("/v1", v1);
 
 if (app.get("env") === "production") {
