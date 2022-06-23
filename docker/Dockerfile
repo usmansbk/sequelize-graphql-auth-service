@@ -10,7 +10,7 @@ RUN apk add --no-cache python3 g++ make
 
 COPY package.json yarn.lock ./
 
-RUN yarn install
+RUN yarn
 
 COPY . .
 
