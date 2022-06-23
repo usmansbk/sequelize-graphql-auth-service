@@ -1,15 +1,14 @@
-# Sequelize GraphQL Server Template
+# Sequelize GraphQL Auth Microservice Template
 
-GraphQL server optimized for Sequelize ORM
+GraphQL authentication server optimized for Sequelize ORM
 
 ## Features
 
-- [x] Email authentication
-- [x] SMS OTP
-- [x] Social authentication (Google and Facebook)
+- [x] User Management
 - [x] RBAC
-- [x] Profile (Update and Delete)
-- [x] File Upload
+- [x] Email authentication
+- [x] Social authentication (Google and Facebook)
+- [x] SMS OTP
 - [x] i18n
 - [x] Dockerize
 - [x] Analytics

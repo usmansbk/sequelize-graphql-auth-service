@@ -1,12 +1,10 @@
 # syntax=docker/dockerfile:1
 
-FROM node:16-alpine 
+FROM node:16-alpine AS build
 
-ARG NODE_ENV=development
+RUN apk add --no-cache python3 g++ make
 
-RUN apk add --no-cache python2 g++ make
-
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY package.json yarn.lock ./
 

@@ -3,7 +3,7 @@ require("dotenv").config();
 const {
   DB_USERNAME,
   DB_PASSWORD,
-  DB_NAME_DEV,
+  DB_NAME,
   DB_NAME_TEST,
   DB_HOST,
   DB_DIALECT,
@@ -17,7 +17,7 @@ module.exports = {
   development: {
     username: DB_USERNAME,
     password: DB_PASSWORD,
-    database: DB_NAME_DEV,
+    database: DB_NAME,
     port: DB_PORT,
     host,
     dialect,

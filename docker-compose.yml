@@ -2,8 +2,8 @@ version: "3.9"
 
 services:
   api:
-    container_name: simple-server
-    image: simple-server
+    container_name: auth-server
+    image: auth-server
     restart: always
     build: ./
     env_file: .env
@@ -13,7 +13,7 @@ services:
     ports:
       - 4000:4000
     volumes:
-      - ./:/usr/src/app
+      - ./:/app
 
   db:
     container_name: postgresql_db
@@ -22,7 +22,7 @@ services:
     environment:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
-      POSTGRES_DB: simple-server-dev
+      POSTGRES_DB: user-pool
     ports:
       - 5432:5432
     volumes:
