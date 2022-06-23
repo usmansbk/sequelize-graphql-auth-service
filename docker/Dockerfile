@@ -3,7 +3,7 @@
 FROM node:16-alpine
 ENV NODE_ENV=development
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
 # Only for Mac M1 chips
 RUN apk add --no-cache python3 g++ make
