@@ -40,6 +40,7 @@ describe("Mutation.verifyEmail", () => {
     const user = await FactoryBot.create("user");
     const { token, exp } = jwt.generateToken({
       sub: user.id,
+      aud: [process.env.TEST_CLIENT_ID],
     });
 
     const key = `${EMAIL_VERIFICATION_KEY_PREFIX}:${user.id}`;

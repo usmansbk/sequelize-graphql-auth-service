@@ -12,7 +12,7 @@ export default {
     async requestEmailVerification(
       _parent,
       { email },
-      { locale, cache, t, jwt, mailer, dataSources }
+      { locale, cache, t, jwt, mailer, dataSources, clients }
     ) {
       const { firstName, id, emailVerified } = await dataSources.users.findOne({
         where: { email },
@@ -24,6 +24,7 @@ export default {
         const { token, exp } = jwt.generateToken(
           {
             sub: id,
+            aud: clients,
           },
           EMAIL_VERIFICATION_TOKEN_EXPIRES_IN
         );
