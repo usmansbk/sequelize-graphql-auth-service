@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import db from "~db/models";
 import log from "~utils/logger";
 

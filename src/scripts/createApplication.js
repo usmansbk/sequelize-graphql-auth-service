@@ -7,8 +7,6 @@ import log from "~utils/logger";
 const { sequelize, Application } = db;
 
 const createApplication = async () => {
-  console.log("Create Application:");
-
   const answers = await inquirer.prompt([
     {
       type: "input",
@@ -26,8 +24,7 @@ const createApplication = async () => {
     const app = await Application.create(answers);
     await client.del(CLIENTS_CACHE_KEY);
     client.disconnect();
-
-    console.log("************************************************************");
+    // eslint-disable-next-line no-console
     console.log("Application created. Your clientID is", app.toJSON().clientID);
     await sequelize.close();
   } catch (e) {
