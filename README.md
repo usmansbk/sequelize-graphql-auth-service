@@ -56,25 +56,25 @@ docker-compose build
 ### Install dependencies
 
 ```sh
-docker-compose run --rm api yarn
+docker-compose run --rm auth-server yarn
 ```
 
 ### Create database
 
 ```sh
-docker-compose run --rm api npx cross-env NODE_ENV=development sequelize db:create
+docker-compose run --rm auth-server npx cross-env NODE_ENV=development sequelize db:create
 ```
 
 ### Seed DB
 
 ```sh
-docker-compose run --rm api npx cross-env NODE_ENV=development sequelize db:seed:all
+docker-compose run --rm auth-server npx cross-env NODE_ENV=development sequelize db:seed:all
 ```
 
 ### Create root user
 
 ```sh
-docker-compose run --rm api yarn createsu
+docker-compose run --rm auth-server yarn createsu
 ```
 
 ### Start container
@@ -88,11 +88,11 @@ docker-compose up
 create a test database if you haven't
 
 ```sh
-docker-compose run --rm api npx cross-env NODE_ENV=test sequelize db:create
+docker-compose run --rm auth-server npx cross-env NODE_ENV=test sequelize db:create
 ```
 
 ```sh
-docker-compose run --rm api yarn test
+docker-compose run --rm auth-server yarn test
 ```
 
 ## Clients (Mobile, Web, etc)
@@ -101,15 +101,15 @@ Each supported client must pass a `client_id` in their request headers. Client I
 
 ```sh
 ## Create new app to get a clientID
-docker-compose run --rm api yarn createapp
+docker-compose run --rm auth-server yarn createapp
 
 ## or list existing apps
-docker-compose run --rm api yarn listapp
+docker-compose run --rm auth-server yarn listapp
 ```
 
 ## [Mailer](https://nodemailer.com/transports/ses/)
 
-The server makes use of AWS SES to send emails. Setup your SES account and add the following environment variables. Ensure you have this [AWS IAM Policy](https://nodemailer.com/transports/ses/#example-3).
+The server makes use of AWS SES to send emails. Setup your SES account and add the following environment variables. Verify your development email and ensure you have this [AWS IAM Policy](https://nodemailer.com/transports/ses/#example-3).
 
 ```sh
 MAIL_FROM=sender@example.com

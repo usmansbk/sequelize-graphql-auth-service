@@ -1,17 +1,15 @@
 # syntax=docker/dockerfile:1
 
-FROM node:16-alpine
+FROM node:16
 ENV NODE_ENV=development
 
 WORKDIR /usr/src/app
 
-# Only for Mac M1 chips
-RUN apk add --no-cache python3 g++ make
+COPY package*.json yarn.lock ./
 
-COPY package.json yarn.lock ./
-
-RUN yarn
+RUN yarn install
 
 COPY . .
 
+EXPOSE 4000
 CMD yarn dev

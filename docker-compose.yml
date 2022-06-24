@@ -3,7 +3,7 @@ version: "3.9"
 services:
   api:
     container_name: auth-server
-    image: auth-server
+    image: usmansbk/auth-server
     restart: always
     build:
       context: .
@@ -16,6 +16,7 @@ services:
       - 4000:4000
     volumes:
       - ./:/usr/src/app
+      - /usr/src/app/node_modules
 
   db:
     container_name: postgresql_db
