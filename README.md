@@ -76,7 +76,7 @@ docker exec -it auth-server sh
 ### Seed DB
 
 ```sh
-npx sequelize db:seed:all
+yarn seed
 ```
 
 ### Create root user
