@@ -116,7 +116,8 @@ npx cross-env NODE_ENV=test sequelize db:create
 ```
 
 ```sh
-yarn test
+## Exit shell and run
+docker compose run api yarn test
 ```
 
 ## [Mailer](https://nodemailer.com/transports/ses/)
