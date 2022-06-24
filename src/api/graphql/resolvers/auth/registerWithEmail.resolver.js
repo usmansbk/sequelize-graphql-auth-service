@@ -37,7 +37,10 @@ export default {
         const { id, firstName } = await dataSources.users.create(input);
 
         const { accessToken, refreshToken, sid, exp } = await jwt.getAuthTokens(
-          id
+          id,
+          {
+            clientId,
+          }
         );
 
         await cache.set(`${clientId}:${id}`, sid, exp);

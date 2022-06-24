@@ -12,10 +12,10 @@ export default {
     async resetPassword(
       _parent,
       { input: { password, token } },
-      { dataSources, cache, t, jwt, clients }
+      { dataSources, cache, t, jwt, clients, clientId }
     ) {
       try {
-        const { sub } = jwt.verify(token);
+        const { sub } = jwt.verify(token, { clientId });
         const key = `${PASSWORD_KEY_PREFIX}:${sub}`;
         const expectedToken = await cache.getAndDelete(key);
 

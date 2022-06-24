@@ -11,7 +11,7 @@ const refreshTokenController = async (req, res) => {
 
   try {
     const expiredToken = jwt.decode(authorization);
-    const decodedRefreshToken = jwt.verify(rfToken); // this will throw an error if invalid
+    const decodedRefreshToken = jwt.verify(rfToken, { clientId }); // this will throw an error if invalid
 
     const key = `${clientId}:${expiredToken.sub}`;
     const expectedJti = await cache.get(key);
@@ -32,7 +32,8 @@ const refreshTokenController = async (req, res) => {
     );
 
     const { accessToken, refreshToken, exp, sid } = await jwt.getAuthTokens(
-      user.id
+      user.id,
+      { clientId }
     );
 
     await cache.set(`${clientId}:${user.id}`, sid, exp);

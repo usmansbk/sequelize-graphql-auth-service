@@ -31,7 +31,7 @@ const contextMiddleware = async (req, _res, next) => {
 
   if (accessToken) {
     try {
-      tokenInfo = jwt.verify(accessToken);
+      tokenInfo = jwt.verify(accessToken, { clientId });
       sessionId = await cache.get(`${clientId}:${tokenInfo.sub}`);
 
       currentUser = await getUser(tokenInfo.sub);

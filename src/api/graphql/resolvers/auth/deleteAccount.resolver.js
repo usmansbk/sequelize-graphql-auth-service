@@ -9,9 +9,13 @@ import analytics from "~services/analytics";
 
 export default {
   Mutation: {
-    async deleteAccount(_parent, { token }, { dataSources, cache, t, jwt }) {
+    async deleteAccount(
+      _parent,
+      { token },
+      { dataSources, cache, t, jwt, clientId }
+    ) {
       try {
-        const { sub } = jwt.verify(token);
+        const { sub } = jwt.verify(token, { clientId });
         const key = `${DELETE_ACCOUNT_KEY_PREFIX}:${sub}`;
         const expectedToken = await cache.get(key);
 

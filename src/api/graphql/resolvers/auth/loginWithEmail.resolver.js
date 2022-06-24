@@ -69,7 +69,10 @@ export default {
         });
 
         const { accessToken, refreshToken, sid, exp } = await jwt.getAuthTokens(
-          id
+          id,
+          {
+            clientId,
+          }
         );
 
         await cache.set(`${clientId}:${id}`, sid, exp);

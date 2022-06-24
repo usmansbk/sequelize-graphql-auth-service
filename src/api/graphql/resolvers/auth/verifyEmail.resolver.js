@@ -14,10 +14,10 @@ export default {
     async verifyEmail(
       _parent,
       { token },
-      { dataSources, cache, t, jwt, mailer, locale }
+      { dataSources, cache, t, jwt, mailer, locale, clientId }
     ) {
       try {
-        const { sub } = jwt.verify(token);
+        const { sub } = jwt.verify(token, { clientId });
         const key = `${EMAIL_VERIFICATION_KEY_PREFIX}:${sub}`;
 
         const expectedToken = await cache.getAndDelete(key);

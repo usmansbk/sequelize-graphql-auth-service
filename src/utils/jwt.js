@@ -41,11 +41,12 @@ const sign = (payload, expiresIn = "15m") => {
   return { token, id };
 };
 
-const verify = (token, options = {}) => {
+const verify = (token, { clientId, ...options } = {}) => {
   try {
     return jwt.verify(token, publicKey, {
       ...options,
       issuer: process.env.HOST,
+      audience: clientId,
     });
   } catch (e) {
     if (e instanceof NotBeforeError) {
@@ -77,11 +78,17 @@ const generateToken = (payload = {}, expiresIn = "5 minutes") => {
  */
 const getAuthTokens = async (
   sub,
-  tokenExp = ACCESS_TOKEN_EXPIRES_IN,
-  refreshTokenExp = REFRESH_TOKEN_EXPIRES_IN
+  {
+    tokenExp = ACCESS_TOKEN_EXPIRES_IN,
+    refreshTokenExp = REFRESH_TOKEN_EXPIRES_IN,
+    clientId: aud,
+  }
 ) => {
-  const refreshToken = generateToken({ aud: "refresh" }, refreshTokenExp);
-  const accessToken = generateToken({ sub, sid: refreshToken.id }, tokenExp);
+  const refreshToken = generateToken({ aud }, refreshTokenExp);
+  const accessToken = generateToken(
+    { sub, aud, sid: refreshToken.id },
+    tokenExp
+  );
 
   return {
     accessToken: accessToken.token,
