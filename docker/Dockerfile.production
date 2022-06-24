@@ -19,4 +19,4 @@ COPY ./emails ./emails
 COPY ./locales ./locales
 COPY ./certs ./certs
 EXPOSE 4000
-RUN yarn start 
+CMD yarn start 
