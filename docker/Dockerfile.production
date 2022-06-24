@@ -1,17 +1,19 @@
 # syntax=docker/dockerfile:1
 
-FROM node:16-alpine AS build
-ENV NODE_ENV=production
-
+FROM node:16 AS build
+ENV NODE_ENV=development
 WORKDIR /app
-
-# Only for Mac M1 chips
-RUN apk add --no-cache python3 g++ make
-
-COPY package.json yarn.lock ./
-
-RUN yarn
-
+COPY package*.json yarn.lock ./
+RUN yarn install
 COPY . .
+CMD yarn build
 
-CMD yarn start 
+FROM node:16
+ENV NODE_ENV=production
+WORKDIR /usr/src/app
+COPY package*.json yarn.lock ./
+RUN yarn install
+COPY --from=build /app/build ./build
+# copy emails, locales, certs, .sequelize, & .env
+EXPOSE 4000
+RUN yarn start 
