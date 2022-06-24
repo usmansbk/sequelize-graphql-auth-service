@@ -56,25 +56,7 @@ docker-compose build
 ### Install dependencies
 
 ```sh
-docker-compose run --rm auth-server yarn
-```
-
-### Create database
-
-```sh
-docker-compose run --rm auth-server npx cross-env NODE_ENV=development sequelize db:create
-```
-
-### Seed DB
-
-```sh
-docker-compose run --rm auth-server npx cross-env NODE_ENV=development sequelize db:seed:all
-```
-
-### Create root user
-
-```sh
-docker-compose run --rm auth-server yarn createsu
+yarn
 ```
 
 ### Start container
@@ -83,16 +65,24 @@ docker-compose run --rm auth-server yarn createsu
 docker-compose up
 ```
 
-### Test
+### Access contianer shell
 
-create a test database if you haven't
+Every command should be done in a docker container cli
 
 ```sh
-docker-compose run --rm auth-server npx cross-env NODE_ENV=test sequelize db:create
+docker exec -it auth-server sh
 ```
 
+### Seed DB
+
 ```sh
-docker-compose run --rm auth-server yarn test
+npx sequelize db:seed:all
+```
+
+### Create root user
+
+```sh
+yarn createsu
 ```
 
 ## Clients (Mobile, Web, etc)
@@ -101,10 +91,22 @@ Each supported client must pass a `client_id` in their request headers. Client I
 
 ```sh
 ## Create new app to get a clientID
-docker-compose run --rm auth-server yarn createapp
+yarn createapp
 
 ## or list existing apps
-docker-compose run --rm auth-server yarn listapp
+yarn listapp
+```
+
+### Test
+
+create a test database if you haven't
+
+```sh
+npx cross-env NODE_ENV=test sequelize db:create
+```
+
+```sh
+yarn test
 ```
 
 ## [Mailer](https://nodemailer.com/transports/ses/)
