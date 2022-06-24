@@ -237,11 +237,11 @@ Model specific logic should be moved to their associated data sources, and resol
 ## Build
 
 ```sh
-docker build -t [namespace]/[image_name]:[tag] .
+docker build . -t [namespace]/[image_name]:[tag] -f docker/Dockerfile
 ```
 
 ```sh
-docker push [namespace]/[image_name]:[tag]
+docker push [namespace]/[image_name]:[tag] -f docker/Dockerfile
 ```
 
 ## Readings
