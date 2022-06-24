@@ -65,7 +65,7 @@ yarn
 docker-compose up
 ```
 
-### Access contianer shell
+### Access container shell
 
 Every command should be done in a docker container cli
 
