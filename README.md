@@ -67,7 +67,7 @@ docker-compose up
 
 ### Access container shell
 
-Every command should be done in a docker container cli
+Subsequent commands should be done in a docker container shell
 
 ```sh
 docker exec -it auth-server sh
@@ -82,7 +82,11 @@ yarn seed
 ### Create root user
 
 ```sh
+## Prod
 yarn createsu
+
+## Dev
+npx babel-node -r dotenv/config build/scripts/createSuperUser",
 ```
 
 ## Clients (Mobile, Web, etc)
@@ -90,11 +94,16 @@ yarn createsu
 Each supported client must pass a `client_id` in their request headers. Client IDs are strings assigned by the server.
 
 ```sh
-## Create new app to get a clientID
+## Create new app to get a clientID (Prod)
 yarn createapp
 
-## or list existing apps
+# npx babel-node -r dotenv/config build/scripts/createApplication
+
+## List existing apps (Prod)
 yarn listapp
+
+## Dev
+npx babel-node -r dotenv/config build/scripts/listApplications
 ```
 
 ### Test
