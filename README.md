@@ -86,7 +86,7 @@ yarn seed
 yarn createsu
 
 ## Dev
-npx babel-node -r dotenv/config build/scripts/createSuperUser",
+npx babel-node -r dotenv/config src/scripts/createSuperUser",
 ```
 
 ## Clients (Mobile, Web, etc)
@@ -97,13 +97,14 @@ Each supported client must pass a `client_id` in their request headers. Client I
 ## Create new app to get a clientID (Prod)
 yarn createapp
 
-# npx babel-node -r dotenv/config build/scripts/createApplication
+## Dev
+npx babel-node -r dotenv/config src/scripts/createApplication
 
 ## List existing apps (Prod)
 yarn listapp
 
 ## Dev
-npx babel-node -r dotenv/config build/scripts/listApplications
+npx babel-node -r dotenv/config src/scripts/listApplications
 ```
 
 ### Test
