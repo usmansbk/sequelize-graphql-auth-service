@@ -10,33 +10,33 @@ const refreshTokenController = async (req, res) => {
   } = req;
 
   try {
-    const expiredToken = jwt.decode(authorization);
+    const { sub } = jwt.decode(authorization);
     const decodedRefreshToken = jwt.verify(rfToken, { clientId }); // this will throw an error if invalid
 
-    const key = `${clientId}:${expiredToken.sub}`;
-    const expectedJti = await cache.get(key);
+    const key = `${clientId}:${sub}`;
+    const jti = await cache.get(key);
 
-    if (decodedRefreshToken.jti !== expectedJti) {
+    if (decodedRefreshToken.jti !== jti) {
       throw new TokenError(TOKEN_INVALID_ERROR);
     }
 
-    const user = await db.User.update(
+    await db.User.update(
       {
         lastLogin: dayjs.utc().toDate(),
       },
       {
         where: {
-          id: expiredToken.sub,
+          id: sub,
         },
       }
     );
 
     const { accessToken, refreshToken, exp, sid } = await jwt.getAuthTokens(
-      user.id,
+      sub,
       { clientId }
     );
 
-    await cache.set(`${clientId}:${user.id}`, sid, exp);
+    await cache.set(`${clientId}:${sub}`, sid, exp);
 
     res.json({
       success: true,
