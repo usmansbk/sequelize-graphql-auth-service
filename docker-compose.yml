@@ -16,7 +16,7 @@ services:
       - 4000:4000
     volumes:
       - ./:/usr/src/app
-      - /usr/src/app/node_modules
+      - node_modules:/usr/src/app/node_modules
 
   db:
     container_name: postgresql_db
@@ -41,6 +41,7 @@ services:
     volumes:
       - cache:/data
 volumes:
+  node_modules:
   db:
     driver: local
   cache:
