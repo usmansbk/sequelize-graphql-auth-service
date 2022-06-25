@@ -9,6 +9,7 @@ GraphQL authentication server optimized for Sequelize ORM
 - [x] Email authentication
 - [x] Social authentication (Google and Facebook)
 - [x] SMS OTP
+- [x] Multi Client
 - [x] i18n
 - [x] Dockerize
 - [x] Analytics
