@@ -48,16 +48,16 @@ Copy `.env.example` file as `.env`
 cp .env.example .env
 ```
 
-### Build image
-
-```sh
-docker-compose build
-```
-
 ### Install dependencies
 
 ```sh
 yarn
+```
+
+### Build image
+
+```sh
+docker-compose build
 ```
 
 ### Start container
