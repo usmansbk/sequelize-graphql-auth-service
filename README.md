@@ -1,5 +1,7 @@
 # Sequelize GraphQL Auth Microservice Template
 
+[![usmansbk](https://circleci.com/gh/usmansbk/sequelize-graphql-server.svg?style=svg)](https://app.circleci.com/pipelines/github/usmansbk/sequelize-graphql-server)
+
 GraphQL authentication server optimized for Sequelize ORM
 
 ## Features
