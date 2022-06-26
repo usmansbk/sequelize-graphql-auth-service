@@ -19,7 +19,7 @@
     "clean": "rimraf build",
     "transpile": "babel src -d build --copy-files",
     "docker:build:dev": "docker build . --tag usmansbk/auth-server --target dev",
-    "docker:build:prod": "docker build . --tag usmansbk/auth-server:prod --target prod",
+    "docker:build": "docker build . --tag usmansbk/auth-server:prod --target prod",
     "docker:start": "docker compose up",
     "docker:push": "docker push usmansbk/auth-server",
     "docker:cli": "docker exec -it auth-server sh",

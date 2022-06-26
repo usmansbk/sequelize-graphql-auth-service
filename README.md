@@ -253,11 +253,11 @@ Model specific logic should be moved to their associated data sources, and resol
 ## Build
 
 ```sh
-docker build . -t [namespace]/[image_name]:[tag] -f docker/Dockerfile
+yarn docker:build
 ```
 
 ```sh
-docker push [namespace]/[image_name]:[tag] -f docker/Dockerfile
+yarn docker:push
 ```
 
 ## Readings
