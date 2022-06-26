@@ -12,5 +12,5 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Run test and build
-        command: yarn test
+          name: Run test and build
+          command: yarn test
