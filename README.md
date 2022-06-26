@@ -42,10 +42,10 @@ ssh-keygen -e -m PEM -f certs/jwtRS256.key > certs/jwtRS256.key.pub
 
 ### Create **.env** file
 
-Copy `.env.example` file as `.env`
+Copy `.env.test` file as `.env`
 
 ```sh
-cp .env.example .env
+cp .env.test .env
 ```
 
 ### Install dependencies
