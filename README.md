@@ -59,7 +59,7 @@ yarn
 ### Build image
 
 ```sh
-yarn docker:build
+yarn docker:build:dev
 ```
 
 ### Start container
@@ -68,45 +68,38 @@ yarn docker:build
 yarn docker:start
 ```
 
-### Seed DB
+## Initialize DB
+
+Start your docker container and open the shell in a new terminal.
 
 ```sh
 yarn docker:cli
-yarn seed
 ```
 
 ### Create root user
 
 ```sh
-## Prod
-yarn docker:cli
-yarn createsu
-
-## Dev
-yarn docker:cli
 yarn createsu:dev
 ```
 
-## Clients (Mobile, Web, etc)
+### Create Client
 
-Each supported client must pass a `client_id` in their request headers. Client IDs are strings assigned by the server.
+Each client must pass a `client_id` in their request headers. Client IDs are strings assigned by the server.
 
 ```sh
-## Create new app to get a clientID (Prod)
-yarn docker:cli
-yarn createapp
-
-## Dev
-yarn docker:cli
 yarn createapp:dev
+```
 
-## List existing apps (Prod)
-yarn docker:cli
-yarn listapp
+### List existing clients
 
-## Dev
-yarn docker:cli
+```sh
 yarn listapp:dev
+```
+
+### Seed DB
+
+```sh
+yarn seed
 ```
 
 ### Test
@@ -122,7 +115,7 @@ npx cross-env NODE_ENV=test sequelize db:create
 yarn docker:test
 ```
 
-## Build
+## Build Docker Production Image
 
 ```sh
 yarn docker:build
