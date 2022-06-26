@@ -10,7 +10,6 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: user_pool_test
-
     steps:
       - checkout
       - run: yarn install

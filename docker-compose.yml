@@ -5,9 +5,7 @@ services:
     container_name: auth-server
     image: usmansbk/auth-server
     restart: always
-    build:
-      context: .
-      dockerfile: docker/Dockerfile
+    build: .
     env_file: .env
     depends_on:
       - db
