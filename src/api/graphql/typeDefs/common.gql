@@ -10,6 +10,7 @@ scalar CountryCode
 scalar JWT
 scalar TimeZone
 scalar NonEmptyString
+scalar UtcOffset
 
 # Query
 

@@ -1,17 +1,17 @@
 type Query {
-  """
-  {
-    "en": "English"
-  }
-  """
-  getLocales: JSON!
+  getLocales: [LocalePayload]!
   getCountries: [Country]!
-  """
-  {
-    "Africa/Lagos":"+01:00"
-  }
-  """
-  getTimeZones: JSON!
+  getTimeZones: [TimeZonePayload]!
+}
+
+type LocalePayload {
+  code: Locale!
+  name: String!
+}
+
+type TimeZonePayload {
+  timeZone: TimeZone!
+  offset: UtcOffset!
 }
 
 type Country {

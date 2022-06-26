@@ -5,13 +5,19 @@ import timezones from "locales/timezones.json";
 export default {
   Query: {
     getLocales() {
-      return locales;
+      return Object.entries(locales).map(([code, name]) => ({
+        code,
+        name,
+      }));
     },
     getCountries() {
       return countries;
     },
     getTimeZones() {
-      return timezones;
+      return Object.entries(timezones).map(([timeZone, offset]) => ({
+        timeZone,
+        offset,
+      }));
     },
   },
 };

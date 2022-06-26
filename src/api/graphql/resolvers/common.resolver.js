@@ -11,6 +11,7 @@ import {
   JWTResolver,
   TimeZoneResolver,
   NonEmptyStringResolver,
+  UtcOffsetResolver,
 } from "graphql-scalars";
 import { getImageUrl } from "~helpers/links";
 
@@ -26,6 +27,7 @@ export default {
   JWT: JWTResolver,
   CountryCode: CountryCodeResolver,
   TimeZone: TimeZoneResolver,
+  UtcOffset: UtcOffsetResolver,
   NonEmptyString: NonEmptyStringResolver,
   Photo: {
     url(parent, { resize }) {
