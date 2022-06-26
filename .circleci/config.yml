@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build_and_test:
+  build:
     docker:
       - image: cimg/node:16.15.1
       - image: cimg/redis:6.2.6
@@ -10,7 +10,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: user_pool_test
-    working_directory: ~/repo
+
     steps:
       - checkout
       - run: yarn install
