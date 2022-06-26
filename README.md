@@ -89,7 +89,7 @@ yarn seed
 yarn createsu
 
 ## Dev
-yarn createapp:dev
+yarn createsu:dev
 ```
 
 ## Clients (Mobile, Web, etc)
