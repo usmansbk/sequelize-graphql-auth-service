@@ -29,5 +29,7 @@
   "IncorrectPasswordError": "Incorrect password.",
   "PasswordUpdated": "Your password has been updated.",
   "ApplicationUpdated": "Application updated",
-  "ApplicationDelete": "Application deleted"
+  "ApplicationDelete": "Application deleted",
+  "WelcomeBack": "Welcome back, {{firstName}}!",
+  "WelcomeNewUser": "Welcome, {{firstName}}!"
 }
