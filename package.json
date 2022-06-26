@@ -13,6 +13,7 @@
     "listapp:dev": "npx babel-node -r dotenv/config src/scripts/listApplications",
     "test": "cross-env NODE_ENV=test jest -i --detectOpenHandles --forceExit",
     "prepare": "husky install",
+    "createdb": "npx sequelize db:create",
     "seed": "npx sequelize-cli db:seed:all",
     "undo:seed": "npx sequelize-cli db:seed:undo:all",
     "clean": "npx rimraf build",

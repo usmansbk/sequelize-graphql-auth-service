@@ -1,0 +1,16 @@
+version: 2.1
+jobs:
+  build_and_test:
+    docker:
+      - image: cimg/node:16.15.1
+      - image: cimg/postgres:14.0
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: user_pool_test
+      - image: redis:latest
+    steps:
+      - checkout
+      - run:
+        name: Run test and build
+        command: yarn test
