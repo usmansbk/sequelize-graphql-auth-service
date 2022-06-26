@@ -5,7 +5,7 @@
     "build": "yarn clean && yarn transpile",
     "start": "node -r dotenv/config build",
     "dev": "nodemon --exec babel-node -r dotenv/config src",
-    "test": "DOTENV_CONFIG_PATH=/.env.test jest -i --detectOpenHandles --forceExit",
+    "test": "jest -i --detectOpenHandles --forceExit",
     "createsu": "node -r dotenv/config build/scripts/createSuperUser",
     "createapp": "node -r dotenv/config build/scripts/createApplication",
     "listapp": "node -r dotenv/config build/scripts/listApplications",
@@ -21,7 +21,9 @@
     "docker:build:dev": "docker build . --tag usmansbk/auth-server -f docker/Dockerfile",
     "docker:build:prod": "docker build . --tag usmansbk/auth-server:prod -f docker/Dockerfile.production",
     "docker:start": "docker compose up",
-    "docker:push": "docker push usmansbk/auth-server"
+    "docker:push": "docker push usmansbk/auth-server",
+    "docker:cli": "docker exec -it auth-server sh",
+    "docker:test": "docker compose run api yarn test"
   },
   "description": "Sequelize GraphQL server template",
   "main": "index.js",

@@ -59,13 +59,13 @@ yarn
 ### Build image
 
 ```sh
-docker-compose build
+yarn docker:build
 ```
 
 ### Start container
 
 ```sh
-docker-compose up
+yarn docker:start
 ```
 
 ### Access container shell
@@ -73,7 +73,7 @@ docker-compose up
 Subsequent commands should be done in a docker container shell
 
 ```sh
-docker exec -it auth-server sh
+yarn docker:cli
 ```
 
 ### Seed DB
@@ -120,7 +120,7 @@ npx cross-env NODE_ENV=test sequelize db:create
 
 ```sh
 ## Exit shell and run
-docker compose run api yarn test
+yarn docker:test
 ```
 
 ## [Mailer](https://nodemailer.com/transports/ses/)
