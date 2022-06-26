@@ -68,17 +68,10 @@ yarn docker:build
 yarn docker:start
 ```
 
-### Access container shell
-
-Subsequent commands should be done in a docker container shell
-
-```sh
-yarn docker:cli
-```
-
 ### Seed DB
 
 ```sh
+yarn docker:cli
 yarn seed
 ```
 
@@ -86,9 +79,11 @@ yarn seed
 
 ```sh
 ## Prod
+yarn docker:cli
 yarn createsu
 
 ## Dev
+yarn docker:cli
 yarn createsu:dev
 ```
 
@@ -98,15 +93,19 @@ Each supported client must pass a `client_id` in their request headers. Client I
 
 ```sh
 ## Create new app to get a clientID (Prod)
+yarn docker:cli
 yarn createapp
 
 ## Dev
+yarn docker:cli
 yarn createapp:dev
 
 ## List existing apps (Prod)
+yarn docker:cli
 yarn listapp
 
 ## Dev
+yarn docker:cli
 yarn listapp:dev
 ```
 
@@ -121,6 +120,16 @@ npx cross-env NODE_ENV=test sequelize db:create
 ```sh
 ## Exit shell and run
 yarn docker:test
+```
+
+## Build
+
+```sh
+yarn docker:build
+```
+
+```sh
+yarn docker:push
 ```
 
 ## [Mailer](https://nodemailer.com/transports/ses/)
@@ -249,16 +258,6 @@ Internal server errors are logged to sentry. Create a [Sentry](https://sentry.io
 We use Eslint AirBnB coding guidelines and import alias. All aliases are prefixed with a `~`. To add a new alias, update the `jsconfig.json`, `.eslintrc.js`, and `babel.config.json` files. We also make use of Husky precommit hook to enforce standard.
 
 Model specific logic should be moved to their associated data sources, and resolver errors should be handled using [Wrapping Exception](https://javascript.info/custom-errors) technique.
-
-## Build
-
-```sh
-yarn docker:build
-```
-
-```sh
-yarn docker:push
-```
 
 ## Readings
 
