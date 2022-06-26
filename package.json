@@ -5,7 +5,7 @@
     "build": "yarn clean && yarn transpile",
     "start": "node -r dotenv/config build",
     "dev": "nodemon --exec babel-node -r dotenv/config src",
-    "test": "jest -i --detectOpenHandles --forceExit",
+    "test": "DOTENV_CONFIG_PATH=\"./.env.test\" jest -i --detectOpenHandles --forceExit",
     "createsu": "node -r dotenv/config build/scripts/createSuperUser",
     "createapp": "node -r dotenv/config build/scripts/createApplication",
     "listapp": "node -r dotenv/config build/scripts/listApplications",
