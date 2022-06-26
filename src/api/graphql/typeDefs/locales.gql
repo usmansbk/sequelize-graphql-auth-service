@@ -1,6 +1,6 @@
 type Query {
   getLocales: [LocaleData]!
-  getCountries: [Country]!
+  getCountries: [CountryData]!
   getTimeZones: [TimeZoneData]!
 }
 
@@ -14,7 +14,7 @@ type TimeZoneData {
   offset: UtcOffset!
 }
 
-type Country {
+type CountryData {
   name: String!
   code: CountryCode!
   dialCode: String!
