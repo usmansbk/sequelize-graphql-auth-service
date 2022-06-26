@@ -1,15 +1,15 @@
 type Query {
-  getLocales: [LocalePayload]!
+  getLocales: [LocaleObject]!
   getCountries: [Country]!
-  getTimeZones: [TimeZonePayload]!
+  getTimeZones: [TimeZoneObject]!
 }
 
-type LocalePayload {
+type LocaleObject {
   code: Locale!
   name: String!
 }
 
-type TimeZonePayload {
+type TimeZoneObject {
   timeZone: TimeZone!
   offset: UtcOffset!
 }
