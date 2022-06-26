@@ -73,13 +73,14 @@ yarn docker:start
 Start your docker container and open the shell in a new terminal.
 
 ```sh
+yarn build
 yarn docker:cli
 ```
 
 ### Create root user
 
 ```sh
-yarn createsu:dev
+yarn createsu
 ```
 
 ### Create Client
@@ -87,13 +88,13 @@ yarn createsu:dev
 Each client must pass a `client_id` in their request headers. Client IDs are strings assigned by the server.
 
 ```sh
-yarn createapp:dev
+yarn createapp
 ```
 
 ### List existing clients
 
 ```sh
-yarn listapp:dev
+yarn listapp
 ```
 
 ### Seed DB
@@ -107,7 +108,7 @@ yarn seed
 create a test database if you haven't
 
 ```sh
-npx cross-env NODE_ENV=test sequelize db:create
+yarn createdb:test
 ```
 
 ```sh

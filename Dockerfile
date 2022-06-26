@@ -19,7 +19,7 @@ WORKDIR /usr/src/app
 COPY package*.json yarn.lock ./
 RUN yarn install
 COPY --from=build /app/build ./build
-COPY .sequelizerc .env ./
+COPY .env ./
 COPY ./emails ./emails
 COPY ./locales ./locales
 COPY ./certs ./certs
