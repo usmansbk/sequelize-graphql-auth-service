@@ -12,7 +12,7 @@
     "createapp": "node -r dotenv/config build/scripts/createApplication",
     "listapp": "node -r dotenv/config build/scripts/listApplications",
     "prepare": "husky install",
-    "createdb:test": "cross-env NODE_ENV=test DOTENV_CONFIG_PATH=\"./.env.test\" sequelize db:create",
+    "createdb:test": "cross-env DOTENV_CONFIG_PATH=\"./.env.test\" sequelize db:create --env test",
     "seed": "sequelize-cli db:seed:all",
     "docker:build:dev": "docker build . --tag usmansbk/auth-server --target dev",
     "docker:build": "docker build . --tag usmansbk/auth-server:prod --target prod",
