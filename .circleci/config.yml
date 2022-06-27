@@ -37,6 +37,7 @@ jobs:
           name: Run tests
           command: yarn test
           environment:
+            APP_NAME: "test"
             TEST_CLIENT_ID: test
             DB_USERNAME: postgres
             DB_PASSWORD: postgres
