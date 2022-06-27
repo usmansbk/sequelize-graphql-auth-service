@@ -39,6 +39,7 @@ jobs:
           environment:
             APP_NAME: "test"
             TEST_CLIENT_ID: test
+            SEGMENT_WRITE_KEY: test
             DB_USERNAME: postgres
             DB_PASSWORD: postgres
             DB_NAME: user_pool_test
