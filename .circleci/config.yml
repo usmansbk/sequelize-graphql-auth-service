@@ -12,9 +12,17 @@ jobs:
           POSTGRES_DB: user_pool_test
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-npm-deps-{{ checksum "yarn.lock" }}
+            - v1-npm-deps-
       - run:
           name: Install dependencies
           command: yarn
+      - save_cache:
+          key: v1-npm-deps-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
       - run:
           name: Create secrets folder
           command: mkdir certs
