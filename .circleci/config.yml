@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build:
+  test:
     docker:
       - image: cimg/node:16.15.1
       - image: cimg/redis:6.2.6
