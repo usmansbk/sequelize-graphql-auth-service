@@ -19,9 +19,7 @@ WORKDIR /usr/src/app
 COPY package*.json yarn.lock ./
 RUN yarn install
 COPY --from=build /app/build ./build
-COPY .env ./
 COPY ./emails ./emails
 COPY ./locales ./locales
-COPY ./certs ./certs
 EXPOSE 4000
 CMD yarn start 
