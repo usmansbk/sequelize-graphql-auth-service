@@ -14,15 +14,16 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-npm-deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - v1-npm-deps-{{ .Branch }}-
+            - yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-packages-v1-{{ .Branch }}-
+            - yarn-packages-v1-
       - run:
           name: Install dependencies
-          command: yarn
+          command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn
       - save_cache:
-          key: v1-npm-deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
-            - node_modules
+            - ~/.cache/yarn
       - run:
           name: Create secrets folder
           command: mkdir certs
@@ -40,4 +41,4 @@ jobs:
           docker_layer_caching: true
       - run:
           name: Build docker image
-          command: yarn docker:build:prod
+          command: docker build . --tag usmansbk/auth-server:{{ .Branch }} --target prod
