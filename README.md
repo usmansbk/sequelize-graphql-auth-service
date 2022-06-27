@@ -105,15 +105,10 @@ yarn seed
 
 ### Test
 
-create a test database if you haven't
-
 ```sh
+# create a test database if you haven't
 yarn createdb:test
-```
-
-```sh
-## Exit shell and run
-yarn docker:test
+yarn test
 ```
 
 ## Build Docker Production Image
