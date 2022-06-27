@@ -13,4 +13,7 @@ jobs:
     steps:
       - checkout
       - run: yarn install
+      - run: mkdir certs
+      - run: ssh-keygen -t rsa -P "" -b 4096 -m PEM -f certs/jwtRS256.key
+      - run: ssh-keygen -e -m PEM -f certs/jwtRS256.key > certs/jwtRS256.key.pub
       - run: yarn test
