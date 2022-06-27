@@ -47,6 +47,10 @@ jobs:
             DB_HOST: localhost
             DB_DIALECT: postgres
             DB_PORT: 5432
+            REDIS_PORT: 6379
+            REDIS_HOST: localhost
+            JWT_PRIVATE_KEY: certs/jwtRS256.key
+            JWT_PUBLIC_KEY: certs/jwtRS256.key.pub
 
       - setup_remote_docker:
           version: 20.10.14
