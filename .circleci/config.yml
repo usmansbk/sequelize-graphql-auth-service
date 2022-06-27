@@ -53,9 +53,9 @@ jobs:
             JWT_PRIVATE_KEY: certs/jwtRS256.key
             JWT_PUBLIC_KEY: certs/jwtRS256.key.pub
 
-      - setup_remote_docker:
-          version: 20.10.14
-          docker_layer_caching: true
-      - run:
-          name: Build docker image
-          command: docker build . --tag usmansbk/auth-server:{{ .Branch }} --target prod
+      # - setup_remote_docker:
+      #     version: 20.10.14
+      #     docker_layer_caching: true
+      # - run:
+      #     name: Build docker image
+      #     command: docker build . --tag usmansbk/auth-server:{{ .Branch }} --target prod
