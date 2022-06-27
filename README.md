@@ -15,6 +15,7 @@ GraphQL authentication server optimized for Sequelize ORM
 - [x] i18n
 - [x] Dockerize
 - [x] Analytics
+- [x] CI/CD
 
 ## Built with
 
