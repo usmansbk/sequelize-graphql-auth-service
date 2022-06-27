@@ -54,7 +54,7 @@ module.exports = {
   // forceCoverageMatch: [],
 
   // A path to a module which exports an async function that is triggered once before all test suites
-  // globalSetup: "./tests/support/globalSetup",
+  globalSetup: "./tests/support/globalSetup",
 
   // A path to a module which exports an async function that is triggered once after all test suites
   globalTeardown: "./tests/support/globalTeardown",
@@ -125,7 +125,7 @@ module.exports = {
   // runner: "jest-runner",
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
-  setupFiles: ["dotenv/config", "./tests/support/setupTestDb"],
+  setupFiles: ["dotenv/config"],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
   setupFilesAfterEnv: [
