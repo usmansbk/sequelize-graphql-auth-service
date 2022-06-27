@@ -59,7 +59,7 @@ yarn
 ### Build image
 
 ```sh
-yarn docker:build:dev
+yarn docker:build
 ```
 
 ### Start container
@@ -119,7 +119,7 @@ yarn docker:test
 ## Build Docker Production Image
 
 ```sh
-yarn docker:build
+yarn docker:build:prod
 ```
 
 ```sh
