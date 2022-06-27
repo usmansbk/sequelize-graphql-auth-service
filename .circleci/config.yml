@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  test:
+  build:
     docker:
       - image: cimg/node:16.15.1
       - image: cimg/redis:6.2.6
@@ -12,8 +12,6 @@ jobs:
           POSTGRES_DB: user_pool_test
     steps:
       - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
       - run:
           name: Install dependencies
           command: yarn
@@ -29,7 +27,9 @@ jobs:
       - run:
           name: Run tests
           command: yarn test
-workflows:
-  build_test_deploy:
-    jobs:
-      - test
+      - setup_remote_docker:
+          version: 20.10.14
+          docker_layer_caching: true
+      - run:
+          name: Build docker image
+          command: yarn docker:build:prod
