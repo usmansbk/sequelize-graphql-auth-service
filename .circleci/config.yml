@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build:
+  build_and_test:
     docker:
       - image: cimg/node:16.15.1
       - image: cimg/redis:6.2.6
@@ -27,3 +27,7 @@ jobs:
       - run:
           name: Run tests
           command: yarn test
+workflows:
+  build_test_deploy:
+    jobs:
+      - build_and_test
