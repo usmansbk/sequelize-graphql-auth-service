@@ -148,11 +148,9 @@ Follow the official Twilio documentation to setup your Twilio account and add yo
 
 - Create a [Firebase](https://console.firebase.google.com) project if you don't have one.
 
-- Go to **APIs & Auth** > **Credentials** in the [Google Developers Console](https://console.cloud.google.com/) and download your **OAuth 2.0 Client IDs Web Client** JSON credentials. (This file is your only copy of these credentials. It should never be committed with your source code, and should be stored securely)
+- Go to **APIs & Auth** > **Credentials** in the [Google Developers Console](https://console.cloud.google.com/) and copy your **OAuth 2.0 Client IDs Web Client** `GOOGLE_CLIENT_ID` and `GOOGLE_SECRET_KEY`.
 
-- Once downloaded, store the path to this file in the `GOOGLE_APPLICATION_CREDENTIALS` environment variable
-
-- Generate test tokens from Google [0Auth 2.0 Playground](https://developers.google.com/oauthplayground/)
+- Generate an _OAuth2 API v2_ id token from Google [0Auth 2.0 Playground](https://developers.google.com/oauthplayground/) to test.
 
 ## Facebook authentication
 

@@ -3,7 +3,10 @@ import TokenError from "~utils/errors/TokenError";
 import { TOKEN_INVALID_ERROR } from "~helpers/constants/responseCodes";
 
 const verifyGoogleToken = async (idToken) => {
-  const client = new OAuth2Client();
+  const client = new OAuth2Client({
+    clientId: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  });
   try {
     const ticket = await client.verifyIdToken({
       idToken,

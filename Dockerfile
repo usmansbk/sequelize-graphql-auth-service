@@ -8,6 +8,7 @@ RUN yarn install
 COPY . .
 
 FROM base AS dev
+EXPOSE 4000
 CMD yarn dev
 
 FROM base AS build

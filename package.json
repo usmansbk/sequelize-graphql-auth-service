@@ -15,7 +15,7 @@
     "createdb:test": "sequelize db:create --env test",
     "seed": "sequelize-cli db:seed:all",
     "docker:build": "docker build . --tag usmansbk/auth-server --target dev",
-    "docker:build:prod": "docker build . --tag usmansbk/auth-server:prod --target prod",
+    "docker:build:prod": "docker build . --tag usmansbk/auth-server:prod --target prod --no-cache",
     "docker:start": "docker compose up",
     "docker:push": "docker push usmansbk/auth-server",
     "docker:cli": "docker exec -it auth-server sh",
