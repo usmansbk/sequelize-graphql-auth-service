@@ -38,6 +38,7 @@ jobs:
           command: yarn test
           environment:
             APP_NAME: "test"
+            HOST: http://localhost:4000
             TEST_CLIENT_ID: test
             SEGMENT_WRITE_KEY: test
             DB_USERNAME: postgres
