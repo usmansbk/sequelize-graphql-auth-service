@@ -58,4 +58,4 @@ jobs:
           docker_layer_caching: true
       - run:
           name: Build docker image
-          command: docker build -t usmansbk/auth-server:$CIRCLE_BRANCH . --target prod
+          command: docker build -t $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:$CIRCLE_BRANCH . --target prod
