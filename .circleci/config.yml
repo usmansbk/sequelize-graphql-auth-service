@@ -14,13 +14,13 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-npm-deps-{{ checksum "yarn.lock" }}
-            - v1-npm-deps-
+            - v1-npm-deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - v1-npm-deps-{{ .Branch }}-
       - run:
           name: Install dependencies
           command: yarn
       - save_cache:
-          key: v1-npm-deps-{{ checksum "yarn.lock" }}
+          key: v1-npm-deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
       - run:
