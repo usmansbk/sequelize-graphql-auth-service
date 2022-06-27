@@ -1,7 +1,9 @@
 version: 2.1
 
+orbs:
+  node: circleci/node@5.0.2
 jobs:
-  build_and_test:
+  test:
     docker:
       - image: cimg/node:16.15.1
       - image: cimg/redis:6.2.6
@@ -27,7 +29,25 @@ jobs:
       - run:
           name: Run tests
           command: yarn test
+  build:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          name: Build app
+          command: yarn build
+      - persist_to_workspace:
+          root: ~/project
+          paths: .
 workflows:
   build_test_deploy:
     jobs:
-      - build_and_test
+      - test
+      - build
+          requires:
+            - test
+          filters:
+            branches:
+              only: main
