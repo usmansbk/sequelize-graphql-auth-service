@@ -1,7 +1,5 @@
 version: 2.1
 
-orbs:
-  node: circleci/node@5.0.2
 jobs:
   test:
     docker:
@@ -14,6 +12,8 @@ jobs:
           POSTGRES_DB: user_pool_test
     steps:
       - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
       - run:
           name: Install dependencies
           command: yarn
@@ -29,25 +29,7 @@ jobs:
       - run:
           name: Run tests
           command: yarn test
-  build:
-    executor: node/default
-    steps:
-      - checkout
-      - node/install-packages:
-          pkg-manager: yarn
-      - run:
-          name: Build app
-          command: yarn build
-      - persist_to_workspace:
-          root: ~/project
-          paths: .
 workflows:
   build_test_deploy:
     jobs:
       - test
-      - build:
-          requires:
-            - test
-          filters:
-            branches:
-              only: main
