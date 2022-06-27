@@ -12,12 +12,18 @@ jobs:
           POSTGRES_DB: user_pool_test
     steps:
       - checkout
-      - run: yarn install
-      - run: mkdir certs
+      - run:
+          name: Install dependencies
+          command: yarn install
+      - run:
+          name: Create secrets folder
+          command: mkdir certs
       - run:
           name: Generate JWT private key
           command: ssh-keygen -t rsa -P "" -b 4096 -m PEM -f certs/jwtRS256.key
       - run:
           name: Generate JWT public key
           command: ssh-keygen -e -m PEM -f certs/jwtRS256.key > certs/jwtRS256.key.pub
-      - run: yarn test
+      - run:
+          name: Run tests
+          command: yarn test
