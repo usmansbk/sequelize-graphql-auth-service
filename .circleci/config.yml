@@ -46,7 +46,7 @@ jobs:
           command: cp .env.production .env
       - run:
           name: Build docker image
-          command: docker build -t $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:$CIRCLE_BRANCH . --target prod
+          command: docker build --target prod -t $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:$CIRCLE_BRANCH .
 workflows:
   build:
     jobs:
