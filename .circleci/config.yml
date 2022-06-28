@@ -34,25 +34,14 @@ jobs:
           name: Generate JWT public key
           command: ssh-keygen -e -m PEM -f certs/jwtRS256.key > certs/jwtRS256.key.pub
       - run:
+          name: Pull Environment variables
+          command: npx dotenv-vault@latest pull ci
+      - run:
+          name: Copy Environment variables
+          command: cp .env.ci .env
+      - run:
           name: Run tests
           command: yarn test
-          environment:
-            APP_NAME: "test"
-            HOST: http://localhost:4000
-            TEST_CLIENT_ID: test
-            SEGMENT_WRITE_KEY: test
-            DB_USERNAME: postgres
-            DB_PASSWORD: postgres
-            DB_NAME: user_pool_test
-            DB_NAME_TEST: user_pool_test
-            DB_HOST: localhost
-            DB_DIALECT: postgres
-            DB_PORT: 5432
-            REDIS_PORT: 6379
-            REDIS_HOST: localhost
-            JWT_PRIVATE_KEY: certs/jwtRS256.key
-            JWT_PUBLIC_KEY: certs/jwtRS256.key.pub
-
       - setup_remote_docker:
           version: 20.10.14
           docker_layer_caching: true

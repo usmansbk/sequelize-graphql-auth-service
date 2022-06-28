@@ -16,3 +16,6 @@ yarn-error.log
 *.key.pub
 *.pem
 google_client_secret.json
+.env*
+!.env.project
+!.env.vault
