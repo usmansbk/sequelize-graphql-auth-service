@@ -16,6 +16,5 @@ README.md
 .env.example
 .husky
 .nvmrc
-.env*
 !.env.project
 !.env.vault
