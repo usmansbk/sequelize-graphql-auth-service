@@ -4,7 +4,6 @@ jobs:
   build_test_deploy:
     docker:
       - image: cimg/node:16.15.1
-      - image: cimg/redis:6.2.6
       - image: cimg/postgres:14.0
         environment:
           POSTGRES_USER: postgres
