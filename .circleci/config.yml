@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build:
+  build_test_deploy:
     docker:
       - image: cimg/node:16.15.1
       - image: cimg/redis:6.2.6
@@ -42,3 +42,12 @@ jobs:
       - run:
           name: Build docker image
           command: docker build -t $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:$CIRCLE_BRANCH . --target prod
+workflows:
+  build:
+    jobs:
+      - build_test_deploy
+          filters:
+            branches:
+              only:
+                - main
+                - develop
