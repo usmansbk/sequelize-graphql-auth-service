@@ -6,8 +6,6 @@ uploads
 
 # project
 build
-.env
-.env.production
 yarn-error.log
 *.rdb
 
@@ -17,5 +15,6 @@ yarn-error.log
 *.pem
 google_client_secret.json
 .env*
+!.env.example
 !.env.project
 !.env.vault
