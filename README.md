@@ -49,6 +49,10 @@ Copy `.env.example` file as `.env`
 
 ```sh
 cp .env.example .env
+
+# or pull from vault if your team has one
+
+npx dotenv-vault@latest pull
 ```
 
 ### Install dependencies
