@@ -33,6 +33,7 @@ jobs:
       - run:
           name: Generate JWT public key
           command: ssh-keygen -e -m PEM -f certs/jwtRS256.key > certs/jwtRS256.key.pub
+      - run: echo $APP_NAME
       - run:
           name: Run tests
           command: yarn test
