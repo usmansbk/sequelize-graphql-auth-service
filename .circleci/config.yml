@@ -7,9 +7,9 @@ jobs:
       - image: cimg/redis:6.2.6
       - image: cimg/postgres:14.0
         environment:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: user_pool_test
+          POSTGRES_USER: $DB_USERNAME
+          POSTGRES_PASSWORD: $DB_PASSWORD
+          POSTGRES_DB: $DB_NAME
     steps:
       - checkout
       - restore_cache:
@@ -33,12 +33,6 @@ jobs:
       - run:
           name: Generate JWT public key
           command: ssh-keygen -e -m PEM -f certs/jwtRS256.key > certs/jwtRS256.key.pub
-      - run:
-          name: Pull Environment variables
-          command: npx dotenv-vault@latest pull ci
-      - run:
-          name: Copy Environment variables
-          command: cp .env.ci .env
       - run:
           name: Run tests
           command: yarn test

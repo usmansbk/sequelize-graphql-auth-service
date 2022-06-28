@@ -20,9 +20,8 @@ import {
 } from "~helpers/constants/auth";
 import TokenError from "./errors/TokenError";
 
-const { JWT_PUBLIC_KEY, JWT_PRIVATE_KEY } = process.env;
-const privateKey = fs.readFileSync(JWT_PRIVATE_KEY);
-const publicKey = fs.readFileSync(JWT_PUBLIC_KEY);
+const privateKey = fs.readFileSync("certs/jwtRS256.key");
+const publicKey = fs.readFileSync("certs/jwtRS256.key.pub");
 
 /**
  * exp or any other claim is only set if the payload is an object literal.
