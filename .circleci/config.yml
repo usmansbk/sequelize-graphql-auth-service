@@ -40,12 +40,6 @@ jobs:
       - image: cimg/node:16.15.1
     steps:
       - checkout
-      - run:
-          name: Pull environment variables
-          command: npx dotenv-vault@latest pull production
-      - run:
-          name: Create .env file
-          command: cp .env.production .env
       - setup_remote_docker:
           version: 20.10.14
           docker_layer_caching: true
@@ -56,11 +50,18 @@ workflows:
   build_test_deploy:
     jobs:
       - test
+          filters:
+            branches:
+              only:
+                - release
+                - staging
+                - develop
       - build_and_deploy:
           requires:
             - test
           filters:
             branches:
               only:
-                - main
                 - develop
+                - release
+                - staging
