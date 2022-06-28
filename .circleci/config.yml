@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build_test_deploy:
+  test:
     docker:
       - image: cimg/node:16.15.1
       - image: cimg/postgres:14.0
@@ -35,22 +35,30 @@ jobs:
       - run:
           name: Run tests
           command: yarn test
-      - setup_remote_docker:
-          version: 20.10.14
-          docker_layer_caching: true
+  build_and_deploy:
+    docker:
+      - image: cimg/node:16.15.1
+    steps:
+      - checkout
       - run:
           name: Pull environment variables
           command: npx dotenv-vault@latest pull production
       - run:
           name: Create .env file
           command: cp .env.production .env
+      - setup_remote_docker:
+          version: 20.10.14
+          docker_layer_caching: true
       - run:
           name: Build docker image
           command: docker build --target prod -t $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:$CIRCLE_BRANCH .
 workflows:
-  build:
+  build_test_deploy:
     jobs:
-      - build_test_deploy:
+      - test:
+      - build_and_deploy:
+          requires:
+            - test
           filters:
             branches:
               only:
