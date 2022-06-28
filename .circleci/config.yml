@@ -49,7 +49,7 @@ jobs:
 workflows:
   build_test_deploy:
     jobs:
-      - test
+      - test:
           filters:
             branches:
               only:
