@@ -43,6 +43,9 @@ jobs:
           command: npx dotenv-vault@latest pull production
       - run:
           name: Copy .env file
+          command: cp .env.production .env
+      - run:
+          name: List files
           command: ls -a
       - run:
           name: Build docker image

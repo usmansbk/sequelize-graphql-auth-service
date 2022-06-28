@@ -5,6 +5,8 @@ Dockerfile*
 docker-compose.*
 LICENSE
 README.md
+.circleci
+.husky
 .git
 .vscode
 .gitignore
@@ -13,9 +15,8 @@ README.md
 .eslintrc.js
 .prettierignore
 .prettierrc.json
+.nvmrc
 .env.example
 .env.me
-.husky
-.nvmrc
 !.env.project
 !.env.vault
