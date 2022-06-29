@@ -108,15 +108,21 @@ yarn listapp
 yarn seed
 ```
 
-### Test
+## Test
+
+Create Test database:
 
 ```sh
-# create a test database if you haven't
 yarn createdb:test
+```
+
+Run tests:
+
+```sh
 yarn test
 ```
 
-## Build Docker Production Image
+## Build
 
 ```sh
 yarn docker:build:prod
