@@ -41,21 +41,17 @@ ssh-keygen -t rsa -P "" -b 4096 -m PEM -f certs/jwtRS256.key
 ssh-keygen -e -m PEM -f certs/jwtRS256.key > certs/jwtRS256.key.pub
 ```
 
-## Run with Docker
+## Run
 
-### Create **.env** file
-
-Copy `.env.example` file as `.env`
+- Create a **.env** file
 
 ```sh
+# copy `.env.example` file as `.env`
 cp .env.example .env
 
 # or pull from vault if your team has one
-
 npx dotenv-vault@latest pull --dotenvMe=YOUR-TEAM-DOTENV_ME
 ```
-
-### Development
 
 - Build docker image
 
@@ -63,7 +59,7 @@ npx dotenv-vault@latest pull --dotenvMe=YOUR-TEAM-DOTENV_ME
 yarn docker:build
 ```
 
-### Start
+- Start
 
 ```sh
 yarn docker:start
@@ -85,7 +81,7 @@ npx babel-node -r dotenv/config src/scripts/createSuperUser
 
 - Create client
 
-Each client must pass a `client_id` in their request headers. Client IDs are strings assigned by the server.
+  - You must pass the `client_id` in their request headers.
 
 ```sh
 npx babel-node -r dotenv/config src/scripts/createApplication
