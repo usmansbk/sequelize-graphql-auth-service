@@ -69,7 +69,7 @@ yarn docker:start
 
 ## Initialize database
 
-- Make sure your container is running and open the shell in a new terminal.
+- Make sure your container is running, open a new terminal, and run the following commands.
 
 ```sh
 yarn docker:cli
