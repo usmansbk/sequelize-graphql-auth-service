@@ -1,8 +1,8 @@
 import { gql } from "apollo-server-express";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
-import { CLIENTS_CACHE_KEY } from "~helpers/constants/auth";
 import cache from "~utils/cache";
+import { CLIENTS_CACHE_KEY } from "~helpers/constants/auth";
 
 const query = gql`
   mutation DeleteApplication($id: ID!) {
