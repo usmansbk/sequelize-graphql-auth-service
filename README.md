@@ -55,54 +55,49 @@ cp .env.example .env
 npx dotenv-vault@latest pull --dotenvMe=YOUR-TEAM-DOTENV_ME
 ```
 
-### Install dependencies
+### Development
 
-```sh
-yarn
-```
-
-### Build image
+- Build docker image
 
 ```sh
 yarn docker:build
 ```
 
-### Start container
+### Start
 
 ```sh
 yarn docker:start
 ```
 
-## Initialize DB
+## Initialize database
 
-Start your docker container and open the shell in a new terminal.
+- Make sure your container is running and open the shell in a new terminal.
 
 ```sh
-yarn build
 yarn docker:cli
 ```
 
-### Create root user
+- Create a root user
 
 ```sh
-yarn createsu
+npx babel-node -r dotenv/config src/scripts/createSuperUser
 ```
 
-### Create Client
+- Create client
 
 Each client must pass a `client_id` in their request headers. Client IDs are strings assigned by the server.
 
 ```sh
-yarn createapp
+npx babel-node -r dotenv/config src/scripts/createApplication
 ```
 
-### List existing clients
+- List existing clients
 
 ```sh
-yarn listapp
+npx babel-node -r dotenv/config src/scripts/listApplications
 ```
 
-### Seed DB
+- Seed DB
 
 ```sh
 yarn seed
@@ -110,13 +105,13 @@ yarn seed
 
 ## Test
 
-Create Test database:
+- Create Test database:
 
 ```sh
 yarn createdb:test
 ```
 
-Run tests:
+- Run tests
 
 ```sh
 yarn test
