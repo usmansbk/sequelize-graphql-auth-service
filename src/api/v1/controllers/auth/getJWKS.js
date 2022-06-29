@@ -2,7 +2,7 @@ import fs from "fs";
 import { pem2jwk } from "pem-jwk";
 
 const getJWKS = async (_req, res, next) => {
-  const key = fs.readFileSync("certs/private.pem", "ascii");
+  const key = fs.readFileSync("certs/public.pem", "ascii");
 
   try {
     const jwk = pem2jwk(key);
