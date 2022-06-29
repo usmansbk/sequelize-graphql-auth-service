@@ -20,15 +20,13 @@ import {
 } from "~helpers/constants/auth";
 import TokenError from "./errors/TokenError";
 
-const privateKey = fs.readFileSync("certs/jwtRS256.key");
-const publicKey = fs.readFileSync("certs/jwtRS256.key.pub");
-
 /**
  * exp or any other claim is only set if the payload is an object literal.
  * Buffer or string payloads are not checked for JSON validity.
  * exp, nbf, aud, sub and iss can be provided in the payload directly, but you can't include in both places.
  */
 const sign = (payload, expiresIn = "15m") => {
+  const privateKey = fs.readFileSync("certs/jwtRS256.key");
   const id = nanoid();
   const token = jwt.sign(payload, privateKey, {
     jwtid: id,
@@ -41,6 +39,7 @@ const sign = (payload, expiresIn = "15m") => {
 };
 
 const verify = (token, { clientId, ...options } = {}) => {
+  const publicKey = fs.readFileSync("certs/jwtRS256.key.pub");
   try {
     return jwt.verify(token, publicKey, {
       ...options,
