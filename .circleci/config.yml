@@ -31,10 +31,10 @@ jobs:
           command: mkdir certs
       - run:
           name: Generate JWT private key
-          command: openssl genrsa -out certs/private.key 2048
+          command: openssl genrsa -out certs/private.pem 2048
       - run:
           name: Generate JWT public key
-          command: openssl rsa -in certs/private.key -pubout -outform PEM -out certs/public.pem
+          command: openssl rsa -in certs/private.pem -pubout -outform PEM -out certs/public.pem
       - run:
           name: Run tests
           command: yarn test
