@@ -5,6 +5,7 @@ import {
 } from "apollo-server-core";
 import TokenError from "~utils/errors/TokenError";
 import analytics from "~services/analytics";
+import log from "~utils/logger";
 import { SOMETHING_WENT_WRONG } from "~helpers/constants/responseCodes";
 
 // eslint-disable-next-line no-unused-vars
@@ -22,6 +23,8 @@ const errorHandler = (err, req, res, next) => {
     statusCode = 500;
     message = SOMETHING_WENT_WRONG;
   }
+
+  log.error(err);
 
   res
     .status(statusCode)

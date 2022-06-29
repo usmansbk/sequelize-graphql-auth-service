@@ -15,7 +15,6 @@ const app = express();
 useLanguageMiddleware(app);
 
 app.use(cors());
-app.use(express.static("public"));
 app.use(apiLimiter);
 app.use(contextMiddleware);
 app.use(Sentry.Handlers.requestHandler());

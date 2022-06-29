@@ -86,6 +86,7 @@
     "i18next-http-middleware": "^3.2.1",
     "inquirer": "^8.2.4",
     "ioredis": "^5.1.0",
+    "jose": "^4.8.3",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
