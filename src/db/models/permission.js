@@ -45,7 +45,7 @@ export default (sequelize, DataTypes) => {
         },
         validate: {
           is: {
-            args: /^[a-zA-Z0-9_:]+$/i,
+            args: /^[a-zA-Z]+(:[a-zA-Z]+)*$/g,
             msg: PERMISSION_SCOPE_INVALID_FORMAT_ERROR,
           },
           notEmpty: {
@@ -58,6 +58,9 @@ export default (sequelize, DataTypes) => {
             args: [1, 280],
             msg: PERMISSION_SCOPE_LEN_ERROR,
           },
+        },
+        set(value) {
+          this.setDataValue("scope", value.toLowerCase());
         },
       },
       description: {
