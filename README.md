@@ -29,15 +29,21 @@ GraphQL authentication server optimized for Sequelize ORM
 
 ## Generate JWT keys
 
+- Create certificates folder
+
 ```sh
-## Create certificates folder
 mkdir certs
+```
 
-## Private key
+- Generate a Private key
 
+```sh
 ssh-keygen -t rsa -P "" -b 4096 -m PEM -f certs/jwtRS256.key
+```
 
-## Public key
+- Generate a Public key
+
+```sh
 ssh-keygen -e -m PEM -f certs/jwtRS256.key > certs/jwtRS256.key.pub
 ```
 
@@ -45,13 +51,15 @@ ssh-keygen -e -m PEM -f certs/jwtRS256.key > certs/jwtRS256.key.pub
 
 - Create a **.env** file
 
+copy `.env.example` file as `.env`
+
 ```sh
-# copy `.env.example` file as `.env`
 cp .env.example .env
 ```
 
+or pull from vault if your team has one
+
 ```sh
-# or pull from vault if your team has one
 npx dotenv-vault@latest pull --dotenvMe=YOUR-TEAM-DOTENV_ME
 ```
 
