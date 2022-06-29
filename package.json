@@ -12,12 +12,9 @@
     "createapp": "node -r dotenv/config build/scripts/createApplication",
     "listapp": "node -r dotenv/config build/scripts/listApplications",
     "prepare": "husky install",
-    "createdb:test": "sequelize db:create --env test",
+    "createdb:test": "docker compose run --rm api npx sequelize db:create --env test",
     "seed": "sequelize-cli db:seed:all",
-    "docker:build": "docker build . --tag usmansbk/auth-server --target dev",
-    "docker:build:prod": "docker build . --tag usmansbk/auth-server:prod --target prod --no-cache",
     "docker:start": "docker compose up",
-    "docker:push": "docker push usmansbk/auth-server",
     "docker:cli": "docker exec -it auth-server sh",
     "docker:test": "docker compose run --rm api yarn test"
   },
