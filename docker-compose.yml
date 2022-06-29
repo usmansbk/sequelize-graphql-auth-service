@@ -2,8 +2,8 @@ version: "3.9"
 
 services:
   api:
-    container_name: auth-server
-    image: usmansbk/auth-server
+    container_name: auth-service
+    image: usmansbk/auth-service
     restart: always
     build: .
     env_file: .env

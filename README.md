@@ -1,8 +1,8 @@
-# Sequelize GraphQL Server Template
+# Auth Service
 
 [![usmansbk](https://circleci.com/gh/usmansbk/sequelize-graphql-server.svg?style=svg)](https://app.circleci.com/pipelines/github/usmansbk/sequelize-graphql-server)
 
-GraphQL authentication server optimized for Sequelize ORM
+Authentication service/subgraph optimized for Sequelize ORM
 
 ## Features
 
@@ -19,6 +19,7 @@ GraphQL authentication server optimized for Sequelize ORM
 
 ## Built with
 
+- [GraphQL](https://graphql.org/)
 - [Apollo Server](https://www.apollographql.com/docs/apollo-server/)
 - [SequelizeORM](https://sequelize.org/master/manual/migrations.html)
 - [ExpressJS](https://expressjs.com/)
@@ -134,7 +135,7 @@ docker compose -t usmansbk/simple-server:prod . --target prod
 - Push to Docker Hub
 
 ```sh
-docker push usmansbk/simple-server:prod
+docker push usmansbk/auth-service:prod
 ```
 
 ## [Mailer](https://nodemailer.com/transports/ses/)

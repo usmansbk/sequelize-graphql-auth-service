@@ -1,5 +1,5 @@
 {
-  "name": "sequelize-graphql-server-template",
+  "name": "auth-service",
   "version": "1.0.0",
   "scripts": {
     "start": "node -r dotenv/config build",
@@ -15,7 +15,7 @@
     "createdb:test": "docker compose run --rm api npx sequelize db:create --env test",
     "seed": "sequelize-cli db:seed:all",
     "docker:start": "docker compose up",
-    "docker:cli": "docker exec -it auth-server sh",
+    "docker:cli": "docker exec -it auth-service sh",
     "docker:test": "docker compose run --rm api yarn test"
   },
   "description": "Sequelize GraphQL server template",
