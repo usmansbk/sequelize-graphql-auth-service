@@ -1,15 +1,13 @@
 import fs from "fs";
-import * as jose from "jose";
+import { pem2jwk } from "pem-jwk";
 
 const getJWKS = async (_req, res, next) => {
-  const key = fs.readFileSync("certs/private.pem");
-  const keyObject = await jose.importSPKI(key);
-  const publicKey = await jose.importPKCS8(keyObject);
+  const key = fs.readFileSync("certs/private.pem", "ascii");
 
   try {
-    const publicJwk = await jose.exportJWK(publicKey);
+    const jwk = pem2jwk(key);
     res.json({
-      keys: [publicJwk],
+      keys: [jwk],
     });
   } catch (e) {
     next(e);
