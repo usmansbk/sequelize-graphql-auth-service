@@ -3,16 +3,12 @@
 import { readdirSync } from "fs";
 import { basename as _basename, join } from "path";
 import Sequelize, { DataTypes } from "sequelize";
-import cls from "cls-hooked";
 import configFile from "~config/database";
 
 const basename = _basename(__filename);
 const env = process.env.NODE_ENV || "development";
 const config = configFile[env];
 const db = {};
-
-const namespace = cls.createNamespace("transactions");
-Sequelize.useCLS(namespace);
 
 let sequelize;
 if (config.use_env_variable) {

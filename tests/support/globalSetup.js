@@ -1,7 +1,5 @@
 import db from "~db/models";
 
-const globalSetup = async () => {
+export default async function globalSetup() {
   await db.sequelize.sync({ force: true });
-};
-
-export default globalSetup;
+}

@@ -71,7 +71,6 @@
     "bcrypt": "^5.0.1",
     "btoa": "^1.2.1",
     "bunyan": "^1.8.15",
-    "cls-hooked": "^4.2.2",
     "connect-timeout": "^1.9.0",
     "cors": "^2.8.5",
     "dataloader": "^2.1.0",

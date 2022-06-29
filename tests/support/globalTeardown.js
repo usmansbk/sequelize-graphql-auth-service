@@ -1,9 +1,7 @@
 import db from "~db/models";
 import cache from "~utils/cache";
 
-const globalTeardown = async () => {
+export default async function globalTeardown() {
   await db.sequelize.close();
   await cache.close();
-};
-
-export default globalTeardown;
+}

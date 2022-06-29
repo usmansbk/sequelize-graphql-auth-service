@@ -1,14 +1,10 @@
 import db from "~db/models";
 import cache from "~utils/cache";
 
-afterEach((done) => {
-  cache.clearAll().then(() => done());
+afterEach(async function () {
+  await cache.clearAll();
 });
 
-afterAll((done) => {
-  db.sequelize
-    .close()
-    .then(() => cache.close())
-    .then(() => done())
-    .catch(done);
+afterAll(async function () {
+  await db.sequelize.close();
 });
