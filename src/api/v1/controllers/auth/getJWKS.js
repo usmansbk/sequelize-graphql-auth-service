@@ -2,7 +2,9 @@ import fs from "fs";
 import * as jose from "jose";
 
 const getJWKS = async (_req, res, next) => {
-  const publicKey = fs.readFileSync("certs/jwtRS256.key.pub");
+  const key = fs.readFileSync("certs/private.pem");
+  const keyObject = await jose.importSPKI(key);
+  const publicKey = await jose.importPKCS8(keyObject);
 
   try {
     const publicJwk = await jose.exportJWK(publicKey);

@@ -31,10 +31,10 @@ jobs:
           command: mkdir certs
       - run:
           name: Generate JWT private key
-          command: ssh-keygen -t rsa -P "" -b 4096 -m PEM -f certs/jwtRS256.key
+          command: openssl genrsa -out certs/private.key 2048
       - run:
           name: Generate JWT public key
-          command: ssh-keygen -e -m PEM -f certs/jwtRS256.key > certs/jwtRS256.key.pub
+          command: openssl rsa -in certs/private.key -pubout -outform PEM -out certs/public.pem
       - run:
           name: Run tests
           command: yarn test

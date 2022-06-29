@@ -39,13 +39,13 @@ mkdir certs
 - Generate a private key
 
 ```sh
-ssh-keygen -t rsa -P "" -b 4096 -m PEM -f certs/jwtRS256.key
+openssl genrsa -out certs/private.pem 2048
 ```
 
 - Generate a public key
 
 ```sh
-ssh-keygen -e -m PEM -f certs/jwtRS256.key > certs/jwtRS256.key.pub
+openssl rsa -in certs/private.pem -pubout -outform PEM -out certs/public.pem
 ```
 
 ## Run

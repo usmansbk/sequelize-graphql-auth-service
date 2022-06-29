@@ -26,7 +26,7 @@ import TokenError from "./errors/TokenError";
  * exp, nbf, aud, sub and iss can be provided in the payload directly, but you can't include in both places.
  */
 const sign = (payload, expiresIn = "15m") => {
-  const privateKey = fs.readFileSync("certs/jwtRS256.key");
+  const privateKey = fs.readFileSync("certs/private.pem");
   const id = nanoid();
   const token = jwt.sign(payload, privateKey, {
     jwtid: id,
@@ -39,7 +39,7 @@ const sign = (payload, expiresIn = "15m") => {
 };
 
 const verify = (token, { clientId, ...options } = {}) => {
-  const publicKey = fs.readFileSync("certs/jwtRS256.key.pub");
+  const publicKey = fs.readFileSync("certs/public.pem");
   try {
     return jwt.verify(token, publicKey, {
       ...options,
