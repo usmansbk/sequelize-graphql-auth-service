@@ -29,19 +29,19 @@ GraphQL authentication server optimized for Sequelize ORM
 
 ## Generate JWT keys
 
-- Create certificates folder
+- Create a folder to holder your keys
 
 ```sh
 mkdir certs
 ```
 
-- Generate a Private key
+- Generate a private key
 
 ```sh
 ssh-keygen -t rsa -P "" -b 4096 -m PEM -f certs/jwtRS256.key
 ```
 
-- Generate a Public key
+- Generate a public key
 
 ```sh
 ssh-keygen -e -m PEM -f certs/jwtRS256.key > certs/jwtRS256.key.pub
@@ -57,7 +57,7 @@ copy `.env.example` file as `.env`
 cp .env.example .env
 ```
 
-or pull from vault if your team has one
+or pull one from dotenv-vault, if your team has one
 
 ```sh
 npx dotenv-vault@latest pull --dotenvMe=YOUR-TEAM-DOTENV_ME
@@ -69,7 +69,7 @@ npx dotenv-vault@latest pull --dotenvMe=YOUR-TEAM-DOTENV_ME
 yarn docker:build
 ```
 
-- Start
+- Start container
 
 ```sh
 yarn docker:start
@@ -103,7 +103,7 @@ npx babel-node -r dotenv/config src/scripts/createApplication
 npx babel-node -r dotenv/config src/scripts/listApplications
 ```
 
-- Seed DB
+- Seed database (optional)
 
 ```sh
 yarn seed
@@ -125,12 +125,16 @@ yarn test
 
 ## Build
 
-```sh
-yarn docker:build:prod
-```
+- Build production image
 
 ```sh
-yarn docker:push
+docker compose -t usmansbk/simple-server:prod . --target prod
+```
+
+- Push to Docker Hub
+
+```sh
+docker push usmansbk/simple-server:prod
 ```
 
 ## [Mailer](https://nodemailer.com/transports/ses/)
