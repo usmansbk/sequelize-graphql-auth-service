@@ -9,6 +9,9 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: user_pool_ci
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
       - restore_cache:
@@ -38,6 +41,9 @@ jobs:
   build_and_deploy:
     docker:
       - image: cimg/node:16.15.1
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
       - setup_remote_docker:
@@ -50,6 +56,8 @@ workflows:
   build_test_deploy:
     jobs:
       - test:
+          context:
+            - docker-hub-creds
           filters:
             branches:
               only:
@@ -57,6 +65,8 @@ workflows:
                 - staging
                 - develop
       - build_and_deploy:
+          context:
+            - docker-hub-creds
           requires:
             - test
           filters:
