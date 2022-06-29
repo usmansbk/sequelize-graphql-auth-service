@@ -1,6 +1,8 @@
 import { gql } from "apollo-server-express";
 import createApolloTestServer from "tests/mocks/apolloServer";
 import FactoryBot from "tests/factories";
+import { CLIENTS_CACHE_KEY } from "~helpers/constants/auth";
+import cache from "~utils/cache";
 
 const query = gql`
   mutation DeleteApplication($id: ID!) {
@@ -48,5 +50,23 @@ describe("Mutation.deleteApplication", () => {
     );
 
     expect(res.data.deleteApplication.id).toBe(app.id);
+  });
+
+  test("should invalidate cache", async () => {
+    const app = await FactoryBot.create("application");
+    await cache.setJSON(CLIENTS_CACHE_KEY, [app.clientID]);
+
+    await server.executeOperation(
+      {
+        query,
+        variables: {
+          id: app.id,
+        },
+      },
+      { currentUser: admin }
+    );
+
+    const cleared = await cache.get(CLIENTS_CACHE_KEY);
+    expect(cleared).toBe(null);
   });
 });
