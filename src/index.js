@@ -40,6 +40,7 @@ const main = async () => {
       }`
     );
   } catch (error) {
+    Sentry.captureException(error);
     log.error(error);
   }
 };

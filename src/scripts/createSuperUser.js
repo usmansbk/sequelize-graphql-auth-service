@@ -2,6 +2,7 @@
 import inquirer from "inquirer";
 import db from "~db/models";
 import log from "~utils/logger";
+import Sentry from "~services/sentry";
 import { PERMISSIONS_ALIAS } from "~helpers/constants/models";
 
 const permissions = [
@@ -70,6 +71,7 @@ const createSuperUser = async () => {
     });
     await sequelize.close();
   } catch (e) {
+    Sentry.captureException(e);
     log.error(e);
   }
 };

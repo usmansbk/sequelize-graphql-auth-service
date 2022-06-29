@@ -1,8 +1,10 @@
+/* eslint-disable no-console */
 import inquirer from "inquirer";
 import db from "~db/models";
-import { CLIENTS_CACHE_KEY } from "~helpers/constants/auth";
-import client from "~services/redis";
+import cache from "~services/redis";
 import log from "~utils/logger";
+import Sentry from "~services/sentry";
+import { CLIENTS_CACHE_KEY } from "~helpers/constants/auth";
 
 const { sequelize, Application } = db;
 
@@ -20,14 +22,14 @@ const createApplication = async () => {
     },
   ]);
   try {
-    await sequelize.sync();
+    await sequelize.authenticate();
     const app = await Application.create(answers);
-    await client.del(CLIENTS_CACHE_KEY);
-    client.disconnect();
-    // eslint-disable-next-line no-console
-    console.log("Application created. Your clientID is", app.toJSON().clientID);
+    await cache.del(CLIENTS_CACHE_KEY);
+    cache.disconnect();
+    console.log("Client ID:", app.toJSON().clientID);
     await sequelize.close();
   } catch (e) {
+    Sentry.captureException(e);
     log.error(e);
   }
 };
