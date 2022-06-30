@@ -1,3 +1,4 @@
+import "dotenv/config";
 import logger from "~utils/logger";
 
 const { DB_USERNAME, DB_PASSWORD, DB_NAME, DB_HOST, DB_DIALECT, DB_PORT } =

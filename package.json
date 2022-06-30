@@ -7,7 +7,7 @@
     "clean": "rimraf build",
     "transpile": "babel src -d build --copy-files",
     "build": "yarn clean && yarn transpile",
-    "test": "cross-env NODE_ENV=test jest -i",
+    "test": "cross-env DOTENV_CONFIG_PATH=.env.test jest -i",
     "createsu": "node -r dotenv/config build/scripts/createSuperUser",
     "createapp": "node -r dotenv/config build/scripts/createApplication",
     "listapp": "node -r dotenv/config build/scripts/listApplications",
