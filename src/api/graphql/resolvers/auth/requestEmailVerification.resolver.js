@@ -1,6 +1,8 @@
 import links from "~helpers/links";
-import { Success } from "~helpers/response";
+import { Success, Fail } from "~helpers/response";
 import emailTemplates from "~helpers/emailTemplates";
+import QueryError from "~utils/errors/QueryError";
+import { ACCOUNT_STATUS } from "~helpers/constants/models";
 import { SENT_VERIFICATION_EMAIL } from "~helpers/constants/responseCodes";
 import {
   EMAIL_VERIFICATION_TOKEN_EXPIRES_IN,
@@ -14,39 +16,54 @@ export default {
       { email },
       { locale, cache, t, jwt, mailer, dataSources, clients }
     ) {
-      const { firstName, id, emailVerified } = await dataSources.users.findOne({
-        where: { email },
-      });
+      try {
+        const { firstName, id, emailVerified, status } =
+          await dataSources.users.findOne({
+            where: { email },
+          });
 
-      if (!emailVerified) {
-        const key = `${EMAIL_VERIFICATION_KEY_PREFIX}:${id}`;
-        const { token, exp } = jwt.generateToken(
-          {
-            sub: id,
-            aud: clients,
-          },
-          EMAIL_VERIFICATION_TOKEN_EXPIRES_IN
-        );
+        if ([ACCOUNT_STATUS.LOCKED, ACCOUNT_STATUS.BLOCKED].includes(status)) {
+          throw new QueryError(status);
+        }
 
-        await cache.set(key, token, exp);
+        if (!emailVerified) {
+          const key = `${EMAIL_VERIFICATION_KEY_PREFIX}:${id}`;
+          const { token, exp } = jwt.generateToken(
+            {
+              sub: id,
+              aud: clients,
+            },
+            EMAIL_VERIFICATION_TOKEN_EXPIRES_IN
+          );
 
-        mailer.sendEmail({
-          template: emailTemplates.VERIFY_EMAIL,
-          message: {
-            to: email,
-          },
-          locals: {
-            locale,
-            name: firstName,
-            link: links.verifyEmail(token),
-          },
+          await cache.set(key, token, exp);
+
+          mailer.sendEmail({
+            template: emailTemplates.VERIFY_EMAIL,
+            message: {
+              to: email,
+            },
+            locals: {
+              locale,
+              name: firstName,
+              link: links.verifyEmail(token),
+            },
+          });
+        }
+
+        return Success({
+          message: t(SENT_VERIFICATION_EMAIL, { email }),
+          code: SENT_VERIFICATION_EMAIL,
         });
+      } catch (e) {
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            code: e.code,
+          });
+        }
+        throw e;
       }
-
-      return Success({
-        message: t(SENT_VERIFICATION_EMAIL, { email }),
-        code: SENT_VERIFICATION_EMAIL,
-      });
     },
   },
 };

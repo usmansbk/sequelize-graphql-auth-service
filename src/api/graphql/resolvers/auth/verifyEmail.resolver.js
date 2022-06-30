@@ -26,6 +26,12 @@ export default {
           throw new QueryError(EMAIL_VERIFICATION_FAILED);
         }
 
+        const { status } = await dataSources.users.findByPk(sub);
+
+        if ([ACCOUNT_STATUS.BLOCKED, ACCOUNT_STATUS.LOCKED].includes(status)) {
+          throw new QueryError(status);
+        }
+
         const user = await dataSources.users.update(sub, {
           emailVerified: true,
           status: ACCOUNT_STATUS.ACTIVE,
