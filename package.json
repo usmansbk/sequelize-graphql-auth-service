@@ -12,7 +12,7 @@
     "createapp": "node build/scripts/createApplication",
     "listapp": "node build/scripts/listApplications",
     "prepare": "husky install",
-    "createdb:test": "docker compose run --rm api npx sequelize db:create --env test",
+    "createdb:test": "cross-env DOTENV_CONFIG_PATH=.env.test sequelize db:create --env test",
     "seed": "sequelize-cli db:seed:all",
     "docker:start": "docker compose up",
     "docker:cli": "docker exec -it auth-service sh",
