@@ -6,7 +6,6 @@ import {
   EMAIL_VERIFICATION_TOKEN_EXPIRES_IN,
   EMAIL_VERIFICATION_KEY_PREFIX,
 } from "~helpers/constants/auth";
-import { ACCOUNT_STATUS } from "~helpers/constants/models";
 
 export default {
   Mutation: {
@@ -15,12 +14,11 @@ export default {
       { email },
       { locale, cache, t, jwt, mailer, dataSources, clients }
     ) {
-      const { firstName, id, emailVerified, status } =
-        await dataSources.users.findOne({
-          where: { email },
-        });
+      const { firstName, id, emailVerified } = await dataSources.users.findOne({
+        where: { email },
+      });
 
-      if (!emailVerified || [ACCOUNT_STATUS.LOCKED].includes(status)) {
+      if (!emailVerified) {
         const key = `${EMAIL_VERIFICATION_KEY_PREFIX}:${id}`;
         const { token, exp } = jwt.generateToken(
           {
