@@ -1,35 +1,31 @@
 import logger from "~utils/logger";
 
-const {
-  DB_USERNAME,
-  DB_PASSWORD,
-  DB_NAME,
-  DB_NAME_TEST,
-  DB_HOST,
-  DB_DIALECT,
-  DB_PORT,
-} = process.env;
+const { DB_USERNAME, DB_PASSWORD, DB_NAME, DB_HOST, DB_DIALECT, DB_PORT } =
+  process.env;
 
+const username = DB_USERNAME;
+const password = DB_PASSWORD;
+const database = DB_NAME;
+const port = DB_PORT;
 const dialect = DB_DIALECT;
 const host = DB_HOST;
 
-export const development = {
-  username: DB_USERNAME,
-  password: DB_PASSWORD,
-  database: DB_NAME,
-  port: DB_PORT,
+const dbConfig = {
+  username,
+  password,
+  database,
+  port,
   host,
   dialect,
+};
+
+export const development = {
+  ...dbConfig,
   logging: (msg) => logger.info(msg),
 };
 
 export const test = {
-  username: DB_USERNAME,
-  password: DB_PASSWORD,
-  database: DB_NAME_TEST,
-  port: DB_PORT,
-  host,
-  dialect,
+  ...dbConfig,
   logging: false,
 };
 
