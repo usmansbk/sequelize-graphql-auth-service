@@ -8,7 +8,7 @@
     "transpile": "babel src -d build --copy-files",
     "build": "yarn clean && yarn transpile",
     "test": "cross-env DOTENV_CONFIG_PATH=.env.test jest -i",
-    "createsu": "node build/scripts/createSuperUser",
+    "createsu": "node build/scripts/createRootUser",
     "createapp": "node build/scripts/createApplication",
     "listapp": "node build/scripts/listApplications",
     "prepare": "husky install",

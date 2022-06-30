@@ -4,20 +4,10 @@ import inquirer from "inquirer";
 import db from "~db/models";
 import log from "~utils/logger";
 import Sentry from "~services/sentry";
-import { PERMISSIONS_ALIAS } from "~helpers/constants/models";
 
-const permissions = [
-  {
-    name: "Root",
-    scope: "all",
-    description:
-      "For administrative purposes, and has the highest access rights in the organisation.",
-  },
-];
+const { sequelize, User, Role, Permission } = db;
 
-const { sequelize, User, Role } = db;
-
-const createSuperUser = async () => {
+const createRootUser = async () => {
   console.log(
     "WARNING: The root account has virtually unlimited access to all resources."
   );
@@ -52,23 +42,25 @@ const createSuperUser = async () => {
   try {
     await sequelize.sync();
     await sequelize.transaction(async (t) => {
-      const superUser = await Role.create(
-        {
-          name: "root",
-          description: "For administrative purposes",
-          permissions,
+      const [permission] = await Permission.findOrCreate({
+        where: { scope: "all" },
+        defaults: {
+          name: "GrantAll",
+          description:
+            "For administrative purposes, and has the highest access rights in the organisation.",
         },
-        {
-          include: [
-            {
-              association: PERMISSIONS_ALIAS,
-            },
-          ],
-          transaction: t,
-        }
-      );
-      const root = await User.create(answers, { transaction: t });
-      await root.addRole(superUser, { transaction: t });
+        transaction: t,
+      });
+      const [role] = await Role.findOrCreate({
+        where: { name: "root" },
+        defaults: {
+          description: "For administrative purposes",
+        },
+        transaction: t,
+      });
+      await role.addPermission(permission, { transaction: t });
+      const user = await User.create(answers, { transaction: t });
+      await user.addRole(role, { transaction: t });
     });
     await sequelize.close();
   } catch (err) {
@@ -77,4 +69,4 @@ const createSuperUser = async () => {
   }
 };
 
-createSuperUser();
+createRootUser();

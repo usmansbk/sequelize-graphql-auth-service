@@ -87,7 +87,7 @@ yarn docker:cli
 - Create a root user
 
 ```sh
-npx babel-node src/scripts/createSuperUser
+npx babel-node src/scripts/createRootUser
 ```
 
 - Create client
