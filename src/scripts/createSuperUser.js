@@ -70,9 +70,9 @@ const createSuperUser = async () => {
       await root.addRole(superUser, { transaction: t });
     });
     await sequelize.close();
-  } catch (e) {
-    Sentry.captureException(e);
-    log.error(e);
+  } catch (err) {
+    Sentry.captureException(err);
+    log.error({ err });
   }
 };
 

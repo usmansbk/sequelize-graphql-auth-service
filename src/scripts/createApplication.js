@@ -28,9 +28,9 @@ const createApplication = async () => {
     cache.disconnect();
     console.log("Client ID:", app.toJSON().clientID);
     await sequelize.close();
-  } catch (e) {
-    Sentry.captureException(e);
-    log.error(e);
+  } catch (err) {
+    Sentry.captureException(err);
+    log.error({ err });
   }
 };
 

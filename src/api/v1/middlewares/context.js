@@ -56,11 +56,11 @@ const contextMiddleware = async (req, _res, next) => {
           await req.i18n.changeLanguage(currentUser.locale);
         }
       }
-    } catch (e) {
-      if (!(e instanceof TokenError)) {
-        Sentry.captureException(e);
+    } catch (err) {
+      if (!(err instanceof TokenError)) {
+        Sentry.captureException(err);
       }
-      log.warn(e);
+      log.warn({ err });
     }
   }
 

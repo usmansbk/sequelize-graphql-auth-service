@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import analytics from "~services/analytics";
 import Sentry from "~services/sentry";
 import log from "~utils/logger";
@@ -15,12 +16,11 @@ const errorPlugin = {
         }
 
         analytics.flush();
-        errors.forEach((e) => {
-          // translate to user request language
-          e.message = context.t(e.message);
+        errors.forEach((err) => {
+          err.message = context.t(err.message);
 
-          Sentry.captureException(e);
-          log.error(e);
+          Sentry.captureException(err);
+          log.error({ err });
         });
       },
     };

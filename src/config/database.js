@@ -1,4 +1,7 @@
-require("dotenv").config();
+import dotenv from "dotenv";
+import logger from "~utils/logger";
+
+dotenv.config();
 
 const {
   DB_USERNAME,
@@ -13,7 +16,7 @@ const {
 const dialect = DB_DIALECT;
 const host = DB_HOST;
 
-module.exports = {
+export default {
   development: {
     username: DB_USERNAME,
     password: DB_PASSWORD,
@@ -21,6 +24,7 @@ module.exports = {
     port: DB_PORT,
     host,
     dialect,
+    logging: (msg) => logger.info(msg),
   },
   test: {
     username: DB_USERNAME,
@@ -40,5 +44,6 @@ module.exports = {
       },
     },
     use_env_variable: "DATABASE_URL",
+    logging: (...msg) => logger.info(msg),
   },
 };

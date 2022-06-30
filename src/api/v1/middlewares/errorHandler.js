@@ -24,7 +24,7 @@ const errorHandler = (err, req, res, next) => {
     message = SOMETHING_WENT_WRONG;
   }
 
-  log.error(err);
+  log.error({ err });
 
   res
     .status(statusCode)

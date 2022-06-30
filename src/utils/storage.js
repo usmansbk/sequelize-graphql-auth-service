@@ -18,7 +18,14 @@ const remove = (options) => {
   operation.attempt((attempt) => {
     s3.deleteObject({ Key, Bucket }, (err) => {
       if (operation.retry(err)) {
-        log.error(`Retry #${attempt}: Key: ${Key} - ${err.message}`);
+        log.info(
+          {
+            attempt,
+            Key,
+            err,
+          },
+          "Retry"
+        );
       }
     });
   });

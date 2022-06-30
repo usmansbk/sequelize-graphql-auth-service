@@ -14,9 +14,9 @@ const listApplications = async () => {
     apps.forEach((app) => console.log(app.name, ":", app.clientID));
 
     await sequelize.close();
-  } catch (e) {
-    Sentry.captureException(e);
-    log.error(e);
+  } catch (err) {
+    Sentry.captureException(err);
+    log.error({ err });
   }
 };
 

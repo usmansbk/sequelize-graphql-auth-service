@@ -39,9 +39,9 @@ const main = async () => {
         server.graphqlPath
       }`
     );
-  } catch (error) {
-    Sentry.captureException(error);
-    log.error(error);
+  } catch (err) {
+    Sentry.captureException(err);
+    log.error({ err });
   }
 };
 

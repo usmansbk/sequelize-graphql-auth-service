@@ -10,7 +10,7 @@ const sendSMS = async (message, to) => {
     return;
   }
 
-  log.info(to, message);
+  log.info({ to, message });
   try {
     const client = twilio(accountSid, authToken);
     const response = await client.messages.create({
@@ -20,8 +20,9 @@ const sendSMS = async (message, to) => {
     });
 
     log.info(response.sid);
-  } catch (e) {
-    Sentry.captureException(e);
+  } catch (err) {
+    Sentry.captureException(err);
+    log.error({ err });
   }
 };
 

@@ -31,9 +31,9 @@ const sendEmail = async ({ template, message, locals }) => {
     const info = await email.send({ template, message, locals });
 
     log.info(`Message sent: ${info.messageId}`);
-  } catch (e) {
-    log.error(e.message);
-    Sentry.captureException(e);
+  } catch (err) {
+    log.error({ err });
+    Sentry.captureException(err);
   }
 };
 
