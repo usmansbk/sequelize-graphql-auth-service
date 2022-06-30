@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import "dotenv/config";
 import inquirer from "inquirer";
 import db from "~db/models";
 import log from "~utils/logger";

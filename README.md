@@ -87,7 +87,7 @@ yarn docker:cli
 - Create a root user
 
 ```sh
-npx babel-node -r dotenv/config src/scripts/createSuperUser
+npx babel-node src/scripts/createSuperUser
 ```
 
 - Create client
@@ -95,13 +95,13 @@ npx babel-node -r dotenv/config src/scripts/createSuperUser
   - You must pass the `client_id` in their request headers.
 
 ```sh
-npx babel-node -r dotenv/config src/scripts/createApplication
+npx babel-node src/scripts/createApplication
 ```
 
 - List existing clients
 
 ```sh
-npx babel-node -r dotenv/config src/scripts/listApplications
+npx babel-node src/scripts/listApplications
 ```
 
 - Seed database (optional)

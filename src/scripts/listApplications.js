@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import "dotenv/config";
 import db from "~db/models";
 import Sentry from "~services/sentry";
 import log from "~utils/logger";
