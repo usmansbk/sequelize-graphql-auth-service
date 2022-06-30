@@ -112,6 +112,12 @@ yarn seed
 
 ## Test
 
+- Create a `.env.test` file
+
+```sh
+cp .env.example .env.test
+```
+
 - Create Test database:
 
 ```sh
