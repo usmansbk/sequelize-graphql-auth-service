@@ -23,11 +23,7 @@ export default {
         });
 
         if (existingUser) {
-          if (
-            [ACCOUNT_STATUS.BLOCKED, ACCOUNT_STATUS.LOCKED].includes(
-              existingUser.status
-            )
-          ) {
+          if ([ACCOUNT_STATUS.BLOCKED].includes(existingUser.status)) {
             throw new ForbiddenError(existingUser.status);
           }
           if (existingUser.status === ACCOUNT_STATUS.PROVISIONED) {
