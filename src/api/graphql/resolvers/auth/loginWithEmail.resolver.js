@@ -33,10 +33,7 @@ export default {
         const attemptCountKey = `${FAILED_LOGIN_ATTEMPT_KEY_PREFIX}:${input.email}`;
         if (user && !granted) {
           const attempts = await cache.increment(attemptCountKey);
-          if (
-            attempts === MAX_LOGIN_ATTEMPTS &&
-            user.status === ACCOUNT_STATUS.ACTIVE
-          ) {
+          if (attempts === MAX_LOGIN_ATTEMPTS && user.emailVerified) {
             await dataSources.users.update(user.id, {
               status: ACCOUNT_STATUS.LOCKED,
             });
