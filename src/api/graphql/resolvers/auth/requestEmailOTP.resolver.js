@@ -9,6 +9,7 @@ import {
   EMAIL_OTP_KEY_PREFIX,
 } from "~helpers/constants/auth";
 import QueryError from "~utils/errors/QueryError";
+import { ACCOUNT_STATUS } from "~helpers/constants/models";
 
 export default {
   Mutation: {
@@ -18,8 +19,12 @@ export default {
       { locale, cache, t, otp, mailer, dataSources }
     ) {
       try {
-        const { firstName, id, emailVerified } =
+        const { firstName, id, emailVerified, status } =
           await dataSources.users.findOne({ where: { email } });
+
+        if ([ACCOUNT_STATUS.BLOCKED, ACCOUNT_STATUS.LOCKED].includes(status)) {
+          throw new QueryError(status);
+        }
 
         const key = `${EMAIL_OTP_KEY_PREFIX}:${id}`;
         const sentToken = await cache.exists(key);
