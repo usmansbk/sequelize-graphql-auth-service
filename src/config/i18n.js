@@ -4,7 +4,7 @@ import middleware from "i18next-http-middleware";
 import { join, resolve } from "path";
 import { readdirSync, lstatSync } from "fs";
 
-const localesDir = resolve("locales/dictionaries");
+const localesDir = resolve("locales/translations");
 
 i18next
   .use(middleware.LanguageDetector)
