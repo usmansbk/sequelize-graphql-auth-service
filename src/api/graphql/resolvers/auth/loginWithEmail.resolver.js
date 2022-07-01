@@ -37,6 +37,16 @@ export default {
             await dataSources.users.update(user.id, {
               status: ACCOUNT_STATUS.LOCKED,
             });
+
+            analytics.track({
+              userId: user.id,
+              event: "Login Suspicion",
+              properties: {
+                email: user.email,
+                fullName: user.fullName,
+              },
+            });
+
             mailer.sendEmail({
               template: emailTemplates.FAILED_LOGIN,
               message: {
