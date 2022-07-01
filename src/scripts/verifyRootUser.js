@@ -5,7 +5,11 @@ import { AuthenticationError } from "apollo-server-core";
 import db from "~db/models";
 import log from "~utils/logger";
 import Sentry from "~services/sentry";
-import { ACCOUNT_STATUS, ROLES_ALIAS } from "~helpers/constants/models";
+import {
+  ACCOUNT_STATUS,
+  PERMISSIONS_ALIAS,
+  ROLES_ALIAS,
+} from "~helpers/constants/models";
 
 const { sequelize, User } = db;
 
@@ -32,10 +36,15 @@ const verifyRootUser = async () => {
         },
         include: [
           {
-            as: ROLES_ALIAS,
-            where: {
-              scope: "all",
-            },
+            association: ROLES_ALIAS,
+            include: [
+              {
+                association: PERMISSIONS_ALIAS,
+                where: {
+                  scope: "all",
+                },
+              },
+            ],
           },
         ],
         transaction: t,
