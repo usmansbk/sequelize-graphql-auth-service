@@ -28,7 +28,7 @@ export default {
 
         const { status, emailVerified } = await dataSources.users.findByPk(sub);
 
-        if ([ACCOUNT_STATUS.BLOCKED, ACCOUNT_STATUS.LOCKED].includes(status)) {
+        if ([ACCOUNT_STATUS.BLOCKED].includes(status)) {
           throw new QueryError(status);
         }
 

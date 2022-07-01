@@ -22,7 +22,7 @@ export default {
             where: { email },
           });
 
-        if ([ACCOUNT_STATUS.LOCKED, ACCOUNT_STATUS.BLOCKED].includes(status)) {
+        if ([ACCOUNT_STATUS.BLOCKED].includes(status)) {
           throw new QueryError(status);
         }
 
