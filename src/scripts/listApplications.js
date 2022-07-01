@@ -13,12 +13,11 @@ const listApplications = async () => {
 
     console.log("MY APPS");
     apps.forEach((app) => console.log(app.name, ":", app.clientID));
-
-    await sequelize.close();
   } catch (err) {
     Sentry.captureException(err);
     log.error({ err });
   }
+  await sequelize.close();
 };
 
 listApplications();

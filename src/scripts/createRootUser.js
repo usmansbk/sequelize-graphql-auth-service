@@ -62,11 +62,11 @@ const createRootUser = async () => {
       const user = await User.create(answers, { transaction: t });
       await user.addRole(role, { transaction: t });
     });
-    await sequelize.close();
   } catch (err) {
     Sentry.captureException(err);
     log.error({ err });
   }
+  await sequelize.close();
 };
 
 createRootUser();

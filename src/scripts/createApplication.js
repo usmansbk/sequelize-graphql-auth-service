@@ -26,13 +26,13 @@ const createApplication = async () => {
     await sequelize.authenticate();
     const app = await Application.create(answers);
     await cache.del(CLIENTS_CACHE_KEY);
-    cache.disconnect();
     console.log("Client ID:", app.toJSON().clientID);
-    await sequelize.close();
   } catch (err) {
     Sentry.captureException(err);
     log.error({ err });
   }
+  cache.disconnect();
+  await sequelize.close();
 };
 
 createApplication();
