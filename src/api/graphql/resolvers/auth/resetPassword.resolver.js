@@ -6,6 +6,7 @@ import {
 } from "~helpers/constants/responseCodes";
 import { PASSWORD_KEY_PREFIX } from "~helpers/constants/auth";
 import analytics from "~services/analytics";
+import { ACCOUNT_STATUS } from "~helpers/constants/models";
 
 export default {
   Mutation: {
@@ -24,9 +25,16 @@ export default {
           throw new QueryError(INVALID_LINK);
         }
 
+        const { status } = await dataSources.users.findByPk(sub);
+
+        if ([ACCOUNT_STATUS.BLOCKED].includes(status)) {
+          throw new QueryError(status);
+        }
+
         await dataSources.users.update(sub, {
           password,
           emailVerified: true,
+          status: ACCOUNT_STATUS.ACTIVE,
         });
 
         // invalidate all refresh tokens
