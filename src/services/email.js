@@ -1,5 +1,6 @@
 import Email from "email-templates";
 import nodemailer from "nodemailer";
+import { resolve } from "path";
 import log from "~utils/logger";
 import aws, { ses } from "./aws";
 import Sentry from "./sentry";
@@ -18,7 +19,7 @@ const email = new Email({
   subjectPrefix: env === "development" && `[${env.toUpperCase()}] `,
   i18n: {
     locales: ["en"],
-    directory: "./locales/emails",
+    directory: resolve("locales/emails"),
   },
   send: true,
 });
