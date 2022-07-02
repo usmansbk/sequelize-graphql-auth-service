@@ -29,6 +29,7 @@ const createApolloServer = (app) => {
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer }), errorPlugin],
     logger,
     dataSources,
+    cache: "bounded",
     context: ({ req }) => {
       const { t, context } = req;
 
