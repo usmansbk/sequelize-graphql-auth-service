@@ -108,6 +108,6 @@
     "*.{js,css,md}": "prettier --write"
   },
   "nodemonConfig": {
-    "ext": "js,gql,env"
+    "ext": "js,gql,env,json"
   }
 }
