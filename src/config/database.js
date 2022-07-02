@@ -39,7 +39,7 @@ export const production = {
     },
   },
   use_env_variable: "DATABASE_URL",
-  logging: (...msg) => logger.info(msg),
+  logging: (msg) => logger.info(msg),
 };
 
 export default {
