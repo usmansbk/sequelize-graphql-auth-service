@@ -2,7 +2,7 @@
   "name": "auth-service",
   "version": "1.0.0",
   "scripts": {
-    "start": "cross-env DOTENV_CONFIG_PATH=.env.production node build",
+    "start": "node build",
     "dev": "nodemon --exec babel-node src",
     "clean": "rimraf build",
     "transpile": "babel src -d build --copy-files",
