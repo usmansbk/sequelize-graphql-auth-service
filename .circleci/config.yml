@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  aws-ecr: circleci/aws-ecr@8.1.2
+
 jobs:
   test:
     docker:
@@ -39,19 +42,9 @@ jobs:
           name: Run tests
           command: yarn test
   build_and_deploy:
-    docker:
-      - image: cimg/node:16.15.1
-        auth:
-          username: $DOCKERHUB_USERNAME
-          password: $DOCKERHUB_PASSWORD
-    steps:
-      - checkout
-      - setup_remote_docker:
-          version: 20.10.14
-          docker_layer_caching: true
-      - run:
-          name: Build docker image
-          command: docker build --target prod -t $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:$CIRCLE_BRANCH .
+    - aws-ecr/build-and-push-image:
+        repo: $AWS_ECR_REPO
+        public-registry: true
 workflows:
   build_test_deploy:
     jobs:
@@ -67,6 +60,7 @@ workflows:
       - build_and_deploy:
           context:
             - docker-hub-creds
+            - aws-creds
           requires:
             - test
           filters:
@@ -74,3 +68,4 @@ workflows:
               only:
                 - release
                 - staging
+                - develop
