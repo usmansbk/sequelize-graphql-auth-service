@@ -1,3 +1,4 @@
+import { AuthenticationError } from "apollo-server-core";
 import db from "~db/models";
 import jwt from "~utils/jwt";
 import otp from "~utils/otp";
@@ -10,7 +11,6 @@ import Sentry from "~services/sentry";
 import getUser from "~utils/getUser";
 import TokenError from "~utils/errors/TokenError";
 import { CLIENTS_CACHE_KEY } from "~helpers/constants/auth";
-import { AuthenticationError } from "apollo-server-core";
 import { INVALID_CLIENT_ID } from "~helpers/constants/responseCodes";
 
 const contextMiddleware = async (req, _res, next) => {
