@@ -55,6 +55,7 @@ workflows:
                 - develop
       - aws-ecr/build-and-push-image:
           repo: $AWS_ECR_REPO
+          tag: $CIRCLE_BRANCH
           public-registry: true
           context:
             - docker-hub-creds
