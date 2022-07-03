@@ -32,7 +32,7 @@ const contextMiddleware = async (req, _res, next) => {
   }
 
   if (!clients.includes(clientId)) {
-    throw new AuthenticationError(INVALID_CLIENT_ID);
+    return next(new AuthenticationError(INVALID_CLIENT_ID));
   }
 
   if (accessToken) {
@@ -87,7 +87,7 @@ const contextMiddleware = async (req, _res, next) => {
     currentUser,
     locale: currentUser?.locale || req.language,
   };
-  next();
+  return next();
 };
 
 export default contextMiddleware;
