@@ -31,7 +31,7 @@ const contextMiddleware = async (req, _res, next) => {
     await cache.setJSON(CLIENTS_CACHE_KEY, clients, "365 days");
   }
 
-  if (!clients.includes(clientId)) {
+  if (!(process.env.NODE_ENV === "development" || clients.includes(clientId))) {
     return next(new AuthenticationError(INVALID_CLIENT_ID));
   }
 
