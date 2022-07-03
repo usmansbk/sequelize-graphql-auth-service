@@ -67,3 +67,4 @@ workflows:
               only:
                 - release
                 - staging
+                - develop
