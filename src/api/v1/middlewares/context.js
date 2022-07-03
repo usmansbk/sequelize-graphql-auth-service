@@ -1,4 +1,3 @@
-import { AuthenticationError } from "apollo-server-core";
 import db from "~db/models";
 import jwt from "~utils/jwt";
 import otp from "~utils/otp";
@@ -11,7 +10,6 @@ import Sentry from "~services/sentry";
 import getUser from "~utils/getUser";
 import TokenError from "~utils/errors/TokenError";
 import { CLIENTS_CACHE_KEY } from "~helpers/constants/auth";
-import { INVALID_CLIENT_ID } from "~helpers/constants/responseCodes";
 
 const contextMiddleware = async (req, _res, next) => {
   const { authorization, client_id: clientId } = req.headers;
@@ -29,10 +27,6 @@ const contextMiddleware = async (req, _res, next) => {
     const apps = await db.Application.findAll();
     clients = apps.map((app) => app.clientID);
     await cache.setJSON(CLIENTS_CACHE_KEY, clients, "365 days");
-  }
-
-  if (!(process.env.NODE_ENV === "development" || clients.includes(clientId))) {
-    return next(new AuthenticationError(INVALID_CLIENT_ID));
   }
 
   if (accessToken) {
