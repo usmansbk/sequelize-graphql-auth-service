@@ -56,6 +56,7 @@ workflows:
       - aws-ecr/build-and-push-image:
           repo: $AWS_ECR_REPO
           tag: $CIRCLE_BRANCH
+          dockerfile: Dockerfile.production
           public-registry: true
           context:
             - docker-hub-creds
