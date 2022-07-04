@@ -79,3 +79,4 @@ workflows:
             branches:
               only:
                 - release
+                - staging
