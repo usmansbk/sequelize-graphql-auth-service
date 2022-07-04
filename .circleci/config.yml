@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   aws-ecr: circleci/aws-ecr@8.1.2
+  aws-ecs: circleci/aws-ecs@2.3.0
 
 jobs:
   test:
@@ -68,3 +69,9 @@ workflows:
               only:
                 - release
                 - staging
+      - aws-ecs/deploy-service-update:
+          requires:
+            - aws-ecr/build-and-push-image
+          family: '${AWS_ECR_REPO}-service'
+          cluster-name: '${AWS_ECR_REPO}-cluster'
+          container-image-name-updates: 'container=${AWS_ECR_REPO}-service,tag=${CIRCLE_SHA1}
