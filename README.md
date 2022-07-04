@@ -135,13 +135,13 @@ yarn test
 - Build production image
 
 ```sh
-docker compose -t usmansbk/simple-server:prod . --target prod
+docker compose -t usmansbk/simple-server:release . -f Dockerfile.production
 ```
 
 - Push to Docker Hub
 
 ```sh
-docker push usmansbk/auth-service:prod
+docker push usmansbk/auth-service:release
 ```
 
 ## [Mailer](https://nodemailer.com/transports/ses/)
