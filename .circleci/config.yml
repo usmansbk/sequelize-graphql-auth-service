@@ -69,7 +69,6 @@ workflows:
               only:
                 - release
                 - staging
-                - develop
       - aws-ecs/deploy-service-update:
           requires:
             - aws-ecr/build-and-push-image
