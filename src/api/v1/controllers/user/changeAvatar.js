@@ -20,31 +20,34 @@ import { getImageUrl } from "~helpers/links";
 
 const { S3_BUCKET } = process.env;
 
-const upload = multer({
-  storage: multerS3({
-    s3: s3Client,
-    bucket: S3_BUCKET,
-    contentType: multerS3.AUTO_CONTENT_TYPE,
-    metadata(_req, file, cb) {
-      cb(null, { fieldName: file.fieldname, originalName: file.originalname });
-    },
-    key(_req, _file, cb) {
-      cb(null, `${AVATARS_FOLDER}/${nanoid()}`);
-    },
-  }),
-  limits: {
-    fileSize: PROFILE_PICTURE_MAX_FILE_SIZE,
-  },
-  fileFilter(_req, file, cb) {
-    if (!SUPPORTED_PROFILE_PICTURE_FILE_TYPES.includes(file.mimetype)) {
-      cb(new UserInputError(UNSUPPORTED_FILE_TYPE));
-    } else {
-      cb(null, true);
-    }
-  },
-}).single("avatar");
-
 const changeAvatar = async (req, res) => {
+  const upload = multer({
+    storage: multerS3({
+      s3: s3Client,
+      bucket: S3_BUCKET,
+      contentType: multerS3.AUTO_CONTENT_TYPE,
+      metadata(_req, file, cb) {
+        cb(null, {
+          fieldName: file.fieldname,
+          originalName: file.originalname,
+        });
+      },
+      key(_req, _file, cb) {
+        cb(null, `${AVATARS_FOLDER}/${nanoid()}`);
+      },
+    }),
+    limits: {
+      fileSize: PROFILE_PICTURE_MAX_FILE_SIZE,
+    },
+    fileFilter(_req, file, cb) {
+      if (!SUPPORTED_PROFILE_PICTURE_FILE_TYPES.includes(file.mimetype)) {
+        cb(new UserInputError(UNSUPPORTED_FILE_TYPE));
+      } else {
+        cb(null, true);
+      }
+    },
+  }).single("avatar");
+
   upload(req, res, async (err) => {
     const {
       context: { storage, db },
