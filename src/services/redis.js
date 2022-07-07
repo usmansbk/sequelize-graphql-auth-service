@@ -1,10 +1,23 @@
 import Redis from "ioredis";
 
-const port = process.env.REDIS_PORT;
-const host = process.env.REDIS_HOST;
+const { REDIS_CLUSTER_MODE, REDIS_PORT, REDIS_HOST, REDIS_URL, NODE_ENV } =
+  process.env;
+
+const port = REDIS_PORT;
+const host = REDIS_HOST;
 
 const createClient = () => {
-  if (process.env.REDIS_CLUSTER_MODE === "enabled") {
+  let redisOptions;
+
+  if (NODE_ENV === "production") {
+    redisOptions = {
+      tls: {
+        rejectUnauthorized: false,
+      },
+    };
+  }
+
+  if (REDIS_CLUSTER_MODE === "enabled") {
     return new Redis.Cluster(
       [
         {
@@ -13,27 +26,16 @@ const createClient = () => {
         },
       ],
       {
-        redisOptions: {
-          tls: {
-            rejectUnauthorized: false,
-          },
-        },
+        redisOptions,
       }
     );
   }
 
-  if (process.env.REDIS_URL) {
-    return new Redis(process.env.REDIS_URL, {
-      tls: {
-        rejectUnauthorized: false,
-      },
-    });
+  if (REDIS_URL) {
+    return new Redis(REDIS_URL, redisOptions);
   }
 
-  return new Redis({
-    port,
-    host,
-  });
+  return new Redis({ port, host }, redisOptions);
 };
 
 const client = createClient();

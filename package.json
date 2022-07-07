@@ -16,7 +16,10 @@
     "seed": "sequelize-cli db:seed:all",
     "docker:start": "docker compose up",
     "docker:cli": "docker exec -it auth-service sh",
-    "docker:test": "docker compose run --rm api yarn test"
+    "docker:build": "docker build -t usmansbk/auth-serivce .",
+    "docker:build:prod": "docker build -t usmansbk/auth-serivce . -f Dockerfile.production",
+    "docker:test": "docker compose run --rm api yarn test",
+    "env": "sync-dotenv"
   },
   "description": "Sequelize GraphQL server template",
   "main": "index.js",
@@ -43,10 +46,11 @@
     "ioredis-mock": "^8.2.2",
     "jest": "^28.1.2",
     "lint-staged": "^13.0.3",
-    "nodemon": "^2.0.16",
+    "nodemon": "^2.0.19",
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
     "sequelize-cli": "^6.4.1",
+    "sync-dotenv": "^2.7.0",
     "weak-napi": "^2.0.2"
   },
   "dependencies": {
@@ -58,8 +62,8 @@
     "@graphql-tools/merge": "^8.3.0",
     "@graphql-tools/schema": "^8.5.0",
     "@graphql-tools/utils": "^8.8.0",
-    "@sentry/node": "^7.5.0",
-    "@sentry/tracing": "^7.5.0",
+    "@sentry/node": "^7.5.1",
+    "@sentry/tracing": "^7.5.1",
     "analytics-node": "^6.0.0",
     "apollo-datasource": "^3.3.2",
     "apollo-server-core": "^3.9.0",
@@ -81,7 +85,7 @@
     "graphql": "^16.5.0",
     "graphql-fields-list": "^2.2.4",
     "graphql-scalars": "^1.17.0",
-    "i18next": "^21.8.12",
+    "i18next": "^21.8.13",
     "i18next-fs-backend": "^1.1.4",
     "i18next-http-middleware": "^3.2.1",
     "inquirer": "^8.2.4",
@@ -92,7 +96,7 @@
     "multer-s3": "^3.0.1",
     "nanoid": "^3.3.4",
     "node-fetch": "2.6.7",
-    "nodemailer": "^6.7.6",
+    "nodemailer": "^6.7.7",
     "numeral": "^2.0.6",
     "pem-jwk": "^2.0.0",
     "pg": "^8.7.3",
@@ -109,5 +113,10 @@
   },
   "nodemonConfig": {
     "ext": "js,gql,env,json"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn env"
+    }
   }
 }
