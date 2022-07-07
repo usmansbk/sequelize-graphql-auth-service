@@ -72,7 +72,7 @@ workflows:
       - aws-ecs/deploy-service-update:
           requires:
             - aws-ecr/build-and-push-image
-          family: "${AWS_ECR_REPO}-task""
+          family: "${AWS_ECR_REPO}-task"
           cluster-name: "${AWS_ECR_REPO}-cluster"
           container-image-name-updates: "container=${AWS_ECR_REPO}-task,tag=${CIRCLE_BRANCH}"
           filters:
