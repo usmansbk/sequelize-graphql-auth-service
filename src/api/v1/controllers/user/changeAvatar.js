@@ -20,7 +20,6 @@ import { getImageUrl } from "~helpers/links";
 
 const { S3_BUCKET } = process.env;
 
-// build
 const changeAvatar = async (req, res) => {
   const upload = multer({
     storage: multerS3({
