@@ -182,7 +182,7 @@ We upload files via `REST` endpoints. [Why not File Upload mutation?](https://ww
 
 To set up your `S3` for file storage:
 
-- Add your `S3_BUCKET` to `env` file
+- Add your `AWS_S3_BUCKET` to `env` file
 - Ensure you've set the full s3 permissions
 
 ## Images CDN

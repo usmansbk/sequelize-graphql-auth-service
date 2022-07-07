@@ -18,13 +18,13 @@ import {
 } from "~helpers/constants/files";
 import { getImageUrl } from "~helpers/links";
 
-const { S3_BUCKET } = process.env;
+const { AWS_S3_BUCKET } = process.env;
 
 const changeAvatar = async (req, res) => {
   const upload = multer({
     storage: multerS3({
       s3: s3Client,
-      bucket: S3_BUCKET,
+      bucket: AWS_S3_BUCKET,
       contentType: multerS3.AUTO_CONTENT_TYPE,
       metadata(_req, file, cb) {
         cb(null, {
