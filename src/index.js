@@ -14,7 +14,7 @@ import errorHandler from "~api/v1/middlewares/errorHandler";
 const app = express();
 
 useLanguageMiddleware(app);
-
+// test sync
 app.use(cors());
 app.use(Sentry.Handlers.requestHandler());
 app.use(apiLimiter);
