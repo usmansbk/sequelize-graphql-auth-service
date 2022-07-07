@@ -7,11 +7,15 @@ const port = REDIS_PORT;
 const host = REDIS_HOST;
 
 const createClient = () => {
-  const redisOptions = {
-    tls: {
-      rejectUnauthorized: false,
-    },
-  };
+  let redisOptions;
+
+  if (NODE_ENV === "production") {
+    redisOptions = {
+      tls: {
+        rejectUnauthorized: false,
+      },
+    };
+  }
 
   if (REDIS_CLUSTER_MODE === "enabled") {
     return new Redis.Cluster(
@@ -31,10 +35,7 @@ const createClient = () => {
     return new Redis(REDIS_URL, redisOptions);
   }
 
-  return new Redis(
-    { port, host },
-    NODE_ENV === "production" ? redisOptions : undefined
-  );
+  return new Redis({ port, host }, redisOptions);
 };
 
 const client = createClient();
