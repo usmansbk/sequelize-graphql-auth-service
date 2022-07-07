@@ -16,6 +16,8 @@
     "seed": "sequelize-cli db:seed:all",
     "docker:start": "docker compose up",
     "docker:cli": "docker exec -it auth-service sh",
+    "docker:build": "docker build -t usmansbk/auth-serivce .",
+    "docker:build:prod": "docker build -t usmansbk/auth-serivce . -f Dockerfile.production",
     "docker:test": "docker compose run --rm api yarn test"
   },
   "description": "Sequelize GraphQL server template",
