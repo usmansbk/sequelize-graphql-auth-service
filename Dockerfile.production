@@ -17,4 +17,4 @@ COPY --from=build /app/dist ./dist
 COPY ./emails ./emails
 COPY ./locales ./locales
 EXPOSE 4000
-CMD yarn start 
+CMD npx --yes dotenv-vault@latest pull production .env --dotenvMe $DOTENV_ME;  yarn start 
