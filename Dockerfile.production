@@ -16,6 +16,6 @@ RUN yarn install
 COPY --from=build /app/dist ./dist
 COPY ./emails ./emails
 COPY ./locales ./locales
-COPY .env.vault .
+COPY .env.vault ./
 EXPOSE 4000
 CMD npx --yes dotenv-vault@latest pull production .env --dotenvMe $DOTENV_ME;  yarn start 
