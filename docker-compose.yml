@@ -13,8 +13,9 @@ services:
     ports:
       - 4000:4000
     volumes:
-      - ./:/usr/src/app
-      - node_modules:/usr/src/app/node_modules
+      - ./:/usr/app
+      - node_modules:/usr/app/node_modules
+      - certs:/usr/app/certs
 
   db:
     container_name: postgresql_db
@@ -39,6 +40,7 @@ services:
     volumes:
       - cache:/data
 volumes:
+  certs:
   node_modules:
   db:
     driver: local

@@ -28,26 +28,6 @@ Authentication service/subgraph optimized for Sequelize ORM
 
 - [Docker](https://docs.docker.com/)
 
-## Generate JWT keys
-
-- Create a folder to holder your keys
-
-```sh
-mkdir certs
-```
-
-- Generate a private key
-
-```sh
-openssl genrsa -out certs/private.pem 2048
-```
-
-- Generate a public key
-
-```sh
-openssl rsa -in certs/private.pem -pubout -outform PEM -out certs/public.pem
-```
-
 ## Run
 
 - Create a **.env** file
@@ -76,13 +56,33 @@ yarn docker:build
 yarn docker:start
 ```
 
-## Initialize database
-
-- Make sure your container is running, open a new terminal, and run the following commands.
+## Open Shell
 
 ```sh
 yarn docker:cli
 ```
+
+## Generate JWT keys
+
+- Create a folder to holder your keys
+
+```sh
+mkdir certs
+```
+
+- Generate a private key
+
+```sh
+openssl genrsa -out certs/private.pem 2048
+```
+
+- Generate a public key
+
+```sh
+openssl rsa -in certs/private.pem -pubout -outform PEM -out certs/public.pem
+```
+
+## Initialize database
 
 - Create a root user
 
