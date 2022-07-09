@@ -35,11 +35,7 @@ const main = async () => {
     await db.sequelize.sync({ force: false });
     log.info("Database connection has been established successfully.");
     const server = await startApolloServer(app);
-    log.info(
-      `🚀 Server ready at http://localhost:${process.env.PORT || 4000}${
-        server.graphqlPath
-      }`
-    );
+    log.info(`🚀 Server ready at ${process.env.HOST}${server.graphqlPath}`);
   } catch (err) {
     Sentry.captureException(err);
     log.error({ err });

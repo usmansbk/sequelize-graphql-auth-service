@@ -1,6 +1,5 @@
 import { AuthenticationError, ForbiddenError } from "apollo-server-core";
 import {
-  INVALID_CLIENT_ID,
   UNAUTHENTICATED,
   UNAUTHORIZED,
 } from "~helpers/constants/responseCodes";
@@ -8,13 +7,8 @@ import { ACCOUNT_STATUS } from "~helpers/constants/models";
 
 const authMiddleware = (rules) => async (req, _res, next) => {
   try {
-    const { tokenInfo, sessionId, currentUser, clientId, isRootUser, clients } =
-      req.context;
+    const { tokenInfo, sessionId, currentUser, isRootUser } = req.context;
     const isLoggedIn = tokenInfo && tokenInfo.sid === sessionId;
-
-    if (!clients.includes(clientId)) {
-      throw new AuthenticationError(INVALID_CLIENT_ID);
-    }
 
     if (!(currentUser && isLoggedIn)) {
       throw new AuthenticationError(UNAUTHENTICATED);

@@ -74,7 +74,7 @@ workflows:
             - aws-ecr/build-and-push-image
           family: "${AWS_ECR_REPO}-task"
           cluster-name: "${AWS_ECR_REPO}-cluster"
-          container-image-name-updates: "container=${AWS_ECR_REPO}-task,tag=${CIRCLE_BRANCH}"
+          container-image-name-updates: "container=${AWS_ECR_REPO},tag=${CIRCLE_BRANCH}"
           filters:
             branches:
               only:
