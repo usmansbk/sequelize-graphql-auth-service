@@ -5,7 +5,7 @@ Dockerfile*
 docker-compose.*
 LICENSE
 README.md
+.env\*
+
 !.env.project
 !.env.vault
-
-.env*

@@ -112,5 +112,10 @@
   },
   "nodemonConfig": {
     "ext": "js,gql,env,json"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn env"
+    }
   }
 }
