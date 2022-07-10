@@ -6,12 +6,11 @@ import log from "~utils/logger";
 
 const { sequelize, Application } = db;
 
-const listApplications = async () => {
+const listApp = async () => {
   try {
     await sequelize.sync();
     const apps = await Application.findAll();
 
-    console.log("MY APPS");
     apps.forEach((app) => console.log(app.name, ":", app.clientID));
   } catch (err) {
     Sentry.captureException(err);
@@ -20,4 +19,4 @@ const listApplications = async () => {
   await sequelize.close();
 };
 
-listApplications();
+listApp();

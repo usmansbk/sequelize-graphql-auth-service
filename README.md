@@ -73,7 +73,7 @@ sh src/scripts/generateJWTKeys.sh
 - Create a root user
 
 ```sh
-npx babel-node src/scripts/createRootUser
+npx babel-node src/scripts/createRoot
 ```
 
 - Create client
@@ -81,13 +81,13 @@ npx babel-node src/scripts/createRootUser
   - You must pass the `client_id` in their request headers.
 
 ```sh
-npx babel-node src/scripts/createApplication
+npx babel-node src/scripts/createApp
 ```
 
 - List existing clients
 
 ```sh
-npx babel-node src/scripts/listApplications
+npx babel-node src/scripts/listApp
 ```
 
 - Seed database (optional)
