@@ -53,7 +53,7 @@ yarn docker:build
 - Start container
 
 ```sh
-yarn docker:start
+yarn docker:start -d
 ```
 
 ## Open Shell
