@@ -18,7 +18,8 @@
     "docker:cli": "docker exec -it auth-service sh",
     "docker:build": "docker build -t usmansbk/auth-serivce .",
     "docker:build:prod": "docker build -t usmansbk/auth-serivce . -f Dockerfile.production",
-    "docker:test": "docker compose run --rm api yarn test"
+    "docker:test": "docker compose run --rm api yarn test",
+    "jwt": "sh dist/scripts/generateJWTkeys.sh"
   },
   "description": "Sequelize GraphQL server template",
   "main": "index.js",

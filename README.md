@@ -64,22 +64,8 @@ yarn docker:cli
 
 ## Generate JWT keys
 
-- Create a folder to holder your keys
-
 ```sh
-mkdir certs
-```
-
-- Generate a private key
-
-```sh
-openssl genrsa -out certs/private.pem 2048
-```
-
-- Generate a public key
-
-```sh
-openssl rsa -in certs/private.pem -pubout -outform PEM -out certs/public.pem
+sh src/scripts/generateJWTKeys.sh
 ```
 
 ## Initialize database
