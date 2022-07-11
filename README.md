@@ -62,12 +62,6 @@ yarn docker:start -d
 yarn docker:cli
 ```
 
-## Generate JWT keys
-
-```sh
-sh src/scripts/generateJWTKeys.sh
-```
-
 ## Initialize database
 
 - Create a root user
