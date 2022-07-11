@@ -10,7 +10,7 @@ import { useLanguageMiddleware } from "~config/i18n";
 import contextMiddleware from "~api/v1/middlewares/context";
 import apiLimiter from "~api/v1/middlewares/apiLimiter";
 import errorHandler from "~api/v1/middlewares/errorHandler";
-import generateKeyPair from "~scripts/generateKayPair";
+import generateKeyPair from "~scripts/generateKeyPair";
 
 const app = express();
 
