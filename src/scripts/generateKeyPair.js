@@ -1,4 +1,3 @@
-import "dotenv/config";
 import fs from "fs";
 import { generateKeyPairSync } from "crypto";
 import log from "~utils/logger";
