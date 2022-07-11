@@ -16,6 +16,7 @@ const generateKeyPair = (rotate = false) => {
       rotate ||
       !(fs.existsSync("certs/private.pem") && fs.existsSync("certs/public.pem"))
     ) {
+      log.info("Generating key pairs");
       const { privateKey, publicKey } = generateKeyPairSync("rsa", {
         modulusLength: 2048,
       });
@@ -27,6 +28,7 @@ const generateKeyPair = (rotate = false) => {
         "certs/public.pem",
         publicKey.export({ type: "spki", format: "pem" })
       );
+      log.info("Key pairs generated");
     }
   } catch (err) {
     log.error({ err });
