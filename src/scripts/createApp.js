@@ -9,8 +9,7 @@ import { CLIENTS_CACHE_KEY } from "~helpers/constants/auth";
 
 const { sequelize, Application } = db;
 
-// build
-const createApplication = async () => {
+const createApp = async () => {
   const answers = await inquirer.prompt([
     {
       type: "input",
@@ -36,4 +35,4 @@ const createApplication = async () => {
   await sequelize.close();
 };
 
-createApplication();
+createApp();

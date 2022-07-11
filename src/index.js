@@ -10,6 +10,7 @@ import { useLanguageMiddleware } from "~config/i18n";
 import contextMiddleware from "~api/v1/middlewares/context";
 import apiLimiter from "~api/v1/middlewares/apiLimiter";
 import errorHandler from "~api/v1/middlewares/errorHandler";
+import generateKeyPair from "~scripts/generateKeyPair";
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use(errorHandler);
 
 const main = async () => {
   try {
+    generateKeyPair();
     await db.sequelize.authenticate();
     await db.sequelize.sync({ force: false });
     log.info("Database connection has been established successfully.");

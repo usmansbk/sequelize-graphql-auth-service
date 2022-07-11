@@ -47,6 +47,9 @@ export default {
         if (user && !granted) {
           const attempts = await cache.increment(attemptCountKey);
           if (attempts === MAX_LOGIN_ATTEMPTS) {
+            await dataSources.users.update(user.id, {
+              status: ACCOUNT_STATUS.LOCKED,
+            });
             mailer.sendEmail({
               template: emailTemplates.FAILED_LOGIN,
               message: {

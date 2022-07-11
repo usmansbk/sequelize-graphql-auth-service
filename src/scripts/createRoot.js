@@ -7,7 +7,7 @@ import Sentry from "~services/sentry";
 
 const { sequelize, User, Role, Permission } = db;
 
-const createRootUser = async () => {
+const createRoot = async () => {
   console.log(
     "WARNING: The root account has virtually unlimited access to all resources."
   );
@@ -69,4 +69,4 @@ const createRootUser = async () => {
   await sequelize.close();
 };
 
-createRootUser();
+createRoot();

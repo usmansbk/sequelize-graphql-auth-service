@@ -13,7 +13,7 @@ import {
 
 const { sequelize, User } = db;
 
-const verifyRootUser = async () => {
+const unlockRoot = async () => {
   const answers = await inquirer.prompt([
     {
       type: "input",
@@ -65,4 +65,4 @@ const verifyRootUser = async () => {
   await sequelize.close();
 };
 
-verifyRootUser();
+unlockRoot();

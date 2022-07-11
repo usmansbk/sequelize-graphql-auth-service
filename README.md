@@ -28,26 +28,6 @@ Authentication service/subgraph optimized for Sequelize ORM
 
 - [Docker](https://docs.docker.com/)
 
-## Generate JWT keys
-
-- Create a folder to holder your keys
-
-```sh
-mkdir certs
-```
-
-- Generate a private key
-
-```sh
-openssl genrsa -out certs/private.pem 2048
-```
-
-- Generate a public key
-
-```sh
-openssl rsa -in certs/private.pem -pubout -outform PEM -out certs/public.pem
-```
-
 ## Run
 
 - Create a **.env** file
@@ -73,21 +53,21 @@ yarn docker:build
 - Start container
 
 ```sh
-yarn docker:start
+yarn docker:start -d
 ```
 
-## Initialize database
-
-- Make sure your container is running, open a new terminal, and run the following commands.
+## Open Shell
 
 ```sh
 yarn docker:cli
 ```
 
+## Initialize database
+
 - Create a root user
 
 ```sh
-npx babel-node src/scripts/createRootUser
+npx babel-node src/scripts/createRoot
 ```
 
 - Create client
@@ -95,13 +75,13 @@ npx babel-node src/scripts/createRootUser
   - You must pass the `client_id` in their request headers.
 
 ```sh
-npx babel-node src/scripts/createApplication
+npx babel-node src/scripts/createApp
 ```
 
 - List existing clients
 
 ```sh
-npx babel-node src/scripts/listApplications
+npx babel-node src/scripts/listApp
 ```
 
 - Seed database (optional)

@@ -1,11 +1,11 @@
 import fs from "fs";
-import { pem2jwk } from "pem-jwk";
+import { createPublicKey } from "crypto";
 
 const getJWKS = async (_req, res, next) => {
-  const key = fs.readFileSync("certs/public.pem", "ascii");
+  const privateKey = fs.readFileSync("certs/private.pem", "ascii");
 
   try {
-    const jwk = pem2jwk(key);
+    const jwk = createPublicKey(privateKey).export({ format: "jwk" });
     res.json({
       keys: [jwk],
     });
