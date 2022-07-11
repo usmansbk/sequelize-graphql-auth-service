@@ -98,7 +98,6 @@
     "node-fetch": "2.6.7",
     "nodemailer": "^6.7.7",
     "numeral": "^2.0.6",
-    "pem-jwk": "^2.0.0",
     "pg": "^8.7.3",
     "pg-hstore": "^2.3.4",
     "pug": "^3.0.2",

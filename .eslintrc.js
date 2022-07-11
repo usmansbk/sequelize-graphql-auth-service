@@ -18,6 +18,7 @@ module.exports = {
           ["~utils", "./src/utils"],
           ["~services", "./src/services"],
           ["~db", "./src/db"],
+          ["~scripts", "./src/scripts"],
           ["~helpers", "./src/helpers"],
           ["~constants", "./src/constants"],
           ["tests", "./tests"],
