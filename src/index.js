@@ -12,6 +12,7 @@ import apiLimiter from "~api/v1/middlewares/apiLimiter";
 import errorHandler from "~api/v1/middlewares/errorHandler";
 import generateKeyPair from "~scripts/generateKeyPair";
 
+const { NODE_ENV } = process.env;
 const app = express();
 
 useLanguageMiddleware(app);
@@ -22,7 +23,7 @@ app.use(apiLimiter);
 app.use(contextMiddleware);
 app.use("/v1", v1);
 
-if (app.get("env") === "production") {
+if (NODE_ENV === "production") {
   // https://www.npmjs.com/package/express-rate-limit
   app.set("trust proxy", 1);
 }
@@ -32,7 +33,9 @@ app.use(errorHandler);
 
 const main = async () => {
   try {
-    generateKeyPair();
+    if (NODE_ENV !== "test") {
+      generateKeyPair();
+    }
     await db.sequelize.authenticate();
     await db.sequelize.sync({ force: false });
     log.info("Database connection has been established successfully.");
