@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import "dotenv/config";
 import inquirer from "inquirer";
 import { AuthenticationError } from "apollo-server-core";
@@ -56,7 +55,7 @@ const unlockRoot = async () => {
         throw new AuthenticationError();
       }
       await user.update({ status: ACCOUNT_STATUS.ACTIVE }, { transaction: t });
-      console.log("User verified");
+      process.stdout.write(`User verified\n`);
     });
   } catch (err) {
     Sentry.captureException(err);

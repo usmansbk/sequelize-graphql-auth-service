@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import "dotenv/config";
 import inquirer from "inquirer";
 import db from "~db/models";
@@ -26,7 +25,7 @@ const createApp = async () => {
     await sequelize.authenticate();
     const app = await Application.create(answers);
     await cache.del(CLIENTS_CACHE_KEY);
-    console.log("Client ID:", app.toJSON().clientID);
+    process.stdout.write(`Your client ID is ${app.clientID}\n`);
   } catch (err) {
     Sentry.captureException(err);
     log.error({ err });
