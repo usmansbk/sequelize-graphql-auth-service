@@ -33,7 +33,7 @@ input EmailLoginInput {
 
 input SocialLoginInput {
   provider: SocialProvider!
-  token: String!
+  token: NonEmptyString!
 }
 
 input PasswordResetInput {
