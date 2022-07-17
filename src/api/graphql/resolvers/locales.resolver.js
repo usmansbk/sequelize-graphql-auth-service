@@ -6,7 +6,7 @@ export default {
   Query: {
     getLocales() {
       return Object.entries(locales).map(([code, name]) => ({
-        code,
+        code: code.replace(/_/g, "-"),
         name,
       }));
     },
