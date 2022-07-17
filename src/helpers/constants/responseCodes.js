@@ -17,7 +17,6 @@ export const USER_PHONE_NUMBER_UNAVAILABLE_ERROR =
 export const USER_PHONE_NUMBER_FORMAT_ERROR = "UserPhoneNumberFormatError";
 export const USER_PASSWORD_LEN_ERROR = "UserInvalidPasswordLengthError";
 export const USER_INVALID_PASSWORD_ERROR = "UserInvalidPasswordError";
-export const USER_INVALID_LOCALE_ERROR = "UserInvalidLocaleError";
 export const USER_INVALID_PICTURE_URL_ERROR = "UserInvalidPictureUrlError";
 
 // Application

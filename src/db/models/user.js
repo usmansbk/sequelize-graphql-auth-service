@@ -15,7 +15,6 @@ import {
   USER_PHONE_NUMBER_FORMAT_ERROR,
   USER_PASSWORD_LEN_ERROR,
   USER_INVALID_PASSWORD_ERROR,
-  USER_INVALID_LOCALE_ERROR,
   USER_INVALID_PICTURE_URL_ERROR,
   USER_USERNAME_LEN_ERROR,
   USER_USERNAME_UNAVAILABLE_ERROR,
@@ -28,6 +27,7 @@ import {
   USER_AVATAR_ALIAS,
   USER_ROLES_JOIN_TABLE,
 } from "~helpers/constants/models";
+import capitalize from "lodash.capitalize";
 
 export default (sequelize, DataTypes) => {
   class User extends Model {
@@ -89,6 +89,9 @@ export default (sequelize, DataTypes) => {
             msg: USER_FIRST_NAME_EMPTY_ERROR,
           },
         },
+        set(value) {
+          this.setDataValue("firstName", capitalize(value));
+        },
       },
       lastName: {
         type: DataTypes.STRING,
@@ -104,6 +107,9 @@ export default (sequelize, DataTypes) => {
           notEmpty: {
             msg: USER_LAST_NAME_EMPTY_ERROR,
           },
+        },
+        set(value) {
+          this.setDataValue("lastName", capitalize(value));
         },
       },
       fullName: {
@@ -193,11 +199,6 @@ export default (sequelize, DataTypes) => {
       locale: {
         type: DataTypes.STRING,
         defaultValue: "en",
-        validate: {
-          isAlpha: {
-            msg: USER_INVALID_LOCALE_ERROR,
-          },
-        },
       },
       socialAvatarURL: {
         type: DataTypes.TEXT,
