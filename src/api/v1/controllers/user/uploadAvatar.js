@@ -55,28 +55,21 @@ const uploadAvatar = async (req, res) => {
       file,
     } = req;
 
-    if (err instanceof multer.MulterError) {
-      let { message } = err;
+    try {
+      if (err instanceof multer.MulterError) {
+        let { message } = err;
 
-      if (message === "File too large") {
-        message = IMAGE_TOO_LARGE;
-      }
-      if (file) {
-        storage.remove(file);
-      }
-      res.status(400).send({
-        success: false,
-        message: t(message, {
-          size: numeral(PROFILE_PICTURE_MAX_FILE_SIZE).format(BYTES),
-        }),
-      });
-    } else if (err) {
-      res.status(400).send({
-        success: false,
-        message: t(err.message),
-      });
-    } else {
-      try {
+        if (message === "File too large") {
+          message = IMAGE_TOO_LARGE;
+        }
+        throw new UserInputError(
+          t(message, {
+            size: numeral(PROFILE_PICTURE_MAX_FILE_SIZE).format(BYTES),
+          })
+        );
+      } else if (err) {
+        throw err;
+      } else {
         if (!file) {
           throw new UserInputError(NOTHING_TO_UPLOAD);
         }
@@ -114,12 +107,15 @@ const uploadAvatar = async (req, res) => {
             avatar: getImageUrl(avatar.toJSON()),
           },
         });
-      } catch (error) {
-        res.status(400).send({
-          success: false,
-          message: t(error.message),
-        });
       }
+    } catch (error) {
+      if (file) {
+        storage.remove(file);
+      }
+      res.status(400).send({
+        success: false,
+        message: t(error.message),
+      });
     }
   });
 };
