@@ -211,10 +211,16 @@ export default {
     },
     async removeUserAvatar(_parent, { id }, { t, dataSources }) {
       try {
-        const user = await dataSources.users.findByPk(id);
+        let user = await dataSources.users.findByPk(id);
         const avatar = await user.getAvatar();
         if (avatar) {
           await dataSources.files.destroy(avatar.id);
+        }
+
+        if (user.socialAvatarURL) {
+          user = await dataSources.users.update(user.id, {
+            socialAvatarURL: null,
+          });
         }
 
         return Success({ user });

@@ -155,13 +155,18 @@ export default {
       { currentUser, t, dataSources }
     ) {
       try {
-        const user = await dataSources.users.findByPk(currentUser.id);
+        let user = await dataSources.users.findByPk(currentUser.id);
         const avatar = await user.getAvatar();
         if (avatar) {
           await dataSources.files.destroy(avatar.id);
         }
+        if (user.socialAvatarURL) {
+          user = await dataSources.users.update(user.id, {
+            socialAvatarURL: null,
+          });
+        }
 
-        return Success({ user: currentUser });
+        return Success({ user });
       } catch (e) {
         if (e instanceof QueryError) {
           return Fail({
