@@ -1,7 +1,7 @@
 import fs from "fs";
 import { createPublicKey } from "crypto";
 
-const getJWKS = async (_req, res, next) => {
+const jwks = async (_req, res, next) => {
   const privateKey = fs.readFileSync("certs/private.pem", "ascii");
 
   try {
@@ -14,4 +14,4 @@ const getJWKS = async (_req, res, next) => {
   }
 };
 
-export default getJWKS;
+export default jwks;
