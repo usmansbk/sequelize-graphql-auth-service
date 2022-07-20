@@ -34,5 +34,6 @@
   "WelcomeBack": "Welcome back, {{firstName}}!",
   "WelcomeNewUser": "Welcome, {{firstName}}!",
   "SentResetPasswordEmail": "We've sent you an email with further instructions.",
-  "PasswordChanged": "Password changed successfully. Login with your new password."
+  "PasswordChanged": "Password changed successfully. Login with your new password.",
+  "InvalidLink": "The link you followed may be broken."
 }
