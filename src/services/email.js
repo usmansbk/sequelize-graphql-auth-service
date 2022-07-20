@@ -21,7 +21,7 @@ const email = new Email({
     locales: ["en"],
     directory: resolve("locales/emails"),
   },
-  send: true,
+  send: env !== "development",
 });
 
 const sendEmail = async ({ template, message, locals }) => {

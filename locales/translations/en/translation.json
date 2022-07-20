@@ -33,5 +33,6 @@
   "ApplicationDelete": "Application deleted",
   "WelcomeBack": "Welcome back, {{firstName}}!",
   "WelcomeNewUser": "Welcome, {{firstName}}!",
-  "SentResetPasswordEmail": "We've sent you an email with further instructions."
+  "SentResetPasswordEmail": "We've sent you an email with further instructions.",
+  "PasswordChanged": "Password changed successfully. Login with your new password."
 }
