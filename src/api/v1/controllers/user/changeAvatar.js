@@ -58,16 +58,14 @@ const changeAvatar = async (req, res) => {
 
     try {
       if (err instanceof multer.MulterError) {
-        let { message } = err;
-
-        if (message === "File too large") {
-          message = IMAGE_TOO_LARGE;
+        if (err.code === "LIMIT_FILE_SIZE") {
+          throw new UserInputError(
+            t(IMAGE_TOO_LARGE, {
+              size: numeral(PROFILE_PICTURE_MAX_FILE_SIZE).format(BYTES),
+            })
+          );
         }
-        throw new UserInputError(
-          t(message, {
-            size: numeral(PROFILE_PICTURE_MAX_FILE_SIZE).format(BYTES),
-          })
-        );
+        throw err;
       } else if (err) {
         throw err;
       } else {
