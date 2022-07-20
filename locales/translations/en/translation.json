@@ -6,7 +6,7 @@
   "EmailNotVerified": "Verify your email address.",
   "EmailVerificationFailed": "Your email address could not be verified.",
   "TokenInvalidError": "Your token is invalid.",
-  "SentVerificationEmail": "We have sent an email with a confirmation link to your email address.",
+  "SentVerificationEmail": "We've sent a confirmation link to your email address.",
   "UsernameUnavailableError": "Username is already taken.",
   "UserEmailUnavailableError": "Email is already registered.",
   "RoleNameUniqueError": "Role already exists.",
@@ -32,5 +32,6 @@
   "ApplicationUpdated": "Application updated",
   "ApplicationDelete": "Application deleted",
   "WelcomeBack": "Welcome back, {{firstName}}!",
-  "WelcomeNewUser": "Welcome, {{firstName}}!"
+  "WelcomeNewUser": "Welcome, {{firstName}}!",
+  "SentResetPasswordEmail": "We've sent you an email with further instructions."
 }
