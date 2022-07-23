@@ -52,7 +52,7 @@
     "weak-napi": "^2.0.2"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.131.0",
+    "@aws-sdk/client-s3": "^3.135.0",
     "@aws-sdk/client-ses": "^3.131.0",
     "@aws-sdk/credential-provider-node": "^3.131.0",
     "@babel/runtime": "^7.18.9",
@@ -76,7 +76,7 @@
     "dayjs": "^1.11.4",
     "deepmerge": "^4.2.2",
     "dotenv": "^16.0.1",
-    "email-templates": "^10.0.0",
+    "email-templates": "^10.0.1",
     "express": "^4.18.1",
     "express-rate-limit": "^6.4.0",
     "google-auth-library": "^8.1.1",
@@ -87,7 +87,7 @@
     "i18next-fs-backend": "^1.1.4",
     "i18next-http-middleware": "^3.2.1",
     "inquirer": "^8.2.4",
-    "ioredis": "^5.2.1",
+    "ioredis": "^5.2.2",
     "jsonwebtoken": "^8.5.1",
     "lodash.capitalize": "^4.2.1",
     "morgan": "^1.10.0",
@@ -103,7 +103,7 @@
     "rate-limit-redis": "^3.0.1",
     "retry": "^0.13.1",
     "sequelize": "^6.21.3",
-    "twilio": "^3.79.0"
+    "twilio": "^3.80.0"
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix",

@@ -3,3 +3,4 @@ dist
 coverage
 src/db/migrations
 tests
+.vscode
