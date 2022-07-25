@@ -23,6 +23,7 @@ Authentication service/subgraph optimized for Sequelize ORM
 - [Apollo Server](https://www.apollographql.com/docs/apollo-server/)
 - [SequelizeORM](https://sequelize.org/master/manual/migrations.html)
 - [ExpressJS](https://expressjs.com/)
+- [Dotenv Vault](https://www.dotenv.org/r/github.com/dotenv-org/dotenv-vault?r=1)
 
 ## Prerequisite
 
