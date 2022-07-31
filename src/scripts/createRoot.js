@@ -7,10 +7,6 @@ import Sentry from "~services/sentry";
 const { sequelize, User, Role, Permission } = db;
 
 const createRoot = async () => {
-  process.stdout.write(
-    `WARNING: The root account has virtually unlimited access to all resources.\n`
-  );
-
   const answers = await inquirer.prompt([
     {
       type: "input",
