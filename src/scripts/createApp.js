@@ -25,7 +25,7 @@ const createApp = async () => {
     await sequelize.authenticate();
     const app = await Application.create(answers);
     await cache.del(CLIENTS_CACHE_KEY);
-    process.stdout.write(`Your client ID is ${app.clientID}\n`);
+    console.debug(app.toJSON());
   } catch (err) {
     Sentry.captureException(err);
     log.error({ err });

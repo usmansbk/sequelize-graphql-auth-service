@@ -10,9 +10,7 @@ const listApp = async () => {
     await sequelize.sync();
     const apps = await Application.findAll();
 
-    apps.forEach((app) =>
-      process.stdout.write(`${app.name}: ${app.clientID}\n`)
-    );
+    apps.forEach((app) => console.debug(`${app.name}: ${app.clientID}`));
   } catch (err) {
     Sentry.captureException(err);
     log.error({ err });

@@ -55,7 +55,6 @@ const unlockRoot = async () => {
         throw new AuthenticationError();
       }
       await user.update({ status: ACCOUNT_STATUS.ACTIVE }, { transaction: t });
-      process.stdout.write(`User verified\n`);
     });
   } catch (err) {
     Sentry.captureException(err);
