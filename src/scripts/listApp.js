@@ -7,6 +7,7 @@ import log from "~utils/logger";
 const { sequelize, Application } = db;
 
 const listApp = async () => {
+  sequelize.options.logging = false;
   try {
     await sequelize.sync();
     const apps = await Application.findAll();

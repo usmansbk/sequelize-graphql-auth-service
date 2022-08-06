@@ -36,17 +36,18 @@ const createRoot = async () => {
     },
   ]);
   try {
+    sequelize.options.logging = false;
     await sequelize.sync();
     await sequelize.transaction(async (t) => {
       const [permission] = await Permission.findOrCreate({
         where: { scope: "all" },
         defaults: {
-          name: "GrantAll",
           description:
             "For administrative purposes, and has the highest access rights in the organisation.",
         },
         transaction: t,
       });
+      console.log("Permission created");
       const [role] = await Role.findOrCreate({
         where: { name: "root" },
         defaults: {
@@ -54,10 +55,13 @@ const createRoot = async () => {
         },
         transaction: t,
       });
+      console.log("Role created");
       await role.addPermission(permission, { transaction: t });
+      console.log("Permission attached to Role");
       const user = await User.create(answers, { transaction: t });
+      console.log("User created");
       await user.addRole(role, { transaction: t });
-      console.log("Root user created");
+      console.log("Role attached to User");
     });
   } catch (err) {
     Sentry.captureException(err);

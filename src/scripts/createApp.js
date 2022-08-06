@@ -10,6 +10,7 @@ import { CLIENTS_CACHE_KEY } from "~helpers/constants/auth";
 const { sequelize, Application } = db;
 
 const createApp = async () => {
+  sequelize.options.logging = false;
   const answers = await inquirer.prompt([
     {
       type: "input",

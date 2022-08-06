@@ -13,6 +13,7 @@ import {
 const { sequelize, User } = db;
 
 const unlockRoot = async () => {
+  sequelize.options.logging = false;
   const answers = await inquirer.prompt([
     {
       type: "input",
