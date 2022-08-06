@@ -1,0 +1,31 @@
+import {
+  EmailAddressResolver,
+  URLResolver,
+  DateResolver,
+  DateTimeResolver,
+  PhoneNumberResolver,
+  LocaleResolver,
+  ByteResolver,
+  JSONResolver,
+  CountryCodeResolver,
+  JWTResolver,
+  TimeZoneResolver,
+  NonEmptyStringResolver,
+  UtcOffsetResolver,
+} from "graphql-scalars";
+
+export default {
+  Date: DateResolver,
+  DateTime: DateTimeResolver,
+  EmailAddress: EmailAddressResolver,
+  URL: URLResolver,
+  PhoneNumber: PhoneNumberResolver,
+  Locale: LocaleResolver,
+  Byte: ByteResolver,
+  JSON: JSONResolver,
+  JWT: JWTResolver,
+  CountryCode: CountryCodeResolver,
+  TimeZone: TimeZoneResolver,
+  UtcOffset: UtcOffsetResolver,
+  NonEmptyString: NonEmptyStringResolver,
+};

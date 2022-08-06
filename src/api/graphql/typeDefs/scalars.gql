@@ -1,0 +1,13 @@
+scalar Date
+scalar DateTime
+scalar URL
+scalar EmailAddress
+scalar PhoneNumber
+scalar Locale
+scalar Byte
+scalar JSON
+scalar CountryCode
+scalar JWT
+scalar TimeZone
+scalar NonEmptyString
+scalar UtcOffset
