@@ -1,6 +1,6 @@
 # Auth Service
 
-[![usmansbk](https://circleci.com/gh/usmansbk/sequelize-graphql-server.svg?style=svg)](https://app.circleci.com/pipelines/github/usmansbk/sequelize-graphql-server) [![dotenv-vault](https://badge.dotenv.org/works-with.svg?r=1)](https://www.dotenv.org/r/github.com/dotenv-org/dotenv-vault?r=1)
+[![usmansbk](https://circleci.com/gh/usmansbk/sequelize-graphql-auth-service.svg?style=svg)](https://app.circleci.com/pipelines/github/usmansbk/sequelize-graphql-server) [![dotenv-vault](https://badge.dotenv.org/works-with.svg?r=1)](https://www.dotenv.org/r/github.com/dotenv-org/dotenv-vault?r=1)
 
 Authentication service/subgraph optimized for Sequelize ORM
 
