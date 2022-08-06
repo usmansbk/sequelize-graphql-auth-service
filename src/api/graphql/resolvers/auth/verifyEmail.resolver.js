@@ -26,19 +26,23 @@ export default {
           throw new QueryError(EMAIL_VERIFICATION_FAILED);
         }
 
-        const { status, emailVerified } = await dataSources.users.findByPk(sub);
+        const user = await dataSources.users.findByPk(sub);
+
+        if (!user) {
+          throw new QueryError(EMAIL_VERIFICATION_FAILED);
+        }
+
+        const { status, emailVerified, firstName, email, id } = user;
 
         if ([ACCOUNT_STATUS.BLOCKED].includes(status)) {
           throw new QueryError(status);
         }
 
         if (!emailVerified) {
-          const user = await dataSources.users.update(sub, {
+          await dataSources.users.update(id, {
             emailVerified: true,
             status: ACCOUNT_STATUS.ACTIVE,
           });
-
-          const { email, firstName } = user;
 
           mailer.sendEmail({
             template: emailTemplates.WELCOME,
@@ -52,7 +56,7 @@ export default {
           });
 
           analytics.track({
-            userId: sub,
+            userId: id,
             event: "Verified Email",
             properties: {
               email,

@@ -17,38 +17,41 @@ export default {
       { locale, cache, t, jwt, mailer, dataSources, clients }
     ) {
       try {
-        const { firstName, id, emailVerified, status } =
-          await dataSources.users.findOne({
-            where: { email },
-          });
+        const user = await dataSources.users.findOne({
+          where: { email },
+        });
 
-        if ([ACCOUNT_STATUS.BLOCKED].includes(status)) {
-          throw new QueryError(status);
-        }
+        if (user) {
+          const { firstName, id, emailVerified, status } = user;
 
-        if (!emailVerified) {
-          const key = `${EMAIL_VERIFICATION_KEY_PREFIX}:${id}`;
-          const { token, exp } = jwt.generateToken(
-            {
-              sub: id,
-              aud: clients,
-            },
-            EMAIL_VERIFICATION_TOKEN_EXPIRES_IN
-          );
+          if ([ACCOUNT_STATUS.BLOCKED].includes(status)) {
+            throw new QueryError(status);
+          }
 
-          await cache.set(key, token, exp);
+          if (!emailVerified) {
+            const key = `${EMAIL_VERIFICATION_KEY_PREFIX}:${id}`;
+            const { token, exp } = jwt.generateToken(
+              {
+                sub: id,
+                aud: clients,
+              },
+              EMAIL_VERIFICATION_TOKEN_EXPIRES_IN
+            );
 
-          mailer.sendEmail({
-            template: emailTemplates.VERIFY_EMAIL,
-            message: {
-              to: email,
-            },
-            locals: {
-              locale,
-              name: firstName,
-              link: links.verifyEmail(token),
-            },
-          });
+            await cache.set(key, token, exp);
+
+            mailer.sendEmail({
+              template: emailTemplates.VERIFY_EMAIL,
+              message: {
+                to: email,
+              },
+              locals: {
+                locale,
+                name: firstName,
+                link: links.verifyEmail(token),
+              },
+            });
+          }
         }
 
         return Success({

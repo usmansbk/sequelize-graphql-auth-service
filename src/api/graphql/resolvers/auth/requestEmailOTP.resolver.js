@@ -19,36 +19,39 @@ export default {
       { locale, cache, t, otp, mailer, dataSources }
     ) {
       try {
-        const { firstName, id, emailVerified, status } =
-          await dataSources.users.findOne({ where: { email } });
+        const user = await dataSources.users.findOne({ where: { email } });
+        if (user) {
+          const { firstName, id, emailVerified, status } = user;
+          if (
+            [ACCOUNT_STATUS.BLOCKED, ACCOUNT_STATUS.LOCKED].includes(status)
+          ) {
+            throw new QueryError(status);
+          }
 
-        if ([ACCOUNT_STATUS.BLOCKED, ACCOUNT_STATUS.LOCKED].includes(status)) {
-          throw new QueryError(status);
-        }
+          const key = `${EMAIL_OTP_KEY_PREFIX}:${id}`;
+          const sentToken = await cache.exists(key);
 
-        const key = `${EMAIL_OTP_KEY_PREFIX}:${id}`;
-        const sentToken = await cache.exists(key);
+          if (!emailVerified) {
+            throw new QueryError(EMAIL_NOT_VERIFIED);
+          }
 
-        if (!emailVerified) {
-          throw new QueryError(EMAIL_NOT_VERIFIED);
-        }
+          if (!sentToken) {
+            const token = otp.getEmailOTP();
 
-        if (!sentToken) {
-          const token = otp.getEmailOTP();
+            await cache.set(key, token, EMAIL_OTP_EXPIRES_IN);
 
-          await cache.set(key, token, EMAIL_OTP_EXPIRES_IN);
-
-          mailer.sendEmail({
-            template: emailTemplates.OTP,
-            message: {
-              to: email,
-            },
-            locals: {
-              locale,
-              name: firstName,
-              token,
-            },
-          });
+            mailer.sendEmail({
+              template: emailTemplates.OTP,
+              message: {
+                to: email,
+              },
+              locals: {
+                locale,
+                name: firstName,
+                token,
+              },
+            });
+          }
         }
 
         return Success({
@@ -56,10 +59,14 @@ export default {
           code: SENT_EMAIL_OTP,
         });
       } catch (e) {
-        return Fail({
-          message: t(e.message),
-          code: e.code,
-        });
+        if (e instanceof QueryError) {
+          return Fail({
+            message: t(e.message),
+            errors: e.errors,
+          });
+        }
+
+        throw e;
       }
     },
   },
