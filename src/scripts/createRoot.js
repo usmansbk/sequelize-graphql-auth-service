@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import "dotenv/config";
 import inquirer from "inquirer";
 import db from "~db/models";
@@ -56,6 +57,7 @@ const createRoot = async () => {
       await role.addPermission(permission, { transaction: t });
       const user = await User.create(answers, { transaction: t });
       await user.addRole(role, { transaction: t });
+      console.log("Root user created");
     });
   } catch (err) {
     Sentry.captureException(err);

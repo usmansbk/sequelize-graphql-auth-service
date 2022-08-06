@@ -46,6 +46,16 @@ describe("Mutation.requestEmailVerification", () => {
     expect(mailer.sendEmail).toBeCalledTimes(0);
   });
 
+  test("should not send an email to non-existent user", async () => {
+    await server.executeOperation({
+      query,
+      variables: {
+        email: "me@fakemail.com",
+      },
+    });
+    expect(mailer.sendEmail).toBeCalledTimes(0);
+  });
+
   test("should send an email to an unverified user", async () => {
     const currentUser = await FactoryBot.create("user");
     await server.executeOperation({
