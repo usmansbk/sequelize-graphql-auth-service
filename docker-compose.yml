@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-  api:
+  auth:
     container_name: auth-service
     image: usmansbk/auth-service
     restart: always
