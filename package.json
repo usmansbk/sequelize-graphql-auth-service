@@ -84,7 +84,7 @@
     "graphql-fields-list": "^2.2.4",
     "graphql-scalars": "^1.17.0",
     "i18next": "^21.8.16",
-    "i18next-fs-backend": "^1.1.4",
+    "i18next-fs-backend": "^1.1.5",
     "i18next-http-middleware": "^3.2.1",
     "inquirer": "^8.2.4",
     "ioredis": "^5.2.2",
@@ -110,6 +110,10 @@
     "*.{js,css,md}": "prettier --write"
   },
   "nodemonConfig": {
-    "ext": "js,gql,env,json"
+    "ext": "js,gql,env,json",
+    "ignore": [
+      "dist/*",
+      "tests/*"
+    ]
   }
 }
