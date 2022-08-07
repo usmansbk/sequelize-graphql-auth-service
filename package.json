@@ -107,7 +107,7 @@
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix",
-    "*.{js,css,md}": "prettier --write"
+    "*.{js,md,json}": "prettier --write"
   },
   "nodemonConfig": {
     "ext": "js,gql,env,json",
